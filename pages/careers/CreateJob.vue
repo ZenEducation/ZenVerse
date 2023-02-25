@@ -2,7 +2,11 @@
   <div class="w-full">
     <form action="" @submit.prevent="postJob">
       <div class="flex">
-        <FormsFormField label="Job Title" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Job Title"
+          :help="helpJob"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="jobTitle"
             id="jobTitle"
@@ -13,13 +17,17 @@
             autocomplete="off"
           />
         </FormsFormField>
-        <FormsFormField label="Job Location" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Job Location"
+          :help="helpLocation"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="Location"
             id="Location"
             type="text"
             class="mt-3"
-            placeholder="Job Title"
+            placeholder="Job Location"
             v-model="jobData.location"
             autocomplete="off"
           />
@@ -28,6 +36,7 @@
       <div class="flex">
         <FormsFormField
           label="Job Description"
+          :help="description"
           class="lg:col-span-6 w-5/12 ml-4"
         >
           <FormsFormControl
@@ -37,9 +46,14 @@
             class="mt-3"
             placeholder="Job Description"
             v-model="jobData.jobDescription"
+            autocomplete="off"
           ></FormsFormControl>
         </FormsFormField>
-        <FormsFormField label="Job Duties" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Job Duties"
+          :help="duties"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="duties"
             id="duties"
@@ -47,12 +61,14 @@
             class="mt-3"
             placeholder="Job Duties"
             v-model="jobData.duties"
+            autocomplete="off"
           ></FormsFormControl>
         </FormsFormField>
       </div>
       <div class="flex">
         <FormsFormField
           label="Job Requirements"
+          :help="requirements"
           class="lg:col-span-6 w-5/12 ml-4"
         >
           <FormsFormControl
@@ -62,9 +78,14 @@
             class="mt-3"
             placeholder="Job Requirements "
             v-model="jobData.requirements"
+            autocomplete="off"
           ></FormsFormControl>
         </FormsFormField>
-        <FormsFormField label="Nice To Have" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Nice To Have"
+          :help="have"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="tohave"
             id="tohave"
@@ -72,11 +93,16 @@
             class="mt-3"
             placeholder="Nice To Have"
             v-model="jobData.tohave"
+            autocomplete="off"
           ></FormsFormControl>
         </FormsFormField>
       </div>
       <div class="flex">
-        <FormsFormField label="Benefits" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Benefits"
+          :help="benefits"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="benefits"
             id="benefits"
@@ -84,9 +110,14 @@
             class="mt-3"
             placeholder="Benefits"
             v-model="jobData.benefits"
+            autocomplete="off"
           ></FormsFormControl>
         </FormsFormField>
-        <FormsFormField label="Salary Range" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Salary Range"
+          :help="salaryRange"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <FormsFormControl
             name="salaryRange"
             id="salaryRange"
@@ -94,11 +125,16 @@
             class="mt-3"
             placeholder="Salary Range"
             v-model="jobData.salaryRange"
+            autocomplete="off"
           />
         </FormsFormField>
       </div>
       <div class="flex">
-        <FormsFormField label="Department" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Department"
+          :help="department"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <div class="ltr:text-left rtl:text-right grid">
             <select class="mt-3 rounded-md h-12" v-model="jobData.department">
               <option>B.Sc</option>
@@ -109,7 +145,11 @@
             </select>
           </div>
         </FormsFormField>
-        <FormsFormField label="Job Type" class="lg:col-span-6 w-5/12 ml-4">
+        <FormsFormField
+          label="Job Type"
+          :help="jobType"
+          class="lg:col-span-6 w-5/12 ml-4"
+        >
           <div class="ltr:text-left rtl:text-right grid">
             <select class="mt-3 rounded-md h-12" v-model="jobData.jobType">
               <option>Full Time</option>
@@ -137,6 +177,16 @@
 import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue 2.x
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+const helpJob = ref("");
+const helpLocation = ref("");
+const description = ref("");
+const duties = ref("");
+const requirements = ref("");
+const have = ref("");
+const benefits = ref("");
+const salaryRange = ref("");
+const department = ref("");
+const jobType = ref("");
 const jobData = reactive({
   jobTitle: "",
   location: "",
@@ -163,11 +213,69 @@ const rules = {
 };
 const v$ = useVuelidate(rules, jobData);
 const postJob = async () => {
+  helpJob.value = "";
+  helpLocation.value = "";
+  description.value = "";
+  duties.value = "";
+  requirements.value = "";
+  have.value = "";
+  benefits.value = "";
+  salaryRange.value = "";
+  department.value = "";
+  jobType.value = "";
+  if (!jobData.jobTitle) {
+    helpJob.value = "Please Enter Job Title";
+    return;
+  }
+  if (!jobData.location) {
+    helpLocation.value = "Please Enter Job Location";
+    return;
+  }
+  if (!jobData.jobDescription) {
+    description.value = "Please Enter Job Description";
+    return;
+  }
+  if (!jobData.duties) {
+    duties.value = "Please Enter Job Duties";
+    return;
+  }
+  if (!jobData.requirements) {
+    requirements.value = "Please Enter Job requirements";
+    return;
+  }
+  if (!jobData.tohave) {
+    have.value = "Please Enter Nice to have field";
+    return;
+  }
+  if (!jobData.benefits) {
+    benefits.value = "Please Enter Benifits";
+    return;
+  }
+  if (!jobData.salaryRange) {
+    salaryRange.value = "Please Enter Salary Range";
+    return;
+  }
+  if (!jobData.department) {
+    department.value = "Please Select Department";
+    return;
+  }
+  if (!jobData.jobType) {
+    jobType.value = "Please Select Job Type";
+    return;
+  }
   const result = await v$.value.$validate();
   if (result) {
     alert("form was submitted");
-  } else {
-    alert("Form was not submitted");
+    jobData.jobTitle = "";
+    jobData.location = "";
+    jobData.jobDescription = "";
+    jobData.duties = "";
+    jobData.requirements = "";
+    jobData.tohave = "";
+    jobData.benefits = "";
+    jobData.salaryRange = "";
+    jobData.department = "";
+    jobData.jobType = "";
   }
 };
 </script>

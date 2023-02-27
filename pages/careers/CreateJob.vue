@@ -160,20 +160,17 @@
         </FormsFormField>
       </div>
       <div class="w-full flex justify-center">
-        <button
-          type="submit"
-          id="submit"
-          name="send"
-          class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-4 w-48 h-12"
-        >
-          Post Job
-        </button>
+        <BaseButtons>
+          <BaseButton type="submit" color="info" label="Submit" />
+        </BaseButtons>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
+import BaseButton from "@/components/Buttons/BaseButton.vue";
+import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue 2.x
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";

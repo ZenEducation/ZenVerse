@@ -135,28 +135,30 @@
           :help="department"
           class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
-          <div class="ltr:text-left rtl:text-right grid">
-            <select class="mt-3 rounded-md h-12" v-model="jobData.department">
-              <option>B.Sc</option>
-              <option>B.C.A</option>
-              <option>M.Sc</option>
-              <option>B.Tech</option>
-              <option>M.Tech</option>
-            </select>
-          </div>
+          <FormsFormControl
+            name="department"
+            id="department"
+            type="text"
+            class="mt-3"
+            v-model="jobData.department"
+            autocomplete="off"
+            :options="depOptions"
+          />
         </FormsFormField>
         <FormsFormField
           label="Job Type"
           :help="jobType"
           class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
-          <div class="ltr:text-left rtl:text-right grid">
-            <select class="mt-3 rounded-md h-12" v-model="jobData.jobType">
-              <option>Full Time</option>
-              <option>Part Time</option>
-              <option>Freelance</option>
-            </select>
-          </div>
+          <FormsFormControl
+            name="jobType"
+            id="jobType"
+            type="text"
+            class="mt-3"
+            placeholder="Job Type"
+            v-model="jobData.jobType"
+            :options="typeOptions"
+          />
         </FormsFormField>
       </div>
       <div class="w-full flex justify-center">
@@ -174,6 +176,8 @@ import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue 2.x
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+const depOptions = ["B.C.A", "M.C.A", "B.Sc", "M.Sc", "B.Tech", "M.Tech"];
+const typeOptions = ["Full Time", "Part Time", "Freelances"];
 const helpJob = ref("");
 const helpLocation = ref("");
 const description = ref("");

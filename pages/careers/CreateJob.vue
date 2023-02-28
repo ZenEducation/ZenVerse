@@ -5,7 +5,7 @@
         <FormsFormField
           label="Job Title"
           :help="helpJob"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="jobTitle"
@@ -20,7 +20,7 @@
         <FormsFormField
           label="Job Location"
           :help="helpLocation"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="Location"
@@ -37,27 +37,27 @@
         <FormsFormField
           label="Job Description"
           :help="description"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="jobDescription"
             id="jobDescription"
-            type="text"
             class="mt-3"
             placeholder="Job Description"
             v-model="jobData.jobDescription"
             autocomplete="off"
+            type="textarea"
           ></FormsFormControl>
         </FormsFormField>
         <FormsFormField
           label="Job Duties"
           :help="duties"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="duties"
             id="duties"
-            type="text"
+            type="textarea"
             class="mt-3"
             placeholder="Job Duties"
             v-model="jobData.duties"
@@ -69,12 +69,12 @@
         <FormsFormField
           label="Job Requirements"
           :help="requirements"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="requirements"
             id="requirements"
-            type="text"
+            type="textarea"
             class="mt-3"
             placeholder="Job Requirements "
             v-model="jobData.requirements"
@@ -84,12 +84,12 @@
         <FormsFormField
           label="Nice To Have"
           :help="have"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="tohave"
             id="tohave"
-            type="text"
+            type="textarea"
             class="mt-3"
             placeholder="Nice To Have"
             v-model="jobData.tohave"
@@ -101,12 +101,12 @@
         <FormsFormField
           label="Benefits"
           :help="benefits"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="benefits"
             id="benefits"
-            type="text"
+            type="textarea"
             class="mt-3"
             placeholder="Benefits"
             v-model="jobData.benefits"
@@ -116,7 +116,7 @@
         <FormsFormField
           label="Salary Range"
           :help="salaryRange"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <FormsFormControl
             name="salaryRange"
@@ -133,7 +133,7 @@
         <FormsFormField
           label="Department"
           :help="department"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <div class="ltr:text-left rtl:text-right grid">
             <select class="mt-3 rounded-md h-12" v-model="jobData.department">
@@ -148,7 +148,7 @@
         <FormsFormField
           label="Job Type"
           :help="jobType"
-          class="lg:col-span-6 w-5/12 ml-4"
+          class="lg:col-span-6 w-6/12 ml-4 mr-4"
         >
           <div class="ltr:text-left rtl:text-right grid">
             <select class="mt-3 rounded-md h-12" v-model="jobData.jobType">

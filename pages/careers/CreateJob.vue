@@ -1,11 +1,11 @@
 <template>
   <div class="w-full">
     <form action="" @submit.prevent="postJob">
-      <div class="flex">
+      <div class="sm:grid md:flex">
         <FormsFormField
           label="Job Title"
           :help="helpJob"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="jobTitle"
@@ -20,7 +20,7 @@
         <FormsFormField
           label="Job Location"
           :help="helpLocation"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="Location"
@@ -33,11 +33,11 @@
           />
         </FormsFormField>
       </div>
-      <div class="flex">
+      <div class="sm:grid md:flex">
         <FormsFormField
           label="Job Description"
           :help="description"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="jobDescription"
@@ -52,7 +52,7 @@
         <FormsFormField
           label="Job Duties"
           :help="duties"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="duties"
@@ -65,11 +65,11 @@
           ></FormsFormControl>
         </FormsFormField>
       </div>
-      <div class="flex">
+      <div class="sm:grid md:flex">
         <FormsFormField
           label="Job Requirements"
           :help="requirements"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="requirements"
@@ -84,7 +84,7 @@
         <FormsFormField
           label="Nice To Have"
           :help="have"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="tohave"
@@ -97,11 +97,11 @@
           ></FormsFormControl>
         </FormsFormField>
       </div>
-      <div class="flex">
+      <div class="sm:grid md:flex">
         <FormsFormField
           label="Benefits"
           :help="benefits"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="benefits"
@@ -116,7 +116,7 @@
         <FormsFormField
           label="Salary Range"
           :help="salaryRange"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="salaryRange"
@@ -129,11 +129,11 @@
           />
         </FormsFormField>
       </div>
-      <div class="flex">
+      <div class="sm:grid md:flex">
         <FormsFormField
           label="Department"
           :help="department"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="department"
@@ -148,7 +148,7 @@
         <FormsFormField
           label="Job Type"
           :help="jobType"
-          class="lg:col-span-6 w-6/12 ml-4 mr-4"
+          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
         >
           <FormsFormControl
             name="jobType"
@@ -161,7 +161,7 @@
           />
         </FormsFormField>
       </div>
-      <div class="w-full flex justify-center">
+      <div class="w-full flex justify-center mt-2">
         <BaseButtons>
           <BaseButton type="submit" color="info" label="Submit" />
         </BaseButtons>

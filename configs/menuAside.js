@@ -70,17 +70,7 @@ export default [
       },
     ],
   },
-  //Drop Down for Jobs Page
-  {
-    label: "Recruitment Portal",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Jobs Page",
-        to: "/careers/CreateJob",
-      },
-    ],
-  },
+
   {
     to: "/pps/profileView",
     label: "Profile",
@@ -127,12 +117,23 @@ export default [
         ],
       },
       {
+        label: "Recruitment Portal",
+        icon: mdiFormDropdown,
+        menu: [
+          {
+            label: "Create Job Page",
+            to: "/careers/CreateJob",
+          },
+        ],
+      },
+      {
         to: "/whiteboard",
         label: "Whiteboard",
         icon: mdiOpenInNew,
       },
     ],
   },
+
   {
     to: "/profile/messages",
     label: "Messages",

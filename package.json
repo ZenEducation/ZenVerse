@@ -5,8 +5,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "serve": "vue-cli-service serve"
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
@@ -17,7 +16,6 @@
     "@pinia/nuxt": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@types/chart.js": "^2.9.37",
-    "@vue/cli-service": "^5.0.8",
     "@vueuse/core": "^9.9.0",
     "@vueuse/nuxt": "^9.9.0",
     "autoprefixer": "^10.4.11",
@@ -49,7 +47,6 @@
     "uuid4": "^2.0.3",
     "vue": "^3.2.33",
     "vue-3-slider-component": "^0.1.0",
-    "vue-advanced-chat": "^2.0.6",
-    "yup": "^1.0.1"
+    "vue-advanced-chat": "^2.0.6"
   }
 }

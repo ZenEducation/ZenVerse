@@ -17,6 +17,7 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiPlus
 } from "@mdi/js";
 
 export default [
@@ -35,6 +36,12 @@ export default [
     label: "Tables & Lists",
     icon: mdiTable,
     updateMark: "warning",
+  },
+  
+  {
+    to: "",
+    label: "Add Lead",
+    icon: mdiPlus,
   },
 
   {

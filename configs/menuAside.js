@@ -17,6 +17,7 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiPlus
 } from "@mdi/js";
 
 export default [
@@ -34,6 +35,12 @@ export default [
     to: "/pps/tablesListsView",
     label: "Tables & Lists",
     icon: mdiTable,
+    updateMark: "warning",
+  },
+  {
+    to: "/pps/addLead",
+    label: "Add Lead",
+    icon: mdiPlus,
     updateMark: "warning",
   },
 

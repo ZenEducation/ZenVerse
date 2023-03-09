@@ -8,6 +8,9 @@ import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import UserAvatar from "@/components/Avatars/UserAvatar";
+// Datastore
+import { DataStore } from "aws-amplify";
+import { CRMLead } from "@/src/models";
 
 defineProps({
   checkable: { type: Boolean, default: true },
@@ -17,18 +20,22 @@ const mainStore = useMainStore();
 
 const items = computed(() => mainStore.clients);
 
+const Leads = computed(() => mainStore.leads);
+
 const isModalActive = ref(false);
 
 const isModalDangerActive = ref(false);
 
 const perPage = ref(5);
 
+const LeadsList = ref([]);
+
 const currentPage = ref(0);
 
 const checkedRows = ref([]);
 
-const itemsPaginated = computed(() =>
-  items.value.slice(
+const leadsPaginated = computed(() =>
+  LeadsList.value.slice(
     perPage.value * currentPage.value,
     perPage.value * (currentPage.value + 1)
   )
@@ -47,6 +54,21 @@ const pagesList = computed(() => {
 
   return pagesList;
 });
+
+onMounted(async () => {
+  console.log("Mounted TableList");
+ // save Static Leads
+//  Leads.value.forEach(async(lead) => {
+//    const saveLeads = await DataStore.save(new CRMLead(lead));
+//    console.log('saveLeads',saveLeads)
+//  })
+
+  
+  const LoadLeads = await DataStore.query(CRMLead);
+  console.log('Leads',LoadLeads)
+  LeadsList.value = LoadLeads
+  });
+
 
 const remove = (arr, cb) => {
   const newArr = [];
@@ -104,35 +126,46 @@ const checked = (isChecked, client) => {
         <th v-if="checkable" />
         <th />
         <th>Name</th>
-        <th>Company</th>
-        <th>City</th>
-        <th>Progress</th>
-        <th>Created</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Industry</th>
+        <th>Status</th>
+        <th>Source</th>
+        <th></th>
         <th />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="client in itemsPaginated" :key="client.id">
+      <tr v-for="lead in leadsPaginated" :key="lead.id">
         <TableCheckboxCell
           v-if="checkable"
           @checked="checked($event, client)"
         />
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
-            :username="client.name"
+            :username="`${lead.firstName} ${lead.lastName}`"
             class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
           />
         </td>
         <td data-label="Name">
-          {{ client.name }}
+          {{ lead.firstName }} {{ lead.lastName }}
         </td>
-        <td data-label="Company">
-          {{ client.company }}
+        <td data-label="Email">
+          {{ lead.email }} 
         </td>
-        <td data-label="City">
-          {{ client.city }}
+        <td data-label="Phone">
+          {{ lead.phone }} 
         </td>
-        <td data-label="Progress" class="lg:w-32">
+        <td data-label="Industry">
+          {{ lead.industry }}
+        </td>
+        <td data-label="Status">
+          {{ lead.status }}
+        </td>
+        <td data-label="Source">
+          {{ lead.source }}
+        </td>
+        <!-- <td data-label="Progress" class="lg:w-32">
           <progress
             class="flex w-2/5 self-center lg:w-full"
             max="100"
@@ -140,14 +173,14 @@ const checked = (isChecked, client) => {
           >
             {{ client.progress }}
           </progress>
-        </td>
-        <td data-label="Created" class="lg:w-1 whitespace-nowrap">
+        </td> -->
+        <!-- <td data-label="Created" class="lg:w-1 whitespace-nowrap">
           <small
             class="text-gray-500 dark:text-slate-400"
             :title="client.created"
             >{{ client.created }}</small
           >
-        </td>
+        </td> -->
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton

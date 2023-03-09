@@ -13,6 +13,12 @@ const state = () => ({
   isFieldFocusRegistered: false,
 
 
+  leads: [
+    { id: 'JHFJ', firstName: "John", LastName: "Doe", email: "johndoe@example.com", industry: "commerce", status: "NEW", source: 'google.com', phone: "+123456789" },
+    { id: 'VGIW', firstName: "Mike", LastName: "Jam", email: "mikejam@example.com", industry: "medicine", status: "CONTACTED", source: 'facebook.com', phone: "+987654321" },
+    { id: 'NEGU', firstName: "Emmie", LastName: "john", email: "emmiejohn@example.com", industry: "commerce", status: "FOLLOW_UP", source: 'google.com', phone: "+123456789" },
+    { id: 'SGFU', firstName: "Michel", LastName: "j.", email: "jmichel@example.com", industry: "electronics", status: "CLOSED", source: 'social media', phone: "+123456789" },
+  ],
   clients: [
     { id: 19, avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg", login: "percy64", name: "Howell Hand", company: "Kiehn-Green", city: "Emelyside", progress: 70, created: "Mar 3, 2021" },
     { id: 11, avatar: "https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg", login: "dare.concepcion", name: "Hope Howe", company: "Nolan Inc", city: "Paristown", progress: 68, created: "Dec 1, 2021" },

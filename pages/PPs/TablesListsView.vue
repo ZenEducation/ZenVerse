@@ -82,7 +82,7 @@ const productBarItems = computed(() => (mainStore.products || []).slice(0, 4));
 
         <SectionTitleLineWithButton
           :icon="mdiMonitorCellphone"
-          title="Responsive Table"
+          title="Leads Table"
         />
 
         <NotificationBar color="info" :icon="mdiMonitorCellphone">

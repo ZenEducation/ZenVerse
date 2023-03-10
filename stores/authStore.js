@@ -1,3 +1,5 @@
+
+
 import { Auth } from "aws-amplify";
 import { defineStore } from "pinia";
 
@@ -49,6 +51,24 @@ export const actions = {
       console.log("User successfully logged out");
     }
   },
+
+  async forgetPassword({email}) {
+      const forgetInfo = await Auth.forgotPassword(email)
+      .then((data) => {return data})
+      .catch((err) => {return err});
+      return forgetInfo
+  },
+
+  async forgotPasswordSubmit({email, code, new_password}) {
+    try{
+      const newPasswordInfo = await Auth.forgotPasswordSubmit(email, code, new_password)
+      console.log(newPasswordInfo)
+    return newPasswordInfo;
+    }catch(err) {
+      console.log(err)
+      return err
+    }
+  }
 };
 
 export const useAuthStore = defineStore("authStore", {

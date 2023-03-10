@@ -10,13 +10,7 @@ import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import { useAuthStore } from "@/stores/authStore";
-import { useGraphqlAPIStore } from "@/stores/graphqlAPI";
-
-// const form = reactive({
-//   loginEmail: "",
-//   password: "",
-//   remember: true,
-// });
+import { Auth } from 'aws-amplify'
 
 const form = reactive({
   loginEmail: "zenithathang@gmail.com",
@@ -24,26 +18,28 @@ const form = reactive({
   remember: true,
 });
 
-const router = useRouter();
-
 const AuthStore = useAuthStore();
-
-const GraphqlAPIStore = useGraphqlAPIStore();
+const errorMsg = ref('');
 
 const handleSubmit = async () => {
-  // call the login method from the Authstore
-  const user_from_amplify = await AuthStore.login({
-    email: form.loginEmail,
-    password: form.password,
-  });
-  console.log(user_from_amplify);
-
-  // const response = await GraphqlAPIStore.createSuperAdmin({ input: {} });
-  // console.log("response", response);
-
-  if (user_from_amplify) {
-    return;
-    // router.push("/dashboard");
+  try{
+      // call the login method from the Authstore
+      
+      const user_from_amplify = await AuthStore.login({
+        email: form.loginEmail,
+        password: form.password,
+      });
+      console.log(user_from_amplify);
+    
+      // const response = await GraphqlAPIStore.createSuperAdmin({ input: {} });
+      // console.log("response", response);
+    
+      if (user_from_amplify) {
+        router.push("/dashboard");
+        return;
+      }
+  } catch(err) {
+    errorMsg.value = err;
   }
 };
 </script>
@@ -53,6 +49,9 @@ const handleSubmit = async () => {
     <NuxtLayout>
       <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
         <CardBox :class="cardClass" is-form @submit.prevent="handleSubmit">
+          <NotificationBar v-if="errorMsg" color="danger" :icon="mdiMail">
+          {{ errorMsg }} 
+        </NotificationBar>
           <FormField label="Login" help="Please enter your login">
             <FormControl
               v-model="form.loginEmail"
@@ -62,7 +61,7 @@ const handleSubmit = async () => {
             />
           </FormField>
 
-          <FormField label="Password" help="Please enter your password">
+          <FormField label="Password" :route="{ to: '/auth/forgetpassword', title: 'Forget Password' }">
             <FormControl
               v-model="form.password"
               :icon="mdiAsterisk"
@@ -79,11 +78,18 @@ const handleSubmit = async () => {
             :input-value="true"
           />
 
+          
+          <div class="flex justify-between">
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithGoogle' })" color="info" outline label="Login with Google" />
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithFacebook' })" color="info" outline label="Login with Facebook" />
+          </div>
+
           <template #footer>
             <div class="flex justify-between">
               <BaseButtons>
                 <BaseButton type="submit" color="info" label="Login" />
                 <BaseButton
+                v-if="AuthStore.user"
                   to="/dashboard"
                   color="info"
                   outline
@@ -91,7 +97,7 @@ const handleSubmit = async () => {
                 />
               </BaseButtons>
               <NuxtLink
-                to="/pe/register"
+                to="/auth/register"
                 class="text-sm bg-gray-800 text-white p-3 rounded-md hover:bg-gray-600"
               >
                 Done have an account? Sign Up

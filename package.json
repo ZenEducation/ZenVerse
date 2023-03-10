@@ -21,13 +21,13 @@
         "@vueuse/core": "^9.9.0",
         "@vueuse/nuxt": "^9.9.0",
         "autoprefixer": "^10.4.11",
+        "ini": "^1.3.5",
+        "inquirer": "^6.5.1",
         "nuxt": "3.0.0",
         "postcss": "^8.4.16",
         "sass": "^1.57.0",
         "tailwind-scrollbar": "^2.0.1",
-        "tailwindcss": "^3.1.8",
-        "ini": "^1.3.5",
-        "inquirer": "^6.5.1"
+        "tailwindcss": "^3.1.8"
     },
     "dependencies": {
         "@aws-amplify/ui-vue": "^3.0.4",
@@ -48,6 +48,8 @@
         "pinia": "^2.0.28",
         "readable-stream": "^4.2.0",
         "rollup": "^2.79.1",
+        "sortablejs": "^1.15.0",
+        "sortablejs-vue3": "^1.2.8",
         "uuid4": "^2.0.3",
         "vue": "^3.2.33",
         "vue-3-slider-component": "^0.1.0",

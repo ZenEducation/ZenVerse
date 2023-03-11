@@ -74,18 +74,19 @@ const handleSubmit = async () => {
       });
 
       if (registrationConfirmed) {
-        try{
-          const currentUser = await AuthStore.loadAmplifyUser();
-          console.log("CurrentUser", currentUser);
-          console.log("Confirmed the OTP successfully");
+        console.log(registrationConfirmed)
+        // try{
+        //   const currentUser = await AuthStore.confirmRegistration({ email: form.signUpEmail, code: form.otp_code, });
+        //   console.log("CurrentUser", currentUser);
+        //   console.log("Confirmed the OTP successfully");
           router.push("/dashboard");
-        } catch(err) {
-           errorMsg.value = err;
-          console.log('CODE ERROR ', err)
-        }
+        // } catch(err) {
+        //    errorMsg.value = err;
+        //   console.log('CODE ERROR ', err)
+        // }
   
-      } else {
-        console.log("OTP Confirmation was unsuccessfull");
+      // } else {
+      //   console.log("OTP Confirmation was unsuccessfull");
       }
 
     } catch(err) {
@@ -120,14 +121,12 @@ const handleSubmit = async () => {
               autocomplete="new-password" />
           </FormField>
 
-          <FormField v-if="userSubmitted" label="OTP Code" help="Submit the OTP Code that has been sent on your Email">
-            <FormControl v-model="form.otp_code" type="otp_code" name="OTP_Code" placeholder="Submit OTP Code"
-              autocomplete="new-OTPCode" />
-          </FormField>
+          <h3  v-if="userSubmitted" class="font-bold">Verification link has been sent to your email!</h3>
+          <h3  v-if="userSubmitted" class="font-bold">Verify to proceed</h3>
 
           <div class="flex justify-between">
-            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithGoogle' })" color="info" outline label="Login with Google" />
-            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithFacebook' })" color="info" outline label="Login with Facebook" />
+            <BaseButton v-if="!userSubmitted" @click="() => Auth.federatedSignIn({provider: 'Google' })" color="info" outline label="Login with Google" />
+            <BaseButton v-if="!userSubmitted" @click="() => Auth.federatedSignIn({provider: 'Facebook' })" color="info" outline label="Login with Facebook" />
           </div>
           
           
@@ -135,9 +134,9 @@ const handleSubmit = async () => {
             <BaseLevel mobile class="flex justify-between">
               <div class="flex">
                 <BaseButton v-if="!userSubmitted" label="Signup" type="submit" color="info" />
-                <BaseButton v-if="userSubmitted" label="Enter OTP" type="submit" color="info" /> 
-                <!-- <BaseButton v-if="userSubmitted" label="Sign Up Again" type="submit" color="info" -->
-                  <!-- @click="reattemptSignup" /> -->
+                <BaseButton v-if="userSubmitted" @click="() => {router.push('/auth/login')}" label="Login" type="login" color="info" /> 
+                <!-- <BaseButton v-if="userSubmitted" label="Sign Up Again" type="submit" color="info"
+                  @click="() => {router.push}" /> -->
                 </div>
 
                 <NuxtLink to="/auth/login" class="text-sm bg-gray-800 text-white p-3 rounded-md hover:bg-gray-600">

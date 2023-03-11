@@ -20,6 +20,7 @@ const form = reactive({
 
 const AuthStore = useAuthStore();
 const errorMsg = ref('');
+const router = useRouter();
 
 const handleSubmit = async () => {
   try{
@@ -80,8 +81,8 @@ const handleSubmit = async () => {
 
           
           <div class="flex justify-between">
-            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithGoogle' })" color="info" outline label="Login with Google" />
-            <BaseButton @click="() => Auth.federatedSignIn({provider: 'LoginWithFacebook' })" color="info" outline label="Login with Facebook" />
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'Google' })" color="info" outline label="Login with Google" />
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'Facebook' })" color="info" outline label="Login with Facebook" />
           </div>
 
           <template #footer>

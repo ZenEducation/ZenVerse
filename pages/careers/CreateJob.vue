@@ -1,172 +1,178 @@
 <template>
-  <div class="w-full">
-    <form action="" @submit.prevent="postJob">
-      <div class="sm:grid md:flex">
-        <FormsFormField
-          label="Job Title"
-          :help="helpJob"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="jobTitle"
-            id="jobTitle"
-            type="text"
-            class="mt-3"
-            placeholder="Job Title"
-            v-model="jobData.jobTitle"
-            autocomplete="off"
-          />
-        </FormsFormField>
-        <FormsFormField
-          label="Job Location"
-          :help="helpLocation"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="Location"
-            id="Location"
-            type="text"
-            class="mt-3"
-            placeholder="Job Location"
-            v-model="jobData.location"
-            autocomplete="off"
-          />
-        </FormsFormField>
-      </div>
-      <div class="sm:grid md:flex">
-        <FormsFormField
-          label="Job Description"
-          :help="description"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="jobDescription"
-            id="jobDescription"
-            class="mt-3"
-            placeholder="Job Description"
-            v-model="jobData.jobDescription"
-            autocomplete="off"
-            type="textarea"
-          ></FormsFormControl>
-        </FormsFormField>
-        <FormsFormField
-          label="Job Duties"
-          :help="duties"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="duties"
-            id="duties"
-            type="textarea"
-            class="mt-3"
-            placeholder="Job Duties"
-            v-model="jobData.duties"
-            autocomplete="off"
-          ></FormsFormControl>
-        </FormsFormField>
-      </div>
-      <div class="sm:grid md:flex">
-        <FormsFormField
-          label="Job Requirements"
-          :help="requirements"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="requirements"
-            id="requirements"
-            type="textarea"
-            class="mt-3"
-            placeholder="Job Requirements "
-            v-model="jobData.requirements"
-            autocomplete="off"
-          ></FormsFormControl>
-        </FormsFormField>
-        <FormsFormField
-          label="Nice To Have"
-          :help="have"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="tohave"
-            id="tohave"
-            type="textarea"
-            class="mt-3"
-            placeholder="Nice To Have"
-            v-model="jobData.tohave"
-            autocomplete="off"
-          ></FormsFormControl>
-        </FormsFormField>
-      </div>
-      <div class="sm:grid md:flex">
-        <FormsFormField
-          label="Benefits"
-          :help="benefits"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="benefits"
-            id="benefits"
-            type="textarea"
-            class="mt-3"
-            placeholder="Benefits"
-            v-model="jobData.benefits"
-            autocomplete="off"
-          ></FormsFormControl>
-        </FormsFormField>
-        <FormsFormField
-          label="Salary Range"
-          :help="salaryRange"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="salaryRange"
-            id="salaryRange"
-            type="text"
-            class="mt-3"
-            placeholder="Salary Range"
-            v-model="jobData.salaryRange"
-            autocomplete="off"
-          />
-        </FormsFormField>
-      </div>
-      <div class="sm:grid md:flex">
-        <FormsFormField
-          label="Department"
-          :help="department"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="department"
-            id="department"
-            type="text"
-            class="mt-3"
-            v-model="jobData.department"
-            autocomplete="off"
-            :options="depOptions"
-          />
-        </FormsFormField>
-        <FormsFormField
-          label="Job Type"
-          :help="jobType"
-          class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
-        >
-          <FormsFormControl
-            name="jobType"
-            id="jobType"
-            type="text"
-            class="mt-3"
-            placeholder="Job Type"
-            v-model="jobData.jobType"
-            :options="typeOptions"
-          />
-        </FormsFormField>
-      </div>
-      <div class="w-full flex justify-center mt-2">
-        <BaseButtons>
-          <BaseButton type="submit" color="info" label="Submit" />
-        </BaseButtons>
-      </div>
-    </form>
+  <div>
+    <NuxtLayout name="zen">
+      <SectionsSectionMain>
+        <div class="w-full">
+          <form action="" @submit.prevent="postJob">
+            <div class="sm:grid md:flex">
+              <FormsFormField
+                label="Job Title"
+                :help="helpJob"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="jobTitle"
+                  id="jobTitle"
+                  type="text"
+                  class="mt-3"
+                  placeholder="Job Title"
+                  v-model="jobData.jobTitle"
+                  autocomplete="off"
+                />
+              </FormsFormField>
+              <FormsFormField
+                label="Job Location"
+                :help="helpLocation"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="Location"
+                  id="Location"
+                  type="text"
+                  class="mt-3"
+                  placeholder="Job Location"
+                  v-model="jobData.location"
+                  autocomplete="off"
+                />
+              </FormsFormField>
+            </div>
+            <div class="sm:grid md:flex">
+              <FormsFormField
+                label="Job Description"
+                :help="description"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="jobDescription"
+                  id="jobDescription"
+                  class="mt-3"
+                  placeholder="Job Description"
+                  v-model="jobData.jobDescription"
+                  autocomplete="off"
+                  type="textarea"
+                ></FormsFormControl>
+              </FormsFormField>
+              <FormsFormField
+                label="Job Duties"
+                :help="duties"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="duties"
+                  id="duties"
+                  type="textarea"
+                  class="mt-3"
+                  placeholder="Job Duties"
+                  v-model="jobData.duties"
+                  autocomplete="off"
+                ></FormsFormControl>
+              </FormsFormField>
+            </div>
+            <div class="sm:grid md:flex">
+              <FormsFormField
+                label="Job Requirements"
+                :help="requirements"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="requirements"
+                  id="requirements"
+                  type="textarea"
+                  class="mt-3"
+                  placeholder="Job Requirements "
+                  v-model="jobData.requirements"
+                  autocomplete="off"
+                ></FormsFormControl>
+              </FormsFormField>
+              <FormsFormField
+                label="Nice To Have"
+                :help="have"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="tohave"
+                  id="tohave"
+                  type="textarea"
+                  class="mt-3"
+                  placeholder="Nice To Have"
+                  v-model="jobData.tohave"
+                  autocomplete="off"
+                ></FormsFormControl>
+              </FormsFormField>
+            </div>
+            <div class="sm:grid md:flex">
+              <FormsFormField
+                label="Benefits"
+                :help="benefits"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="benefits"
+                  id="benefits"
+                  type="textarea"
+                  class="mt-3"
+                  placeholder="Benefits"
+                  v-model="jobData.benefits"
+                  autocomplete="off"
+                ></FormsFormControl>
+              </FormsFormField>
+              <FormsFormField
+                label="Salary Range"
+                :help="salaryRange"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="salaryRange"
+                  id="salaryRange"
+                  type="text"
+                  class="mt-3"
+                  placeholder="Salary Range"
+                  v-model="jobData.salaryRange"
+                  autocomplete="off"
+                />
+              </FormsFormField>
+            </div>
+            <div class="sm:grid md:flex">
+              <FormsFormField
+                label="Department"
+                :help="department"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="department"
+                  id="department"
+                  type="text"
+                  class="mt-3"
+                  v-model="jobData.department"
+                  autocomplete="off"
+                  :options="depOptions"
+                />
+              </FormsFormField>
+              <FormsFormField
+                label="Job Type"
+                :help="jobType"
+                class="lg:col-span-6 sm:w-6/12 md:w-full ml-4 mr-4"
+              >
+                <FormsFormControl
+                  name="jobType"
+                  id="jobType"
+                  type="text"
+                  class="mt-3"
+                  placeholder="Job Type"
+                  v-model="jobData.jobType"
+                  :options="typeOptions"
+                />
+              </FormsFormField>
+            </div>
+            <div class="w-full flex justify-center mt-2">
+              <BaseButtons>
+                <BaseButton type="submit" color="info" label="Submit" />
+              </BaseButtons>
+            </div>
+          </form>
+        </div>
+      </SectionsSectionMain>
+    </NuxtLayout>
   </div>
 </template>
 

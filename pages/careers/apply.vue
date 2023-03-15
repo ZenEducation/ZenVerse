@@ -1,7 +1,19 @@
 <template>
-  <div></div>
+  <NuxtLayout name="zen">
+    <ApplyNewJob/>
+  </NuxtLayout>
 </template>
 
-<script setup></script>
+<script>
+  import ApplyNewJob from '~~/components/Careers/ApplyNewJob.vue';
+  export default{
+    name:'apply',
+    components:{
+      ApplyNewJob
+    }
+
+  }
+  
+</script>
 
 <style scoped></style>

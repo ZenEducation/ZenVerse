@@ -82,7 +82,7 @@
 
                                 <div class="lg:col-span-12">
                                     <label class="font-semibold" for="resumefile">Upload file:</label>
-                                    <input  class="form-input mt-3" id="resumefile" type="file">
+                                    <input class="form-input mt-3" id="resumefile" type="file">
                                 </div>
                             </div>
                             <button type="submit" @click.prevent="submitHandler" id="submit" name="send" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-4">Send Message</button>
@@ -103,26 +103,43 @@
 
 <script>
 export default {
-    name:'ApplyNewJob',
-    data(){
-        return{
-            formData:{
-                name:"",
-                email:"",
-                phone:"",
-                jobTitle:"",
-                jobType:"",
-                comment:"",
-                uploadFile:""
+    name: 'ApplyNewJob',
+    data() {
+        return {
+            formData: {
+                name: "",
+                email: "",
+                phone: "",
+                jobTitle: "",
+                jobType: "",
+                comment: "",
+                uploadFile: ""
             }
         }
     },
-    methods:{
-        submitHandler(){
-            console.log(this.formData);
+    methods: {
+        submitHandler() {
+            if (this.validateRequired(this.formData.name) && this.validateEmail(this.formData.email) && this.validatePhone(this.formData.phone)) {
+                // form is valid, submit data
+                console.log('Form submitted with data:', this.formData);
+            }else{
+                console.log('Invalid form')
+            }
+        },
+        validateRequired(field) {
+            return !!field;
+        },
+        validateEmail(email) {
+            // regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        },
+        validatePhone(phone) {
+            // regular expression for phone number validation
+            const phoneRegex = /^\d{10}$/;
+            return phoneRegex.test(phone);
         }
     }
-
 
 }
 </script>

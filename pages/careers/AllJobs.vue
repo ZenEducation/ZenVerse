@@ -103,21 +103,30 @@
             </div>
         </div>
 
+        <div class="fixed top-[30%] -right-2 z-50"  >
+            <span class="relative inline-block rotate-90">
+                <input type="checkbox" class="checkbox opacity-0 absolute" id="chk" @click="darkModeToggle"/>
+                <label class="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-800 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8" for="chk">
+                    <i class="uil uil-moon text-[20px] text-yellow-500"></i>
+                    <i class="uil uil-sun text-[20px] text-yellow-500"></i>
+                    <span class="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] w-7 h-7"></span>
+                </label>
+            </span>
+        </div>
+
+
     </section>
     <!--end section-->
     <!-- End Section-->
 
-
-
 </body>
-
 </template>
 
 <script>
 import '@/assets/css/tailwind/allJobs.css'
 import '@/assets/css/tailwind/choices.min.css'
 import SingleJobCard from '@/components/Careers/SingleJobCard.vue'
-
+import { useStyleStore } from "@/stores/style.js";
 
 
 export default {
@@ -326,7 +335,6 @@ export default {
                     "companyicon": ""
                 }
             ],
-            // totalPages:6,
             currentPage: 1,
             perPage: 6,
         }
@@ -383,6 +391,24 @@ export default {
             const paginated = this.filteredJobs.slice(start, end);
             return paginated;
         },
+    },
+    setup() {
+        const styleStore = useStyleStore();
+
+        const setStyle = (style) => {
+            styleStore.setStyle(style);
+            styleStore.setDarkMode(false);
+        };
+
+        const darkModeToggle = () => {
+            console.log("dark called")
+            styleStore.setDarkMode();
+        };
+
+        return {
+            setStyle,
+            darkModeToggle
+        };
     },
 };
 </script>

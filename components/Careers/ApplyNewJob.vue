@@ -36,7 +36,7 @@
                             <div class="grid lg:grid-cols-12 gap-6">
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <FormField label="Name" help="Required. Your name">
+                                        <FormField label="Name" help="Required. Your name" :error="errorMsgs.name">
                                             <FormControl
                                               v-model="formData.name"
                                               name="username"
@@ -48,7 +48,7 @@
 
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <FormField label="E-mail" help="Required. Your e-mail">
+                                        <FormField label="E-mail" help="Required. Your e-mail" :error="errorMsgs.email">
                                             <FormControl
                                               v-model="formData.email"
                                               type="email"
@@ -61,7 +61,7 @@
 
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <FormField label="Phone No" help="Required. Phone No.:">
+                                        <FormField label="Phone No" help="Required. Phone No.:" :error="errorMsgs.phone">
                                             <FormControl
                                               v-model="formData.phone"
                                               name="phone"
@@ -74,7 +74,7 @@
 
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <FormField label="Job Title:" help="Required. Your Job Title:">
+                                        <FormField label="Job Title:" help="Required. Your Job Title:" :error="errorMsgs.jobTitle">
                                             <FormControl
                                               v-model="formData.jobTitle"
                                               type="email"
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class="lg:col-span-6">
-                                    <FormField label="Types of Job:" help="Required. Your Job Title:">
+                                    <FormField label="Types of Job:" help="Required. Your Job Title:" :error="errorMsgs.jobType">
                                         <FormControl
                                           v-model="formData.jobType"
                                           type="select"
@@ -101,7 +101,7 @@
 
                                 <div class="lg:col-span-12">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <FormField label="Your Comment" help="Required. Your comment">
+                                        <FormField label="Your Comment" help="Required. Your comment" :error="errorMsgs.comment">
                                             <FormControl
                                               v-model="formData.comment"
                                               type="textarea"
@@ -168,29 +168,51 @@ import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
         "All Jobs","Full Time","Half Time","Remote","In Office"
     ])
 
+    const errorMsgs = ref({
+      name: "",
+      email: "",
+      phone: "",
+      jobTitle: "",
+      jobType: "",
+      comment: "",
+      uploadFile: ""
+    });
+
     const submitHandler = () => {
-        console.log(formData.value)
-      if (validateRequired(formData.value.name) && validateEmail(formData.value.email) && validatePhone(formData.value.phone)) {
-        console.log('Form submitted with data:', formData.value);
-      } else {
-        console.log('Invalid form');
+        validateRequired("name" , formData.value.name);
+        validateRequired("jobTitle" , formData.value.jobTitle);
+        validateRequired("jobType" , formData.value.jobType);
+        validateEmail(formData.value.email);
+        validatePhone(formData.value.phone);
+    };
+
+    const validateRequired = (field,val) => {
+        if(!val ){
+            errorMsgs.value[field] = "Required field"
+        return false;
       }
+      errorMsgs.value[field] = ""
+      return true;
     };
 
-    const validateRequired = (field) => {
-      return !!field;
-    };
-
-    const validateEmail = (email) => {
-        console.log(email)
+    const validateEmail = (email) => {        
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
+      if(! emailRegex.test(email) ){
+        errorMsgs.value.email = "Invalid email"
+        return false;
+      }
+      errorMsgs.value.email = ""
+      return true;
     };
 
     const validatePhone = (phone) => {
-        console.log(phone)
       const phoneRegex = /^\d{10}$/;
-      return phoneRegex.test(phone);
+      if(! phoneRegex.test(phone) ){
+        errorMsgs.value.phone = "Invalid phone"
+        return false;
+      }
+      errorMsgs.value.phone = ""
+      return true;
     };
 
 

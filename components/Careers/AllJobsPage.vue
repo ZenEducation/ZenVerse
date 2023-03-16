@@ -68,9 +68,7 @@
             </div>
             <!--end container-->
             <!-- form container ends -->
-            {{ currentdata }}
-            <br>
-            {{ filterdata }}
+
     
             <div class="container">
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">

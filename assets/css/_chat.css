@@ -1,0 +1,100 @@
+@layer components {
+  .chat-header:before,
+  .chat-footer:before,
+  .chat-header:after,
+  .chat-footer:after {
+    @apply absolute h-full w-[calc(100vw-100%)] bg-inherit content-[''];
+  }
+
+  .avatar {
+    @apply relative inline-flex h-10 w-10 shrink-0;
+  }
+
+  .avatar > img {
+    @apply h-full w-full object-cover object-center;
+  }
+
+  .avatar > .is-initial {
+    @apply flex h-full w-full items-center justify-center font-medium;
+  }
+
+  .chat-header:before,
+  .chat-footer:before {
+    @apply left-[calc((100vw-100%)*-1)];
+  }
+
+  .chat-header::after,
+  .chat-footer::after {
+    @apply right-[calc((100vw-100%)*-1)];
+  }
+
+  /* Course Dashboard Timeline*/
+  .course-schedule-chart .apexcharts-series path {
+    clip-path: inset(5% 5% 5% 0 round 6px);
+  }
+
+  /* Analitcis dashboard */
+  .top-sellers-analytics .apexcharts-canvas .apexcharts-heatmap-rect {
+    @apply text-slate-100 dark:text-navy-700;
+  }
+
+  .is-scrollbar-hidden {
+    /* Firefox */
+  }
+
+  .is-scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  @supports selector(::-webkit-scrollbar) {
+    .scrollbar-sm::-webkit-scrollbar {
+      @apply h-1.5 w-1.5;
+    }
+
+    .scrollbar-sm:hover::-webkit-scrollbar-thumb,
+    .scrollbar-sm:focus-within::-webkit-scrollbar-thumb {
+      @apply rounded-full bg-slate-300/80 dark:bg-navy-400;
+    }
+
+    .scrollbar-sm::-webkit-scrollbar-thumb:hover {
+      @apply bg-slate-400 dark:bg-navy-300;
+    }
+  }
+  /* Chat App */
+  .chat-header:before,
+  .chat-footer:before,
+  .chat-header:after,
+  .chat-footer:after {
+    @apply absolute h-full w-[calc(100vw-100%)] bg-inherit content-[''];
+  }
+
+  .chat-header:before,
+  .chat-footer:before {
+    @apply left-[calc((100vw-100%)*-1)];
+  }
+
+  .chat-header::after,
+  .chat-footer::after {
+    @apply right-[calc((100vw-100%)*-1)];
+  }
+  .form-input,
+  .form-textarea,
+  .form-select,
+  .form-multiselect,
+  .form-radio,
+  .form-checkbox,
+  .form-switch,
+  .form-checkbox::before,
+  .form-radio::before,
+  .form-switch::before {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select,
+  .form-multiselect {
+    @apply appearance-none tracking-wide outline-none placeholder:font-light focus:outline-none;
+    contain: paint;
+  }
+}

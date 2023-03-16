@@ -35,12 +35,12 @@
                                     <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6">
                                         <div class="filter-search-form relative filter-border">
                                             <i class="uil uil-briefcase-alt icons"></i>
-                                            <input v-model="filterdata.keyword" name="name" type="text" id="job-keyword" class="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0" placeholder="Search your keywords">
+                                            <input v-model="currentdata.keyword" name="name" type="text" id="job-keyword" class="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0" placeholder="Search your keywords">
                                         </div>
     
                                         <div class="filter-search-form relative filter-border flex justify-center items-center">
                                             <i class="uil uil-map-marker icons"></i>
-                                            <select v-model="filterdata.location" class="form-select" data-trigger name="choices-location" id="choices-location" aria-label="Default select example">
+                                            <select v-model="currentdata.location" class="form-select" data-trigger name="choices-location" id="choices-location" aria-label="Default select example">
                                                 <option value="none" selected>Select</option>
                                                 <option v-for="location in sortedLocations" :value="location">{{ location }}</option>
                                             </select>
@@ -48,13 +48,13 @@
     
                                         <div class="filter-search-form relative filter-border flex justify-center items-center">
                                             <i class="uil uil-briefcase-alt icons"></i>
-                                            <select v-model="filterdata.type" class="form-select " data-trigger name="choices-type" id="choices-type" aria-label="Default select example">
+                                            <select v-model="currentdata.type" class="form-select " data-trigger name="choices-type" id="choices-type" aria-label="Default select example">
                                                 <option value="none" selected>Select</option>
                                                 <option v-for="location in sortedTypes" :value="location">{{ location }}</option>
                                             </select>
                                         </div>
     
-                                        <input disabled type="submit" id="search" name="search" style="height: 60px;" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn w-100" value="Search">
+                                        <input type="submit" @click.prevent="subitHandler" id="search" name="search" style="height: 60px;" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn w-100" value="Search">
                                     </div>
                                     <!--end grid-->
                                 </div>
@@ -140,6 +140,11 @@
                     location: "none",
                     type: "none"
     
+                },
+                currentdata:{
+                    keyword: "",
+                    location: "none",
+                    type: "none"
                 },
                 jobsdata: [{
                         "jobtitle": "Software Engineering",
@@ -390,6 +395,9 @@
                 const paginated = this.filteredJobs.slice(start, end);
                 return paginated;
             },
+            subitHandler(){
+                this.filterdata = this.currentdata;
+            }
         },
         setup() {
             const styleStore = useStyleStore();

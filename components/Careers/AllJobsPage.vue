@@ -54,7 +54,7 @@
                                             </select>
                                         </div>
     
-                                        <input type="submit" @click.prevent="subitHandler" id="search" name="search" style="height: 60px;" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn w-100" value="Search">
+                                        <input type="submit" @click.prevent="subitHandler()" id="search" name="search" style="height: 60px;" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn w-100" value="Search">
                                     </div>
                                     <!--end grid-->
                                 </div>
@@ -68,6 +68,9 @@
             </div>
             <!--end container-->
             <!-- form container ends -->
+            {{ currentdata }}
+            <br>
+            {{ filterdata }}
     
             <div class="container">
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
@@ -396,7 +399,9 @@
                 return paginated;
             },
             subitHandler(){
-                this.filterdata = this.currentdata;
+                const filteredData = Object.assign({}, this.currentdata);
+                this.filterdata = filteredData;
+                return ;
             }
         },
         setup() {

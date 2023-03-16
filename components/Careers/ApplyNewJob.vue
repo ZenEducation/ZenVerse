@@ -14,7 +14,6 @@
             <!--end grid-->
         </div>
         <!--end container-->
-        {{ formData }}
     </section>
     <!--end section-->
     <div class="relative">
@@ -87,7 +86,7 @@
                                 </div>
 
                                 <div class="lg:col-span-6">
-                                    <FormField label="Types of Job:" help="Required. Your Job Title:" :error="errorMsgs.jobType">
+                                    <FormField label="Types of Job:" help="Required. Your Job Type:" :error="errorMsgs.jobType">
                                         <FormControl
                                           v-model="formData.jobType"
                                           type="select"

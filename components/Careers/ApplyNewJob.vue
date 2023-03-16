@@ -14,7 +14,7 @@
             <!--end grid-->
         </div>
         <!--end container-->
-
+        {{ formData }}
     </section>
     <!--end section-->
     <div class="relative">
@@ -36,53 +36,86 @@
                             <div class="grid lg:grid-cols-12 gap-6">
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <label for="name" class="font-semibold">Your Name:</label>
-                                        <input v-model="formData.name" name="name" id="name" type="text" class="form-input mt-3" placeholder="Name :">
+                                        <FormField label="Name" help="Required. Your name">
+                                            <FormControl
+                                              v-model="formData.name"
+                                              name="username"
+                                              required
+                                              autocomplete="username"
+                                            />
+                                          </FormField>                                    </div>
+                                </div>
+
+                                <div class="lg:col-span-6">
+                                    <div class="ltr:text-left rtl:text-right">
+                                        <FormField label="E-mail" help="Required. Your e-mail">
+                                            <FormControl
+                                              v-model="formData.email"
+                                              type="email"
+                                              name="email"
+                                              required
+                                              autocomplete="email"
+                                            />
+                                          </FormField>                                    </div>
+                                </div>
+
+                                <div class="lg:col-span-6">
+                                    <div class="ltr:text-left rtl:text-right">
+                                        <FormField label="Phone No" help="Required. Phone No.:">
+                                            <FormControl
+                                              v-model="formData.phone"
+                                              name="phone"
+                                              required
+                                              autocomplete="phone"
+                                            />
+                                        </FormField>                                      
                                     </div>
                                 </div>
 
                                 <div class="lg:col-span-6">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <label for="email" class="font-semibold">Your Email:</label>
-                                        <input v-model="formData.email" name="email" id="email" type="email" class="form-input mt-3" placeholder="Email :">
+                                        <FormField label="Job Title:" help="Required. Your Job Title:">
+                                            <FormControl
+                                              v-model="formData.jobTitle"
+                                              type="email"
+                                              name="email"
+                                              required
+                                              autocomplete="email"
+                                            />
+                                          </FormField>                                      
                                     </div>
                                 </div>
 
                                 <div class="lg:col-span-6">
-                                    <div class="ltr:text-left rtl:text-right">
-                                        <label for="subject" class="font-semibold">Phone No.:</label>
-                                        <input v-model="formData.phone" name="number" id="phonenumber" class="form-input mt-3" placeholder="Phone No. :">
-                                    </div>
-                                </div>
-
-                                <div class="lg:col-span-6">
-                                    <div class="ltr:text-left rtl:text-right">
-                                        <label for="subject" class="font-semibold">Job Title:</label>
-                                        <input v-model="formData.jobTitle" name="subject" id="subject" class="form-input mt-3" placeholder="Job title :">
-                                    </div>
-                                </div>
-
-                                <div class="lg:col-span-6">
-                                    <label for="typejob" class="font-semibold">Types of Job:</label>
-                                    <select v-model="formData.jobType" id="typejob" class="form-input mt-3">
-                                        <option>All Jobs</option>
-                                        <option>Full Time</option>
-                                        <option>Half Time</option>
-                                        <option>Remote</option>
-                                        <option>In Office</option>
-                                    </select>
+                                    <FormField label="Types of Job:" help="Required. Your Job Title:">
+                                        <FormControl
+                                          v-model="formData.jobType"
+                                          type="select"
+                                          name="email"
+                                          required
+                                          autocomplete="email"
+                                          :options="jobTypes"
+                                        />
+                                    </FormField>  
                                 </div>
 
                                 <div class="lg:col-span-12">
                                     <div class="ltr:text-left rtl:text-right">
-                                        <label for="comments" class="font-semibold">Your Comment:</label>
-                                        <textarea v-model="formData.comment" name="comments" id="comments" class="form-input mt-3 h-28" placeholder="Message :"></textarea>
-                                    </div>
+                                        <FormField label="Your Comment" help="Required. Your comment">
+                                            <FormControl
+                                              v-model="formData.comment"
+                                              type="textarea"
+                                              name="email"
+                                              required
+                                              autocomplete="email"
+                                            />
+                                          </FormField>                                      </div>
                                 </div>
 
                                 <div class="lg:col-span-12">
-                                    <label class="font-semibold" for="resumefile">Upload file:</label>
-                                    <input class="form-input mt-3" id="resumefile" type="file">
+                                        <FormField label="Upload file:" help="Max 500kb">
+                                            <FormFilePicker label="Upload" />
+                                        </FormField>
                                 </div>
                             </div>
                             <button type="submit" @click.prevent="submitHandler" id="submit" name="send" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-4">Send Message</button>
@@ -98,51 +131,71 @@
     </section>
     <!--end section-->
     <!-- End Section-->
+    
+
+
+
 </div>
 </template>
 
-<script>
-export default {
-    name: 'ApplyNewJob',
-    data() {
-        return {
-            formData: {
-                name: "",
-                email: "",
-                phone: "",
-                jobTitle: "",
-                jobType: "",
-                comment: "",
-                uploadFile: ""
-            }
-        }
-    },
-    methods: {
-        submitHandler() {
-            if (this.validateRequired(this.formData.name) && this.validateEmail(this.formData.email) && this.validatePhone(this.formData.phone)) {
-                // form is valid, submit data
-                console.log('Form submitted with data:', this.formData);
-            }else{
-                console.log('Invalid form')
-            }
-        },
-        validateRequired(field) {
-            return !!field;
-        },
-        validateEmail(email) {
-            // regular expression for email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        },
-        validatePhone(phone) {
-            // regular expression for phone number validation
-            const phoneRegex = /^\d{10}$/;
-            return phoneRegex.test(phone);
-        }
-    }
 
-}
+<script setup>
+import { ref ,reactive } from "vue";
+import { useMainStore } from "@/stores/main";
+import {
+  mdiAccount,
+  mdiMail,
+  mdiAsterisk,
+  mdiFormTextboxPassword,
+  mdiCreditCardOutline,
+} from "@mdi/js";
+import FormField from "@/components/Forms/FormField.vue";
+import FormControl from "@/components/Forms/FormControl.vue";
+import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
+// import 
+
+    const formData = ref({
+      name: "",
+      email: "",
+      phone: "",
+      jobTitle: "",
+      jobType: "",
+      comment: "",
+      uploadFile: ""
+    });
+
+    const jobTypes = ref([
+        "All Jobs","Full Time","Half Time","Remote","In Office"
+    ])
+
+    const submitHandler = () => {
+        console.log(formData.value)
+      if (validateRequired(formData.value.name) && validateEmail(formData.value.email) && validatePhone(formData.value.phone)) {
+        console.log('Form submitted with data:', formData.value);
+      } else {
+        console.log('Invalid form');
+      }
+    };
+
+    const validateRequired = (field) => {
+      return !!field;
+    };
+
+    const validateEmail = (email) => {
+        console.log(email)
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const validatePhone = (phone) => {
+        console.log(phone)
+      const phoneRegex = /^\d{10}$/;
+      return phoneRegex.test(phone);
+    };
+
+
 </script>
+
 
 <style scoped src="@/assets/css/tailwind/techwind.css">
 

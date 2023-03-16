@@ -172,7 +172,6 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button; /* 1 */
   background-color: transparent; /* 2 */
   background-image: none; /* 2 */
 }
@@ -206,7 +205,6 @@ Correct the cursor style of increment and decrement buttons in Safari.
 2. Correct the outline style in Safari.
 */
 [type='search'] {
-  -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
 /*
@@ -319,7 +317,6 @@ iframe,
 embed,
 object {
   display: block; /* 1 */
-  vertical-align: middle; /* 2 */
 }
 /*
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
@@ -574,8 +571,6 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  -webkit-print-color-adjust: exact;
-          color-adjust: exact;
   background-repeat: no-repeat;
   background-color: #fff;
   padding-top: 0.5rem;
@@ -612,8 +607,6 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  -webkit-print-color-adjust: exact;
-          color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
   background-origin: border-box;
@@ -3445,11 +3438,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
-#topnav .has-submenu .submenu .has-submenu:hover {
-  /* .submenu-arrow {
-    @apply border-indigo-600 dark:border-indigo-600;
-  } */
-}
+
 #topnav .has-submenu .submenu .has-submenu:hover > .submenu-arrow{
   --tw-border-opacity: 1;
   border-color: rgb(79 70 229 / var(--tw-border-opacity));
@@ -5420,9 +5409,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   content: var(--tw-content);
   --tw-border-opacity: 1;
   border-bottom-color: rgb(15 23 42 / var(--tw-border-opacity));
-}
-.client-testi .content {
-  /* border-color: transparent theme('colors.white') theme('colors.white') transparent; */
 }
 
 .customer-testi{

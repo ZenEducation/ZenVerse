@@ -14,7 +14,7 @@
         <div class="flex items-center p-6 border-t border-gray-100 dark:border-gray-700">
             <img src="assets/images/client/facebook-logo-2019.png" class="h-12 w-12 shadow-md dark:shadow-gray-800 rounded-md p-2 bg-white dark:bg-slate-900" alt="">
 
-            <div class="ltr:ml-3 rtl:mr-3">
+            <div class="ltr:ml-3 rtl:mr-3 ml-3">
                 <h6 class="mb-0 font-semibold text-base">{{data.companyname}}</h6>
                 <span class="text-slate-400 text-sm">{{data.location}}</span>
             </div>

@@ -17,6 +17,9 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiText,
+  mdiCreation,
+  mdiListBox,
 } from "@mdi/js";
 
 export default [
@@ -29,6 +32,21 @@ export default [
     to: "/dashboard",
     label: "UI Base",
     icon: mdiTelevisionGuide,
+  },
+  {
+    label: "Article",
+    icon: mdiText,
+    menu: [
+      {
+        icon: mdiCreation,
+        label: "create",
+        to: "/article/CreateView"
+      },
+      {
+        icon: mdiListBox,
+        label: "Dropdown item Dos",
+      },
+    ],
   },
   {
     to: "/pps/tablesListsView",

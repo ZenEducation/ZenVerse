@@ -112,7 +112,7 @@
                                 </div>
 
                                 <div class="lg:col-span-12">
-                                        <FormField label="Upload file:" help="Max 500kb">
+                                        <FormField label="Upload file:" help="Max 500kb" accept=".pdf" >
                                             <FormFilePicker label="Upload" />
                                         </FormField>
                                 </div>

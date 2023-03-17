@@ -113,61 +113,9 @@
                         </li>
                       </ul>
 
-                      <ul class="list-none mt-6">
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="facebook" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="instagram" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="twitter" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="linkedin" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="github" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="youtube" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                        <li class="inline">
-                          <a
-                            href=""
-                            class="btn btn-icon btn-sm border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 hover:text-white hover:bg-indigo-600"
-                            ><i data-feather="gitlab" class="h-4 w-4"></i
-                          ></a>
-                        </li>
-                      </ul>
-                      <!--end icon-->
 
                       <a
-                        href="contact-one.html"
+                        href="#0"
                         class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6"
                         >Contact Me</a
                       >

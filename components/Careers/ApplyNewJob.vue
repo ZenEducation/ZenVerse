@@ -1,5 +1,5 @@
 <template>
-<div class="font-nunito text-base text-black dark:text-white dark:bg-slate-900">
+<div class="font-nunito text-base ">
     <!-- Start Hero -->
     <section class="relative table w-full py-36 lg:py-44 bg-[url('../../assets/images/job/job.jpg')] bg-no-repeat bg-center bg-cover">
         <div class="absolute inset-0 bg-black opacity-80"></div>
@@ -151,7 +151,6 @@ import {
 import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
-// import 
 
     const formData = ref({
       name: "",
@@ -195,7 +194,7 @@ import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
     };
 
     const validateEmail = (email) => {        
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       if(! emailRegex.test(email) ){
         errorMsgs.value.email = "Invalid email"
         return false;

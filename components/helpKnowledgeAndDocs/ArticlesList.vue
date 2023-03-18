@@ -1,4 +1,7 @@
 <script setup>
+import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
+import CardBoxClient from "@/components/Cards/CardBoxClient.vue";
+
 defineProps({
   articles: {
     type: Array,
@@ -6,30 +9,69 @@ defineProps({
 });
 
 const _router = useRouter();
+const title = "Introduction Of Javascript";
+const clientBarItems = ref([
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+  {
+    id: 1,
+    name: "Hello, world!",
+    login: true,
+    created: "2022-10-21",
+    progress: 70,
+  },
+]);
 </script>
 <template>
-  <div
-    class="border-2 border-gray-200 dark:border-gray-600 rounded dark:bg-slate-900/70 bg-white px-6 flex  flex-wrap gap-16 py-2 bg-"
+  <SectionTitleLineWithButton
+    :icon="mdiChartTimelineVariant"
+    :title="title"
+    :hasSlot="w"
+    main
   >
-    <ul
-      class="list-disc list-outside ml-4 mt-3"
-      v-for="(article_info, category) in articles"
-    >
-      <li>
-        <span class="text-xl text-ellipsis ">{{ category }}</span>
-        <ul class="list-decimal list-outside ml-4 mt-3 flex flex-col gap-3">
-          <li v-for="(article, article_id) in article_info" :key="article_id">
-            <span
-              class="text-blue-600 hover:cursor-pointer hover:underline ml-2 text-ellipsis tracking-wider"
-              @click="
-                _router.push(`/helpKnowledgeAndDocs/article/${article_id}`)
-              "
-            >
-              {{ article.title }}
-            </span>
-          </li>
-        </ul>
-      </li>
-    </ul>
+  &nbsp;  
+  </SectionTitleLineWithButton>
+  <div class="flex flex-wrap gap-4 justify-between">
+    <div v-for="client in clientBarItems" class="lg:basis-96 grow md:basis-full">
+      <CardBoxClient
+        :key="client.id"
+        :name="client.name"
+        :progress="client.progress"
+      />
+    </div>
   </div>
+
 </template>

@@ -68,6 +68,10 @@ export default [
       {
         label: "Dropdown item Dos",
       },
+      {
+        label: "articles In One Category",
+        to: "/helpKnowledgeAndDocs/articlesInOneCategory",
+      },
     ],
   },
   {

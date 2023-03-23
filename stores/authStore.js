@@ -1,5 +1,3 @@
-
-
 import { Auth } from "aws-amplify";
 import { defineStore } from "pinia";
 
@@ -22,10 +20,16 @@ export const actions = {
     }
   },
 
-  async register({ email, password }) {
+  async register({ name, email, password, address, pincode }) {
+    console.log('name', name)
     const user = await Auth.signUp({
       username: email,
       password,
+      attributes: {
+        name,
+        address,
+        'custom:pincode':pincode
+      }
     });
     return user;
   },

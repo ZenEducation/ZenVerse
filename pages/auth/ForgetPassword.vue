@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mdiAccount, mdiAsterisk } from "@mdi/js";
+import { mdiAccount, mdiAsterisk, mdiEye, mdiEyeOff } from "@mdi/js";
 import SectionFullScreen from "@/components/Sections/SectionFullScreen.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
@@ -18,18 +18,24 @@ const form = reactive({
   code: "",
 });
 
-// const form = reactive({
-//   loginEmail: "shahzain30196@gmail.com",
-//   password: "Zenithathang@gmail.com@99",
-//   remember: true,
-// });
-
 const router = useRouter();
 
 const AuthStore = useAuthStore();
 
 const userSubmitted = ref(false);
 const GraphqlAPIStore = useGraphqlAPIStore();
+const passwordFieldType = ref('password')
+const passwordFieldIcon = ref(mdiEye)
+
+const togglePasswordField = () => {
+  if (passwordFieldType.value === 'password') {
+    passwordFieldType.value = 'text'
+    passwordFieldIcon.value = mdiEyeOff
+  } else {
+    passwordFieldType.value = 'password'
+    passwordFieldIcon.value = mdiEye
+  }
+}
 
 const handleSubmit = async () => {
   if(userSubmitted.value) {
@@ -68,7 +74,7 @@ const handleSubmit = async () => {
   <div>
     <NuxtLayout>
       <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
-        <CardBox :class="cardClass" is-form @submit.prevent="handleSubmit">
+        <CardBox :class="cardClass">
           <FormField label="Email" help="Please enter your Email">
             <FormControl
               v-model="form.loginEmail"
@@ -78,20 +84,22 @@ const handleSubmit = async () => {
             />
           </FormField>
 
-          <FormField v-if="userSubmitted" label="Code" help="Click icon to show/hide">
+          <FormField v-if="userSubmitted" label="Code" help="Enter verification code sent to your email">
             <FormControl v-model="form.code" type="text" name="code" placeholder="Enter Code"
               autocomplete="code" />
           </FormField>
 
           <FormField v-if="userSubmitted" label="New Password" help="Click icon to show/hide">
-            <FormControl v-model="form.password" type="password" name="password" placeholder="New Password"
+            <FormControl v-model="form.password" :iconPasswordEye="passwordFieldIcon"
+              :type="passwordFieldType"
+              @togglePasswordVisibility="togglePasswordField()" type="password" name="password" placeholder="New Password"
               autocomplete="new-password" />
           </FormField>
 
           <template #footer>
             <div class="flex justify-between">
               <BaseButtons>
-                <BaseButton type="submit" color="info" label="Send" />
+                <BaseButton type="submit" color="info" @click.prevent="handleSubmit" label="Send" />
               </BaseButtons>
             </div>
           </template>

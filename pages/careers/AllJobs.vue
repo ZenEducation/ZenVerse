@@ -1,17 +1,14 @@
 <template>
   <NuxtLayout name="zen">
-    <div
-      class="font-nunito text-base text-black dark:text-white dark:bg-slate-900"
-    >
+    <div class="text-base text-black dark:text-white dark:bg-slate-900">
       <!-- Start Hero -->
       <section
-        class="relative table w-full py-36 lg:py-44 bg-no-repeat bg-center bg-cover"
+        class="relative table w-full py-36 lg:py-44 bg-black opacity-80 bg-no-repeat bg-center bg-cover"
       >
-        <div class="absolute inset-0 bg-black opacity-80"></div>
-        <div class="container">
+        <div >
           <div class="grid grid-cols-1 pb-8 text-center mt-10">
             <h3
-              class="mb-4 md:text-4xl text-3xl md:leading-normal leading-normal font-medium text-white"
+              class="mb-4 md:text-4xl text-xl md:leading-normal leading-normal font-medium text-white"
             >
               Job Listings
             </h3>
@@ -26,19 +23,21 @@
       <!-- Start Section-->
       <section class="relative md:py-24 py-16">
         <!-- form container start -->
-        <div class="container">
+        <div >
           <div class="grid lg:grid-cols-12 grid-cols-1" id="reserve-form">
             <div class="lg:col-start-2 lg:col-span-10">
               <div
-                class="bg-white dark:bg-slate-900 border-0 shadow dark:shadow-gray-800 rounded p-3 -mt-[150px]"
+                class="bg-white dark:bg-slate-900 border-0 shadow dark:shadow-gray-800 rounded p-3  -mt-[150px]"
               >
                 <form action="#">
                   <div class="registration-form text-dark text-start">
                     <div
                       class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6"
                     >
-                      <div class="filter-search-form relative filter-border">
-                        <i class="uil uil-briefcase-alt icons"></i>
+                      <div
+                        class="filter-search-form relative filter-border flex justify-center items-center"
+                      >
+                        <BaseIcon :path="mdiBriefcase"/>
                         <input
                           v-model="currentdata.keyword"
                           name="name"
@@ -52,7 +51,6 @@
                       <div
                         class="filter-search-form relative filter-border flex justify-center items-center"
                       >
-                        <i class="uil uil-map-marker icons"></i>
                         <select
                           v-model="currentdata.location"
                           class="form-select"
@@ -74,7 +72,6 @@
                       <div
                         class="filter-search-form relative filter-border flex justify-center items-center"
                       >
-                        <i class="uil uil-briefcase-alt icons"></i>
                         <select
                           v-model="currentdata.type"
                           class="form-select"
@@ -116,7 +113,7 @@
         <!--end container-->
         <!-- form container ends -->
         <div v-if="getPaginatedData().length">
-          <div class="container">
+          <div class="container pl-5 pr-5 md:p-16">
             <div
               class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]"
             >
@@ -190,6 +187,9 @@
 <script>
 import SingleJobCard from "@/components/Careers/SingleJobCard.vue";
 import { useStyleStore } from "@/stores/style.js";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import { mdiBriefcase } from '@mdi/js';
+
 
 export default {
   name: "AllJobs",
@@ -479,5 +479,3 @@ export default {
   },
 };
 </script>
-
-<style scoped src="@/assets/css/tailwind/allJobs.css"></style>

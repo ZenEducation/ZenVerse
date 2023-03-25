@@ -38,6 +38,10 @@ export const actions = {
     return await Auth.confirmSignUp(email, code);
   },
 
+  async resendConfirmationCode({ email }) {
+    await Auth.resendSignUp(email);
+  },
+
   async login({ email, password }) {
     const userfromAmplify = await Auth.signIn(email, password);
     this.user = userfromAmplify;

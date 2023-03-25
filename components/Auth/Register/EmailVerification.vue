@@ -53,18 +53,7 @@ const handleSubmit = async () => {
 
     if (registrationConfirmed) {
       console.log(registrationConfirmed);
-      // try{
-      //   const currentUser = await AuthStore.confirmRegistration({ email: form.signUpEmail, code: form.otp_code, });
-      //   console.log("CurrentUser", currentUser);
-      //   console.log("Confirmed the OTP successfully");
       router.push("/auth/login");
-      // } catch(err) {
-      //    errorMsg.value = err;
-      //   console.log('CODE ERROR ', err)
-      // }
-
-      // } else {
-      //   console.log("OTP Confirmation was unsuccessfull");
     }
   } catch (err) {
     errorMsg.value = err;
@@ -72,6 +61,17 @@ const handleSubmit = async () => {
     console.log("CONFIRMATION ERROR ", err);
   }
 };
+const resendCode = async() => {
+    try {
+      const data = await AuthStore.resendConfirmationCode({
+        email: props.email
+      })
+    } catch(err) {
+      errorMsg.value = err;
+      toggleNotificationModal(true)
+      console.log("CONFIRMATION ERROR ", err);
+    }
+  }
 </script>
 
 <template>
@@ -81,7 +81,7 @@ const handleSubmit = async () => {
         <AuthNotificationBar :isVisible="notificationModal" @toggle="toggleNotificationModal" v-if="errorMsg" color="danger" :icon="mdiMail">
           {{ errorMsg }}
         </AuthNotificationBar>
-        <div class="flex p-2 justify-between">
+        <div class="flex xl:pr-4 justify-between">
             <div>{{props.email}}</div>
             <div><button @click="changeEmail()" class="text-red-400 text-sm">Change Email</button></div>
         </div>
@@ -105,6 +105,7 @@ const handleSubmit = async () => {
             autocomplete="code"
           />
         </FormField>
+        <div><button @click="resendCode()" class="text-red-400 text-sm">Resend Code</button></div>
         <h3 class="font-bold">
           Verification link has been sent to your email!
         </h3>
@@ -116,7 +117,7 @@ const handleSubmit = async () => {
                 @click="
                   () => handleSubmit()
                 "
-                label="Login"
+                label="Send"
                 type="login"
                 color="info"
               />

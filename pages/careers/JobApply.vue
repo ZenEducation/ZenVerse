@@ -3,30 +3,20 @@
     <div class="font-nunito text-base">
       <!-- Start Hero -->
       <section
-        class="relative table w-full py-36 lg:py-44 bg-no-repeat bg-center bg-cover"
-      >
-        <div class="absolute inset-0 bg-black opacity-80"></div>
-        <div class="container">
-          <div class="grid grid-cols-1 pb-8 text-center mt-12">
-            <h3
-              class="mb-4 md:text-4xl text-3xl md:leading-normal leading-normal font-medium text-white"
-            >
-              Senior Web Developer
-            </h3>
-
-            <ul class="list-none">
-              <li class="inline text-slate-400 ltr:mr-3 rtl:ml-3">
-                <i
-                  class="uil uil-map-marker text-white h6 ltr:mr-1 rtl:ml-1"
-                ></i>
-                London, UK - <span class="text-white">Full Time</span>
-              </li>
-            </ul>
-          </div>
-          <!--end grid-->
+      class="relative table w-full py-36 lg:py-44 bg-black opacity-80 bg-no-repeat bg-center bg-cover"
+    >
+      <div >
+        <div class="grid grid-cols-1 pb-8 text-center mt-10">
+          <h3
+            class="mb-4 md:text-4xl text-xl md:leading-normal leading-normal font-medium text-white"
+          >
+            Web Developer
+          </h3>
         </div>
-        <!--end container-->
-      </section>
+        <!--end grid-->
+      </div>
+      <!--end container-->
+    </section>
       <!--end section-->
 
       <!-- End Hero -->
@@ -147,7 +137,7 @@
                     </div>
 
                     <div class="lg:col-span-12">
-                      <FormField label="Upload file:" help="Max 500kb">
+                      <FormField label="Upload file:" help="Max 500kb , pdf">
                         <FormFilePicker label="Upload" accept=".pdf" />
                       </FormField>
                     </div>
@@ -157,7 +147,7 @@
                     @click.prevent="submitHandler"
                     id="submit"
                     name="send"
-                    class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-4"
+                    class="btn p-3 bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-4"
                   >
                     Send Message
                   </button>
@@ -178,15 +168,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
-import { useMainStore } from "@/stores/main";
-import {
-  mdiAccount,
-  mdiMail,
-  mdiAsterisk,
-  mdiFormTextboxPassword,
-  mdiCreditCardOutline,
-} from "@mdi/js";
+import { ref } from "vue";
 import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
@@ -257,5 +239,3 @@ const validatePhone = (phone) => {
   return true;
 };
 </script>
-
-<style scoped src="@/assets/css/tailwind/techwind.css"></style>

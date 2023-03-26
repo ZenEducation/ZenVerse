@@ -37,13 +37,12 @@
                       <div
                         class="filter-search-form relative filter-border flex justify-center items-center"
                       >
-                        <BaseIcon :path="mdiBriefcase"/>
                         <input
                           v-model="currentdata.keyword"
                           name="name"
                           type="text"
                           id="job-keyword"
-                          class="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0"
+                          class="form-input w-full md:w-auto filter-input-box bg-gray-50 dark:bg-slate-800 border-0"
                           placeholder="Search your keywords"
                         />
                       </div>
@@ -53,7 +52,7 @@
                       >
                         <select
                           v-model="currentdata.location"
-                          class="form-select"
+                          class="form-select w-full md:w-auto bg-gray-50 dark:bg-slate-800"
                           data-trigger
                           name="choices-location"
                           id="choices-location"
@@ -70,11 +69,11 @@
                       </div>
 
                       <div
-                        class="filter-search-form relative filter-border flex justify-center items-center"
+                        class="filter-search-form relative filter-border flex justify-center items-center "
                       >
                         <select
                           v-model="currentdata.type"
-                          class="form-select"
+                          class="form-select w-full md:w-auto  bg-gray-50 dark:bg-slate-800"
                           data-trigger
                           name="choices-type"
                           id="choices-type"
@@ -96,7 +95,7 @@
                         id="search"
                         name="search"
                         style="height: 60px"
-                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn w-100"
+                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white searchbtn submit-btn"
                         value="Search"
                       />
                     </div>
@@ -113,7 +112,7 @@
         <!--end container-->
         <!-- form container ends -->
         <div v-if="getPaginatedData().length">
-          <div class="container pl-5 pr-5 md:p-16">
+          <div class=" pl-5 pr-5 md:p-16">
             <div
               class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]"
             >
@@ -135,6 +134,7 @@
                       <i
                         class="uil uil-angle-left text-[20px] rtl:rotate-180 rtl:-mt-1"
                       ></i>
+                      <BaseIcon :path="mdiChevronLeft"/>
                     </a>
                   </li>
                   <li v-for="i in totalPages" :key="i" @click="currentPage = i">
@@ -160,6 +160,8 @@
                       <i
                         class="uil uil-angle-right text-[20px] rtl:rotate-180 rtl:-mt-1"
                       ></i>
+                      <BaseIcon :path="mdiChevronRight"/>
+
                     </a>
                   </li>
                 </ul>
@@ -188,16 +190,20 @@
 import SingleJobCard from "@/components/Careers/SingleJobCard.vue";
 import { useStyleStore } from "@/stores/style.js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import { mdiBriefcase } from '@mdi/js';
+import { mdiBriefcase , mdiChevronRight , mdiChevronLeft } from '@mdi/js';
 
 
 export default {
   name: "AllJobs",
   components: {
     SingleJobCard,
+    BaseIcon
   },
   data() {
     return {
+      mdiBriefcase:mdiBriefcase,
+      mdiChevronLeft:mdiChevronLeft,
+      mdiChevronRight:mdiChevronRight,
       filterdata: {
         keyword: "",
         location: "none",

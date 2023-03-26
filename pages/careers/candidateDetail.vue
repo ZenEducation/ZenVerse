@@ -14,7 +14,9 @@
         <!-- End Hero -->
 
         <!-- Start -->
-        <section class="relative md:py-24 py-16">
+        <section
+          class="relative pl-4 pr-4 md:py-24 md:pl-24 md:pr-24 py-16 sm:pl-20 sm:pr-20"
+        >
           <div class="container">
             <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div class="lg:col-span-4 md:col-span-5">
@@ -42,81 +44,61 @@
                       <h5 class="font-semibold">Company Details :</h5>
                       <ul class="list-none mt-4">
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="mail"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >Email :</span
-                          >
+                          <BaseIcon :path="mdiEmailOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >Email :
+                          </span>
                           {{ candidateData.Email }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="gift"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >D.O.B. :</span
-                          >
+                          <BaseIcon :path="mdiGiftOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >D.O.B. :
+                          </span>
                           {{ candidateData.birthDay }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="home"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >Address :</span
-                          >
+                          <BaseIcon :path="mdiHomeOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >Address :
+                          </span>
                           {{ candidateData.address }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="map-pin"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >City :</span
-                          >
+                          <BaseIcon :path="mdiMapMarkerOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >City :
+                          </span>
                           {{ candidateData.city }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="globe"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >Country :</span
-                          >
+                          <BaseIcon :path="mdiWeb"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >Country :
+                          </span>
                           {{ candidateData.country }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="server"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >Postal Code :</span
-                          >
+                          <BaseIcon :path="mdiPostOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >Postal Code :
+                          </span>
                           {{ candidateData.postalCode }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <i
-                            data-feather="phone"
-                            class="h-4 w-4 text-amber-500 ltr:mr-3 rtl:ml-3"
-                          ></i
-                          ><span class="text-slate-400 ltr:mr-3 rtl:ml-3"
-                            >Mobile :</span
-                          >
+                          <BaseIcon :path="mdiPhoneOutline"/>
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
+                            >Mobile :
+                          </span>
                           {{ candidateData.mobile }}
                         </li>
                       </ul>
 
-
+                      <br />
+                      <br />
                       <a
                         href="#0"
-                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mt-6"
+                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md p-4"
                         >Contact Me</a
                       >
                     </div>
@@ -168,6 +150,8 @@
 import CandidateSkillSingle from "@/components/Careers/CandidateSkillSingle.vue";
 import CandidateProjectSingle from "@/components/Careers/CandidateProjectSingle.vue";
 import CandidateExperienceSingle from "@/components/Careers/CandidateExperienceSingle.vue";
+import BaseIcon from "~~/components/Display/BaseIcon.vue";
+import { mdiEmailOutline, mdiGiftOutline ,mdiHomeOutline ,mdiMapMarkerOutline, mdiWeb , mdiPostOutline , mdiPhoneOutline } from "@mdi/js";
 
 const candidateData = {
   name: "Thomas Brewer",
@@ -239,5 +223,3 @@ const candidateData = {
   ],
 };
 </script>
-
-<style scoped src="@/assets/css/tailwind/techwind.css"></style>

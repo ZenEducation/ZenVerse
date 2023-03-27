@@ -1,6 +1,7 @@
 <script setup>
 import { computed, useSlots } from "vue";
 
+
 defineProps({
   label: {
     type: String,
@@ -14,6 +15,10 @@ defineProps({
     type: String,
     default: null,
   },
+  route : {
+    type: Object,
+    default: null 
+  }
 });
 
 const slots = useSlots();
@@ -45,5 +50,8 @@ const wrapperClass = computed(() => {
     <div v-if="help" class="text-xs text-gray-500 dark:text-slate-400 mt-1">
       {{ help }}
     </div>
+    <NuxtLink class="underline text-blue-700 text-xs"  :to="route.to"  v-if="route">
+      {{ route.title }}
+    </NuxtLink>
   </div>
 </template>

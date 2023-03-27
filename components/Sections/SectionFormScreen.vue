@@ -67,7 +67,7 @@ const routes = {
   >
     <div v-if="hasPromo" class="space-y-12 px-12">
       <div class="hidden lg:block">
-        <Basebuttons type="justify-center" glue>
+        <!-- <Basebuttons type="justify-center" glue>
           <BaseButton
             v-for="(routeLabel, index) in routes"
             :key="index"
@@ -77,7 +77,7 @@ const routes = {
             :label="routeLabel"
             color="whiteDark"
           />
-        </Basebuttons>
+        </Basebuttons> -->
       </div>
 
       <div class="text-center text-white py-12 md:py-0">

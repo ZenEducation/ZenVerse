@@ -1,65 +1,126 @@
+<!-- component -->
 <template>
   <NuxtLayout name="zen">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg m-10 p-10">
+    <div
+      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray  shadow-md sm:rounded-lg sm:m-10 bg-gray-50  dark:text-slate-100 "
+    >
       <table
-        class="w-full text-left text-sm text-gray-500 dark:text-gray-400 p-30"
+        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg  text-gray-500 dark:text-gray-400 dark:bg-slate-800"
       >
-        <thead
-          class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
-        >
-          <tr>
-            <th
-              scope="col"
-              class="px-6 py-3"
-              v-for="(value, key) in studentTasks.data[0]"
-            >
-            
-            <div class="flex items-center text-center justify-center">
+        <thead class="sm:table-header-group bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+          <tr
+            v-for="row in studentTasks.data"
+            class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
+          >
+            <th v-for="(value, key) in row" class="p-3 text-center ">
               {{ key }}
-
-            </div>
             </th>
           </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-            v-for="row in studentTasks.data"
+          <!-- <tr
+            class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
           >
-            <td class="px-6 py-4" v-for="colm in row">
-              <div v-if="typeof colm == 'string'" class="flex items-center justify-center">
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3 text-left">Email</th>
+            <th class="p-3 text-left" width="110px">Actions</th>
+          </tr>
+          <tr
+            class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
+          >
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3 text-left">Email</th>
+            <th class="p-3 text-left" width="110px">Actions</th>
+          </tr>
+          <tr
+            class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
+          >
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3 text-left">Email</th>
+            <th class="p-3 text-left" width="110px">Actions</th>
+          </tr> -->
+        </thead>
+        <tbody class="flex-1 lg:flex-none">
+          <tr
+            v-for="row in studentTasks.data"
+            class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+          >
+            <td
+              v-for="colm in row"
+              class="border-grey-light dark:border-gray-300 border p-3 min-w-20"
+            >
+              <div
+                v-if="typeof colm == 'string'"
+                class="flex items-center justify-center"
+              >
                 {{ colm }}
               </div>
-              <div class="grid" style="grid-template-columns: auto auto;" v-else>
+              <div class="grid" style="grid-template-columns: auto auto" v-else>
                 <div class="flex items-center justify-center">
                   <a :href="colm.link">
                     <BaseIcon :path="mdiLink" class="cursor-pointer" w="w-12" />
                   </a>
                 </div>
-                <div class="flex items-center justify-center" >
+                <div class="flex items-center justify-center">
                   <!-- {{ colm.status }} -->
-                  <select v-model="colm.status" id="underline_select" class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                  <select
+                    v-model="colm.status"
+                    id="underline_select"
+                    class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                  >
                     <option value="not started">Not Started</option>
                     <option value="on it">On It</option>
                     <option value="done">Done</option>
                     <option value="revising">Revising</option>
-                </select>
+                  </select>
                 </div>
               </div>
             </td>
           </tr>
+          <!-- <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+          <td class="border-grey-light border hover:bg-gray-100 p-3">
+            Michael Jackson
+          </td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            m_jackson@mail.com
+          </td>
+          <td
+            class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer"
+          >
+            Delete
+          </td>
+        </tr>
+        <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+          <td class="border-grey-light border hover:bg-gray-100 p-3">Julia</td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            julia@mail.com
+          </td>
+          <td
+            class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer"
+          >
+            Delete
+          </td>
+        </tr>
+        <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+          <td class="border-grey-light border hover:bg-gray-100 p-3">
+            Martin Madrazo
+          </td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            martin.madrazo@mail.com
+          </td>
+          <td
+            class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer"
+          >
+            Delete
+          </td>
+        </tr> -->
         </tbody>
       </table>
     </div>
   </NuxtLayout>
 </template>
-
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import {
   mdiLink,
-  mdiChevronRightCircleOutline,
-  mdiChevronLeftCircleOutline,
 } from "@mdi/js";
 
 const studentTasks = reactive({
@@ -68,65 +129,532 @@ const studentTasks = reactive({
       Chapter: "kinematics",
       "Teaching Status": "done",
       module1: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "done",
       },
       module2: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "on it",
       },
       module3: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "done",
       },
       module4: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "on it",
-      },      module5: {
-        link: "www.google.com",
+      },
+      module5: {
+        link: "https://www.google.com",
         status: "done",
       },
       module6: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "on it",
-      },      module7: {
-        link: "www.google.com",
+      },
+      module7: {
+        link: "https://www.google.com",
         status: "done",
       },
       module8: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "on it",
-      },      module9: {
-        link: "www.google.com",
+      },
+      module9: {
+        link: "https://www.google.com",
         status: "done",
       },
       module10: {
-        link: "www.google.com",
+        link: "https://www.google.com",
         status: "on it",
       },
-    },
-    {
-      Chapter: "nlm",
-      "Teaching Status": "ongoing",
-      module1: {
-        link: "www.google.com",
-        status: "revising",
-      },
-      module2: {
-        link: "www.google.com",
+      module11: {
+        link: "https://www.google.com",
         status: "done",
       },
-    },
-    {
-      Chapter: "rotation",
-      "Teaching Status": "un-done",
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "NLM",
+      "Teaching Status": "done",
       module1: {
-        link: "www.google.com",
-        status: "not started",
+        link: "https://www.google.com",
+        status: "done",
       },
       module2: {
-        link: "www.google.com",
-        status: "not started",
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "Work Power",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "Rotation",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "kinematics",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "kinematics",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "kinematics",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "kinematics",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+    },    {
+      Chapter: "kinematics",
+      "Teaching Status": "done",
+      module1: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module2: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module3: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module4: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module5: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module6: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module7: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module8: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module9: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module10: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module11: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module12: {
+        link: "https://www.google.com",
+        status: "on it",
+      },
+      module13: {
+        link: "https://www.google.com",
+        status: "done",
+      },
+      module14: {
+        link: "https://www.google.com",
+        status: "on it",
       },
     },
   ],
@@ -139,3 +667,54 @@ function getColSpan(item) {
   }
 }
 </script>
+<style scoped>
+html,
+body {
+  height: 100%;
+}
+thead {
+  display: block;
+}
+th {
+  height: 3rem;
+  overflow: hidden;
+  line-height: 2rem;
+  min-width: 150px;
+}
+td {
+  position: relative;
+  height: 3rem;
+}
+td .grid {
+  position: absolute;
+  right: 3px;
+  top: 0;
+  padding-left: 6px;
+}
+
+@media (min-width: 640px) {
+  table {
+    display: inline-table !important;
+  }
+
+  thead tr:not(:first-child) {
+    display: none;
+  }
+  td {
+    display: table-cell;
+    text-align: left;
+  }
+  thead {
+    display: table-header-group;
+  }
+}
+
+td:not(:last-child) {
+  border-bottom: 0;
+}
+
+th:not(:last-child) {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+</style>

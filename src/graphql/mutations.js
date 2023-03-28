@@ -13,6 +13,7 @@ export const createBlogPost = /* GraphQL */ `
       category {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -23,6 +24,7 @@ export const createBlogPost = /* GraphQL */ `
         items {
           id
           content
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -33,6 +35,7 @@ export const createBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -54,6 +57,7 @@ export const updateBlogPost = /* GraphQL */ `
       category {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -64,6 +68,7 @@ export const updateBlogPost = /* GraphQL */ `
         items {
           id
           content
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -74,6 +79,7 @@ export const updateBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -95,6 +101,7 @@ export const deleteBlogPost = /* GraphQL */ `
       category {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -105,6 +112,7 @@ export const deleteBlogPost = /* GraphQL */ `
         items {
           id
           content
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -115,6 +123,7 @@ export const deleteBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -132,6 +141,7 @@ export const createCategory = /* GraphQL */ `
     createCategory(input: $input, condition: $condition) {
       id
       name
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -148,6 +158,7 @@ export const updateCategory = /* GraphQL */ `
     updateCategory(input: $input, condition: $condition) {
       id
       name
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -164,6 +175,7 @@ export const deleteCategory = /* GraphQL */ `
     deleteCategory(input: $input, condition: $condition) {
       id
       name
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -180,6 +192,7 @@ export const createComment = /* GraphQL */ `
     createComment(input: $input, condition: $condition) {
       id
       content
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -197,6 +210,7 @@ export const updateComment = /* GraphQL */ `
     updateComment(input: $input, condition: $condition) {
       id
       content
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -214,6 +228,7 @@ export const deleteComment = /* GraphQL */ `
     deleteComment(input: $input, condition: $condition) {
       id
       content
+      isDeleted
       createdAt
       updatedAt
       _version

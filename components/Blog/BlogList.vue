@@ -19,9 +19,5 @@
 
 export default {
     props: ['blogs'],
-    setup(props) {
-        console.log(props.blogs)
-        return (props.blogs)
-    }
 }
 </script>

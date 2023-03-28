@@ -20,9 +20,9 @@
                             <div class="mb-8">
                                 <label class="text-xl text-gray-600">Content <span
                                         class="text-red-500">*</span></label><br />
-                                <textarea name="content" class="border-gray-500" v-model="form.content">
+                                <textarea name="content" class="border-gray-500" v-model="form.content" cols="108" rows="20">
 
-                                                                                                            </textarea>
+                                                                                                                    </textarea>
                             </div>
 
                             <div class="flex p-1">
@@ -30,7 +30,7 @@
                                 <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400 mx-1"
                                     @click.prevent="onSubmit" required>Publish</button>
 
-                                    <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400 mx-1"
+                                <button role="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400 mx-1"
                                     @click.prevent="onCancel" required>Cancel</button>
                             </div>
                         </form>
@@ -44,8 +44,9 @@
 
 <script setup>
 import { API } from 'aws-amplify'
-import { createBlogPost, createCategory } from '../../src/graphql/mutations'
+import { createCategory } from '../../src/graphql/mutations'
 import { useRouter } from "vue-router";
+import { createBlog } from '@/API/blog'
 const router = useRouter();
 const form = ref({
     title: '',
@@ -63,9 +64,11 @@ const onSubmit = async () => {
         const input = {
             title: form.value.title,
             content: form.value.content,
-            blogPostCategoryId: addCategory.data.createCategory.id
+            blogPostCategoryId: addCategory.data.createCategory.id,
+            isDeleted: false
         }
-        const addPost = await API.graphql({ query: createBlogPost, variables: { input: input } })
+        // const addPost = await API.graphql({ query: createBlogPost, variables: { input: input } })
+        const addPost = await createBlog(input)
         router.push('/blog')
         console.log(addPost)
     } catch (error) {

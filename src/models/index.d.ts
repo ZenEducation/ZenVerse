@@ -16,6 +16,7 @@ type EagerBlogPost = {
   readonly content: string;
   readonly category?: Category | null;
   readonly comment?: (Comment | null)[] | null;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly blogPostCategoryId?: string | null;
@@ -31,6 +32,7 @@ type LazyBlogPost = {
   readonly content: string;
   readonly category: AsyncItem<Category | undefined>;
   readonly comment: AsyncCollection<Comment>;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly blogPostCategoryId?: string | null;
@@ -49,6 +51,7 @@ type EagerCategory = {
   };
   readonly id: string;
   readonly name: string;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -60,6 +63,7 @@ type LazyCategory = {
   };
   readonly id: string;
   readonly name: string;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -77,6 +81,7 @@ type EagerComment = {
   };
   readonly id: string;
   readonly content?: string | null;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly blogPostCommentId?: string | null;
@@ -89,6 +94,7 @@ type LazyComment = {
   };
   readonly id: string;
   readonly content?: string | null;
+  readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly blogPostCommentId?: string | null;

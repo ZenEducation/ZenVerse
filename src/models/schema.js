@@ -58,6 +58,13 @@ export const schema = {
                         ]
                     }
                 },
+                "isDeleted": {
+                    "name": "isDeleted",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -124,6 +131,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "isDeleted": {
+                    "name": "isDeleted",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -180,6 +194,13 @@ export const schema = {
                     "name": "content",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isDeleted": {
+                    "name": "isDeleted",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -245,5 +266,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.5",
-    "version": "0e2635c0159b5bc6b89577427a066655"
+    "version": "01d26f4420ebb5ab92958bb43245f1b9"
 };

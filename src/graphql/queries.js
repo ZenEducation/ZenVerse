@@ -10,6 +10,7 @@ export const getBlogPost = /* GraphQL */ `
       category {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -20,6 +21,7 @@ export const getBlogPost = /* GraphQL */ `
         items {
           id
           content
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -30,6 +32,7 @@ export const getBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -53,6 +56,7 @@ export const listBlogPosts = /* GraphQL */ `
         category {
           id
           name
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -63,6 +67,7 @@ export const listBlogPosts = /* GraphQL */ `
           nextToken
           startedAt
         }
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -95,6 +100,7 @@ export const syncBlogPosts = /* GraphQL */ `
         category {
           id
           name
+          isDeleted
           createdAt
           updatedAt
           _version
@@ -105,6 +111,7 @@ export const syncBlogPosts = /* GraphQL */ `
           nextToken
           startedAt
         }
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -122,6 +129,7 @@ export const getCategory = /* GraphQL */ `
     getCategory(id: $id) {
       id
       name
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -140,6 +148,7 @@ export const listCategories = /* GraphQL */ `
       items {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -167,6 +176,7 @@ export const syncCategories = /* GraphQL */ `
       items {
         id
         name
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -183,6 +193,7 @@ export const getComment = /* GraphQL */ `
     getComment(id: $id) {
       id
       content
+      isDeleted
       createdAt
       updatedAt
       _version
@@ -202,6 +213,7 @@ export const listComments = /* GraphQL */ `
       items {
         id
         content
+        isDeleted
         createdAt
         updatedAt
         _version
@@ -230,6 +242,7 @@ export const syncComments = /* GraphQL */ `
       items {
         id
         content
+        isDeleted
         createdAt
         updatedAt
         _version

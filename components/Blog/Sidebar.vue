@@ -9,7 +9,7 @@
                     </div>
                     <div class="flex-none">
                         <button class="btn btn-primary">
-                            <img src="../../assets/images/icon/search.svg" alt="" />
+                            <img src="" alt="" />
                         </button>
                     </div>
                 </div>

@@ -4,34 +4,37 @@
 export const getDepartment = /* GraphQL */ `
   query GetDepartment($id: ID!) {
     getDepartment(id: $id) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -43,16 +46,16 @@ export const listDepartments = /* GraphQL */ `
   ) {
     listDepartments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        departmentId
+        id
         name
         description
         logoUri
-        createdAt
         jobs {
           nextToken
         }
-        id
+        createdAt
         updatedAt
+        jobDepartmentsId
       }
       nextToken
     }
@@ -61,49 +64,51 @@ export const listDepartments = /* GraphQL */ `
 export const getJob = /* GraphQL */ `
   query GetJob($id: ID!) {
     getJob(id: $id) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
@@ -115,85 +120,31 @@ export const listJobs = /* GraphQL */ `
   ) {
     listJobs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        jobId
+        id
         title
         description
         duties
         requirements
         niceToHave
         jobLocation
-        location
+        residenceAddress
+        residenceCity
         jobType
         minSalary
         maxSalary
+        minHourlyRate
+        maxHourlyRate
         currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
-          id
-          updatedAt
+        departments {
+          nextToken
         }
-        jobDepartmentId
         applicants {
           nextToken
         }
-        id
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const jobsByJobDepartmentIdAndJobId = /* GraphQL */ `
-  query JobsByJobDepartmentIdAndJobId(
-    $jobDepartmentId: ID!
-    $jobId: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelJobFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    jobsByJobDepartmentIdAndJobId(
-      jobDepartmentId: $jobDepartmentId
-      jobId: $jobId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
         createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
-          id
-          updatedAt
-        }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
         updatedAt
+        departmentJobsId
+        applicantJobsId
       }
       nextToken
     }
@@ -202,46 +153,39 @@ export const jobsByJobDepartmentIdAndJobId = /* GraphQL */ `
 export const getApplicant = /* GraphQL */ `
   query GetApplicant($id: ID!) {
     getApplicant(id: $id) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;
@@ -253,85 +197,18 @@ export const listApplicants = /* GraphQL */ `
   ) {
     listApplicants(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        applicantId
+        id
         name
         email
         mobile
         cover
         resumeUri
-        createdAt
-        job {
-          jobId
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          jobLocation
-          location
-          jobType
-          minSalary
-          maxSalary
-          currencyForSalary
-          createdAt
-          jobDepartmentId
-          id
-          updatedAt
+        jobs {
+          nextToken
         }
-        applicantJobId
-        id
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const applicantsByApplicantJobIdAndApplicantId = /* GraphQL */ `
-  query ApplicantsByApplicantJobIdAndApplicantId(
-    $applicantJobId: ID!
-    $applicantId: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelApplicantFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    applicantsByApplicantJobIdAndApplicantId(
-      applicantJobId: $applicantJobId
-      applicantId: $applicantId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        applicantId
-        name
-        email
-        mobile
-        cover
-        resumeUri
         createdAt
-        job {
-          jobId
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          jobLocation
-          location
-          jobType
-          minSalary
-          maxSalary
-          currencyForSalary
-          createdAt
-          jobDepartmentId
-          id
-          updatedAt
-        }
-        applicantJobId
-        id
         updatedAt
+        jobApplicantsId
       }
       nextToken
     }

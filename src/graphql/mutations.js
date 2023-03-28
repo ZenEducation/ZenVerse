@@ -7,34 +7,37 @@ export const createDepartment = /* GraphQL */ `
     $condition: ModelDepartmentConditionInput
   ) {
     createDepartment(input: $input, condition: $condition) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -44,34 +47,37 @@ export const updateDepartment = /* GraphQL */ `
     $condition: ModelDepartmentConditionInput
   ) {
     updateDepartment(input: $input, condition: $condition) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -81,34 +87,37 @@ export const deleteDepartment = /* GraphQL */ `
     $condition: ModelDepartmentConditionInput
   ) {
     deleteDepartment(input: $input, condition: $condition) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -118,49 +127,51 @@ export const createJob = /* GraphQL */ `
     $condition: ModelJobConditionInput
   ) {
     createJob(input: $input, condition: $condition) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
@@ -170,49 +181,51 @@ export const updateJob = /* GraphQL */ `
     $condition: ModelJobConditionInput
   ) {
     updateJob(input: $input, condition: $condition) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
@@ -222,49 +235,51 @@ export const deleteJob = /* GraphQL */ `
     $condition: ModelJobConditionInput
   ) {
     deleteJob(input: $input, condition: $condition) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
@@ -274,46 +289,39 @@ export const createApplicant = /* GraphQL */ `
     $condition: ModelApplicantConditionInput
   ) {
     createApplicant(input: $input, condition: $condition) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;
@@ -323,46 +331,39 @@ export const updateApplicant = /* GraphQL */ `
     $condition: ModelApplicantConditionInput
   ) {
     updateApplicant(input: $input, condition: $condition) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;
@@ -372,46 +373,39 @@ export const deleteApplicant = /* GraphQL */ `
     $condition: ModelApplicantConditionInput
   ) {
     deleteApplicant(input: $input, condition: $condition) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;

@@ -6,34 +6,37 @@ export const onCreateDepartment = /* GraphQL */ `
     $filter: ModelSubscriptionDepartmentFilterInput
   ) {
     onCreateDepartment(filter: $filter) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -42,34 +45,37 @@ export const onUpdateDepartment = /* GraphQL */ `
     $filter: ModelSubscriptionDepartmentFilterInput
   ) {
     onUpdateDepartment(filter: $filter) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
@@ -78,181 +84,190 @@ export const onDeleteDepartment = /* GraphQL */ `
     $filter: ModelSubscriptionDepartmentFilterInput
   ) {
     onDeleteDepartment(filter: $filter) {
-      departmentId
+      id
       name
       description
       logoUri
-      createdAt
       jobs {
         items {
-          jobId
+          id
           title
           description
           duties
           requirements
           niceToHave
           jobLocation
-          location
+          residenceAddress
+          residenceCity
           jobType
           minSalary
           maxSalary
+          minHourlyRate
+          maxHourlyRate
           currencyForSalary
           createdAt
-          jobDepartmentId
-          id
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      jobDepartmentsId
     }
   }
 `;
 export const onCreateJob = /* GraphQL */ `
   subscription OnCreateJob($filter: ModelSubscriptionJobFilterInput) {
     onCreateJob(filter: $filter) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
 export const onUpdateJob = /* GraphQL */ `
   subscription OnUpdateJob($filter: ModelSubscriptionJobFilterInput) {
     onUpdateJob(filter: $filter) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
 export const onDeleteJob = /* GraphQL */ `
   subscription OnDeleteJob($filter: ModelSubscriptionJobFilterInput) {
     onDeleteJob(filter: $filter) {
-      jobId
+      id
       title
       description
       duties
       requirements
       niceToHave
       jobLocation
-      location
+      residenceAddress
+      residenceCity
       jobType
       minSalary
       maxSalary
+      minHourlyRate
+      maxHourlyRate
       currencyForSalary
-      createdAt
-      department {
-        departmentId
-        name
-        description
-        logoUri
-        createdAt
-        jobs {
-          nextToken
+      departments {
+        items {
+          id
+          name
+          description
+          logoUri
+          createdAt
+          updatedAt
+          jobDepartmentsId
         }
-        id
-        updatedAt
+        nextToken
       }
-      jobDepartmentId
       applicants {
         items {
-          applicantId
+          id
           name
           email
           mobile
           cover
           resumeUri
           createdAt
-          applicantJobId
-          id
           updatedAt
+          jobApplicantsId
         }
         nextToken
       }
-      id
+      createdAt
       updatedAt
+      departmentJobsId
+      applicantJobsId
     }
   }
 `;
@@ -261,46 +276,39 @@ export const onCreateApplicant = /* GraphQL */ `
     $filter: ModelSubscriptionApplicantFilterInput
   ) {
     onCreateApplicant(filter: $filter) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;
@@ -309,46 +317,39 @@ export const onUpdateApplicant = /* GraphQL */ `
     $filter: ModelSubscriptionApplicantFilterInput
   ) {
     onUpdateApplicant(filter: $filter) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;
@@ -357,46 +358,39 @@ export const onDeleteApplicant = /* GraphQL */ `
     $filter: ModelSubscriptionApplicantFilterInput
   ) {
     onDeleteApplicant(filter: $filter) {
-      applicantId
+      id
       name
       email
       mobile
       cover
       resumeUri
-      createdAt
-      job {
-        jobId
-        title
-        description
-        duties
-        requirements
-        niceToHave
-        jobLocation
-        location
-        jobType
-        minSalary
-        maxSalary
-        currencyForSalary
-        createdAt
-        department {
-          departmentId
-          name
-          description
-          logoUri
-          createdAt
+      jobs {
+        items {
           id
+          title
+          description
+          duties
+          requirements
+          niceToHave
+          jobLocation
+          residenceAddress
+          residenceCity
+          jobType
+          minSalary
+          maxSalary
+          minHourlyRate
+          maxHourlyRate
+          currencyForSalary
+          createdAt
           updatedAt
+          departmentJobsId
+          applicantJobsId
         }
-        jobDepartmentId
-        applicants {
-          nextToken
-        }
-        id
-        updatedAt
+        nextToken
       }
-      applicantJobId
-      id
+      createdAt
       updatedAt
+      jobApplicantsId
     }
   }
 `;

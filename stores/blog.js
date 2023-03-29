@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 
 const state = () => ({
   blogs: [],
-  categories: []
+  categories: [],
+  blogView: {}
 });
 
 const actions = {};

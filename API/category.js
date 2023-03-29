@@ -8,8 +8,7 @@ export const fetchCategoris = async () => {
       query: listCategories,
       variables: { filter: { isDeleted: { ne: true } } },
     })
-  ).data.listCategories;
-  console.log(categories)
+  ).data.listCategories.items;
   return categories;
 };
 

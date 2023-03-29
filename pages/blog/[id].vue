@@ -5,7 +5,7 @@
                 <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 mx-4 mx-auto float-right my-4"
                     @click="deleteBlogFunc">
                     Delete Blog</button>
-                    <SingleBlogMain/>
+                    <SingleBlogMain  v-if="blog" :blog="blog"/>
             </div>
         </NuxtLayout>
     </NuxtLayout>
@@ -14,16 +14,20 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { updateBlog, fetchBlog } from '../../API/blog';
-const router = useRouter();
+import { useBlog } from "~~/stores/blog";
 
+const router = useRouter();
+const blogStore = useBlog()
 const route = useRoute();
+
 let blogId = route.params.id
-let blog;
+let blog = ref({})
 onMounted(async () => {
-    blog = await fetchBlog(blogId)
+    blog.value = await fetchBlog(blogId)
+    blogStore.blogView = blog.value;
 })
 const deleteBlogFunc = async () => {
-    const updated = await updateBlog({ id: blogId, isDeleted: true, _version: blog._version })
+    const updated = await updateBlog({ id: blogId, isDeleted: true, _version: blog.value._version })
     router.push('/blog')
 }
 </script>

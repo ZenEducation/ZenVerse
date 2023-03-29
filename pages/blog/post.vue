@@ -13,16 +13,22 @@
 
                             <div class="mb-4">
                                 <label class="text-xl text-gray-600">category</label><br />
-                                <input type="text" class="border-2 border-gray-300 p-2 w-full" name="description"
-                                    v-model="form.category" id="description">
+                                <!-- <input type="text" class="border-2 border-gray-300 p-2 w-full" name="description"
+                                    v-model="form.category" id="description"> -->
+                                <select class="form-select"  v-model="form.blogPostCategoryId" 
+                                    aria-label="Default select example" style='color: black; width: 200px' id='sub-event'>
+                                    <option :value="category.id" v-for="category in categories">{{category.name}}</option>
+                                   
+                                </select>`
                             </div>
 
                             <div class="mb-8">
                                 <label class="text-xl text-gray-600">Content <span
                                         class="text-red-500">*</span></label><br />
-                                <textarea name="content" class="border-gray-500" v-model="form.content" cols="108" rows="20">
+                                <textarea name="content" class="border-gray-500" v-model="form.content" cols="108"
+                                    rows="20">
 
-                                                                                                                    </textarea>
+                                                                                                                                    </textarea>
                             </div>
 
                             <div class="flex p-1">
@@ -47,30 +53,33 @@ import { API } from 'aws-amplify'
 import { createCategory } from '../../src/graphql/mutations'
 import { useRouter } from "vue-router";
 import { createBlog } from '@/API/blog'
+import { fetchCategoris } from '~~/API/category';
 const router = useRouter();
 const form = ref({
     title: '',
     content: '',
-    category: '',
+    blogPostCategoryId: '',
 
 })
-
+let categories = ref([]);
+onMounted(async () => {
+    categories.value = await fetchCategoris();
+    console.log(categories.value)
+})
 const onCancel = () => {
     router.push('/blog')
 }
 const onSubmit = async () => {
     try {
-        const addCategory = await API.graphql({ query: createCategory, variables: { input: { name: form.value.category } } })
         const input = {
             title: form.value.title,
             content: form.value.content,
-            blogPostCategoryId: addCategory.data.createCategory.id,
+            blogPostCategoryId: form.value.blogPostCategoryId,
             isDeleted: false
         }
-        // const addPost = await API.graphql({ query: createBlogPost, variables: { input: input } })
         const addPost = await createBlog(input)
         router.push('/blog')
-        console.log(addPost)
+        console.log(input)
     } catch (error) {
         console.log(error)
     }

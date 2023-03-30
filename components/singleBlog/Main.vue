@@ -32,9 +32,9 @@
 
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <h1 style="font-size: 20px;">Comments</h1>
-                    <SingleBlogComments />
+                    <SingleBlogComments :blog="blog" />
 
                 </div>
 
@@ -44,10 +44,11 @@
 </template>
 
 <script >
-export default{
+export default {
     props: ['blog'],
-    setup(){
-        
+    setup(props) {
+        const blogProps = props.blog
+        return (blogProps)
     }
 }
 

@@ -26,7 +26,6 @@ const props = defineProps({
 })
 
 const { blog } = toRefs(props);
-
 const router = useRouter();
 
 const toBlogPage = (id) => {

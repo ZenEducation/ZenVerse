@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow-box12 rounded-[8px] transition duration-100 hover:shadow-box13"
+  <div class="bg-white shadow-box12 rounded-[8px] transition duration-100 hover:shadow-box13 cursor-pointer"
     @click.prevent="toBlogPage(blog.id)">
     <div class="course-thumb h-[260px] rounded-t-[8px]  relative">
       <img src="" alt="Not Available" class=" w-full h-full object-cover rounded-t-[8px]">

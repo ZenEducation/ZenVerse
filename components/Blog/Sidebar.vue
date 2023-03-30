@@ -14,9 +14,16 @@
                     </div>
                 </div>
             </div>
-            <BlogCategories />
+            <BlogCategories :changeCategory="changeCategory"/>
          
         
         </div>
     </div>
 </template>
+
+<script>
+
+export default {
+    props: [ 'changeCategory'],
+}
+</script>

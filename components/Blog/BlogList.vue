@@ -11,13 +11,13 @@
                 </div>
             
             </div>
-            <BlogSidebar />
+            <BlogSidebar :changeCategory="changeCategory"/>
         </div>
 </template>
 
 <script>
 
 export default {
-    props: ['blogs'],
+    props: ['blogs', 'changeCategory'],
 }
 </script>

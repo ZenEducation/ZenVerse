@@ -49,8 +49,6 @@
 </template>
 
 <script setup>
-import { API } from 'aws-amplify'
-import { createCategory } from '../../src/graphql/mutations'
 import { useRouter } from "vue-router";
 import { createBlog } from '@/API/blog'
 import { fetchCategoris } from '~~/API/category';
@@ -67,7 +65,7 @@ onMounted(async () => {
     console.log(categories.value)
 })
 const onCancel = () => {
-    router.push('/blog')
+    router.push('/blog?category=all')
 }
 const onSubmit = async () => {
     try {
@@ -78,8 +76,7 @@ const onSubmit = async () => {
             isDeleted: false
         }
         const addPost = await createBlog(input)
-        router.push('/blog')
-        console.log(input)
+        router.push('/blog?category=all')
     } catch (error) {
         console.log(error)
     }

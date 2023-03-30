@@ -17,6 +17,7 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiFilePdfBox
 } from "@mdi/js";
 
 export default [
@@ -58,6 +59,12 @@ export default [
     label: "Pricing layout",
     icon: mdiBarcode,
   },
+  {
+    to: "/pps/uploadfiles",
+    label: "Files upload",
+    icon: mdiFilePdfBox,
+  },
+  
   {
     label: "Dropdown",
     icon: mdiFormDropdown,
@@ -157,4 +164,5 @@ export default [
     label: "About",
     icon: mdiHelpCircle,
   },
+ 
 ];

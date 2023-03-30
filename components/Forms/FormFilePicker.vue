@@ -83,7 +83,7 @@ const upload = (event) => {
 </script>
 
 <template>
-  <div class="flex items-stretch justify-start relative">
+  <div class="sm:flex items-stretch justify-start relative">
     <label class="inline-flex">
       <BaseButton
         as="a"
@@ -104,7 +104,7 @@ const upload = (event) => {
     </label>
     <div
       v-if="showFilename"
-      class="px-4 py-2 bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r"
+      class="px-4 py-2 bg-gray-100 dark:bg-slate-800 border-gray-200 dark:border-slate-700 border rounded-r break-all w-max mt-2 sm:mt-0 sm:mx-2"
     >
       <span class="text-ellipsis line-clamp-1">
         {{ file.name }}

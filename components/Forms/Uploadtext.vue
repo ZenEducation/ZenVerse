@@ -1,8 +1,8 @@
 <script setup>
 import { computed, useSlots } from "vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-
 defineProps({
+  
   label: {
     type: String,
     default: null,
@@ -27,9 +27,18 @@ const selectFile = () => {
   fileInputRef.value.click();
 };
 
-const handleFileUpload = () => {
-  const files = fileInputRef.value.files;
+const handleFileUpload = (event) => {
+  // const files = fileInputRef.value.files;
   // Handle file upload logic here
+  const file = event.target.files[0];
+      const allowedExtensions = /(\.mp4|\.avi)$/i; // allow mp4 and avi files
+      if (!allowedExtensions.exec(file.name)) {
+        alert('Please select a valid video file');
+        event.target.value = '';
+        return false;
+      }
+      // do something with the file
+      console.log(file);
 };
 const handleDragOver = (e) => {
   e.preventDefault();
@@ -47,16 +56,9 @@ const handleDrop = (e) => {
 
     reader.onload = () => {
       const fileContent = reader.result;
-      // Do something with the file content, like send it to a server
-      //console.log("File content:", fileContent);
     };
-
-    reader.DONE(file);
   }
 };
-onMounted(() => {
-  console.log('Component mounted!');
-});
 
 </script>
 
@@ -82,7 +84,14 @@ onMounted(() => {
           <strong>Or</strong>
         </div>
         <BaseButton @click="selectFile" label="SELECT FILE" type="submit" color="info" />
-        <input type="file" ref="fileInputRef" style="display: none;" @change="handleFileUpload" />
+        <!-- <input type="file" ref="fileInputRef" style="display: none;" @change="handleFileUpload" /> -->
+        <input
+        ref="fileInputRef"
+        type="file"
+        class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+        :accept="accept"
+        @input="handleFileUpload"
+      />
       </div>
       <div class="footer_text mb-6 last:mb-0">
         

@@ -61,7 +61,7 @@ export default [
   },
   {
     to: "/pps/uploadfiles",
-    label: "Files upload",
+    label: "Add New Lesson",
     icon: mdiFilePdfBox,
   },
   

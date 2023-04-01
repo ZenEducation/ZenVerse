@@ -45,7 +45,7 @@ const inputValue = ref("");
           main
         >
           <BaseButton
-            label="DISGARD CHANGES"
+            label="DISCARD CHANGES"
             :icon="mdiCreditCardOutline"
             rounded-full
             small
@@ -73,6 +73,14 @@ const inputValue = ref("");
                 help="Title"
               />
             </PremFormField>
+            <PremFormField label="Text description" horizontal>
+              <FormUploadFiles
+                
+                :icon-left="mdiAccount"
+                help="Text"
+              />
+            </PremFormField>
+
 
             <PremFormField label="Videos from your library" horizontal>
               <FormUploadFiles :options="selectFieldOptions" />

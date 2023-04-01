@@ -26,13 +26,13 @@ const state = () => ({
     { amount: 374.63, name: "Auto Loan Account", date: "7 days ago", type: "withdrawal", business: "Collier - Hintz" }
   ],
   lessonOptions : [
-    {headline: "Video", description:"Easily upload and display your video content in Thinkific"},
+    {headline: "Video", description:"Easily upload and display your video content"},
     {headline: "PDF", description:"Easily upload PDF content for your students to view directly within your course player"},
     {headline: "Text", description:"Include bodies of text,styled HTML content, and also imagePerfect for learning on the go, audio content is great if you know your students are mobile"},
     {headline: "Audio", description:"Perfect for learning on the go, audio content is great if you know yor students are mobile"},
     {headline: "Download", description:"Distribute files to your students"},
     {headline: "Presentation", description:"Display slides with audio that your students can navigate through"},
-    {headline: "Multimedia", description:"Include a great resource into your course that is hosted outside of Thinkific"},
+    {headline: "Multimedia", description:"Include a great resource into your course"},
     {headline: "Live", description:"Enable Live lessons using Zoom's video meeting and/or webinar tools"}
   ],
   accessStudents: [

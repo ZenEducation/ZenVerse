@@ -35,6 +35,7 @@ export const createBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      coverImage
       isDeleted
       createdAt
       updatedAt
@@ -79,6 +80,7 @@ export const updateBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      coverImage
       isDeleted
       createdAt
       updatedAt
@@ -123,6 +125,7 @@ export const deleteBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      coverImage
       isDeleted
       createdAt
       updatedAt
@@ -193,6 +196,33 @@ export const createComment = /* GraphQL */ `
       id
       content
       isDeleted
+      blogPostId {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        comment {
+          nextToken
+          startedAt
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        blogPostCategoryId
+      }
       createdAt
       updatedAt
       _version
@@ -211,6 +241,33 @@ export const updateComment = /* GraphQL */ `
       id
       content
       isDeleted
+      blogPostId {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        comment {
+          nextToken
+          startedAt
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        blogPostCategoryId
+      }
       createdAt
       updatedAt
       _version
@@ -229,6 +286,33 @@ export const deleteComment = /* GraphQL */ `
       id
       content
       isDeleted
+      blogPostId {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        comment {
+          nextToken
+          startedAt
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        blogPostCategoryId
+      }
       createdAt
       updatedAt
       _version

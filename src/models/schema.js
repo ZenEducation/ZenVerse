@@ -58,6 +58,13 @@ export const schema = {
                         ]
                     }
                 },
+                "coverImage": {
+                    "name": "coverImage",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "isDeleted": {
                     "name": "isDeleted",
                     "isArray": false,
@@ -266,5 +273,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.5",
-    "version": "01d26f4420ebb5ab92958bb43245f1b9"
+    "version": "cf782dc8e55a5a8c9af11cfc94617f60"
 };

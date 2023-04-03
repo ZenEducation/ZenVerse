@@ -22,7 +22,7 @@
 import { fetchCategoris } from '@/API/category'
 import { useBlog } from '@/stores/blog'
 const props = defineProps({
-  changeCategory: Object
+  changeCategory: Function
 })
 const { changeCategory } = toRefs(props);
 const setCategory = () => {

@@ -32,6 +32,7 @@ export const getBlogPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      coverImage
       isDeleted
       createdAt
       updatedAt
@@ -67,6 +68,7 @@ export const listBlogPosts = /* GraphQL */ `
           nextToken
           startedAt
         }
+        coverImage
         isDeleted
         createdAt
         updatedAt
@@ -111,6 +113,7 @@ export const syncBlogPosts = /* GraphQL */ `
           nextToken
           startedAt
         }
+        coverImage
         isDeleted
         createdAt
         updatedAt
@@ -194,6 +197,33 @@ export const getComment = /* GraphQL */ `
       id
       content
       isDeleted
+      blogPostId {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        comment {
+          nextToken
+          startedAt
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        blogPostCategoryId
+      }
       createdAt
       updatedAt
       _version
@@ -214,6 +244,19 @@ export const listComments = /* GraphQL */ `
         id
         content
         isDeleted
+        blogPostId {
+          id
+          title
+          content
+          coverImage
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          blogPostCategoryId
+        }
         createdAt
         updatedAt
         _version
@@ -243,6 +286,19 @@ export const syncComments = /* GraphQL */ `
         id
         content
         isDeleted
+        blogPostId {
+          id
+          title
+          content
+          coverImage
+          isDeleted
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          blogPostCategoryId
+        }
         createdAt
         updatedAt
         _version

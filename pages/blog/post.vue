@@ -10,15 +10,17 @@
                                 <input type="text" class="border-2 border-gray-300 p-2 w-full" name="title" id="title"
                                     required v-model="form.title">
                             </div>
-
+                            <PremFormField label="File" horizontal>
+                                <FormFilePicker v-model="form.file" label="Upload" v-on:change="onFileChange" />
+                            </PremFormField>
+                            <img :src="form.previewImage" alt='' loading="lazy" />
                             <div class="mb-4">
                                 <label class="text-xl text-gray-600">category</label><br />
-                                <!-- <input type="text" class="border-2 border-gray-300 p-2 w-full" name="description"
-                                    v-model="form.category" id="description"> -->
-                                <select class="form-select"  v-model="form.blogPostCategoryId" 
+
+                                <select class="form-select" v-model="form.blogPostCategoryId"
                                     aria-label="Default select example" style='color: black; width: 200px' id='sub-event'>
-                                    <option :value="category.id" v-for="category in categories">{{category.name}}</option>
-                                   
+                                    <option :value="category.id" v-for="category in categories">{{ category.name }}</option>
+
                                 </select>`
                             </div>
 
@@ -28,7 +30,7 @@
                                 <textarea name="content" class="border-gray-500" v-model="form.content" cols="108"
                                     rows="20">
 
-                                                                                                                                    </textarea>
+                                                                                                                                                                    </textarea>
                             </div>
 
                             <div class="flex p-1">
@@ -50,31 +52,45 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import PremFormField from "@/components/Forms/FormField.vue";
+import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
 import { createBlog } from '@/API/blog'
+
 import { fetchCategoris } from '~~/API/category';
+import uploadFileToS3 from '~~/Zen Extras/uploadFileToS3'
 const router = useRouter();
 const form = ref({
     title: '',
     content: '',
     blogPostCategoryId: '',
-
+    file: '',
+    previewImage: ''
 })
+function onFileChange(e) {
+    var files = e.target.files || e.dataTransfer.files;
+    if (!files.length)
+        return;
+    form.value.file = files[0]
+    form.value.previewImage = URL?.createObjectURL(event?.target?.files[0])
+}
 let categories = ref([]);
 onMounted(async () => {
     categories.value = await fetchCategoris();
-    console.log(categories.value)
 })
 const onCancel = () => {
     router.push('/blog?category=all')
 }
 const onSubmit = async () => {
     try {
+        let fileUrl = await uploadFileToS3(form.value.file)
         const input = {
             title: form.value.title,
             content: form.value.content,
             blogPostCategoryId: form.value.blogPostCategoryId,
-            isDeleted: false
+            isDeleted: false,
+            coverImage: fileUrl
         }
+        console.log(input)
         const addPost = await createBlog(input)
         router.push('/blog?category=all')
     } catch (error) {

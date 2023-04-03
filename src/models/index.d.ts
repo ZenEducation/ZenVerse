@@ -16,6 +16,7 @@ type EagerBlogPost = {
   readonly content: string;
   readonly category?: Category | null;
   readonly comment?: (Comment | null)[] | null;
+  readonly coverImage?: string | null;
   readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -32,6 +33,7 @@ type LazyBlogPost = {
   readonly content: string;
   readonly category: AsyncItem<Category | undefined>;
   readonly comment: AsyncCollection<Comment>;
+  readonly coverImage?: string | null;
   readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

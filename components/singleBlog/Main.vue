@@ -7,7 +7,7 @@
             <div class="grid grid-cols-12 gap-[30px]">
                 <div class="lg:col-span-8 col-span-12">
                     <div class="bg-[#F8F8F8] rounded-md">
-                        <img src="" alt="" class=" rounded-t-md mb-10">
+                        <img :src="blog.coverImage" alt="" class=" rounded-t-md mb-10">
                         <div class="px-10 pb-10">
                             <div class="flex  flex-wrap  xl:space-x-10 space-x-5 mt-6 mb-6">
                                 <a class=" flex items-center space-x-2" href="#">

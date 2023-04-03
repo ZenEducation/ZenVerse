@@ -4,7 +4,15 @@
 
     <ul class="list-item space-y-4" v-if="categories.length">
 
+      <li class="block" @click="setCategory">
+        <NuxtLink href="/blog?category=all"
+          class="flex justify-between  py-[17px] px-5 rounded transition-all duration-150 border-2 border-gray-300">
+          <span>All</span>
+          <span class="text-2xl">
 
+          </span>
+        </NuxtLink>
+      </li>
       <li class="block" v-for="category in categories" @click="setCategory">
         <NuxtLink :href="`/blog?category=${category.id}`"
           class="flex justify-between  py-[17px] px-5 rounded transition-all duration-150 border-2 border-gray-300">

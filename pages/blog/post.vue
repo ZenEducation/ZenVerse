@@ -27,10 +27,10 @@
                             <div class="mb-8">
                                 <label class="text-xl text-gray-600">Content <span
                                         class="text-red-500">*</span></label><br />
-                                <textarea name="content" class="border-gray-500" v-model="form.content" cols="108"
-                                    rows="20">
+                                <!-- <textarea name="content" class="border-gray-500" v-model="form.content" cols="108"
+                                    rows="20"></textarea> -->
+                                <ckeditor :editor="editor" v-model="form.content"/>
 
-                                                                                                                                                                    </textarea>
                             </div>
 
                             <div class="flex p-1">
@@ -58,6 +58,13 @@ import { createBlog } from '@/API/blog'
 
 import { fetchCategoris } from '~~/API/category';
 import uploadFileToS3 from '~~/Zen Extras/uploadFileToS3'
+import FullFreeBuildEditor from '@blowstack/ckeditor5-full-free-build'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+
+
+let ckeditor = CKEditor.component
+let editor = FullFreeBuildEditor;
+
 const router = useRouter();
 const form = ref({
     title: '',
@@ -80,6 +87,7 @@ onMounted(async () => {
 const onCancel = () => {
     router.push('/blog?category=all')
 }
+
 const onSubmit = async () => {
     try {
         let fileUrl = await uploadFileToS3(form.value.file)
@@ -90,7 +98,6 @@ const onSubmit = async () => {
             isDeleted: false,
             coverImage: fileUrl
         }
-        console.log(input)
         const addPost = await createBlog(input)
         router.push('/blog?category=all')
     } catch (error) {

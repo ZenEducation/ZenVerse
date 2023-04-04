@@ -26,9 +26,9 @@
                             </div>
 
 
-                            <p>
-                                {{ blog.content }}
-                            </p>
+                            <div id="content" v-html="blog.content">
+
+                            </div>
 
                         </div>
                     </div>
@@ -43,13 +43,12 @@
     </div>
 </template>
 
-<script >
-export default {
-    props: ['blog'],
-    setup(props) {
-        const blogProps = props.blog
-        return (blogProps)
-    }
-}
+<script setup>
 
+
+
+const props = defineProps({
+    blog: Object
+})
+const { blog } = toRefs(props);
 </script>

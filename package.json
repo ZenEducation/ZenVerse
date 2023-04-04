@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^3.0.4",
+    "@blowstack/ckeditor5-full-free-build": "^27.0.1",
+    "@ckeditor/ckeditor5-vue": "^4.0.1",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
     "@headlessui/vue": "^1.4.2",

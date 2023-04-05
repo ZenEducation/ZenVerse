@@ -19,7 +19,7 @@
     "@vueuse/core": "^9.9.0",
     "@vueuse/nuxt": "^9.9.0",
     "autoprefixer": "^10.4.11",
-    "nuxt": "3.0.0",
+    "nuxt": "^3.0.0",
     "postcss": "^8.4.16",
     "sass": "^1.57.0",
     "tailwind-scrollbar": "^2.0.1",
@@ -47,6 +47,7 @@
     "uuid4": "^2.0.3",
     "vue": "^3.2.33",
     "vue-3-slider-component": "^0.1.0",
-    "vue-advanced-chat": "^2.0.6"
+    "vue-advanced-chat": "^2.0.6",
+    "vue-router": "^4.1.6"
   }
 }

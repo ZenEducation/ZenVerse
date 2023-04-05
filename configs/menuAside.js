@@ -77,10 +77,7 @@ export default [
       {
         label: "All Departments",
         to:'/careers/allDepartments'
-      },
-      {
-        label: "Dropdown item Dos",
-      },
+      }
     ],
   },
   {

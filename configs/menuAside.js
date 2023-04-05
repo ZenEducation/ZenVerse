@@ -77,7 +77,7 @@ export default [
       {
         label: "All Departments",
         to:'/careers/allDepartments'
-      }
+      },
     ],
   },
   {

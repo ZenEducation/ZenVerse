@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import SingleDepartment from "~~/components/Careers/DepartmentCard.vue.js";
+import SingleDepartment from "@/components/Careers/DepartmentCard.vue";
 const data = {
   departmentData: [
     {

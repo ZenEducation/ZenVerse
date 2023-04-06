@@ -21,68 +21,6 @@ import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
-
-// const selectFieldOptions = [
-//   { id: 1, label: "Business development" },
-//   { id: 2, label: "Marketing" },
-//   { id: 3, label: "Sales" },
-// ];
-
-// const listBoxOptions = [
-//   { id: 1, label: "Howell Hand", unavailable: false },
-//   { id: 2, label: "Hope Howe", unavailable: false },
-//   { id: 3, label: "Nelson Jerde", unavailable: false },
-//   { id: 4, label: "Kim Weimann (disabled)", unavailable: true },
-//   { id: 5, label: "Lenna Smitham", unavailable: false },
-// ];
-
-// const form = reactive({
-//   name: "John Doe",
-//   email: "john.doe@example.com",
-//   pass: "secret",
-//   phone: "",
-//   amount: 1024,
-//   ipv6: "fe80::/10",
-//   ipv4: "127.0.0.1",
-//   currency: "USD",
-//   department: selectFieldOptions[0],
-//   person: listBoxOptions[0],
-//   question: "Textarea",
-//   subject: "",
-//   checkboxOne: ["lorem"],
-//   checkboxTwo: ["lorem"],
-//   radioOne: "one",
-//   radioTwo: "one",
-//   switchOne: ["one"],
-//   switchTwo: ["one"],
-//   file: null,
-// });
-
-// const formLower = reactive({
-//   name: "John Doe",
-//   email: "john.doe@example.com",
-//   department: selectFieldOptions[0],
-//   person: listBoxOptions[0],
-//   question: "Error state",
-// });
-
-// const passShowHideClicked = ref(false);
-
-// const mainStore = useMainStore();
-
-// const submit = () => {
-//   mainStore.pushMessage("Done! Demo only...", "contrast");
-// };
-
-// const formErrorHasError = ref(false);
-
-// const formErrorSubmit = () => {
-//   formErrorHasError.value = true;
-
-//   setTimeout(() => {
-//     formErrorHasError.value = false;
-//   }, 2000);
-// };
 </script>
 
 <template>

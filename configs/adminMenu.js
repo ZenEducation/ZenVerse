@@ -1,5 +1,4 @@
-import { mdiLogout, mdiThemeLightDark, mdiHelpCircleOutline } from "@mdi/js";
-
+import { mdiMenu, mdiThemeLightDark } from "@mdi/js";
 export default [
   {
     label: "Curriculum",
@@ -28,16 +27,17 @@ export default [
     isDesktopNoLabel: true,
     isToggleLightDark: true,
   },
+
   {
-    icon: mdiHelpCircleOutline,
-    label: "About",
-    href: "",
-    isDesktopNoLabel: true,
-  },
-  {
-    icon: mdiLogout,
-    label: "Log out",
-    isDesktopNoLabel: true,
-    isLogout: true,
+    icon: mdiMenu,
+    label: "Preview",
+    menu: [
+      {
+        label: "ALL COURSES ONLINE",
+      },
+      {
+        label: "COURSES AS AN ENROLLED STUDENTS",
+      },
+    ],
   },
 ];

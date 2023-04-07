@@ -1,4 +1,5 @@
 <script setup>
+import { mdiDotsVertical } from "@mdi/js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import CardBox from "@/components/Cards/CardBox.vue";

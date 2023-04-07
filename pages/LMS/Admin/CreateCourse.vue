@@ -1,17 +1,4 @@
 <script setup>
-import { ref, reactive } from "vue";
-import { useMainStore } from "@/stores/main.js";
-import {
-  mdiBallot,
-  mdiBallotOutline,
-  mdiAccount,
-  mdiMail,
-  mdiCheck,
-  mdiProgressCheck,
-  mdiReload,
-  mdiCreditCardOutline,
-  mdiDotsVertical,
-} from "@mdi/js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import CardBox from "@/components/Cards/CardBox.vue";

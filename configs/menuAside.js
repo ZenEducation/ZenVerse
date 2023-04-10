@@ -17,7 +17,9 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
-  mdiFilePdfBox
+  mdiFilePdfBox,
+  mdiImport ,
+  mdiDownloadBoxOutline
 } from "@mdi/js";
 
 export default [
@@ -60,19 +62,19 @@ export default [
     icon: mdiBarcode,
   },
   {
-    to: "/pps/uploadfiles",
+    to: "/LMS/uploadfiles",
     label: "Add New Lesson",
     icon: mdiFilePdfBox,
   },
   {
     to: "/LMS/import",
     label: "Add Bulk Importer",
-    icon: mdiFilePdfBox,
+    icon: mdiImport,
   },
   {
     to: "/LMS/download",
     label: "Add Download",
-    icon: mdiFilePdfBox,
+    icon: mdiDownloadBoxOutline,
   },
   {
     label: "Dropdown",

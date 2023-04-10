@@ -14,8 +14,8 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import FormUploadFiles from "@/components/Forms/FormUploadFiles.vue";
-import Uploadtext from "@/components/Forms/Uploadtext.vue";
+import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
+import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
 import Editor from "@/components/LMS/Editor.vue";
 const selectFieldOptions = [
@@ -75,13 +75,13 @@ const inputValue = ref("");
                 help="Title"
               />
             </PremFormField>
-            <PremFormField label="Text description" horizontal>
+            <PremFormField label="Content" horizontal>
              <Editor/>
             </PremFormField>
 
             <PremFormField label="Upload a file" horizontal>
               <Uploadtext
-              usefiles
+              video
               dragText = "Drag & Drop files here"
                 footer = "footerText"
                 :icon-left="mdiAccount"

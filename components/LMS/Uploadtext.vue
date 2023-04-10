@@ -28,11 +28,14 @@ defineProps({
     default :null
   },
   usefiles:Boolean,
-  allfiles:Boolean
+  allfiles:Boolean,
+  download : Boolean,
+  video:Boolean
 });
 const slots = useSlots();
 const fileInput = ref(null);
 const fileInputSvg = ref(null)
+const fileInputDownload = ref(null)
 const fileDownload  = ref(
 'You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v'
 )
@@ -43,10 +46,12 @@ const selectFile = () => {
 const selectFilesvg = () => {
   fileInputSvg.value.click();
 };
+const selectFileDownload = () => {
+  fileInputDownload.value.click();
+};
 
 const handleFileUpload = (event) => {
-  // const files = fileInputRef.value.files;
-  // Handle file upload logic here
+  
   const fileInput = event.target;
       const acceptedTypes = fileInput.accept.split(',');
       const extension = '.' + fileInput.files[0].type.split('/')[1]  
@@ -59,9 +64,26 @@ const handleFileUpload = (event) => {
       }
       console.log(validFileType);
 };
+const handleFileDownload = (event) => {
+ 
+  const fileInput = event.target;
+      const acceptedTypes = fileInput.accept.split(',');
+      const extension = '.' + fileInput.files[0].type.split('/')[1]  
+      const validFileType = acceptedTypes.includes(extension);
+      
+      if (!validFileType) {
+       alert("File format is invaild file")
+      } else {
+        fileInput.setCustomValidity('');
+      }
+      console.log(validFileType);
+};
+
+
+
+
 const handleFilesvg = (event) => {
-  // const files = fileInputRef.value.files;
-  // Handle file upload logic here
+
   const fileInput = event.target;
       const acceptedTypes = fileInput.accept.split(',');
       
@@ -90,8 +112,38 @@ const handleFilesvg = (event) => {
         }
       }
     }
-
-
+    const handleDropVideo = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+      const files = event.dataTransfer.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileType = file.type.split('/')[0];
+        if (fileType === 'video') {
+          // handle the file as needed (e.g. upload to server, display in UI, etc.)
+          console.log(file.name);
+        } else {
+          console.log(`Invalid file type: ${file.type}`);
+        }
+      }
+    }
+    const handleDropFiles = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+      const files = event.dataTransfer.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileType = file.type.split('/')[0];
+        console.log(file.type)
+        if ( fileType === 'image/dmg'||fileType === 'image/svg' || fileType === 'text/html') {
+          // handle the file as needed (e.g. upload to server, display in UI, etc.)
+          console.log(file.name);
+        } else {
+          console.log(`Invalid file type: ${file.type}`);
+        }
+      }
+    }
+    
 </script>
 
 <template>
@@ -107,7 +159,8 @@ const handleFilesvg = (event) => {
         textAlign: 'center',
       }"
     >
-      <div class="drag_drop"  @drop="handleDrop" @dragover.prevent>
+    <!-- bulk importer -->
+      <div class="drag_drop" v-if = "allfiles"  @drop="handleDrop" @dragover.prevent>
         <div v-if="slots.default">
           <slot />
         </div>
@@ -115,12 +168,11 @@ const handleFilesvg = (event) => {
         <div :style="{ padding: '1rem' }">
           <strong>Or</strong>
         </div>
-        <BaseButton  v-if = "usefiles"  @click="selectFilesvg" label="SELECT FILE" type="submit" color="info" />
-        <BaseButton v-else @click="selectFile" label="SELECT FILE" type="submit" color="info" />
+        <BaseButton  @click="selectFile" label="SELECT FILE" type="submit" color="info" />
         <!-- <input type="file" ref="fileInputRef" style="display: none;" @change="handleFileUpload" /> -->
         
         <input
-        v-if = "allfiles"
+        
         ref="fileInput"
       
         class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
@@ -128,8 +180,48 @@ const handleFilesvg = (event) => {
         @input="handleFileUpload"
         
       />
+      </div>
+
+      <!-- Download lesson-->
+      <div class="drag_drop" v-else-if="download" @drop="handleDropVideo" @dragover.prevent>
+        <div v-if="slots.default">
+          <slot />
+        </div>
+        <div v-else class="drag_text">{{ dragText }}</div>
+        <div :style="{ padding: '1rem' }">
+          <strong>Or</strong>
+        </div>
+        <BaseButton   @click="selectFileDownload" label="SELECT FILE" type="submit" color="info" />
+        
+        <!-- <input type="file" ref="fileInputRef" style="display: none;" @change="handleFileUpload" /> -->
+       
       <input
-        v-if = "usefiles"
+       
+        ref="fileInputDownload"
+      
+        class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+        type="file" accept=".3g2,.3gp,.3gpp,.3gpp2,.asf,.asx,.avi,.dv,.f4p,.fv4,.flv,.mjpeg,.mkv,.mov,.movie,.mp2,.mp3g,.mp4,.mpe,.mpeg,.mpg,.mpg4,.ogg,.ogv,.ogx,.qt,.rm,.viv,.vivo,.webm,.wm,.wmx,.wvx,.m4v"
+        @input="handleFileDownload"
+        
+      />
+
+      </div>
+
+
+
+      <!-- video  -->
+      
+      <div class="drag_drop" v-else-if = "video"  @drop="handleDropFiles" @dragover.prevent>
+        <div v-if="slots.default">
+          <slot />
+        </div>
+        <div v-else class="drag_text">{{ dragText }}</div>
+        <div :style="{ padding: '1rem' }">
+          <strong>Or</strong>
+        </div>
+        <BaseButton @click="selectFilesvg" label="SELECT FILE" type="submit" color="info" />
+      <input
+        
         ref="fileInputSvg"
       
         class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
@@ -139,11 +231,17 @@ const handleFilesvg = (event) => {
       />
 
       </div>
+
+
       <div class="footer_text mb-6 last:mb-0" v-if = "allfiles">
         {{ fileDownload }}
         
       </div>
-      <div class="footer_text mb-6 last:mb-0" v-if = "usefiles">
+      <div class="footer_text mb-6 last:mb-0" v-if = "download">
+        {{ fileDownload }}
+        
+      </div>
+      <div class="footer_text mb-6 last:mb-0" v-else-if = "video">
         You can upload any type of file except .dmg, .svg, and .html files
     </div>
 

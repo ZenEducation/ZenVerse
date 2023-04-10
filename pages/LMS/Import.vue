@@ -16,8 +16,8 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import FormUploadFiles from "@/components/Forms/FormUploadFiles.vue";
-import Uploadtext from "@/components/Forms/Uploadtext.vue";
+import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
+import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 
 import BulkImporterIcon from "~~/components/LMS/BulkImporterIcon.vue";

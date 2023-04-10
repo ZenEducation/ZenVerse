@@ -8,7 +8,7 @@ import {
   mdiFileUploadOutline,
   mdiDragVertical
 } from "@mdi/js";
-import FormUploadFiles from "@/components/Forms/FormUploadFiles.vue";
+import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import FormControlIcon from "@/components/Forms/FormControlIcon.vue";
 defineProps({
   icon: {

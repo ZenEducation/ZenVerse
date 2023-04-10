@@ -64,7 +64,16 @@ export default [
     label: "Add New Lesson",
     icon: mdiFilePdfBox,
   },
-  
+  {
+    to: "/LMS/import",
+    label: "Add Bulk Importer",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/download",
+    label: "Add Download",
+    icon: mdiFilePdfBox,
+  },
   {
     label: "Dropdown",
     icon: mdiFormDropdown,

@@ -17,6 +17,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/Forms/FormUploadFiles.vue";
 import Uploadtext from "@/components/Forms/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
+import Editor from "@/components/LMS/Editor.vue";
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -75,20 +76,13 @@ const inputValue = ref("");
               />
             </PremFormField>
             <PremFormField label="Text description" horizontal>
-              <FormUploadFiles
-                
-                :icon-left="mdiAccount"
-                help="Text"
-              />
+             <Editor/>
             </PremFormField>
 
-
-            <PremFormField label="Videos from your library" horizontal>
-              <FormUploadFiles :options="selectFieldOptions" />
-            </PremFormField>
-            <PremFormField label="Upload a video file" horizontal>
+            <PremFormField label="Upload a file" horizontal>
               <Uploadtext
-              dragText = "Drag & Drop Videos"
+              usefiles
+              dragText = "Drag & Drop files here"
                 footer = "footerText"
                 :icon-left="mdiAccount"
                 help="Upload a video file"

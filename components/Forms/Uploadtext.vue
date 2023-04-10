@@ -19,46 +19,78 @@ defineProps({
     type: Object,
     default: null,
   },
+  footer : {
+    type : String,
+    default : null,
+  },
+  dragText : {
+    type :String,
+    default :null
+  },
+  usefiles:Boolean,
+  allfiles:Boolean
 });
 const slots = useSlots();
-const fileInputRef = ref(null);
-
+const fileInput = ref(null);
+const fileInputSvg = ref(null)
+const fileDownload  = ref(
+'You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v'
+)
 const selectFile = () => {
-  fileInputRef.value.click();
+  fileInput.value.click();
+};
+
+const selectFilesvg = () => {
+  fileInputSvg.value.click();
 };
 
 const handleFileUpload = (event) => {
   // const files = fileInputRef.value.files;
   // Handle file upload logic here
-  const file = event.target.files[0];
-      const allowedExtensions = /(\.mp4|\.avi)$/i; // allow mp4 and avi files
-      if (!allowedExtensions.exec(file.name)) {
-        alert('Please select a valid video file');
-        event.target.value = '';
-        return false;
+  const fileInput = event.target;
+      const acceptedTypes = fileInput.accept.split(',');
+      const extension = '.' + fileInput.files[0].type.split('/')[1]  
+      const validFileType = acceptedTypes.includes(extension);
+      
+      if (!validFileType) {
+       alert("File format is invaild file")
+      } else {
+        fileInput.setCustomValidity('');
       }
-      // do something with the file
-      console.log(file);
+      console.log(validFileType);
 };
-const handleDragOver = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  e.dataTransfer.dropEffect = "copy";
+const handleFilesvg = (event) => {
+  // const files = fileInputRef.value.files;
+  // Handle file upload logic here
+  const fileInput = event.target;
+      const acceptedTypes = fileInput.accept.split(',');
+      
+      const extension = '.' + fileInput.files[0].type.split('/')[1]  
+     
+      const validFileType = acceptedTypes.includes(extension);
+      if (!validFileType) {
+       alert("File format is invaild file")
+      } else {
+        fileInput.setCustomValidity('');
+      }
+      console.log(validFileType);
 };
+ const handleDrop = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+      const files = event.dataTransfer.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileType = file.type.split('/')[0];
+        if (fileType === 'video' || fileType === 'audio' || fileType === 'application' && file.type === 'application/pdf') {
+          // handle the file as needed (e.g. upload to server, display in UI, etc.)
+          console.log(file.name);
+        } else {
+          console.log(`Invalid file type: ${file.type}`);
+        }
+      }
+    }
 
-const handleDrop = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const files = e.dataTransfer.files;
-  if (files.length > 0) {
-    const file = files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const fileContent = reader.result;
-    };
-  }
-};
 
 </script>
 
@@ -75,34 +107,48 @@ const handleDrop = (e) => {
         textAlign: 'center',
       }"
     >
-      <div class="drag_drop"  @dragover="handleDragOver" @drop="handleDrop">
+      <div class="drag_drop"  @drop="handleDrop" @dragover.prevent>
         <div v-if="slots.default">
           <slot />
         </div>
-        <div v-else class="drag_text">Drag & drop PDF file here</div>
+        <div v-else class="drag_text">{{ dragText }}</div>
         <div :style="{ padding: '1rem' }">
           <strong>Or</strong>
         </div>
-        <BaseButton @click="selectFile" label="SELECT FILE" type="submit" color="info" />
+        <BaseButton  v-if = "usefiles"  @click="selectFilesvg" label="SELECT FILE" type="submit" color="info" />
+        <BaseButton v-else @click="selectFile" label="SELECT FILE" type="submit" color="info" />
         <!-- <input type="file" ref="fileInputRef" style="display: none;" @change="handleFileUpload" /> -->
+        
         <input
-        ref="fileInputRef"
-        type="file"
+        v-if = "allfiles"
+        ref="fileInput"
+      
         class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
-        :accept="accept"
+        type="file" accept=".3g2,.3gp,.3gpp,.3gpp2,.asf,.asx,.avi,.dv,.f4p,.fv4,.flv,.mjpeg,.mkv,.mov,.movie,.mp2,.mp3g,.mp4,.mpe,.mpeg,.mpg,.mpg4,.ogg,.ogv,.ogx,.qt,.rm,.viv,.vivo,.webm,.wm,.wmx,.wvx,.m4v"
         @input="handleFileUpload"
+        
       />
-      </div>
-      <div class="footer_text mb-6 last:mb-0">
+      <input
+        v-if = "usefiles"
+        ref="fileInputSvg"
+      
+        class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+        type="file" accept=".dmg,.svg,.html"
+        @input="handleFilesvg"
         
-          You can upload files with extensions: 3g2, 3gp, 3 gpp,3gpp2,
-          asf,asx,avi,dv,f4p,fv4,flv,mjpeg,mkv,mov,movie,mp2,mp3g,mp4,mpe
-          ,mpeg,mpg,mpg4,ogg,ogv,ogx,qt,rm,viv,vivo,webm,wm,wmx,wvx,m4v
+      />
+
+      </div>
+      <div class="footer_text mb-6 last:mb-0" v-if = "allfiles">
+        {{ fileDownload }}
         
       </div>
+      <div class="footer_text mb-6 last:mb-0" v-if = "usefiles">
+        You can upload any type of file except .dmg, .svg, and .html files
+    </div>
 
     </div>
-    <div>
+    <div v-if = "footer">
       <div class = "footer_comment">
          Max size 2GB. We suggest compressing you video using <a href = "">HandBrake</a>
       </div>

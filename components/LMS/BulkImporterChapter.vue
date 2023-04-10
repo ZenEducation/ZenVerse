@@ -1,16 +1,17 @@
 <script setup>
-import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+import {computed,ref,onMounted,onBeforeUnmount} from "vue";
 import { useMainStore } from "@/stores/main";
 import FormControlIcon from "@/components/Forms/FormControlIcon.vue";
 
+
 const props = defineProps({
   name: {
-    type: String,
-    default: null,
+    type:String,
+    default : null,
   },
-  id: {
+  id:{
     type: String,
-    default: null,
+    default : null,
   },
   autocomplete: {
     type: String,
@@ -28,18 +29,6 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  iconRight: {
-    type: String,
-    default: null,
-  },
-  iconPasswordEye: {
-    type:  String,
-    default: null
-  },
-  options: {
-    type: Array,
-    default: null,
-  },
   type: {
     type: String,
     default: "text",
@@ -52,20 +41,15 @@ const props = defineProps({
   borderless: Boolean,
   transparent: Boolean,
   ctrlKFocus: Boolean,
-});
-
-const emit = defineEmits(["update:modelValue", "setRef", "togglePasswordVisibility"]);
-const toggle = () => {
-  emit("togglePasswordVisibility")
-}
+})
+const emit = defineEmits(["update:modelValue","setRef"])
 
 const computedValue = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    emit("update:modelValue", value);
-  },
-});
-
+  get:() => props.modelValue,
+  set:(value) => {
+    emit("update:modelValue",value)
+  }
+})
 const inputElClass = computed(() => {
   const base = [
     "px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full",
@@ -85,19 +69,17 @@ const inputElClass = computed(() => {
 
   return base;
 });
-
 const computedType = computed(() => (props.options ? "select" : props.type));
+
 
 const controlIconH = computed(() =>
   props.type === "textarea" ? "h-full" : "h-12"
 );
-
 const mainStore = useMainStore();
 
 const selectEl = ref(null);
 
 const textareaEl = ref(null);
-
 const inputEl = ref(null);
 
 onMounted(() => {
@@ -109,7 +91,6 @@ onMounted(() => {
     emit("setRef", inputEl.value);
   }
 });
-
 if (props.ctrlKFocus) {
   const fieldFocusHook = (e) => {
     if (e.ctrlKey && e.key === "k") {
@@ -136,8 +117,10 @@ if (props.ctrlKFocus) {
 }
 </script>
 
+
 <template>
-  <div class="relative w-full">
+ 
+    <div class="relative">
     <select
       v-if="computedType === 'select'"
       :id="id"
@@ -153,6 +136,15 @@ if (props.ctrlKFocus) {
         {{ option.label ?? option }}
       </option>
     </select>
+    <textarea
+      v-else-if="computedType === 'textarea'"
+      :id="id"
+      v-model="computedValue"
+      :class="inputElClass"
+      :name="name"
+      :placeholder="placeholder"
+      :required="required"
+    />
     <input
       v-else
       :id="id"
@@ -173,4 +165,6 @@ if (props.ctrlKFocus) {
     </button>
 
   </div>
+
 </template>
+

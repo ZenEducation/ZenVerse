@@ -47,6 +47,7 @@
     "uuid4": "^2.0.3",
     "vue": "^3.2.33",
     "vue-3-slider-component": "^0.1.0",
-    "vue-advanced-chat": "^2.0.6"
+    "vue-advanced-chat": "^2.0.6",
+    "vue-pdf-embed": "^1.1.5"
   }
 }

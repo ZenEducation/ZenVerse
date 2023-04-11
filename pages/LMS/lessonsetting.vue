@@ -1,7 +1,8 @@
 <script setup>
 import { reactive } from "vue";
 import {
-  mdiVideo
+  mdiVideo,
+  mdiTrashCan
 } from "@mdi/js"
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -25,13 +26,9 @@ const checkboxOptions = {
   one: "Make this a free preview lesson", 
   two: "Make this a prerequisite", 
   three: "Enable discussions for this lesson",
-  four: "Make this video downloadable"
+  four: "Apply to all lessons in this course",
+  five: "Make this video downloadable"
 };
-
-
-const form = reactive({
-  checkboxTwo: ["lorem"],
-});
 
 const formLower = reactive({
   person: listBoxOptions[0],
@@ -77,6 +74,9 @@ const formLower = reactive({
               
 
             </PremFormField>
+            <BaseButtons>
+              <BaseButton type="submit" color="danger" :icon="mdiTrashCan" label="DELETE LESSON" outline/>
+            </BaseButtons>
             <template #footer>
             <BaseButtons>
               <BaseButton type="submit" to="/dashboard" color="info" label="SAVE" />

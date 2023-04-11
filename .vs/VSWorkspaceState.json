@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\components",
+    "\\components\\Asidemenu",
+    "\\components\\Forms",
+    "\\components\\Forms\\admin",
+    "\\components\\NavBar"
+  ],
+  "SelectedNode": "\\components\\Forms\\admin\\about.vue",
+  "PreviewInSolutionExplorer": false
+}

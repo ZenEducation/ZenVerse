@@ -39,6 +39,7 @@ const fileInputDownload = ref(null)
 const fileDownload  = ref(
 'You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v'
 )
+const fileDownloads  = ref('You can upload files with the extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p, f4v, flv, mjpeg, mjpg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmv, wmx, wvx, m4v, aac, mp2, mp3, mpga, ogg, wav, m4a, pdf')
 const selectFile = () => {
   fileInput.value.click();
 };
@@ -172,7 +173,7 @@ const handleFilesvg = (event) => {
         ref="fileInput"
       
         class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
-        type="file" accept=".3g2,.3gp,.3gpp,.3gpp2,.asf,.asx,.avi,.dv,.f4p,.fv4,.flv,.mjpeg,.mkv,.mov,.movie,.mp2,.mp3g,.mp4,.mpe,.mpeg,.mpg,.mpg4,.ogg,.ogv,.ogx,.qt,.rm,.viv,.vivo,.webm,.wm,.wmx,.wvx,.m4v"
+        type="file" accept=".3g2,.3gp,.3gpp,.3gpp2,.asf,.asx,.avi,.dv,.f4p,.f4v,.flv,.mjpeg,.mjpg,.mkv,.mov,.movie,.mp2,.mp3g,.mp4,.mpe,.mpeg,.mpg,.mpg4,.ogg,.ogv,.ogx,.qt,.rm,.viv,.vivo,.webm,.wm,.wmv,.wmx,.wvx,.m4v,.aac,.mp2,.mp3,.mpga,.ogg,.wav,.m4a,.pdf"
         @input="handleFileUpload"
         
       />
@@ -230,7 +231,7 @@ const handleFilesvg = (event) => {
 
 
       <div class="footer_text mb-6 last:mb-0" v-if = "allfiles">
-        {{ fileDownload }}
+        {{ fileDownloads }}
         
       </div>
       <div class="footer_text mb-6 last:mb-0" v-if = "download">

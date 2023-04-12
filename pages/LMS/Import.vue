@@ -65,7 +65,7 @@ const deleteChapter = (index) => {
             <PremFormField label="Upload a video file" horizontal>
               <Uploadtext
               allfiles
-                dragText = "Drag & drop video here"
+                dragText = "Drag & drop video, audio & PDF files here"
                 :icon-left="mdiAccount"
                 help="Upload a video file"
                 placeholder="Upload a video file"

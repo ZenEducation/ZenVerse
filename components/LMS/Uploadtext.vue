@@ -104,7 +104,7 @@ const handleFilesvg = (event) => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const fileType = file.type.split('/')[0];
-        if (fileType === 'video') {
+        if (fileType === 'video'|| fileType === 'audio' || fileType === 'application') {
           // handle the file as needed (e.g. upload to server, display in UI, etc.)
           console.log(file.name);
         } else {

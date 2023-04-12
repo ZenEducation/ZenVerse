@@ -19,6 +19,7 @@ export const createDepartment = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -59,6 +60,7 @@ export const updateDepartment = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -99,6 +101,7 @@ export const deleteDepartment = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -133,6 +136,7 @@ export const createJob = /* GraphQL */ `
       duties
       requirements
       niceToHave
+      benefits
       jobLocation
       residenceAddress
       residenceCity
@@ -187,6 +191,7 @@ export const updateJob = /* GraphQL */ `
       duties
       requirements
       niceToHave
+      benefits
       jobLocation
       residenceAddress
       residenceCity
@@ -241,6 +246,7 @@ export const deleteJob = /* GraphQL */ `
       duties
       requirements
       niceToHave
+      benefits
       jobLocation
       residenceAddress
       residenceCity
@@ -303,6 +309,7 @@ export const createApplicant = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -345,6 +352,7 @@ export const updateApplicant = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -387,6 +395,7 @@ export const deleteApplicant = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity

@@ -16,6 +16,7 @@ export const getDepartment = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity
@@ -70,6 +71,7 @@ export const getJob = /* GraphQL */ `
       duties
       requirements
       niceToHave
+      benefits
       jobLocation
       residenceAddress
       residenceCity
@@ -126,6 +128,7 @@ export const listJobs = /* GraphQL */ `
         duties
         requirements
         niceToHave
+        benefits
         jobLocation
         residenceAddress
         residenceCity
@@ -167,6 +170,7 @@ export const getApplicant = /* GraphQL */ `
           duties
           requirements
           niceToHave
+          benefits
           jobLocation
           residenceAddress
           residenceCity

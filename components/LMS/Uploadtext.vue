@@ -84,18 +84,15 @@ const handleFileDownload = (event) => {
 
 const handleFilesvg = (event) => {
 
-  const fileInput = event.target;
-      const acceptedTypes = fileInput.accept.split(',');
-      
-      const extension = '.' + fileInput.files[0].type.split('/')[1]  
-     
-      const validFileType = acceptedTypes.includes(extension);
-      if (!validFileType) {
-       alert("File format is invaild file")
-      } else {
-        fileInput.setCustomValidity('');
-      }
-      console.log(validFileType);
+  const file = event.target.files[0]; // Get the first file from the list of selected files
+  if (!file.type || !file.type.match(/^(?!application\/x-apple-diskimage|image\/svg\+xml|text\/html)/)) {
+    alert('Invalid file type');
+    return;
+  } 
+    // Do something with the selected file
+    console.log(`Selected file: ${file.name}`);
+  
+
 };
  const handleDrop = (event) => {
   event.preventDefault();
@@ -130,20 +127,19 @@ const handleFilesvg = (event) => {
     const handleDropFiles = (event) => {
   event.preventDefault();
   event.stopPropagation();
-      const files = event.dataTransfer.files;
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileType = file.type.split('/')[0];
-        console.log(file.type)
-        if ( fileType === 'image/dmg'||fileType === 'image/svg' || fileType === 'text/html') {
-          // handle the file as needed (e.g. upload to server, display in UI, etc.)
-          console.log(file.name);
-        } else {
-          console.log(`Invalid file type: ${file.type}`);
-        }
-      }
-    }
-    
+  const files = event.dataTransfer.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileType = file.type.split('/')[0];
+    console.log(file.type);
+    if (!file.type || file.type.match(/^(?!application\/x-apple-diskimage|image\/svg\+xml|text\/html)/)) {
+  // handle the file as needed (e.g. upload to server, display in UI, etc.)
+  console.log(file.name);
+} else {
+  console.log(`Invalid file type: ${file.type}`);
+}
+  }
+};
 </script>
 
 <template>
@@ -225,7 +221,7 @@ const handleFilesvg = (event) => {
         ref="fileInputSvg"
       
         class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
-        type="file" accept=".dmg,.svg,.html"
+        type="file" accept="!application/x-apple-diskimage,!image/svg+xml,!text/html"
         @input="handleFilesvg"
         
       />

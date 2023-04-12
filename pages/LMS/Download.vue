@@ -29,7 +29,7 @@ const header = computed(() => {
   if (inputValue.value) {
     return `${inputValue.value}`;
   } else {
-    return "New Lesson";
+    return "New Downloadable Lesson";
   }
 });
 
@@ -76,7 +76,11 @@ const inputValue = ref("");
               />
             </PremFormField>
             <PremFormField label="Content" horizontal>
-             <Editor/>
+              <FormUploadFiles
+                v-model="inputValue"
+                :icon-left="mdiAccount"
+                help="Title"
+              />
             </PremFormField>
 
             <PremFormField label="Upload a file" horizontal>

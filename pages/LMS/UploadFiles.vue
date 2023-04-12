@@ -28,7 +28,7 @@ const header = computed(() => {
   if (inputValue.value) {
     return `${inputValue.value}`;
   } else {
-    return "New Lesson";
+    return "New Video Lesson";
   }
 });
 

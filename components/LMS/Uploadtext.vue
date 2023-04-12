@@ -290,7 +290,5 @@ const handleFilesvg = (event) => {
  text-decoration: underline;
   color : blue 
 }
-.footer_commenttext{
 
-}
 </style>

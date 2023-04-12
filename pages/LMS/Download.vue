@@ -17,7 +17,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
-import Editor from "@/components/LMS/Editor.vue";
+
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },

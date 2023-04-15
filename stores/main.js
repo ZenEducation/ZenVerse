@@ -41,6 +41,11 @@ const state = () => ({
     {headline:"Assignment", description:"Great for any type of homework that you would like a student to submit for approval"},
     {headline:"Exam", description:"Integrate with a professional exam tool called Brillium to deliver tests with these requirements"}
   ],
+
+  courseDetails : [
+    {heading: "Course image", description: "Suggested Dimensions: 760x420px"},
+    {heading: "Course description", description:"Include a brief description of your course. Max 250 characters"},
+  ],
   products: [
     {
       name: "Test1",

@@ -95,7 +95,7 @@ const menuClick = (event, item) => {
         class=" pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
       >
         <!-- The  Navbar -->
-        <NavBar
+        <!-- <NavBar
           :menu="menuNavBar"
           :class="[
             layoutAsidePadding,
@@ -124,7 +124,7 @@ const menuClick = (event, item) => {
               :path="layoutStore.isAsideLgActive ? mdiBackburger : mdiMenu"
               size="24"
             />
-          </NavBarItemPlain>
+          </NavBarItemPlain> -->
           <!-- <NavBarItemPlain use-margin>
             <FormControl
               placeholder="Search (ctrl+k)"
@@ -133,7 +133,7 @@ const menuClick = (event, item) => {
               borderless
             />
           </NavBarItemPlain> -->
-        </NavBar>
+        <!-- </NavBar> -->
         <!-- The  Premium Aside Menu -->
         <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
         <slot />

@@ -22,14 +22,13 @@
     const checkbox1_Options = {
         one: "Private course",
         two: "Hidden course",
-
     }
 
     const checkbox2_Options = {
         one: "Disable text copying",
     }
 
-    const msg = ref('');
+    const urlgen = ref('');
 </script>
 
 <template>
@@ -55,14 +54,13 @@
                         </PremFormField>
                         <PremFormField label="Course URL" horizontal>
                             <PremFormControl
-                                v-model="msg"
+                                v-model="urlgen"
                                 placeholder="e.g. first-course"
                             />
-                            <h4 class="text-gray-700 dark:text-slate-400">https://www.photonecademy.edu/courses/{{ msg }}</h4>
+                            <h4 class="text-gray-700 dark:text-slate-400">https://www.photonecademy.edu/courses/{{ urlgen }}</h4>
                         </PremFormField>
                         <PremFormField label="Choose your instructor" horizontal>
                             <PremFormControl
-                                placeholder="-- Select Instructor --"
                                 :options="instructorOptions"
                             />
                             <!-- <PremFormControl/> -->

@@ -1,11 +1,5 @@
 import {
   mdiMonitorDashboard,
-  mdiViewDashboard,
-  mdiViewDashboardVariant,
-  mdiViewDashboardVariantOutline,
-  mdiViewDashboardOutline,
-
-  mdiAccessPointPlus,
   mdiComment,
   mdiPlus,
   mdiFileDocument,

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { ref, reactive } from "vue";
+import { useMainStore } from "@/stores/main.js";
 import { useRouter } from "vue-router";
 import PremAsideMenu from "@/components/SalesCRM/AsideMenu.vue";
 import NavBarItemPlain from "@/components/NavBar/NavBarItemPlain.vue";
@@ -16,6 +17,10 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 
+import { useLayoutStore } from "@/stores/layout.js";
+import { useStyleStore } from "@/stores/style.js";
+import { useAuthStore } from "@/stores/authStore";
+
 const selectBranchOptions = [
   { id: 1, label: "Business development" },
   { id: 2, label: "Marketing" },
@@ -26,21 +31,26 @@ const selectBranchOptions = [
 ];
 
 const selectSubCRMOptions = [
-  { id: 1, label: "Howell Hand", unavailable: false },
-  { id: 2, label: "Hope Howe", unavailable: false },
-  { id: 3, label: "Nelson Jerde", unavailable: false },
-  { id: 4, label: "Kim Weimann (disabled)", unavailable: true },
-  { id: 5, label: "Lenna Smitham", unavailable: false },
-  { id: 6, label: "Alex", unavailable: false },
+  { id: 1, label: "Howell Hand" },
+  { id: 2, label: "Hope Howe" },
+  { id: 3, label: "Nelson Jerde"},
+  { id: 4, label: "Kim Weimann (disabled)" },
+  { id: 5, label: "Lenna Smitham" },
+  { id: 6, label: "Alex" },
 ];
 
 const selectTagsOptions = [
-  { id: 1, label: "Howell Hand", unavailable: false },
-  { id: 2, label: "Hope Howe", unavailable: false },
-  { id: 3, label: "Nelson Jerde", unavailable: false },
-  { id: 4, label: "Kim Weimann (disabled)", unavailable: true },
-  { id: 5, label: "Lenna Smitham", unavailable: false },
+  { id: 1, label: "Howell Hand"},
+  { id: 2, label: "Hope Howe"},
+  { id: 3, label: "Nelson Jerde" },
+  { id: 4, label: "Kim Weimann (disabled)" },
+  { id: 5, label: "Lenna Smitham" },
 ];
+
+const styleStore = useStyleStore();
+
+const layoutStore = useLayoutStore();
+const AuthStore = useAuthStore();
 
 const router = useRouter();
 
@@ -125,8 +135,7 @@ const menuClick = (event, item) => {
                 />
               </PremFormField>
               <PremFormField>
-                <button class="h-10 px-5 mt-9 text-red-100 transition-colors duration-150 bg-red-700  focus:shadow-outline hover:bg-red-800">Filter</button>
-                
+                <button class="h-10 px-5 mt-9 text-red-100 transition-colors duration-150 bg-red-700  focus:shadow-outline hover:bg-red-800">Filter</button>             
               </PremFormField>
 
             </div>

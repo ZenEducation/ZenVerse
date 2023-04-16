@@ -42,7 +42,7 @@
                         @submit.prevent="submit"
                         >
                         <CardBoxComponentTitle
-                            title="Course Settings"
+                            title="Basic Course Settings"
                             class="mb-12"
                         />
                         <BaseDivider/>

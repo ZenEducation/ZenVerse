@@ -5,6 +5,8 @@ import {
   mdiAccount,
   mdiCreditCardOutline,
   mdiFileUploadOutline,
+  mdiDragVertical,
+  mdiTrashCanOutline,
 } from "@mdi/js";
  
 import SectionMain from "@/components/Sections/SectionMain.vue";
@@ -89,6 +91,9 @@ const inputValue = ref("");
             <PremFormField label="Upload a video file" horizontal>
               <Uploadtext
               download
+              downloadlist
+                :icon="mdiDragVertical"
+                :iconRight="mdiTrashCanOutline"
               dragText = "Drag & Drop Video files here"
                 footer = "footerText"
                 :icon-left="mdiAccount"

@@ -65,6 +65,7 @@ const fileName = ref([]);
 const downloadFile = ref([]);
 const listDisplay = ref(false);
 const downloadlist = ref(false);
+
 const fileDownload = ref(
   "You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v"
 );
@@ -189,12 +190,15 @@ const handleFileDownload = (event) => {
   const acceptedTypes = fileInput.accept.split(",");
   const extension = "." + fileInput.files[0].type.split("/")[1];
   const validFileType = acceptedTypes.includes(extension);
-
+  for (const file of fileInput.files) {
   if (!validFileType) {
     alert("File format is invaild file");
   } else {
     fileInput.setCustomValidity("");
+    downloadFile.value.push(file.name);
+  downloadlist.value = true;
   }
+}
   console.log(validFileType);
 };
 
@@ -208,6 +212,8 @@ const handleDropVideo = (event) => {
     if (fileType === "video") {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(file.name);
+      downloadFile.value.push(file.name);
+      downloadlist.value = true;
     } else {
       console.log(`Invalid file type: ${file.type}`);
     }

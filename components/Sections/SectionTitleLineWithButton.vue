@@ -22,8 +22,8 @@ const hasSlot = computed(() => useSlots().default);
 
 <template>
   <section
-    :class="{ 'pt-6': !main }"
-    class="mb-6 flex items-center justify-between"
+    :class="{ 'pt-0': !main }"
+    class="mb-4 flex items-center justify-between"
   >
     <div class="flex items-center justify-start">
       <IconRounded
@@ -34,7 +34,7 @@ const hasSlot = computed(() => useSlots().default);
         bg
       />
       <BaseIcon v-else-if="icon" :path="icon" class="mr-2" size="20" />
-      <h1 :class="main ? 'text-3xl' : 'text-2xl'" class="leading-tight">
+      <h1 class="leading-tight">
         {{ title }}
       </h1>
     </div>

@@ -17,9 +17,15 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiViewDashboard,
 } from "@mdi/js";
 
 export default [
+  {
+    to: "/SalesCRM/dashBoard/dashboardUI",
+    icon: mdiViewDashboard,
+    label: "CRM Dashboard",
+  },
   {
     to: "/",
     icon: mdiMonitor,

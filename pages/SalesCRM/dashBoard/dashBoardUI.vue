@@ -3,11 +3,12 @@ import { computed } from "vue";
 import { ref, reactive } from "vue";
 import { useMainStore } from "@/stores/main.js";
 import { useRouter } from "vue-router";
-import PremAsideMenu from "@/components/SalesCRM/DashBoard/AsideMenu.vue";
+import PremAsideMenu from "@/components/SalesCRM/DashBoard/dashboardAsideMenu.vue";
 import NavBarItemPlain from "@/components/NavBar/NavBarItemPlain.vue";
 import FooterBar from "@/components/Footers/FooterBar.vue";
-import menuAside from "@/components/SalesCRM/DashBoard/menuAside.js";
+import menuAside from "~~/components/SalesCRM/DashBoard/dashboardMenuAside.js";
 import menuNavBar from "@/configs/menuNavBar.js";
+import NavBar from "@/components/NavBar/NavBar.vue";
 import { mdiMagnify} from "@mdi/js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
@@ -47,6 +48,13 @@ const selectTagsOptions = [
   { id: 5, label: "Lenna Smitham" },
 ];
 
+useMainStore().setUser({
+  name: "Zenith Physics",
+  email: "zenith@physics.com",
+  avatar:
+    "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
+});
+
 const styleStore = useStyleStore();
 
 const layoutStore = useLayoutStore();
@@ -73,8 +81,18 @@ const menuClick = (event, item) => {
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain class="bg-blue-100  dark:bg-slate-800">
+    <!-- The  Navbar -->
+    <NavBar
+          :menu="menuNavBar"
+          :class="[
+            layoutAsidePadding,
+            { 'ml-60 lg:ml-0': layoutStore.isAsideMobileExpanded },
+          ]"
+          @menu-click="menuClick"
+        >
+        </NavBar>
+    <NuxtLayout>  
+      <SectionMain class="py-20 bg-blue-100  dark:bg-slate-800">
         <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
           <CardBox
             :icon="mdiBallot"
@@ -89,7 +107,7 @@ const menuClick = (event, item) => {
           >
           <B>
               <BaseButton
-              class="h-10 px-0 mt-4 text-red-700"           
+              class="h-10 px-0 mt-4 text-red-700 text-2xl"           
               label="Clear Filter"         
               color=""
               text-red-500
@@ -206,6 +224,13 @@ const menuClick = (event, item) => {
         </CardBox>
 
       </SectionMain>
+      <!-- The  Premium Aside Menu -->
+    <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
+        <slot />
+        <!-- FooterBar-->
+        <FooterBar>
+          <a href="#" target="_blank" class="text-blue-600"> Photon Ecademy</a>
+        </FooterBar>
     </NuxtLayout>
   </div>
 
@@ -222,7 +247,7 @@ background-color: rgb(126, 1, 1);
 background-color: rgb(4, 98, 4);
 }
 .underline{
-  
+  font-size: 25px;
   text-decoration: underline;
   text-decoration-color: rgb(179, 32, 32);
 }

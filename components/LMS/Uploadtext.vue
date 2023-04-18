@@ -5,7 +5,7 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 
 import { mdiAccount } from "@mdi/js";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
-defineProps({
+         defineProps({
   label: {
     type: String,
     default: null,
@@ -65,6 +65,7 @@ const fileName = ref([]);
 const downloadFile = ref([]);
 const listDisplay = ref(false);
 const downloadlist = ref(false);
+const lessonFile = ref("")
 
 const fileDownload = ref(
   "You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v"
@@ -190,17 +191,18 @@ const handleFileDownload = (event) => {
   const acceptedTypes = fileInput.accept.split(",");
   const extension = "." + fileInput.files[0].type.split("/")[1];
   const validFileType = acceptedTypes.includes(extension);
-  for (const file of fileInput.files) {
+ 
   if (!validFileType) {
     alert("File format is invaild file");
   } else {
     fileInput.setCustomValidity("");
-    downloadFile.value.push(file.name);
+    lessonFile.value= fileInput.files[0].name;
   downloadlist.value = true;
   }
+  console.log("test",fileInput.files[0].name);
 }
-  console.log(validFileType);
-};
+  
+
 
 const handleDropVideo = (event) => {
   event.preventDefault();
@@ -211,13 +213,19 @@ const handleDropVideo = (event) => {
     const fileType = file.type.split("/")[0];
     if (fileType === "video") {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
-      console.log(file.name);
-      downloadFile.value.push(file.name);
-      downloadlist.value = true;
+      console.log(files);
+      lessonFile.value= file.name;
+     downloadlist.value = true;
     } else {
-      console.log(`Invalid file type: ${file.type}`);
+      console.log(`Invalid file type: ${files.type}`);
     }
   }
+  
+};
+const deleteHandlerLesson = () => {
+ 
+    downloadlist.value = false;
+  
 };
 </script>
 
@@ -380,6 +388,44 @@ const handleDropVideo = (event) => {
         </div>
       </div>
       <div class="listing_cover_downlaod" v-if="downloadlist">
+        <div
+          v-if = download
+          :key="index"
+          class="mb-6 flex items-center listing"
+        >
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="mr-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="icon"
+            :path="icon"
+            class="mr-2 cursor-pointer"
+            size="70"
+          />
+          <FormUploadFiles
+            v-model="lessonFile"
+            :icon-left="mdiAccount"
+            help="Title"
+          />
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="ml-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="iconRight"
+            :path="iconRight"
+            @click="deleteHandlerLesson()"
+            class="ml-2 cursor-pointer"
+            size="30"
+          />
+        </div>
         <div
           v-for="(item, index) in downloadFile"
           :key="index"

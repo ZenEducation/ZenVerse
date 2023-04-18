@@ -94,7 +94,7 @@ const inputValue = ref("");
               downloadlist
                 :icon="mdiDragVertical"
                 :iconRight="mdiTrashCanOutline"
-              dragText = "Drag & Drop Video files here"
+                dragText = "Drag & Drop Video files here"
                 footer = "footerText"
                 :icon-left="mdiAccount"
                 help="Upload a video file"

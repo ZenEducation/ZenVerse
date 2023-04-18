@@ -8,6 +8,7 @@ import { useSlots, computed } from "vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import IconRounded from "@/components/Display/IconRounded.vue";
+import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 
 defineProps({
   icon: {
@@ -54,12 +55,13 @@ const hasSlot = computed(() => useSlots().default);
 
     <div :class="{ 'text-sm': isMobile }" class="flex items-center">
       <div class="flex" :class="{ draftContent: isMobile }">
-        <BaseIcon
-          v-if="mdiAlertCircleOutline"
-          :path="mdiCheckboxBlankOutline"
-          class="mr-2"
-          size="20"
-        />
+        <FormCheckRadio
+            v-model="userSwitchVal"
+            name="notifications-switch"
+            type="checkbox"
+           
+            :input-value="true"
+          />
         <div style="margin-right: 0.5rem" :class="{ 'draft-text': isMobile }">
           Draft
         </div>

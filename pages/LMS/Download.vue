@@ -36,6 +36,7 @@ const header = computed(() => {
 });
 
 const inputValue = ref("");
+const contentValue = ref("")
 </script>
 
 <template>
@@ -78,7 +79,7 @@ const inputValue = ref("");
             </PremFormField>
             <PremFormField label="Content" horizontal>
               <FormUploadFiles
-                v-model="inputValue"
+                v-model="contentValue"
                 :icon-left="mdiAccount"
                 help="Title"
               />

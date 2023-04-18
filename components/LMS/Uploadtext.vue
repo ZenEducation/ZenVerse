@@ -125,7 +125,7 @@ const handleDrop = (event) => {
 };
 
 const deleteHandler = (i) => {
-  if (i === 0) {
+  if (fileName.value.length === 1) {
     fileName.value.splice(i, 1);
     listDisplay.value = false;
   }
@@ -177,7 +177,7 @@ const handleFilesvg = (event) => {
 };
 
 const deleteHandlerDownload = (i) => {
-  if (i === 0) {
+  if (downloadFile.value.length === 1) {
     downloadFile.value.splice(i, 1);
     downloadlist.value = false;
   }

@@ -6,9 +6,9 @@ import {
   mdiCreditCardOutline,
   mdiFileUploadOutline,
   mdiDragVertical,
-  mdiTrashCanOutline
+  mdiTrashCanOutline,
 } from "@mdi/js";
- 
+
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -20,7 +20,7 @@ import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 
-import BulkImporterIcon from "~~/components/LMS/BulkImporterIcon.vue";
+import BulkImporterIcon from "@/components/LMS/BulkImporterIcon.vue";
 
 const chapters = ref([{ id: 1 }]);
 
@@ -30,56 +30,52 @@ const addChapter = () => {
 const deleteChapter = (index) => {
   chapters.value.splice(index, 1);
 };
-
 </script>
 
 <template>
   <div>
     <NuxtLayout name="zen">
       <SectionMain>
-      <SectionTitleLineWithButton
+        <SectionTitleLineWithButton
           :icon="mdiFileUploadOutline"
           title="Bulk Importer"
           main
-        > 
-        
+        >
         </SectionTitleLineWithButton>
 
         <div class="grid grid-cols-1 gap-6 mb-6">
-          <div v-for="chapter in chapters" :key="chapter.id">
-          <CardBox
-            :icon="mdiBallot"
-            class="mb-6 lg:mb-0 xl:col-span-3"
-            is-form
-            @submit.prevent="submit"
-            
-          >
+          <div v-for="(chapter,index) in chapters" :key="index">
+            <CardBox
+              :icon="mdiBallot"
+              class="mb-6 lg:mb-0 xl:col-span-3"
+              is-form
+              @submit.prevent="submit"
+            >
+              <BulkImporterIcon
+                :icon="mdiDragVertical"
+                :iconRight="mdiTrashCanOutline"
+                :deleteHandler="() => deleteChapter(index)"
+              />
 
-          <BulkImporterIcon
-           :icon = "mdiDragVertical"
-           :iconRight = "mdiTrashCanOutline"
-           :deleteHandler="()=>deleteChapter(index)"
-        
-          />
- 
-            <PremFormField label="Upload a video file" horizontal>
               <Uploadtext
-              allfiles
-                dragText = "Drag & drop video, audio & PDF files here"
+                listDisplay
+                :icon="mdiDragVertical"
+                :iconRight="mdiTrashCanOutline"
+                allfiles
+                dragText="Drag & drop video, audio & PDF files here"
                 :icon-left="mdiAccount"
                 help="Upload a video file"
                 placeholder="Upload a video file"
               />
-            </PremFormField>
-            
-          </CardBox>
+            </CardBox>
+          </div>
+          <BaseButton
+            @click="addChapter"
+            label="Add Chapter"
+            type="submit"
+            color="info"
+          />
         </div>
-            <BaseButton
-            @click="addChapter" label="Add Chapter" type="submit" color="info"
-            />
-         
-        </div>
-        
       </SectionMain>
     </NuxtLayout>
   </div>

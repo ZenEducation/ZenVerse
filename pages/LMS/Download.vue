@@ -5,8 +5,10 @@ import {
   mdiAccount,
   mdiCreditCardOutline,
   mdiFileUploadOutline,
+  mdiDragVertical,
+  mdiTrashCanOutline,
 } from "@mdi/js";
- 
+
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -34,7 +36,6 @@ const header = computed(() => {
 });
 
 const inputValue = ref("");
-
 </script>
 
 <template>
@@ -85,9 +86,12 @@ const inputValue = ref("");
 
             <PremFormField label="Upload a file" horizontal>
               <Uploadtext
-              video
-              dragText = "Drag & Drop files here"
-                footer = "footerText"
+                downloadlist
+                video
+                :icon="mdiDragVertical"
+                :iconRight="mdiTrashCanOutline"
+                dragText="Drag & Drop files here"
+                footer="footerText"
                 :icon-left="mdiAccount"
                 help="Upload a video file"
                 placeholder="Upload a video file"

@@ -2,6 +2,11 @@
   <div id="main">
     <!-- <DragToolbar v-if="fabricStore.drawingMode" /> -->
     <canvas id="canvas-fabric" ref="fabricJS"></canvas>
+    <div id="panels-container" class="flex flex-col gap-5">
+      <div v-if="fabricStore.showMousePanel">
+        <historyPanel />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,6 +15,7 @@ import { fabric } from "fabric";
 import applySettings from "./utils/customSettings";
 // import DragToolbar from "./tools/drawing/DragToolbar.vue";
 import { useWBFabric } from "@/stores/wbFabric";
+import HistoryPanel from "./panel/HistoryPanel";
 
 const fabricJS = ref(null);
 const fabricStore = useWBFabric();

@@ -351,4 +351,10 @@ export default [
     icon: mdiSquareEditOutline,
     id: 13
   },
+  {
+    to: "",
+    label: "Mouse Events",
+    icon: mdiSquareEditOutline,
+    id: 15
+  },
 ];

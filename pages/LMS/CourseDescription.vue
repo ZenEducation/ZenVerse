@@ -19,12 +19,47 @@ const course = reactive({
   file: uploadImg,
 });
 
+function checkImageFileType(file) {
+  // define the file types we want to check
+  const acceptedImageTypes = ["jpg", "jpeg", "png", "bmp", "gif"];
+
+  // get the file extension
+  const fileExtension = file.name.split(".").pop().toLowerCase();
+
+  // check if the file type is accepted
+  const isAcceptedFileType = acceptedImageTypes.indexOf(fileExtension) > -1;
+
+  // return the result
+  return isAcceptedFileType;
+}
+
 const uploadImage = (event) => {
   const file = event.target.files[0];
   const reader = new FileReader();
 
   reader.onload = () => {
-    course.file = reader.result;
+    if (checkImageFileType(file)) {
+     console.log("Image file type is accepted");
+     const img = new Image();
+  //    img.src = URL.createObjectURL(file);
+  //    img.onload = function() {
+  //   const imageWidth = this.naturalWidth;
+  //   const imageHeight = this.naturalHeight;
+  //   console.log(imageWidth,imageHeight)
+  //   // check if the image has the required dimensions
+  //   const isAcceptedSize = imageWidth === 760 && imageHeight === 420;
+
+  //   // return the result
+  //   if (isAcceptedSize) {
+  //     console.log("Image file type and dimensions are accepted");
+  //   } else {
+  //     console.log("Image file type or dimensions are not accepted");
+  //   }
+  // };
+     course.file = reader.result;
+  } else {
+     console.log("Image file type is not accepted");
+  }
   };
 
   reader.readAsDataURL(file);

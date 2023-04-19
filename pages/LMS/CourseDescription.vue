@@ -41,22 +41,43 @@ const uploadImage = (event) => {
     if (checkImageFileType(file)) {
      console.log("Image file type is accepted");
      const img = new Image();
-  //    img.src = URL.createObjectURL(file);
-  //    img.onload = function() {
-  //   const imageWidth = this.naturalWidth;
-  //   const imageHeight = this.naturalHeight;
-  //   console.log(imageWidth,imageHeight)
-  //   // check if the image has the required dimensions
-  //   const isAcceptedSize = imageWidth === 760 && imageHeight === 420;
+     img.src = URL.createObjectURL(file);
 
-  //   // return the result
-  //   if (isAcceptedSize) {
-  //     console.log("Image file type and dimensions are accepted");
-  //   } else {
-  //     console.log("Image file type or dimensions are not accepted");
-  //   }
-  // };
-     course.file = reader.result;
+  // create a new Canvas element and get its context
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  // set the canvas dimensions to 760x420 pixels
+  canvas.width = 760;
+  canvas.height = 420;
+
+  // draw the image onto the canvas
+  img.onload = function() {
+    // calculate the crop region
+    const aspectRatio = img.width / img.height;
+    let cropWidth, cropHeight, x, y;
+    if (aspectRatio > 760 / 420) {
+      cropWidth = img.height * (760 / 420);
+      cropHeight = img.height;
+      x = (img.width - cropWidth) / 2;
+      y = 0;
+    } else {
+      cropWidth = img.width;
+      cropHeight = img.width * (420 / 760);
+      x = 0;
+      y = (img.height - cropHeight) / 2;
+    }
+
+    // crop the image to the specified dimensions
+    ctx.drawImage(img, x, y, cropWidth, cropHeight, 0, 0, 760, 420);
+
+    // get the cropped image as a data URL
+    const croppedImageDataURL = canvas.toDataURL();
+    course.file = croppedImageDataURL
+
+    // do something with the cropped image
+    // console.log(croppedImageDataURL);
+  };
   } else {
      console.log("Image file type is not accepted");
   }

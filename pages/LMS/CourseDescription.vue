@@ -17,6 +17,7 @@ const mainStore = useMainStore();
 const courseDetails = computed(()=> mainStore.courseDetails)
 const course = reactive({
   file: uploadImg,
+  errMessage: null
 });
 
 function checkImageFileType(file) {
@@ -74,12 +75,14 @@ const uploadImage = (event) => {
     // get the cropped image as a data URL
     const croppedImageDataURL = canvas.toDataURL();
     course.file = croppedImageDataURL
+    course.errMessage = null;
 
     // do something with the cropped image
     // console.log(croppedImageDataURL);
   };
   } else {
      console.log("Image file type is not accepted");
+     course.errMessage = "*Image file type is not accepted"
   }
   };
 
@@ -133,13 +136,15 @@ const buttonColor = "danger";
                   :icon="mdiDelete"
                 />
               </div>
+              <div class="flex my-3 lg:justify-end">
+               <span>{{ course.errMessage }}</span>
+              </div>
             </div>
           </div>
 
           <div class="grid grid-col-1 lg:grid-cols-2 mb-8">
             <CourseImgAndDescription :heading="courseDetails[1].heading" :description="courseDetails[1].description" />
           </div>
-
           <div>
             <PremFormControl
               error

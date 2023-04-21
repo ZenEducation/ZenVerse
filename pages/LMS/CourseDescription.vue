@@ -82,7 +82,7 @@ const uploadImage = (event) => {
   };
   } else {
      console.log("Image file type is not accepted");
-     course.errMessage = "*Image file type is not accepted"
+     course.errMessage = "*Upload only image or gif files"
   }
   };
 

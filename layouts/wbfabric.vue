@@ -26,7 +26,7 @@ import {
   selectEraser,
   selectHighlighter,
 } from "@/components/WBFabric/tools/drawing/toolSettings";
-
+import HistoryPanel from "~~/components/WBFabric/panel/HistoryPanel.vue";
 useMainStore().setUser({
   name: "Zenith Physics",
   email: "zenith@physics.com",
@@ -97,6 +97,7 @@ const menuClick = (event, item) => {
 
     case 6:
       console.log("id", 6);
+      HistoryPanel;
       break;
 
     case 7:
@@ -130,7 +131,9 @@ const menuClick = (event, item) => {
     case 14:
       renderSolarSystem();
       break;
-
+    case 15:
+    fabricStore.showMousePanel=!fabricStore.showMousePanel;
+    break;
 
     default:
   }

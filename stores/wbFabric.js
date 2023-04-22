@@ -1,5 +1,4 @@
-import { defineStore } from "pinia";
-
+import { defineStore,setActivePinia } from "pinia";
 const state = () => ({
   canvas: null,
   showModal: false,
@@ -7,6 +6,7 @@ const state = () => ({
   toolSettings: false,
   selectedTool: 'pencil',
   background: '#ffffff',
+  showMousePanel:false,
   pencil: {
     width: 5,
     color: '#000',
@@ -59,9 +59,8 @@ const actions = {
 
 const getters = {
 };
-
 export const useWBFabric = defineStore("WBFabric", {
-  state,
-  getters,
-  actions,
+state,
+getters,
+actions,
 });

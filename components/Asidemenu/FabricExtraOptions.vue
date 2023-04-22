@@ -13,10 +13,10 @@
     <div
       class="mb-10 flex flex-col space-y-2 items-center w-[5rem] z-50 relative inset-x-0"
     >
-      <button>
+      <button @click="undo">
         <SvgIcon type="mdi" :path="mdiArrowULeftTop" />
       </button>
-      <button>
+      <button @click="redo">
         <SvgIcon type="mdi" :path="mdiArrowURightTop" />
       </button>
     </div>
@@ -61,11 +61,18 @@ import {
   openToolSettings,
   openBackgroundSettings,
 } from "@/components/WBFabric/tools/drawing/toolSettings";
-
+import history from "@/components/WBFabric/tools/history";
 const btnGroup = ref();
 
+function undo() {
+  history.undo();
+};
+function redo() {
+  history.redo();
+};
 onMounted(() => {
-  (function () {
+  (
+    function () {
     btnGroup.value = document.getElementById("btn-group");
 
     const btns = btnGroup.value.getElementsByClassName("btn");

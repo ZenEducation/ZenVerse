@@ -1,8 +1,10 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { Whiteboard } from "@/models";
-
+import { useWBFabric } from "~/stores/wbFabric";
+import history from "@/components/WBFabric/tools/history";
+import MouseEvents from "../tools/mouseEvent";
 let models;
-
+let fabricStore = useWBFabric();
 async function setup() {
     try {
         models = await DataStore.query(Whiteboard);
@@ -29,17 +31,36 @@ function _setCanvasProperties(canvas) {
     canvas.hoverCursor = 'pointer';
     // fabricStore.canvas = canvas;
 }
+function _undoredo(canvas){
+    // const canvas = fabricStore.canvas;
+    canvas.on(
+        'object:added', function () {
+        // console.log('added');
+        history.add();
+    }
+    );
+    canvas.on("object:modified", function () {
+        // console.log('modified');
+            history.add();
+    });
 
+}
+function _mouseEvents(canvas){
+    // const canvas = fabricStore.canvas;
+    if(fabricStore.showMousePanel)MouseEvents.add();
+}
 function _addRectangle(canvas) {
     const rect = new fabric.Rect({
-        top: 300,
-        left: 400,
         fill: "red",
         width: 200,
         height: 200,
+        left: 0,
+        selectable: true,
+        resizable: true, 
+        hasControls: true 
     });
-
     canvas.add(rect);
+    // MouseEvents.add(canvas);
     // canvas.setActiveObject(rect);
 }
 
@@ -71,7 +92,7 @@ function _addPolygon(canvas) {
     }]
     let polygon = new fabric.Polygon(points, {
         left: 1000,
-        top: 50,
+        top: 150,
         fill: '#D81B60',
         strokeWidth: 4,
         stroke: 'green',
@@ -154,7 +175,8 @@ export default async function (canvas) {
     await setup();
 
     _setCanvasProperties(canvas);
-
+    _undoredo(canvas);
+    _mouseEvents(canvas);
     // Object controls not working until common selection
     // Issue found when importing pdfs
     _workaround(canvas);

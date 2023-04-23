@@ -1,8 +1,7 @@
 <script setup>
-    import { ref, } from "vue";
+    import { ref, watchEffect } from "vue";
     import SectionMain from "@/components/Sections/SectionMain.vue";
     import CardBox from "@/components/Cards/CardBox.vue";
-    import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
     import BaseDivider from "@/components/NavBar/BaseDivider.vue";
     import PremFormField from "@/components/Forms/FormField.vue";
     import PremFormControl from "@/components/Forms/FormControl.vue";
@@ -36,8 +35,19 @@
         ['clean']
     ]
 
-    const titleText = ref('New Text Lesson');
-    const newText = "New Text";
+
+    const newtitleText = ref('');
+    const titleText = ref('');
+
+    watchEffect(() => {
+        if (titleText.value === ''){
+            newtitleText.value = 'New Text Lesson';
+        }else{
+            newtitleText.value = titleText.value;
+        }
+    })
+    
+
 
 </script>
 
@@ -75,20 +85,16 @@
                         if-from
                         @submit.prevent="submit"    
                     >
-                        <!-- <CardBoxComponentTitle
-                            title={{ titleText }}
-                            class="mb-12"
-                        /> -->
-                        <h1 class="text-3xl text-dark-700">{{ titleText }}</h1>
+                        <h1 class="text-3xl text-dark-700">{{ newtitleText }}</h1>
                         <BaseDivider/>
                         <PremFormField label="Title">
                             <PremFormControl
                                 v-model="titleText"
-                                placeholder="First Lesson"
+                                placeholder="New Text Lesson"
                             />
                         </PremFormField>
                         <PremFormField label="Content">
-                            <QuillEditor style="height: 300px;" theme="snow" :toolbar="toolbarOptions"/>
+                            <QuillEditor style="min-height: 30vh;" theme="snow" :toolbar="toolbarOptions"/>
                         </PremFormField>
                         <BaseDivider/>
                     </CardBox>

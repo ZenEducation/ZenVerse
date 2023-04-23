@@ -17,6 +17,10 @@ export default defineComponent({
       type: String,
       default: "-mb-3",
     },
+    width: {
+      type: String,
+      default: "",
+    },
   },
   render() {
     const hasSlot = this.$slots && this.$slots.default;
@@ -46,12 +50,13 @@ export default defineComponent({
                 element,
                 {},
                 element.children.map((child) => {
-                  return h(child, { class: [this.classAddon] });
+                  return h(child, {
+                    class: [this.classAddon + " " + this.width],
+                  });
                 })
               );
             }
-
-            return h(element, { class: [this.classAddon] });
+            return h(element, { class: [this.classAddon + " " + this.width] });
           })
         : null
     );

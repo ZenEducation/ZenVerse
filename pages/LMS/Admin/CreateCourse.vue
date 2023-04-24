@@ -65,11 +65,16 @@ const addChapter = () => {
 const deleteChaptrerName = () => {
   if (editedChapterIndex.value !== -1) {
     chapters.splice(editedChapterIndex.value, 1);
-    chapterName.value = "Untitled chapter";
+    editedChapterIndex.value = -1;
+    isUntitleFieldVisible.value = true;
+    chapterName.value = "Untitled Chapter";
   }
   if (chapters.length === 0) {
     isDivVisible.value = false;
     isUntitleFieldVisible.value = true;
+    editedChapterIndex.value = -1;
+    chapterName.value = "Untitled Chapter";
+    return;
   }
 };
 
@@ -100,10 +105,7 @@ const checkboxOptions = { content: "Set new lessons to draft by default" };
   <div>
     <NuxtLayout name="admin">
       <SectionMain>
-        <SectionTitleLineWithButton
-          :title="'New Chapter:' + ' ' + chapterName"
-          main
-        >
+        <SectionTitleLineWithButton main>
           <div v-bind:class="className">
             <div v-if="isDivVisible">
               <BaseButton
@@ -209,7 +211,14 @@ const checkboxOptions = { content: "Set new lessons to draft by default" };
             is-form
             @submit.prevent="submit"
           >
-            <CardBoxComponentTitle class="mb-12" />
+            <CardBoxComponentTitle
+              class="mb-12"
+              :title="
+                editedChapterIndex !== -1
+                  ? 'Edit' + ' : ' + chapterName
+                  : 'New Chapter' + ' : ' + chapterName
+              "
+            />
             <PremFormField label="Chapter title" horizontal>
               <input
                 v-model="chapterName"

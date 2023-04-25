@@ -54,18 +54,22 @@ import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
   allfiles: Boolean,
   download: Boolean,
   video: Boolean,
+  audio:Boolean,
   listDisplay: Boolean,
   downloadlist: Boolean,
+  pdffile : Boolean
 });
 const slots = useSlots();
 const fileInput = ref(null);
 const fileInputSvg = ref(null);
 const fileInputDownload = ref(null);
+const fileaudio = ref(null)
 const fileName = ref([]);
 const downloadFile = ref([]);
 const listDisplay = ref(false);
 const downloadlist = ref(false);
 const lessonFile = ref("")
+const filepdf = ref("")
 
 const fileDownload = ref(
   "You can upload files with extensions: 3g2, 3gp, 3gpp, 3gpp2, asf, asx, avi, dv, f4p,f v4, flv, mjpeg, mkv, mov, movie, mp2, mp3g, mp4, mpe, mpeg, mpg, mpg4, ogg, ogv, ogx, qt, rm, viv, vivo, webm, wm, wmx, wvx, m4v"
@@ -83,7 +87,12 @@ const selectFilesvg = () => {
 const selectFileDownload = () => {
   fileInputDownload.value.click();
 };
-
+const selectAudio = () => {
+  fileaudio.value.click();
+};
+const selectpdf = () => {
+  filepdf.value.click();
+};
 //bulk importer
 const handleFileUpload = (event) => {
   const fileInput = event.target;
@@ -222,9 +231,95 @@ const handleDropVideo = (event) => {
   }
   
 };
+
 const deleteHandlerLesson = () => {
  
     downloadlist.value = false;
+  
+};
+
+
+//audio
+
+const handleAudio = (event) => {
+  const fileInput = event.target;
+  const acceptedTypes = fileInput.accept.split(",");
+  console.log("audiofiles",acceptedTypes)
+  const extension =  '.'+fileInput.files[0].type.split("/x-")[1];
+  console.log(extension)
+  const validFileType = acceptedTypes.includes(extension);
+ console.log(validFileType)
+  if (!validFileType) {
+    alert("File format is invaild file");
+  } else {
+    fileInput.setCustomValidity("");
+    lessonFile.value= fileInput.files[0].name;
+  downloadlist.value = true;
+  }
+  console.log("test",fileInput.files[0].name);
+}
+  
+const handleaudioFiles = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  const files = event.dataTransfer.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileType = file.type.split("/")[0];
+    if (fileType === "audio") {
+      // handle the file as needed (e.g. upload to server, display in UI, etc.)
+      console.log(files);
+      lessonFile.value= file.name;
+     downloadlist.value = true;
+    } else {
+      console.log(`Invalid file type: ${files.type}`);
+    }
+  }
+  
+};
+
+//pdf
+
+const  handlepdf  = (event) => {
+  const fileInput = event.target;
+  const acceptedTypes = fileInput.accept.split(",");
+  console.log("audiofiles",acceptedTypes)
+  const extension =  '.'+fileInput.files[0].type.split("/")[1];
+  console.log(extension)
+  const validFileType = acceptedTypes.includes(extension);
+  const fileSizeInMB = fileInput.files[0].size / (1024 * 1024);
+ console.log(validFileType)
+  if (!validFileType) {
+    alert("File format is invaild file");
+  }
+  else if (fileSizeInMB > 25) {
+    alert("File size must be 25 MB or less");
+  }  else {
+    fileInput.setCustomValidity("");
+    lessonFile.value= fileInput.files[0].name;
+  downloadlist.value = true;
+  }
+  console.log("test",fileInput.files[0].name);
+}
+  
+const handlepdfFiles = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  const files = event.dataTransfer.files;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileType = file.type.split("/")[0];
+    console.log(fileType)
+    if (fileType === "application" && file.size <= 25 * 1024 * 1024) {
+      // handle the file as needed (e.g. upload to server, display in UI, etc.)
+      console.log(files);
+      lessonFile.value= file.name;
+     downloadlist.value = true;
+    } else {
+      alert(`Invalid file type`)
+      console.log(`Invalid file type`);
+    }
+  }
   
 };
 </script>
@@ -376,6 +471,60 @@ const deleteHandlerLesson = () => {
             @input="handleFilesvg"
           />
         </div>
+        <div
+          class="drag_drop"
+          v-else-if="audio"
+          @drop="handleaudioFiles"
+          @dragover.prevent
+        >
+          <div v-if="slots.default">
+            <slot />
+          </div>
+          <div v-else class="drag_text">{{ dragText }}</div>
+          <div :style="{ padding: '1rem' }">
+            <strong>Or</strong>
+          </div>
+          <BaseButton
+            @click="selectAudio"
+            label="SELECT FILE"
+            type="submit"
+            color="info"
+          />
+          <input
+            ref="fileaudio"
+            class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+            type="file"
+            accept=".aac,.mp2,.mp3,.mpga,.ogg,.wav,.m4a"
+            @input="handleAudio"
+          />
+        </div>
+        <div
+          class="drag_drop"
+          v-else-if="pdffile"
+          @drop="handlepdfFiles"
+          @dragover.prevent
+        >
+          <div v-if="slots.default">
+            <slot />
+          </div>
+          <div v-else class="drag_text">{{ dragText }}</div>
+          <div :style="{ padding: '1rem' }">
+            <strong>Or</strong>
+          </div>
+          <BaseButton
+            @click="selectpdf"
+            label="SELECT FILE"
+            type="submit"
+            color="info"
+          />
+          <input
+            ref="filepdf"
+            class="absolute top-0 left-0 w-full h-full opacity-0 outline-none cursor-pointer -z-1"
+            type="file"
+            accept=".pdf"
+            @input="handlepdf"
+          />
+        </div>
 
         <div class="footer_text mb-6 last:mb-0" v-if="allfiles">
           {{ fileDownloads }}
@@ -386,10 +535,94 @@ const deleteHandlerLesson = () => {
         <div class="footer_text mb-6 last:mb-0" v-else-if="video">
           You can upload any type of file except .dmg, .svg, and .html files
         </div>
+        <div class="footer_text mb-6 last:mb-0" v-else-if="audio">
+          You can upload files with the extensions: aac, mp2, mp3, mpga, ogg, wav, m4a
+        </div>
+        <div class="footer_text mb-6 last:mb-0" v-else-if="pdffile">
+          You can upload files with the extension: pdf
+          <div>
+           There is a file size limit of 25mb</div>
+        </div>
       </div>
       <div class="listing_cover_downlaod" v-if="downloadlist">
         <div
           v-if = download
+          :key="index"
+          class="mb-6 flex items-center listing"
+        >
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="mr-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="icon"
+            :path="icon"
+            class="mr-2 cursor-pointer"
+            size="70"
+          />
+          <FormUploadFiles
+            v-model="lessonFile"
+            :icon-left="mdiAccount"
+            help="Title"
+          />
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="ml-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="iconRight"
+            :path="iconRight"
+            @click="deleteHandlerLesson()"
+            class="ml-2 cursor-pointer"
+            size="30"
+          />
+        </div>
+        <div
+          v-if = audio
+          :key="index"
+          class="mb-6 flex items-center listing"
+        >
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="mr-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="icon"
+            :path="icon"
+            class="mr-2 cursor-pointer"
+            size="70"
+          />
+          <FormUploadFiles
+            v-model="lessonFile"
+            :icon-left="mdiAccount"
+            help="Title"
+          />
+          <IconRounded
+            v-if="icon && main"
+            :icon="icon"
+            color="light"
+            class="ml-3"
+            bg
+          />
+          <BaseIcon
+            v-else-if="iconRight"
+            :path="iconRight"
+            @click="deleteHandlerLesson()"
+            class="ml-2 cursor-pointer"
+            size="30"
+          />
+        </div>
+        <div
+          v-if = pdffile
           :key="index"
           class="mb-6 flex items-center listing"
         >

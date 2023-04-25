@@ -67,6 +67,16 @@ export default [
     icon: mdiFilePdfBox,
   },
   {
+    to: "/LMS/audiofile",
+    label: "Add Audio",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/pdffiles",
+    label: "Add Pdf",
+    icon: mdiFilePdfBox,
+  },
+  {
     to: "/LMS/import",
     label: "Add Bulk Importer",
     icon: mdiImport,

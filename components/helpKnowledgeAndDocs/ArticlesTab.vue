@@ -137,7 +137,7 @@
             </tr>
           </thead>
 
-          <tbody>
+          <tbody class="text-[12px] ">
             <tr>
               <td class="p-0">
                   <TableCheckboxCell
@@ -155,7 +155,11 @@
                 {{dislikes}}
               </td>
               <td></td>
-              <td>1/11/2023</td>
+              <td class="flex justify-start gap-0">
+                <p id="year"></p>
+                <p id="month"></p>
+                <p id="day"></p>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -163,23 +167,7 @@
     </div>
 </template>
 
-<script>
-export default {
-  data(){
-    return{
-      author: 'You',
-      author: {
-          main: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
-      },
-      language: 'Choose Language',
-            languages: {
-            usa: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
-      },
 
-    }
-  }
-}
-</script>
 
 <script setup>
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -192,12 +180,25 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 
 const likes = ref(0)
 const dislikes = ref(0)
-
 const content = ref('')
 
 onMounted(() => {
   console.log('editor')
   console.log(localStorage.getItem('content'))
   content.value = JSON.parse(localStorage.getItem('content'))
+
+  const y = new Date();
+  
+  content.year = y.getFullYear() + '/';
+  content.month = y.getMonth() + 1 + '/';
+  content.day = y.getDate();
+
+  document.getElementById('year').innerHTML = content.year
+  document.getElementById('month').innerHTML = content.month
+  document.getElementById('day').innerHTML = content.day
+
+  console.log(content.year)
+  console.log(content.month)
+  console.log(content.day)
 })
 </script>

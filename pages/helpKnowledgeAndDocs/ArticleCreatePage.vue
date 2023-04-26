@@ -93,7 +93,10 @@ export default {
     return {
       activeTab: "document",
       editorData: "",
-      content: ''
+      content: '',
+          year: [],
+          month: [],
+          day: [],
     };
   },
 
@@ -114,16 +117,11 @@ export default {
     publishData(){
       console.log(this.$refs.documentComp, "documentcomp");
       console.log(this.$refs.content, "content");
-      const data = {...this.$refs.documentComp.docForm, content: this.content}
+      const data = {...this.$refs.documentComp.docForm, year: this.year, month: this.month, day: this.day, content: this.content}
       console.log(data,'------ yaah data')
       localStorage.setItem('content',JSON.stringify(data))
       this.$router.push('/ArticleViewPage')
     }
-
-    // publishForm() {
-    //   localStorage.setItem("formData", JSON.stringify(this.formData));
-    //   this.$router.push("/ArticleViewPage");
-    // },
   },
 };
 </script>

@@ -34,22 +34,18 @@
         <!-- visibility -->
         <PremFormField
         label="Visibility"
+        class="flex flex-col"
         >
-          <FormCheckRadio
-            name="notifications-switch"
-            type="radio"
-            label="Public"
-            :input-value="true"
-            v-model="docForm.visibility"
-          />
-          <FormCheckRadio
-            class="ml-3"
-            name="notifications-switch"
-            type="radio"
-            label="Private"
-            :input-value="true"
-            v-model="docForm.visibility"
-          />
+        <div class="flex gap-10">
+        <div>
+        <input type="radio" value="Public" v-model="docForm.visibility"/>
+        <label class="ml-2" for="public">Public</label>
+        </div>
+        <div>
+        <input type="radio" value="Private" v-model="docForm.visibility"/>
+        <label class="ml-2" for="private">Private</label>
+        </div>
+        </div>
         </PremFormField>
 
         <!-- Language -->
@@ -177,18 +173,22 @@ import { mdiArrowLeftBoldCircle, mdiLink } from "@mdi/js";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
+import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
 
 export default defineComponent({
     name: 'Document',
 
-    components:  {
+    components: {
       BaseButtons,
       BaseButton,
       PremFormField,
       PremFormControl,
       FormCheckRadio,
-      SelectDropdown
+      FormCheckRadioGroup,
+      SelectDropdown,
+      mdiArrowLeftBoldCircle,
+      mdiLink,
     },
 
     data(){
@@ -196,7 +196,7 @@ export default defineComponent({
           docForm: {
             slug: '',
             status: 'Draft',
-            visibility: '',
+            visibility: 'all',
             language: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
             author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
             meta: '',

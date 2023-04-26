@@ -154,7 +154,7 @@
                 <BaseButton @click="dislikes++" small label="&#128078;"/>
                 {{dislikes}}
               </td>
-              <td></td>
+              <td>{{content.visibility}}</td>
               <td class="flex justify-start gap-0">
                 <p id="year"></p>
                 <p id="month"></p>

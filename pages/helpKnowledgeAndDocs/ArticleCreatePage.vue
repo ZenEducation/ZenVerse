@@ -87,6 +87,8 @@ export default {
         Document,
         Block,
         ArticleEditor,
+        mdiArrowLeftBoldCircle,
+        mdiLink
     },
 
   data() {

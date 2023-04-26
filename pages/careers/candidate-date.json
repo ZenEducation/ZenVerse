@@ -1,0 +1,98 @@
+{
+    "values": [
+        {
+            "id": 1,
+            "name": "Injamamul Haque",
+            "featured": true,
+            "description": "Web Developer",
+            "location": "India",
+            "price": "1000/mo",
+            "skills": [
+                "HTML",
+                "CSS",
+                "JS",
+                "Vue"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/01.jpg",
+            "profileLink": ""
+        },
+        {
+            "id": 2,
+            "name": "Najmul Haque",
+            "featured": true,
+            "description": "UI Designer",
+            "location": "India",
+            "price": "1500/mo",
+            "skills": [
+                "Figma",
+                "XD",
+                "Photoshop",
+                "Illustrator"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/02.jpg",
+            "profileLink": ""
+        },
+        {
+            "id": 3,
+            "name": "Pothik Das",
+            "featured": true,
+            "description": "Backend Developer",
+            "location": "India",
+            "price": "1800/mo",
+            "skills": [
+                "Java",
+                "Python",
+                "Ruby"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/03.jpg",
+            "profileLink": ""
+        },
+        {
+            "id": 4,
+            "name": "Voumik Das",
+            "featured": true,
+            "description": "UI Developer",
+            "location": "Parish",
+            "price": "1900/mo",
+            "skills": [
+                "HTML",
+                "CSS",
+                "JS",
+                "React"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/04.jpg",
+            "profileLink": ""
+        },
+        {
+            "id": 5,
+            "name": "Najmul Hoque",
+            "featured": true,
+            "description": "Product Designer",
+            "location": "India",
+            "price": "1600/mo",
+            "skills": [
+                "Corel Draw",
+                "XD"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/05.jpg",
+            "profileLink": ""
+        },
+        {
+            "id": 6,
+            "name": "Janiya Parvin",
+            "featured": true,
+            "description": "Full Stack developer",
+            "location": "Dubai",
+            "price": "2000/mo",
+            "skills": [
+                "HTML",
+                "CSS",
+                "JS",
+                "React",
+                "Angular"
+            ],
+            "image": "https://shreethemes.in/techwind/layouts/assets/images/client/08.jpg",
+            "profileLink": ""
+        }
+    ]
+}

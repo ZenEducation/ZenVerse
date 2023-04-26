@@ -1,0 +1,17 @@
+@layer base {
+    .articleBtn {
+        @apply cursor-pointer text-sm font-medium bg-gray-100 dark:bg-gray-800 inline-flex px-4 py-2 hover:bg-gray-300
+    }
+
+    .selectDdBtn {
+        @apply cursor-pointer text-sm font-medium bg-white dark:bg-gray-800 inline-flex px-4 py-4 hover:bg-gray-300 w-full
+    }
+
+    .articleChangeBtn {
+        @apply  cursor-pointer col-span-1 text-center py-2 relative hover:text-blue-600
+    }
+    
+    .activeArticleChangeBtn {
+        @apply after:content-[''] after:absolute after:bottom-[-10px] after:left-0 after:h-[3px] after:bg-blue-600 after:w-full
+    }
+}

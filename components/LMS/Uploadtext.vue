@@ -245,16 +245,18 @@ const handleAudio = (event) => {
   const fileInput = event.target;
   const acceptedTypes = fileInput.accept.split(",");
   console.log("audiofiles",acceptedTypes)
-  const extension =  '.'+fileInput.files[0].type.split("/x-")[1];
-  console.log(extension)
-  const validFileType = acceptedTypes.includes(extension);
- console.log(validFileType)
-  if (!validFileType) {
-    alert("File format is invaild file");
-  } else {
+ 
+  const extension =  fileInput.files[0].type.split('/')[0]
+  console.log(fileInput.files[0].type.split('/'))
+//   const validFileType = acceptedTypes.includes(extension);
+//  console.log(validFileType)
+  if (extension === "audio") {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
   downloadlist.value = true;
+    
+  } else {
+    alert("File format is invaild file");
   }
   console.log("test",fileInput.files[0].name);
 }
@@ -285,7 +287,7 @@ const  handlepdf  = (event) => {
   const acceptedTypes = fileInput.accept.split(",");
   console.log("audiofiles",acceptedTypes)
   const extension =  '.'+fileInput.files[0].type.split("/")[1];
-  console.log(extension)
+  console.log(fileInput.files[0].type)
   const validFileType = acceptedTypes.includes(extension);
   const fileSizeInMB = fileInput.files[0].size / (1024 * 1024);
  console.log(validFileType)

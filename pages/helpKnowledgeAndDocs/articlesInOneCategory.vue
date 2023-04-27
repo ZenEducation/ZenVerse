@@ -11,6 +11,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import ArticlesList from "@/components/helpKnowledgeAndDocs/ArticlesList.vue";
-import { sampleArticlesByCategory } from "@/configs/sampleArticles.js";
+import { sampleArticlesByCategory } from "@/configs/helpKnowledgeAndDocs/sampleArticles.js";
 const articles = ref(sampleArticlesByCategory);
 </script>

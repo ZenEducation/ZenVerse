@@ -3,7 +3,6 @@
   <section
     class="relative table py-36 lg:py-44 w-full bg-no-repeat bg-center bg-cover heroSection"
   >
-    over
     <div class="absolute inset-0 bg-slate-900 opacity-80"></div>
     <div class="container mx-auto">
       <div class="grid grid-cols-1 pb-8 text-center mt-12">
@@ -96,7 +95,7 @@ const previousLink = computed(() => {
 
 <style scoped>
 .heroSection {
-  background-image: url("../../images/job.jpg");
+  background-image: url("../../../images/job.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

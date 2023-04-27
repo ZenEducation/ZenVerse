@@ -74,7 +74,7 @@ const pillText = computed(() => props.text ?? `${props.progress}%`);
             {{ name }}
           </h4>
           <p class="text-gray-500 dark:text-slate-400">
-            {{ date }} @ {{ login }}
+            {{ date }} {{ login && `@ ${login}`}}
           </p>
         </div>
       </BaseLevel>

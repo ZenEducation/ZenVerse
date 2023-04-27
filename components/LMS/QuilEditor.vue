@@ -8,23 +8,20 @@ import QuillBetterTable from 'quill-better-table'
 const modules = { 
         module: BlotFormatter, 
         module: ImageUploader,
-        
+      
         options: {
           upload: file => {
-            return new Promise((resolve, reject) => {
-              const formData = new FormData();
-              formData.append("image", file);
-
-              axios.post('/upload-image', formData)
-              .then(res => {
-                console.log(res)
-                resolve(res.data.url);
-              })
-              .catch(err => {
-                reject("Upload failed");
-                console.error("Error:", err)
-              })
-            })
+          
+    
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/480px-JavaScript-logo.png"
+            );
+          }, 3500);
+        });
+      
+    
           }
         }}
 </script>

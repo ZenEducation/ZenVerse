@@ -4,12 +4,11 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import BlotFormatter from 'quill-blot-formatter'
 import ImageUploader from 'quill-image-uploader';
 import axios from 'axios';
-const modules = {
-       
-        name: 'blotFormatter',  
+import QuillBetterTable from 'quill-better-table'
+const modules = { 
         module: BlotFormatter, 
-        name: 'imageUploader',
         module: ImageUploader,
+        
         options: {
           upload: file => {
             return new Promise((resolve, reject) => {

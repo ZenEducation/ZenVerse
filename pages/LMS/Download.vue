@@ -19,7 +19,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
-
+import QuilEditor from "@/components/LMS/QuilEditor.vue";
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -78,11 +78,7 @@ const contentValue = ref("")
               />
             </PremFormField>
             <PremFormField label="Content" horizontal>
-              <FormUploadFiles
-                v-model="contentValue"
-                :icon-left="mdiAccount"
-                help="Title"
-              />
+              <QuilEditor/>
             </PremFormField>
 
             <PremFormField label="Upload a file" horizontal>

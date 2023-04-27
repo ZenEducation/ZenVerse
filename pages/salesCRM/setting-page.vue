@@ -67,5 +67,5 @@ const settingData = [
   "Pothik on go",
 ];
 </script>
-
+<!-- style section  -->
 <style scoped></style>

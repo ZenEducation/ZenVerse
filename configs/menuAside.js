@@ -157,4 +157,9 @@ export default [
     label: "About",
     icon: mdiHelpCircle,
   },
+  {
+    to: "/LMS/admin",
+    label: "Admin UI",
+    icon: mdiAccountCircle,
+  },
 ];

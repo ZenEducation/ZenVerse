@@ -6,14 +6,14 @@
     <table>
       <thead>
         <tr>
-          <th class="border-b-0 w-20 lg:w-18">Sr No</th>
+          <th class="w-20 lg:w-18">Sr No</th>
           <th>Setting Name</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, idx) in data" :key="idx">
-          <td class="border-b-0" data-label="Sr No">
+          <td class="" data-label="Sr No">
             {{ idx + 1 }}
           </td>
           <td data-label="Name">
@@ -22,7 +22,7 @@
 
           <td class="lg:w-1 whitespace-nowrap" data-label="Action">
             <BaseButtons type="justify-start lg:justify-end" no-wrap>
-              <BaseButton color="info" :icon="mdiEye" small />
+              <BaseButton color="info" label="View" small />
             </BaseButtons>
           </td>
         </tr>

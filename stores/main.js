@@ -12,7 +12,10 @@ const state = () => ({
   /* Field focus with ctrl+k (to register only once) */
   isFieldFocusRegistered: false,
 
-
+  courseDetails : [
+    {heading: "Course image", description: "Suggested Dimensions: 760x420px"},
+    {heading: "Course description", description:"Include a brief description of your course. Max 250 characters"},
+  ],
   clients: [
     { id: 19, avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg", login: "percy64", name: "Howell Hand", company: "Kiehn-Green", city: "Emelyside", progress: 70, created: "Mar 3, 2021" },
     { id: 11, avatar: "https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg", login: "dare.concepcion", name: "Hope Howe", company: "Nolan Inc", city: "Paristown", progress: 68, created: "Dec 1, 2021" },

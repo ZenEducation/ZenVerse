@@ -58,4 +58,3 @@ export default defineNuxtConfig({
 
   // target: "static"
 });
-

@@ -48,8 +48,146 @@
         </div>
         </PremFormField>
 
+        <!-- Category start -->
+        <div>
+        <PremFormField
+        class="grid md:grid-cols-1"
+        label="Category"
+        v-model="docForm.category"
+        >
+            <SelectDropdown @click="categoryModal = true">
+              <template v-slot:title>
+                {{ docForm.category }}
+              </template>
+            </SelectDropdown>
+        </PremFormField>
+            <div v-if="categoryModal === true" class="fixed top-0 bottom-0 left-0 w-full h-[100vh] bg-gray-700/50 grid place-items-center z-50">
+              <CardBox class="rounded-sm w-11/12 md:w-6/12 opacity-100">
+                <div class="flex justify-between pb-6">
+                  Categories
+                  <!-- Icon -->
+                  <BaseIcon @click="categoryModal = false" :path="mdiClose" class="cursor-pointer" w="w-12"/>
+                </div>
+
+                <PremFormField>
+                  <PremFormControl
+                  type="text"
+                  placeholder="Search"
+                  />
+                </PremFormField>
+
+                <hr>
+                <div>
+                  <p class="text-center py-4">No available category</p>
+                  <hr>
+
+                  <!-- category table start-->
+                  <table>
+                    <tbody class="text-[12px]">
+                      <tr>
+                        <td id="title">{{categories.name}} <p class="text-green-600" v-if="primary === true">-Primary</p></td>
+                        <td><BaseButton @click="primary = !primary" label="Make Primary"/></td>
+                        <td><BaseIcon :path="mdiCog"/></td>
+                        <td><BaseIcon :path="mdiImage"/></td>
+                        <td>
+                          <FormControl type="radio"/>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- category table end-->
+                  
+                  <!-- category form start-->
+                  <div v-if="openCategoryForm === true" class="p-5 h-[400px] overflow-auto bg-gray-100 dark:bg-gray-900">
+                  <PremFormField label="Category Name"
+                  >
+                    <PremFormControl
+                    type="text"
+                    placeholder="Enter category name"
+                    v-model="categories.name"
+                    />
+                  </PremFormField>
+
+                  <PremFormField>
+                    <PremFormField label="Slug">
+                    <PremFormControl
+                    type="text"
+                    placeholder="Enter slug"
+                    v-model="categories.slug"
+                    />
+                    </PremFormField>
+                    
+                    <!-- PARENT CATEGORY -->
+                      <PremFormField
+                        label="Parent Category"
+                        v-model="categories.level"
+                        >
+                            <SelectDropdown>
+                              <template v-slot:title>
+                                <div>{{categories.level}}</div>
+                              </template>
+                              <template v-slot:options>
+                                <ul class="flex flex-col">
+                                    <li class="selectDdBtn">
+                                      <PremFormField>
+                                        <PremFormControl
+                                        type="text"
+                                        placeholder="Search"
+                                        />
+                                      </PremFormField>
+                                    </li>
+                                  <li @click="docForm.language = docForm.language" class="selectDdBtn">{{category.level}}</li>
+                                </ul>
+                              </template>
+                            </SelectDropdown>
+                      </PremFormField>
+                  </PremFormField>
+
+                  <PremFormField
+                    label="Description"
+                    horizontal
+                    >
+                      <PremFormControl
+                        type="textarea"
+                        v-model="categories.description"
+                      />
+                  </PremFormField>
+                 
+                 <BaseButtons class="py-4 flex justify-end">
+                  <BaseButton @click="openCategoryForm = false"
+                    color="info"
+                    label="Cancel"
+                    :outline="!isMain"
+                  />
+                  <BaseButton
+                    color="info"
+                    label="Save"
+                  />
+                  </BaseButtons>
+                  </div>
+                   <!-- category form end-->
+
+
+                   <!-- category form event start-->
+                   <div>
+                  <button v-if="openCategoryForm === false" @click="openCategoryForm = true" class="flex items-center py-4">
+                  <BaseIcon :path="mdiPlus" class="cursor-pointer" w="w-12"/>
+                    Add Category
+                  </button>
+
+                  
+                   </div>
+                  <!-- category form event end-->
+
+                </div>
+              </CardBox>
+            </div>
+        </div>
+        <!-- Category end -->
+
         <!-- Language -->
         <PremFormField
+        class="mt-5"
           label="Language"
           v-model="docForm.language"
           >
@@ -161,20 +299,26 @@
               </SelectDropdown>
         </PremFormField>
 
-        <button type="submit" @click="submit">submit</button>
+        <!-- <button type="submit" @click="submit">submit</button> -->
     </div>
 </template>
+
+<script setup>
+import { mdiArrowLeftBoldCircle, mdiLink, mdiClose, mdiPlus, mdiCog, mdiImage } from "@mdi/js";
+</script>
 
 <script>
 import { ref, defineComponent } from 'vue'
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import { mdiArrowLeftBoldCircle, mdiLink } from "@mdi/js";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+import CardBox from "@/components/Cards/CardBox.vue";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+
 
 export default defineComponent({
     name: 'Document',
@@ -187,31 +331,47 @@ export default defineComponent({
       FormCheckRadio,
       FormCheckRadioGroup,
       SelectDropdown,
-      mdiArrowLeftBoldCircle,
-      mdiLink,
+      CardBox,
+      BaseIcon,
     },
 
-    data(){
+    data() {
         return{
+          primary: false,
           docForm: {
             slug: '',
             status: 'Draft',
             visibility: 'all',
+            category: 'No Primary Category',
             language: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
             author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
             meta: '',
             imageUrl: '',
             articles: 0,
           },
+
+          categories: {
+            name: '',
+            slug: '',
+            level: 'Top level category',
+            description: ''
+          },
+
+          openCategoryForm: false,
+          categoryModal: false,
             
         }
     },
+    
 
-    methods: {
-      submit(){
-        console.log('docForm', this.docForm)
-      }
-    },
+    // methods: {
+    //   submit(){
+    //     console.log('docForm', this.docForm)
+    //   },
+    //   primary(){
+
+    //   }
+    // },
 
   //   computed: {
   //   form: {

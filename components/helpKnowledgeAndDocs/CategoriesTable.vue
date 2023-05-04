@@ -19,8 +19,20 @@
             </tr>
           </thead>
           
-          <tbody>
-            
+          <tbody class="text-[12px] ">
+            <tr>
+              <td class="p-0">
+                  <TableCheckboxCell
+                     @checked="checked($event, client)"
+                   />
+              </td>
+              <td>{{category.name}}</td>
+              <td>{{category.description}}</td>
+              <td v-html="category.language"></td>
+              <td v-html="category.icon"></td>
+              <td>{{category.slug}}</td>
+              <td>{{category.count}}</td>
+            </tr>
           </tbody>
         </table>
         <CardBox has-table class="text-center p-3">No Categories</CardBox>
@@ -30,4 +42,12 @@
 <script setup>
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
+
+const category = ref('')
+
+onMounted(() => {
+  console.log('------categories')
+  console.log(localStorage.getItem('category'))
+  category.value = JSON.parse(localStorage.getItem('category'))
+})
 </script>

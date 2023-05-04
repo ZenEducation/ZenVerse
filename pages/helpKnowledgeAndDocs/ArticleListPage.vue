@@ -39,6 +39,7 @@
                 class="m-1"
                 color="contrast"
                 label="New Category"
+                to="NewCategoryPage"
                 />
             </BaseButtons>
 

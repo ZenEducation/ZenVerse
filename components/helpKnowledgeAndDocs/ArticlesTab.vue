@@ -137,7 +137,8 @@
             </tr>
           </thead>
 
-          <tbody class="text-[12px] ">
+          <tbody class="text-[12px] w-full">
+            
             <tr>
               <td class="p-0">
                   <TableCheckboxCell
@@ -161,13 +162,12 @@
                 <p id="day"></p>
               </td>
             </tr>
+            
           </tbody>
         </table>
         <CardBox v-if="!content" has-table class="text-center p-3">No Documents</CardBox>
     </div>
 </template>
-
-
 
 <script setup>
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -180,6 +180,9 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 
 const likes = ref(0)
 const dislikes = ref(0)
+
+
+
 const content = ref('')
 
 onMounted(() => {
@@ -187,6 +190,9 @@ onMounted(() => {
   console.log(localStorage.getItem('content'))
   content.value = JSON.parse(localStorage.getItem('content'))
 
+
+
+  // date
   const y = new Date();
   
   content.year = y.getFullYear() + '/';

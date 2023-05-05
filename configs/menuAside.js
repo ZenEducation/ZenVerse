@@ -158,8 +158,8 @@ export default [
     icon: mdiHelpCircle,
   },
   {
-    to: "/LMS/admin",
-    label: "Admin UI",
+    to: "/LMS/LearnerMgmt",
+    label: "Learner Management",
     icon: mdiAccountCircle,
   },
 ];

@@ -17,22 +17,32 @@ defineProps({
 
 const mainStore = useMainStore();
 
-const items = computed(() => mainStore.learners);
+const items = ref(mainStore.learners);
 
 const isModalActive = ref(false);
 
 const isModalDangerActive = ref(false);
 
+const searchValue = ref("");
+
 const perPage = ref(5);
 
 const currentPage = ref(0);
 
-const itemsPaginated = computed(() =>
-  items.value.slice(
-    perPage.value * currentPage.value,
-    perPage.value * (currentPage.value + 1)
-  )
-);
+const itemsPaginated = computed(() => {
+  return items.value
+    .slice(
+      perPage.value * currentPage.value,
+      perPage.value * (currentPage.value + 1)
+    )
+    .filter((item) => {
+      return searchValue.value
+        ? item.name.includes(searchValue.value) ||
+            item.email.includes(searchValue.value) ||
+            item.mobile.includes(searchValue.value)
+        : true;
+    });
+});
 
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
 
@@ -60,22 +70,16 @@ const buildDropDown = (list, key, header) => {
   }, []);
 };
 
-const filterByJoinedOptions = buildDropDown(
-  itemsPaginated,
-  "joinedOn",
-  "Date Joined"
+const filterByJoinedOptions = computed(() =>
+  buildDropDown(itemsPaginated, "joinedOn", "Date Joined")
 );
 
-const filterByisMemberOptions = buildDropDown(
-  itemsPaginated,
-  "isEnabled",
-  "Status"
+const filterByisMemberOptions = computed(() =>
+  buildDropDown(itemsPaginated, "isEnabled", "Status")
 );
 
-const filterByLastLoginOptions = buildDropDown(
-  itemsPaginated,
-  "lastLogin",
-  "Last Login"
+const filterByLastLoginOptions = computed(() =>
+  buildDropDown(itemsPaginated, "lastLogin", "Last Login")
 );
 </script>
 
@@ -95,19 +99,16 @@ const filterByLastLoginOptions = buildDropDown(
     <p>This is sample modal</p>
   </CardBoxModal>
 
-  <form class="relative">
+  <form class="relative" @submit.prevent="submit">
     <label for="msg-search" class="sr-only">Search</label>
     <input
       id="msg-search"
       class="form-input w-full pl-9 focus:border-slate-300"
       type="search"
+      v-model="searchValue"
       placeholder="Search by Name, Email or Mobile Number"
     />
-    <button
-      class="absolute inset-0 right-auto group"
-      type="submit"
-      aria-label="Search"
-    >
+    <button class="absolute inset-0 right-auto group" aria-label="Search">
       <svg
         class="w-4 h-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 ml-3 mr-2"
         viewBox="0 0 16 16"
@@ -126,6 +127,7 @@ const filterByLastLoginOptions = buildDropDown(
     <h3>Filter By:</h3>
     <PremFormField horizontal class="mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
+        @change="dropDownChange"
         v-model="filterByJoinedOptions[0]"
         :options="filterByJoinedOptions"
       />

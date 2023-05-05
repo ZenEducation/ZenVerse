@@ -1,6 +1,7 @@
 
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
+import { useMainStore } from "@/stores/main";
 import {
   mdiDotsVertical,
   mdiAccountPlus,
@@ -23,6 +24,26 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import TableLearnersSample from "@/components/Tables/TableLearnersSample.vue";
 
 const isModalActive = ref(false);
+const mainStore = useMainStore();
+
+const name = ref("");
+const mobile = ref("");
+const email = ref("");
+
+function submitProfile() {
+  isModalActive.value = false;
+  useMainStore().addLearner({
+    id: 1,
+    avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
+    login: "percy64",
+    name: name,
+    email: email,
+    mobile: mobile,
+    lastLogin: "Mar 3, 2021",
+    joinedOn: "Mar 3, 2021",
+    isEnabled: true,
+  });
+}
 </script>
 
 <template>
@@ -47,6 +68,7 @@ const isModalActive = ref(false);
           :icon="mdiAccount"
           name="username"
           required
+          v-model="name"
           autocomplete="username"
           placeholder="Enter learner name"
         />
@@ -56,6 +78,7 @@ const isModalActive = ref(false);
           :icon="mdiMail"
           type="email"
           name="email"
+          v-model="email"
           required
           autocomplete="email"
           placeholder="Enter learner email"
@@ -66,6 +89,7 @@ const isModalActive = ref(false);
           :icon="mdiCellphone"
           name="phone"
           type="phone"
+          v-model="mobile"
           required
           autocomplete="current-phone"
           placeholder="Enter learner mobile"
@@ -100,7 +124,7 @@ const isModalActive = ref(false);
           class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
         >
           <div class="heading">
-            <h1 class="font-bold text-2xl">Learners</h1>
+            <h1 class="font-bold text-2xl">Learner Management</h1>
             <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
               Manage your learning community. Learn More.
             </h3>

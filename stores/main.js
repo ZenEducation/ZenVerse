@@ -179,6 +179,9 @@ const actions = {
       this.userAvatar = payload.avatar;
     }
   },
+  addLearner(payload) {
+    this.learners.push(payload);
+  },
 };
 
 export const useMainStore = defineStore("main", {

@@ -11,6 +11,10 @@ const state = () => ({
   /* Field focus with ctrl+k (to register only once) */
   isFieldFocusRegistered: false,
 
+  courseDetails : [
+    {heading: "Course image", description: "Suggested Dimensions: 760x420px"},
+    {heading: "Course description", description:"Include a brief description of your course. Max 250 characters"},
+  ],
   clients: [
     {
       id: 19,
@@ -128,6 +132,27 @@ const state = () => ({
       type: "withdrawal",
       business: "Collier - Hintz",
     },
+  ],
+  lessonOptions : [
+    {headline: "Video", description:"Easily upload and display your video content"},
+    {headline: "PDF", description:"Easily upload PDF content for your students to view directly within your course player"},
+    {headline: "Text", description:"Include bodies of text,styled HTML content, and also imagePerfect for learning on the go, audio content is great if you know your students are mobile"},
+    {headline: "Audio", description:"Perfect for learning on the go, audio content is great if you know yor students are mobile"},
+    {headline: "Download", description:"Distribute files to your students"},
+    {headline: "Presentation", description:"Display slides with audio that your students can navigate through"},
+    {headline: "Multimedia", description:"Include a great resource into your course"},
+    {headline: "Live", description:"Enable Live lessons using Zoom's video meeting and/or webinar tools"}
+  ],
+  accessStudents: [
+    {headline: "Quiz", description:"Allow students to interact with material that was just taught or presented"},
+    {headline:"Survey", description:"Incorporate some avenues for feedback between you and your students"},
+    {headline:"Assignment", description:"Great for any type of homework that you would like a student to submit for approval"},
+    {headline:"Exam", description:"Integrate with a professional exam tool called Brillium to deliver tests with these requirements"}
+  ],
+
+  courseDetails : [
+    {heading: "Course image", description: "Suggested Dimensions: 760x420px"},
+    {heading: "Course description", description:"Include a brief description of your course. Max 250 characters"},
   ],
   products: [
     {

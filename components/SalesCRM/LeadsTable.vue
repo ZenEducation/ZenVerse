@@ -4,24 +4,21 @@
     <table>
       <thead>
         <tr>
-          <th>Sr No</th>
-          <th>Setting Name</th>
-          <th>Channel Name</th>
-          <th>Date & Time</th>
+          <th class="text-center">Sr No</th>
+          <th class="text-center">Setting Name</th>
+          <th class="text-center">Channel Name</th>
+          <th class="text-center">Date & Time</th>
 
-          <th>Delayed By</th>
+          <th class="text-center">Delayed By</th>
 
-          <th>Status</th>
+          <th class="text-center">Status</th>
 
-          <th>Action</th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, idx) in data" :key="idx">
-          <td
-            class="border-b-0 w-5 lg:w-6 before:hidden px-8"
-            data-label="Sr No"
-          >
+          <td class="text-center" data-label="Sr No">
             {{ idx + 1 }}
           </td>
           <td data-label="Setting Name">
@@ -34,7 +31,7 @@
               {{ item.extraChannels }}
             </p>
           </td>
-          <td data-label="Date & Time">
+          <td data-label="Date & Time" class="">
             <p>
               {{ item.date }}
             </p>
@@ -42,15 +39,15 @@
               {{ item.time }}
             </p>
           </td>
-          <td data-label="Date & Time">
+          <td data-label="Date & Time" class="text-center">
             {{ item.delayedBy }}
           </td>
           <td data-label="Status">
-            <PremFormField label="" help="some help" horizontal>
+            <PremFormField label="" :help="item.someHelpText" horizontal>
               <PremFormControl
                 type="list"
                 :options="listBoxOptions"
-                v-model="item.status.value"
+                v-model="item.status"
               />
             </PremFormField>
           </td>

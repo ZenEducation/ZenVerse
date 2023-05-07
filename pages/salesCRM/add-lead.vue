@@ -11,6 +11,7 @@
                 <PremFormControl
                   help=""
                   placeholder="Search by Name , Email , Phone , Location"
+                  v-model="searchInputValue"
                 />
               </PremFormField>
             </div>
@@ -28,7 +29,9 @@
               </PremFormField>
             </div>
 
-            <div class="">
+            <div
+              class="text-right flex justify-self-center align-middle flex-wrap"
+            >
               <BaseButton
                 color="info"
                 label="Forwards leads"
@@ -44,12 +47,13 @@
                 color="info"
                 label="Upload"
                 class="inline mx-1 my-1"
+                @click="fileUploadWarningModel = true"
               />
             </div>
           </div>
         </section>
         <section class="relative bg-gray-50 dark:bg-slate-800">
-          <LeadsTable :data="leadsData" />
+          <LeadsTable :data="computedLeadsData" />
         </section>
 
         <UploadLeadCardVue
@@ -57,7 +61,16 @@
           :hideAddleadmodel="hideAddleadmodel"
           :pushNewLeadData="pushNewLeadData"
         />
-        <FileCheckWaning v-if="fileUploadWarningModer" />
+        <FileCheckWaning
+          v-if="fileUploadWarningModel"
+          :hidefileUploadWarningModel="hidefileUploadWarningModel"
+          :showfileUploadPopUpModel="showfileUploadPopUpModel"
+        />
+        <FileUploadPopup
+          v-if="fileUploadPopUpModel"
+          :hidefileUploadPopUpModel="hidefileUploadPopUpModel"
+          :pushDataFromCSV="pushDataFromCSV"
+        />
       </SectionMain>
     </NuxtLayout>
   </div>
@@ -77,10 +90,14 @@ import OverlayLayer from "@/components/Asidemenu/OverlayLayer.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import UploadLeadCardVue from "@/components/SalesCRM/UploadLeadCard.vue";
 import FileCheckWaning from "@/components/SalesCRM/FileCheckWarning.vue";
+import FileUploadPopup from "@/components/SalesCRM/FileUploadPopup.vue";
+import { ref, defineProps, computed } from "vue";
 const documentsType = "All Documents";
 const modalOneActive = true;
 const addleadModel = ref(false);
-const fileUploadWarningModer = ref(false);
+const fileUploadWarningModel = ref(false);
+const fileUploadPopUpModel = ref(false);
+const searchInputValue = ref("");
 const leadsData = ref([
   {
     settingName: "Kiron",
@@ -89,14 +106,11 @@ const leadsData = ref([
     date: "22 March 2021",
     time: "05:12:00 PM",
     delayedBy: "2 Days",
-    email: "",
-    phone: "",
-    location: "",
-    status: {
-      label: "Followup",
-      value: "Followup",
-      helpText: "Write Comment",
-    },
+    email: "injamam.kiron@gmail.com",
+    phone: "7854875895",
+    location: "India",
+    status: "Followup",
+    someHelpText: "Going to Canada",
   },
   {
     settingName: "Mamon",
@@ -105,14 +119,12 @@ const leadsData = ref([
     date: "2 April 2021",
     time: "08:12:00 AM",
     delayedBy: "2 Days",
-    email: "",
-    phone: "",
-    location: "",
-    status: {
-      label: "Visa Process Started",
-      value: "Visa Process Started",
-      helpText: "19-07-2022  ",
-    },
+    email: "injamamul@gmail.com",
+    phone: "8745871254",
+    location: "Dubai",
+
+    status: "Visa Process Started",
+    someHelpText: "Some help",
   },
   {
     settingName: "Mohit",
@@ -121,14 +133,11 @@ const leadsData = ref([
     date: "12 December 2021",
     time: "05:12:00 PM",
     delayedBy: "2 Days",
-    email: "",
-    phone: "",
-    location: "",
-    status: {
-      label: "Pending",
-      value: "Pending",
-      helpText: "Write Comment",
-    },
+    email: "kiron@gmail.com",
+    phone: "4589789635",
+    location: "Kolkata",
+    status: "Pending",
+    someHelpText: "31/05/24 -  1 Task",
   },
 ]);
 
@@ -137,6 +146,22 @@ const leadsData = ref([
 const hideAddleadmodel = () => {
   addleadModel.value = false;
 };
+// hide file upload warning model
+const hidefileUploadWarningModel = () => {
+  fileUploadWarningModel.value = false;
+};
+// hide file upload popup model
+const hidefileUploadPopUpModel = () => {
+  fileUploadPopUpModel.value = false;
+  fileUploadWarningModel.value = false;
+};
+
+// show file upload popup model
+const showfileUploadPopUpModel = () => {
+  fileUploadPopUpModel.value = true;
+  fileUploadWarningModel.value = false;
+};
+
 // push new data in  leadsData  array
 
 const pushNewLeadData = (data) => {
@@ -151,16 +176,72 @@ const pushNewLeadData = (data) => {
     email: data.email,
     phone: data.phone,
     location: data.location,
-    status: {
-      label: "Followup",
-      value: "Followup",
-      helpText: "Write Comment",
-    },
+    status: "Followup",
+    someHelpText: "Going to Canada",
   });
   addleadModel.value = false;
 };
 
+const pushDataFromCSV = (newData) => {
+  console.log("pushDataFromCSV");
+  console.log(newData);
+
+  leadsData.value = [...leadsData.value, ...newData];
+};
+
+// filter data
+
+const filterData = () => {
+  if (searchInputValue.value == null || searchInputValue.value == "") {
+    return leadsData.value;
+  } else {
+    console.log(searchInputValue.value);
+    leadsData.value = leadsData.value.filter((item) => {
+      return (
+        item.settingName
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.email
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.phone
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.location
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase())
+      );
+    });
+  }
+};
+
 // computed
+
+const computedLeadsData = computed(() => {
+  if (searchInputValue.value == null || searchInputValue.value == "") {
+    return leadsData.value;
+  } else {
+    // console.log(searchInputValue.value);
+    const filteredValue = leadsData.value.filter((item) => {
+      return (
+        item.settingName
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.email
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.phone
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase()) ||
+        item.location
+          .toLowerCase()
+          .includes(searchInputValue.value.toLowerCase())
+      );
+    });
+
+    return filteredValue;
+  }
+});
 
 // watch
 </script>

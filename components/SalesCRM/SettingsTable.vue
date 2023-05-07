@@ -6,14 +6,14 @@
     <table>
       <thead>
         <tr>
-          <th class="w-20 lg:w-18">Sr No</th>
+          <th class="w-20 lg:w-18 text-center">Sr No</th>
           <th>Setting Name</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, idx) in data" :key="idx">
-          <td class="" data-label="Sr No">
+          <td class="text-center" data-label="Sr No">
             {{ idx + 1 }}
           </td>
           <td data-label="Name">

@@ -28,7 +28,7 @@ const layoutAsidePadding = computed(() =>
 );
 
 const styleStore = useStyleStore();
-
+const mainStore = useMainStore();
 const layoutStore = useLayoutStore();
 
 const router = useRouter();
@@ -51,7 +51,10 @@ const menuClick = (event, item) => {
     // console.log("Clicked On Logout");
     router.push("/auth/login");
   }
-  layoutStore.currAsideMenu = item.label;
+  
+  if(!item.isAdditional){
+    layoutStore.currAsideMenu = item.label;
+  }
   
 };
 </script>

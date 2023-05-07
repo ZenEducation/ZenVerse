@@ -26,11 +26,13 @@ export default [
     label: "Light/Dark",
     isDesktopNoLabel: true,
     isToggleLightDark: true,
+    isAdditional: true,
   },
 
   {
     icon: mdiMenu,
     label: "Preview",
+    isAdditional: true,
     menu: [
       {
         label: "ALL COURSES ONLINE",

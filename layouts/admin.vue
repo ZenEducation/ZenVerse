@@ -51,6 +51,8 @@ const menuClick = (event, item) => {
     // console.log("Clicked On Logout");
     router.push("/auth/login");
   }
+  layoutStore.currAsideMenu = item.label;
+  
 };
 </script>
 

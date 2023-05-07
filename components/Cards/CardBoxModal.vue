@@ -49,7 +49,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 </script>
-
+  
 <template>
   <OverlayLayer v-show="value" @overlay-click="cancel">
     <CardBox

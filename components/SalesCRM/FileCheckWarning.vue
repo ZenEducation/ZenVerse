@@ -18,7 +18,7 @@
             4. If Email Id exists already in your CRM that row will be skipped
           </li>
         </ul>
-        <p class="">
+        <p class="text-red-500">
           <strong>*Note : </strong> If file have blank columns like Name of have
           Invalid Email Id row will be skipped from uploadation.Please check the
           file before uploading.

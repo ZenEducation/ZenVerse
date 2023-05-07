@@ -3,10 +3,13 @@
     <NuxtLayout name="zen">
       <SectionMain>
         <section class="relative bg-gray-50 dark:bg-slate-800 my-5">
+          <!-- filter and button section -->
+
           <div
             class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[10px] px-3"
           >
             <div>
+              <!-- input field -->
               <PremFormField horizontal>
                 <PremFormControl
                   help=""
@@ -204,9 +207,7 @@ const filterData = () => {
         item.email
           .toLowerCase()
           .includes(searchInputValue.value.toLowerCase()) ||
-        item.phone
-          .toLowerCase()
-          .includes(searchInputValue.value.toLowerCase()) ||
+        item.phone.includes(searchInputValue.value.toLowerCase()) ||
         item.location
           .toLowerCase()
           .includes(searchInputValue.value.toLowerCase())

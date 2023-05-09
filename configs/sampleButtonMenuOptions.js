@@ -21,3 +21,25 @@ export const buttonMenuOptions = [
     },
   ],
 ];
+
+export const courseMenuOptions = [
+  [
+    {
+      id: 1,
+      icon: mdiDialpad,
+      label: "Expand all",
+    },
+    {
+      id: 2,
+      icon: mdiFileDocumentMultipleOutline,
+      label: "Collapse all",
+    },
+  ],
+  [
+    {
+      id: 3,
+      icon: mdiDelete,
+      label: "Compact view",
+    },
+  ],
+];

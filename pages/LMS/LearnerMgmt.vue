@@ -2,6 +2,7 @@
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import { useMainStore } from "@/stores/main";
+import uuid4 from "uuid4";
 import {
   mdiDotsVertical,
   mdiAccountPlus,
@@ -33,21 +34,21 @@ const email = ref("");
 function submitProfile() {
   isModalActive.value = false;
   useMainStore().addLearner({
-    id: 1,
+    id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
-    name: name,
-    email: email,
-    mobile: mobile,
-    lastLogin: "Mar 3, 2021",
-    joinedOn: "Mar 3, 2021",
+    name: name.value,
+    email: email.value,
+    mobile: mobile.value,
+    lastLogin: "Mar 03, 2021",
+    joinedOn: "Mar 03, 2021",
     isEnabled: true,
   });
 }
 </script>
 
 <template>
-  <CardBoxModal v-model="isModalActive" :showFooter="false">
+  <CardBoxModal v-model="isModalActive" :showFooter="false" title="">
     <header
       class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
     >
@@ -119,37 +120,35 @@ function submitProfile() {
   </CardBoxModal>
   <div>
     <NuxtLayout name="zen">
-      <SectionMain>
-        <div
-          class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
-        >
-          <div class="heading">
-            <h1 class="font-bold text-2xl">Learner Management</h1>
-            <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
-              Manage your learning community. Learn More.
-            </h3>
-          </div>
-          <BaseButtons type="ml-auto xl:mr-4 mr-1">
-            <BaseButton
-              class="flex-1"
-              type="submit"
-              label="+ Add"
-              :icon="mdiMessageBadge"
-              color="info"
-              @click="isModalActive = true"
-            />
-          </BaseButtons>
-          <div class="flex items-center justify-center">
-            <PremButtonMenu
-              :options="adminPanelButtonMenu"
-              :icon="mdiDotsVertical"
-            />
-          </div>
+      <div
+        class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
+      >
+        <div class="heading">
+          <h1 class="font-bold text-2xl">Learner Management</h1>
+          <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
+            Manage your learning community. Learn More.
+          </h3>
         </div>
-        <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-          <TableLearnersSample />
+        <BaseButtons type="ml-auto xl:mr-4 mr-1">
+          <BaseButton
+            class="flex-1"
+            type="submit"
+            label="+ Add"
+            :icon="mdiMessageBadge"
+            color="info"
+            @click="isModalActive = true"
+          />
+        </BaseButtons>
+        <div class="flex items-center justify-center">
+          <PremButtonMenu
+            :options="adminPanelButtonMenu"
+            :icon="mdiDotsVertical"
+          />
         </div>
-      </SectionMain>
+      </div>
+      <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
+        <TableLearnersSample />
+      </div>
     </NuxtLayout>
   </div>
 </template>

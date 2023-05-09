@@ -8,8 +8,8 @@ import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import UserAvatar from "@/components/Avatars/UserAvatar";
-import PremFormField from "@/components/Forms/FormField.vue";
-import PremFormControl from "@/components/Forms/FormControl.vue";
+import PremFormField from "@/components/Forms/PremFormField.vue";
+import PremFormControl from "@/components/Forms/PremFormControl.vue";
 
 defineProps({
   checkable: { type: Boolean, default: false },
@@ -25,21 +25,36 @@ const isModalDangerActive = ref(false);
 
 const searchValue = ref("");
 
-const perPage = ref(5);
+const deleteItemId = ref("");
+
+const filterByJoinedOptions = ref("");
+
+const filterByLastLoginOptions = ref("");
+
+const perPage = ref(25);
 
 const currentPage = ref(0);
 
 const itemsPaginated = computed(() => {
+  const search = new RegExp(searchValue.value, "i");
+  const joinDate = converDate(filterByJoinedOptions.value);
+  const lastLogindate = converDate(filterByLastLoginOptions.value);
   return items.value
     .slice(
       perPage.value * currentPage.value,
       perPage.value * (currentPage.value + 1)
     )
     .filter((item) => {
-      return searchValue.value
-        ? item.name.includes(searchValue.value) ||
-            item.email.includes(searchValue.value) ||
-            item.mobile.includes(searchValue.value)
+      return search
+        ? item.name.match(search) ||
+            item.email.match(search) ||
+            item.mobile.match(search)
+        : true;
+    })
+    .filter((item) => {
+      return joinDate || lastLogindate
+        ? item.joinedOn.includes(joinDate) ||
+            item.lastLogin.includes(lastLogindate)
         : true;
     });
 });
@@ -47,6 +62,12 @@ const itemsPaginated = computed(() => {
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
 
 const currentPageHuman = computed(() => currentPage.value + 1);
+
+const converDate = (date) => {
+  if (!date) return;
+  const newDate = new Date(date).toDateString().split(" ");
+  return `${newDate[1]} ${newDate[2]}, ${newDate[3]}`;
+};
 
 const pagesList = computed(() => {
   const pagesList = [];
@@ -70,34 +91,42 @@ const buildDropDown = (list, key, header) => {
   }, []);
 };
 
-const filterByJoinedOptions = computed(() =>
-  buildDropDown(itemsPaginated, "joinedOn", "Date Joined")
-);
-
 const filterByisMemberOptions = computed(() =>
   buildDropDown(itemsPaginated, "isEnabled", "Status")
 );
 
-const filterByLastLoginOptions = computed(() =>
-  buildDropDown(itemsPaginated, "lastLogin", "Last Login")
-);
+const deleteItem = (popup, id) => {
+  if (popup) {
+    isModalDangerActive.value = true;
+    deleteItemId.value = id;
+    return;
+  }
+  const index = itemsPaginated.value.findIndex(
+    (item) => item.id === deleteItemId.value
+  );
+  if (index !== -1) {
+    itemsPaginated.value.splice(index, 1);
+  }
+};
 </script>
 
 <template>
-  <CardBoxModal v-model="isModalActive" title="Sample modal">
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
+  <CardBoxModal
+    v-model="isModalActive"
+    title="Edit Learners"
+    buttonLabel="Okay"
+  >
+    <p>You can edit learner details here.(WIP)</p>
   </CardBoxModal>
 
   <CardBoxModal
     v-model="isModalDangerActive"
-    title="Please confirm"
+    title="Are you sure you want to delete this learner?"
     button="danger"
+    buttonLabel="Yes"
     has-cancel
-  >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </CardBoxModal>
+    @confirm="deleteItem(false)"
+  />
 
   <form class="relative" @submit.prevent="submit">
     <label for="msg-search" class="sr-only">Search</label>
@@ -123,25 +152,37 @@ const filterByLastLoginOptions = computed(() =>
       </svg>
     </button>
   </form>
-  <div class="flex flex-col gap-4 xl:flex-row xl:gap-10 items-center flex-wrap">
+  <div
+    class="flex flex-col mt-3 gap-4 xl:flex-row xl:gap-10 items-center flex-wrap"
+  >
     <h3>Filter By:</h3>
-    <PremFormField horizontal class="mb-0 min-w-[50%] xl:min-w-[20%]">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
-        @change="dropDownChange"
-        v-model="filterByJoinedOptions[0]"
-        :options="filterByJoinedOptions"
+        type="date"
+        v-model="filterByJoinedOptions"
+        help="Joined On"
       />
     </PremFormField>
-    <PremFormField horizontal class="mb-0 min-w-[50%] xl:min-w-[20%]">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
         v-model="filterByisMemberOptions[0]"
         :options="filterByisMemberOptions"
+        help="&nbsp"
       />
     </PremFormField>
-    <PremFormField horizontal class="min-w-[50%] xl:min-w-[20%]">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
-        v-model="filterByLastLoginOptions[0]"
-        :options="filterByLastLoginOptions"
+        type="date"
+        v-model="filterByLastLoginOptions"
+        help="Last Login On"
+      />
+    </PremFormField>
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+      <PremFormControl
+        class="w-1/2"
+        buttonLabel="More"
+        buttonColor="info"
+        help="&nbsp"
       />
     </PremFormField>
   </div>
@@ -210,7 +251,7 @@ const filterByLastLoginOptions = computed(() =>
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isModalDangerActive = true"
+              @click="deleteItem(true, learners.id)"
             />
           </BaseButtons>
         </td>

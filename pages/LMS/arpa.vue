@@ -1,36 +1,125 @@
 <script setup>
-    import { mdiTrashCan } from "@mdi/js";
-    import { ref } from 'vue';
-    import SectionMain from "~~/components/Sections/SectionMain.vue";
-    import CardBox from "~~/components/Cards/CardBox.vue";
-    import CardBoxComponentTitle from "~~/components/Cards/CardBoxComponentTitle.vue";
-    import BaseDivider from "~~/components/NavBar/BaseDivider.vue";
-    import PremFormField from "~~/components/Forms/FormField.vue";
-    import PremFormControl from "~~/components/Forms/FormControl.vue";
-    import BaseButton from "~~/components/Buttons/BaseButton.vue";
+import { mdiTrashCan } from "@mdi/js";
+import { ref } from 'vue';
+import SectionMain from "~~/components/Sections/SectionMain.vue";
+import CardBox from "~~/components/Cards/CardBox.vue";
+import CardBoxComponentTitle from "~~/components/Cards/CardBoxComponentTitle.vue";
+import BaseDivider from "~~/components/NavBar/BaseDivider.vue";
+import PremFormField from "~~/components/Forms/FormField.vue";
+import PremFormControl from "~~/components/Forms/FormControl.vue";
+import BaseButton from "~~/components/Buttons/BaseButton.vue";
 
 
 
-    const adminList = [
-        { id:1, label: "Admin 1", unavailable: false},
-        { id: 2, label: "Admin 2", unavailable: false}
-    ]
+const adminList = ref([
+    { id: 1, label: "Admin 1", unavailable: false, active: true },
+    { id: 2, label: "Admin 2", unavailable: false, active: false },
+    { id: 3, label: "Admin 3", unavailable: false, active: true },
+    { id: 4, label: "Admin 4", unavailable: false, active: false },
+    { id: 5, label: "Admin 5", unavailable: false, active: true },
+    { id: 6, label: "Admin 6", unavailable: false, active: true },
+])
 
-    const revenueList = [
-        { id:1, label: "Partner 1", unavailable: false},
-        { id:2, label: "Partner 2", unavailable: false}
-    ]
+const affiliateList = ref([
+    { id: 1, label: "Affiliate 1", unavailable: false, active: true },
+    { id: 2, label: "Affiliate 2", unavailable: false, active: false },
+    { id: 3, label: "Affiliate 3", unavailable: false, active: true },
+    { id: 4, label: "Affiliate 4", unavailable: false, active: false },
+    { id: 5, label: "Affiliate 5", unavailable: false, active: true },
+    { id: 6, label: "Affiliate 6", unavailable: false, active: true },
+])
 
-    const affiliateList = [
-        { id:1, label: "Affiliate 1", unavailable: false},
-        { id:2, label: "Affiliate 2", unavailable: false}
-    ]
+const revenueList = ref([
+    { id: 1, label: "Partner 1", unavailable: false, active: true , percentage:8},
+    { id: 2, label: "Partner 2", unavailable: false, active: false, percentage:8 },
+    { id: 3, label: "Partner 3", unavailable: false, active: true, percentage:null },
+    { id: 4, label: "Partner 4", unavailable: false, active: false, percentage:8 },
+    { id: 5, label: "Partner 5", unavailable: false, active: true, percentage:8 },
+    { id: 6, label: "Partner 6", unavailable: false, active: true, percentage:8 },
+])
 
-    const adminPart = ref('');
 
-    const revenuePart = ref('');
 
-    const affiliatePart = ref('');
+const adminPart = ref('');
+const revenuePart = ref('');
+const affiliatePart = ref('');
+
+const addToActiveAdmin = (id) => {
+    const admin = adminList.value.find((item) => item.id === id);
+    if (admin) {
+        admin.active = true;
+        console.log(adminList)
+    }
+};
+
+const removeFromActiveAdmin = (id) => {
+    const admin = adminList.value.find((item) => item.id === id);
+    if (admin) {
+        admin.active = false;
+        console.log(adminList)
+
+    }
+};
+
+const addToActiveRevenue = (id) => {
+    const revenue = revenueList.value.find((item) => item.id === id);
+    if (revenue) {
+        revenue.active = true;
+        console.log(revenueList)
+    }
+};
+
+
+const addToActiveAffiliate = (id) => {
+    const affiliate = affiliateList.value.find((item) => item.id === id);
+    if (affiliate) {
+        affiliate.active = true;
+        console.log(affiliateList)
+    }
+};
+
+const removeFromActiveRevenue = (id) => {
+    const revenue = revenueList.value.find((item) => item.id === id);
+    if (revenue) {
+        revenue.percentage = null;
+        revenue.active = false;
+        console.log(revenueList)
+        
+    }
+};
+
+const saveRevenuePercentage = (id) => {
+    const revenue = revenueList.value.find((item) => item.id === id);
+    if (revenue) {
+        revenue.percentage = null;
+        revenue.active = false;
+        console.log(revenueList)
+        
+    }
+};
+
+const removeFromActiveAffiliate = (id) => {
+    const affiliate = affiliateList.value.find((item) => item.id === id);
+    if (affiliate) {
+        affiliate.active = false;
+        console.log(affiliateList)
+
+    }
+};
+
+
+// const adminActive = adminList.filter((item)=>item.active === true );
+const adminActive = computed(() => {
+  return adminList.value.filter((item) => item.active === true);
+});
+const revenueActive = computed(() => {
+  return revenueList.value.filter((item) => item.active === true);
+});
+const affiliateActive = computed(() => {
+  return affiliateList.value.filter((item) => item.active === true);
+});
+
+
 </script>
 
 <template>
@@ -38,70 +127,71 @@
         <NuxtLayout name="zen">
             <SectionMain>
                 <div class="grid gird-cols-1 gap-6 mb-6 xl:grid-cols-4">
-                    <CardBox
-                        class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
-                        if-from
-                        @submit.prevent="submit"
-                    >
-                        <CardBoxComponentTitle
-                            title="Admins, Revenue Partners & Affiliates"
-                            class="mb-12"
-                        />
-                        <h4 class="text-gray-700 dark:text-slate-400">Manage Course Admin, Revenue Partner, and Affiliate settings for this specific course. You can assign a role to a user in their user settings.</h4>
-                        <BaseDivider/>
+                    <CardBox class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
+                        <CardBoxComponentTitle title="Admins, Revenue Partners & Affiliates" class="mb-12" />
+                        <h4 class="text-gray-700 dark:text-slate-400">Manage Course Admin, Revenue Partner, and Affiliate
+                            settings for this specific course. You can assign a role to a user in their user settings.</h4>
+                        <BaseDivider />
                         <PremFormField label="Add Course Admins">
-                            <h4 class="text-gray-700 dark:text-slate-400">Course Admins can create new courses, edit existing courses they're assigned to, or create new instructors.</h4>
+                            <h4 class="text-gray-700 dark:text-slate-400">Course Admins can create new courses, edit
+                                existing courses they're assigned to, or create new instructors.</h4>
                         </PremFormField>
                         <PremFormField>
-                            <PremFormControl
-                                v-model="adminPart"
-                                :options="adminList"
-                            />
-                            <BaseButton type="submit" color="info" label="ADD" outline/>
+                            <PremFormControl v-model="adminPart" :options="adminList" />
+                            <BaseButton type="submit" color="info" label="ADD" @click="addToActiveAdmin(adminPart.id)" outline />
                         </PremFormField>
-                        <BaseDivider/>
-                        <PremFormField>
-                            <h4 class="text-gray-700 dark:text-slate-400">{{ adminPart.label }}</h4>
-                            <BaseButton type="submit" color="danger" :icon="mdiTrashCan" outline/>
+                        <BaseDivider />
+                        <PremFormField v-for="item in adminActive" :key="item.id">
+                            <h4 class="text-gray-700 dark:text-slate-400">{{ item.label }}</h4>
+                            <BaseButton type="submit" color="danger" :icon="mdiTrashCan"
+                                @click="removeFromActiveAdmin(item.id)" outline />
                         </PremFormField>
-                        <BaseDivider/>
+                        <BaseDivider />
                         <PremFormField label="Add Revenue Partners">
-                            <h4 class="text-gray-700 dark:text-slate-400">If this course was a joint effort, easily split a percentage of the sales amongst all your creators/instructors. You can add them to this course and set their payout below.</h4>
+                            <h4 class="text-gray-700 dark:text-slate-400">If this course was a joint effort, easily split a
+                                percentage of the sales amongst all your creators/instructors. You can add them to this
+                                course and set their payout below.</h4>
                         </PremFormField>
                         <PremFormField label="When I sell this course, I want to pay:">
-                            <PremFormControl
-                                v-model="revenuePart"
-                                :options="revenueList"
-                            />
-                            <BaseButton type="submit" color="info" label="ADD" outline/>
+                            <PremFormControl v-model="revenuePart" :options="revenueList" />
+                            <BaseButton type="submit" color="info"  @click="addToActiveRevenue(revenuePart.id)" label="ADD" outline />
                         </PremFormField>
                         <div class="grid grid-cols-3">
                             <span class="text-gray-700 dark:text-slate-400" style="margin-right: 33%;">Name</span>
                             <span class="text-gray-700 dark:text-slate-400" style="margin-right: 33%;">Percentage</span>
-                            <div style="text-align: center;"><BaseButton type="submit" label="SAVE" color="info" outline/></div>
+                            <div style="text-align: center;">
+                                <BaseButton type="submit" label="SAVE" color="info" outline />
+                            </div>
                         </div>
-                        <BaseDivider/>
-                        <div class="grid grid-cols-3">
-                            <div><h4 class="text-gray-900 dark:text-slate-400">{{ revenuePart.label }}</h4></div>
-                            <div><input type="number" style="width: 30%; border-radius: 4px;"/>
-                            <button style="padding: 3%; border-radius: 4px; font-weight: 600;">%</button></div>
-                            <div style="text-align: center;"><BaseButton type="submit" :icon="mdiTrashCan" color="danger" outline/></div>
+                        <BaseDivider  />
+                        <div class="grid grid-cols-3" v-for="item in revenueActive" :key="item.id">
+                            <div>
+                                <h4 class="text-gray-900 dark:text-slate-400">{{ item?.label }}</h4>
+                            </div>
+                            <div v-if=" !item.percentage ">  <input type="number" style="width: 30%; border-radius: 4px;" /> 
+                                <button style="padding: 3%; border-radius: 4px; font-weight: 600;">%</button>
+                            </div>
+                            <div v-else>
+                                <h3  class=" text-left" >{{item.percentage}}%</h3>
+                            </div>
+                            <div style="text-align: center;">
+                                <BaseButton type="submit" :icon="mdiTrashCan" @click="removeFromActiveRevenue(item.id)" color="danger" outline />
+                            </div>
                         </div>
-                        <BaseDivider/>
+                        <BaseDivider />
                         <PremFormField label="Add Affiliate">
-                            <h4 class="text-gray-700 dark:text-slate-400">An affiliate can earn percentage or dollar commissions for promoting your courses! They will have access to basic account settings like a Student as well as an Affiliate Dashboard</h4>
+                            <h4 class="text-gray-700 dark:text-slate-400">An affiliate can earn percentage or dollar
+                                commissions for promoting your courses! They will have access to basic account settings like
+                                a Student as well as an Affiliate Dashboard</h4>
                         </PremFormField>
                         <PremFormField>
-                            <PremFormControl
-                                v-model="affiliatePart"
-                                :options="affiliateList"
-                            />
-                            <BaseButton type="submit" color="info" label="ADD" outline/>
+                            <PremFormControl v-model="affiliatePart" :options="affiliateList" />
+                            <BaseButton type="submit" color="info" @click="addToActiveAffiliate(affiliatePart.id)" label="ADD" outline />
                         </PremFormField>
-                        <BaseDivider/>
-                        <PremFormField>
-                            <h4 class="text-gray-700 dark:text-slate-400">{{ affiliatePart.label }}</h4>
-                            <BaseButton type="submit" color="danger" :icon="mdiTrashCan" outline/>
+                        <BaseDivider />
+                        <PremFormField v-for="item in affiliateActive " :key="item.id" >
+                            <h4 class="text-gray-700 dark:text-slate-400">{{ item.label }}</h4>
+                            <BaseButton type="submit" color="danger" @click="removeFromActiveAffiliate(item.id)"  :icon="mdiTrashCan" outline />
                         </PremFormField>
                     </CardBox>
                 </div>

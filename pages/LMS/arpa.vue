@@ -55,7 +55,6 @@ const addToActiveAdmin = (id) => {
     const admin = adminList.value.find((item) => item.id === id);
     if (admin) {
         admin.active = true;
-        console.log(adminList)
     }
 };
 
@@ -63,7 +62,6 @@ const removeFromActiveAdmin = (id) => {
     const admin = adminList.value.find((item) => item.id === id);
     if (admin) {
         admin.active = false;
-        console.log(adminList)
 
     }
 };
@@ -76,7 +74,6 @@ const addToActiveRevenue = () => {
     if (revenue) {
         revenue.active = true;
         revenue.percentage = percentage;
-        console.log(revenueList)
     }
     revenueSelectedForPercentage.value = '';
 };
@@ -86,7 +83,6 @@ const addToActiveAffiliate = (id) => {
     const affiliate = affiliateList.value.find((item) => item.id === id);
     if (affiliate) {
         affiliate.active = true;
-        console.log(affiliateList)
     }
 };
 
@@ -95,7 +91,6 @@ const removeFromActiveRevenue = (id) => {
     if (revenue) {
         revenue.percentage = null;
         revenue.active = false;
-        console.log(revenueList)
         
     }
 };
@@ -138,9 +133,6 @@ const affiliateUnactive = computed(() => {
   return affiliateList.value.filter((item) => item.active === false);
 });
 
-const revenueSavePercentage = ()=>{
-    console.log(revenueActive)
-}
 
 </script>
 

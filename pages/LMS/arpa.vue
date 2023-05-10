@@ -105,7 +105,6 @@ const saveRevenuePercentage = (id) => {
     if (revenue) {
         revenue.percentage = null;
         revenue.active = false;
-        console.log(revenueList)
         
     }
 };
@@ -114,8 +113,6 @@ const removeFromActiveAffiliate = (id) => {
     const affiliate = affiliateList.value.find((item) => item.id === id);
     if (affiliate) {
         affiliate.active = false;
-        console.log(affiliateList)
-
     }
 };
 

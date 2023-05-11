@@ -19,7 +19,7 @@
             </tr>
           </thead>
           
-          <tbody class="text-[12px] ">
+          <tbody class="text-[12px]" v-for="(category, index) in categoryData" :key="index"> 
             <tr>
               <td class="p-0">
                   <TableCheckboxCell
@@ -35,19 +35,22 @@
             </tr>
           </tbody>
         </table>
-        <CardBox has-table class="text-center p-3">No Categories</CardBox>
+        <!-- <CardBox has-table class="text-center p-3">No Categories</CardBox> -->
     </div>
 </template>
 
 <script setup>
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
+import { useCategoryStore } from '@/stores/categoryData.js';
 
-const category = ref('')
+const categoryStore = useCategoryStore()
+const categoryData = computed(() => categoryStore.categories);
+// const category = ref('')
 
-onMounted(() => {
-  console.log('------categories')
-  console.log(localStorage.getItem('category'))
-  category.value = JSON.parse(localStorage.getItem('category'))
-})
+// onMounted(() => {
+//   console.log('------categories')
+//   console.log(localStorage.getItem('category'))
+//   category.value = JSON.parse(localStorage.getItem('category'))
+// })
 </script>

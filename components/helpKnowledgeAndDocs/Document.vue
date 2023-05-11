@@ -83,19 +83,15 @@
 
                   <!-- category table start-->
                   <table>
-                    <tbody class="text-[12px]" v-for="(category, index) in categoryData" :key="index"> 
+                    <tbody class="text-[12px]" v-for="(category, index) in categoryData" :key="index">
                       <tr>
-                        <td class="p-0">
-                            <TableCheckboxCell
-                               @checked="checked($event, client)"
-                             />
+                        <td id="title">{{category.name}} <p class="text-green-600" v-if="primary === true">-Primary</p></td>
+                        <td><BaseButton @click="primary = !primary" label="Make Primary"/></td>
+                        <td><BaseIcon :path="mdiCog"/></td>
+                        <td><BaseIcon :path="mdiImage"/></td>
+                        <td>
+                          <FormControl type="radio"/>
                         </td>
-                        <td>{{category.name}}</td>
-                        <td>{{category.description}}</td>
-                        <td v-html="category.language"></td>
-                        <td v-html="category.icon"></td>
-                        <td>{{category.slug}}</td>
-                        <td>{{category.count}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -358,12 +354,12 @@ export default defineComponent({
             articles: 0,
           },
 
-          // categories: {
-          //   name: '',
-          //   slug: '',
-          //   level: 'Top level category',
-          //   description: ''
-          // },
+          categories: {
+            name: '',
+            slug: '',
+            level: 'Top level category',
+            description: ''
+          },
 
           openCategoryForm: false,
           categoryModal: false,

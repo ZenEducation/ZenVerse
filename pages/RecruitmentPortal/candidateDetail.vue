@@ -147,9 +147,9 @@
 </template>
 
 <script setup>
-import CandidateSkillSingle from "@/components/Careers/CandidateSkillSingle.vue";
-import CandidateProjectSingle from "@/components/Careers/CandidateProjectSingle.vue";
-import CandidateExperienceSingle from "@/components/Careers/CandidateExperienceSingle.vue";
+import CandidateSkillSingle from "@/components/RecuitmentPortal/CandidateSkillSingle.vue";
+import CandidateProjectSingle from "@/components/RecuitmentPortal/CandidateProjectSingle.vue";
+import CandidateExperienceSingle from "@/components/RecuitmentPortal/CandidateExperienceSingle.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import { mdiEmailOutline, mdiGiftOutline ,mdiHomeOutline ,mdiMapMarkerOutline, mdiWeb , mdiPostOutline , mdiPhoneOutline } from "@mdi/js";
 

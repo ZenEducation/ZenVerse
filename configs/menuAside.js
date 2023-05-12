@@ -95,6 +95,19 @@ export default [
     ],
   },
   {
+    label: "Career",
+    icon: mdiFormDropdown,
+    menu: [
+      {
+        label: "Candidate Detail",
+        to:'/careers/candidateDetail'
+      },
+      {
+        label: "Dropdown item Dos",
+      },
+    ],
+  },
+  {
     to: "/pps/profileView",
     label: "Profile",
     icon: mdiAccountCircle,

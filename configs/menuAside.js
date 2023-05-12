@@ -85,6 +85,16 @@ export default [
     ],
   },
   {
+    label: "Career",
+    icon: mdiFormDropdown,
+    menu: [
+      {
+        label: "All Departments",
+        to:'/careers/allDepartments'
+      },
+    ],
+  },
+  {
     to: "/pps/profileView",
     label: "Profile",
     icon: mdiAccountCircle,

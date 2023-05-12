@@ -187,7 +187,7 @@
 </template>
 
 <script>
-import SingleJobCard from "@/components/Careers/SingleJobCard.vue";
+import SingleJobCard from "@/components/RecruitmentPortal/SingleJobCard.vue";
 import { useStyleStore } from "@/stores/style.js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import { mdiBriefcase , mdiChevronRight , mdiChevronLeft } from '@mdi/js';

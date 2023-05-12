@@ -37,7 +37,7 @@
     "@nuxtjs/auth-next": "^5.0.0-1637745161.ea53f98",
     "@rollup/plugin-inject": "^5.0.3",
     "@rollup/plugin-terser": "^0.4.0",
-    "@vueup/vue-quill": "^1.0.1",
+    "@vueup/vue-quill": "^1.1.1",
     "aws-amplify": "^5.0.5",
     "chart.js": "^3.9.1",
     "fabric": "^5.3.0",

@@ -17,6 +17,7 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiPlus,
 } from "@mdi/js";
 
 export default [
@@ -36,7 +37,11 @@ export default [
     icon: mdiTable,
     updateMark: "warning",
   },
-
+  {
+    to: "/salesCRM/add-lead",
+    label: "Add Lead",
+    icon: mdiPlus,
+  },
   {
     to: "/pps/FormsView",
     label: "Forms Advanced",

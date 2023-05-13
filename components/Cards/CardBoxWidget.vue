@@ -57,12 +57,13 @@ defineProps({
     </BaseLevel>
     <BaseLevel mobile>
       <div>
-        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">
-          {{ label }}
-        </h3>
-        <h1 class="text-3xl leading-tight font-semibold">
+        <h1 class="text-3xl text-white leading-tight font-semibold">
           <NumberDynamic :value="number" :prefix="prefix" :suffix="suffix" />
         </h1>
+        <h3 class="mt-3 text-lg leading-tight text-white dark:text-slate-400">
+          {{ label }}
+        </h3>
+        
       </div>
       <BaseIcon
         v-if="icon"

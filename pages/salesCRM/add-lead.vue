@@ -103,6 +103,7 @@ const fileUploadPopUpModel = ref(false);
 const searchInputValue = ref("");
 const leadsData = ref([
   {
+    id:1,
     settingName: "Kiron",
     channelName: "Eduaboard Trail",
     extraChannels: "Sunil(+2)",
@@ -116,6 +117,7 @@ const leadsData = ref([
     someHelpText: "Going to Canada",
   },
   {
+    id:2,
     settingName: "Mamon",
     channelName: "Eduaboard Trail",
     extraChannels: "Sunil(+2)",
@@ -130,6 +132,7 @@ const leadsData = ref([
     someHelpText: "Some help",
   },
   {
+    id:3,
     settingName: "Mohit",
     channelName: "Eduaboard Trail",
     extraChannels: "guru(+2)",

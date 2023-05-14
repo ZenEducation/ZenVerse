@@ -34,6 +34,9 @@ const header = computed(() => {
     return "New Pdf Lesson";
   }
 });
+const exportpdf = () => {
+  console.log('test')
+}
 
 const inputValue = ref("");
 const contentValue = ref("")
@@ -55,6 +58,7 @@ const contentValue = ref("")
             small
           />
           <BaseButton
+          @click = "exportpdf()"
             label="SAVE"
             :icon="mdiCreditCardOutline"
             color="contrast"

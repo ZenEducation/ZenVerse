@@ -77,6 +77,11 @@ export default [
     icon: mdiFilePdfBox,
   },
   {
+    to: "/LMS/pdfView",
+    label: "Pdf View",
+    icon: mdiFilePdfBox,
+  },
+  {
     to: "/LMS/import",
     label: "Add Bulk Importer",
     icon: mdiImport,

@@ -190,5 +190,11 @@ export default [
     label: "About",
     icon: mdiHelpCircle,
   },
- 
+
+  {
+    to: "/LMS/LearnerMgmt",
+    label: "Learner Management",
+    icon: mdiAccountCircle,
+  },
+
 ];

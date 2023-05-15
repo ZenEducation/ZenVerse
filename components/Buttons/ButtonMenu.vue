@@ -6,6 +6,10 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 
 const props = defineProps({
+  description: {
+    type: String,
+    default: null,
+  },
   icon: {
     type: String,
     default: null,
@@ -94,7 +98,7 @@ const iconRightComputed = computed(() =>
     >
       <MenuItems
         :class="left ? 'left-0' : 'right-0'"
-        class="absolute z-50 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800 dark:divide-gray-700"
+        class="absolute z-50 w-max mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800 dark:divide-gray-700"
       >
         <div
           v-for="(optionsGroup, index) in options"
@@ -111,7 +115,12 @@ const iconRightComputed = computed(() =>
               class="group flex rounded-md items-center w-full px-2 py-2 text-sm"
             >
               <BaseIcon :path="option.icon" class="mr-3" />
-              <span>{{ option.label }}</span>
+              <div class="flex flex-col items-start">
+                <span>{{ option.label }}</span>
+                <span class="text-xs text-gray-400">
+                  {{ option.description }}</span
+                >
+              </div>
             </button>
           </MenuItem>
         </div>

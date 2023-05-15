@@ -41,7 +41,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  
+  styles: {
+    type: Array,
+    default: [],
+  },
   small: Boolean,
   outline: Boolean,
   active: Boolean,
@@ -89,6 +92,7 @@ const componentClass = computed(() => {
     "focus:ring",
     "duration-150",
     "border",
+    ...props.styles,
     props.disabled ? "cursor-not-allowed" : "cursor-pointer",
     props.roundedFull ? "rounded-full" : "rounded",
     getButtonColor(props.color, props.outline, !props.disabled, props.active),
@@ -111,7 +115,7 @@ const componentClass = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div :class="styles.includes('w-full') ? 'w-full' : ''">
     <component
       :is="is"
       :class="componentClass"

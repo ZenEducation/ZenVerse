@@ -4,7 +4,9 @@ import { darkModeKey, styleKey } from "@/configs/config";
 import { useMainStore } from "@/stores/main.js";
 import "@/assets/css/main.css";
 import '@aws-amplify/ui-vue';
-import { Amplify, Auth } from "aws-amplify";
+
+// import { Amplify, Auth } from "aws-amplify";
+
 // import awsconfig from '@/src/aws-exports'; 
 // Amplify.configure(awsconfig);
 // Auth.configure(awsconfig)

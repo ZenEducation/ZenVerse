@@ -70,6 +70,7 @@
               label="Actions"
               small
               class="inline mx-1 my-1"
+              @click="goToAction(item.id)"
             />
           </td>
         </tr>
@@ -108,13 +109,14 @@ import { defineProps, computed } from "vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
+import { useRouter } from "vue-router";
 const props = defineProps({
   data: {
     type: Array,
     required: true,
   },
 });
-
+const router = useRouter();
 const items = props.data;
 
 // status list
@@ -159,6 +161,18 @@ const pagesList = computed(() => {
 
   return pagesList;
 });
+
+
+
+// goto action page 
+
+const goToAction=(id)=>{
+ 
+  router.push('/salesCRM/actions/'+id)
+
+}
+
+
 </script>
 
 <style></style>

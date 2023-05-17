@@ -20,16 +20,26 @@ export const actions = {
     }
   },
 
-  async register({ email, password }) {
+  async register({ name, email, password, address, pincode }) {
+    console.log('name', name)
     const user = await Auth.signUp({
       username: email,
       password,
+      attributes: {
+        name,
+        address,
+        'custom:pincode':pincode
+      }
     });
     return user;
   },
 
   async confirmRegistration({ email, code }) {
     return await Auth.confirmSignUp(email, code);
+  },
+
+  async resendConfirmationCode({ email }) {
+    await Auth.resendSignUp(email);
   },
 
   async login({ email, password }) {
@@ -49,6 +59,24 @@ export const actions = {
       console.log("User successfully logged out");
     }
   },
+
+  async forgetPassword({email}) {
+      const forgetInfo = await Auth.forgotPassword(email)
+      .then((data) => {return data})
+      .catch((err) => {return err});
+      return forgetInfo
+  },
+
+  async forgotPasswordSubmit({email, code, new_password}) {
+    try{
+      const newPasswordInfo = await Auth.forgotPasswordSubmit(email, code, new_password)
+      console.log(newPasswordInfo)
+    return newPasswordInfo;
+    }catch(err) {
+      console.log(err)
+      return err
+    }
+  }
 };
 
 export const useAuthStore = defineStore("authStore", {

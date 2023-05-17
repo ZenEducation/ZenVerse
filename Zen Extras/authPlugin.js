@@ -1,8 +1,12 @@
 // import Vue from "vue";
 import { defineNuxtPlugin } from "#app";
-// import { Amplify, Auth } from "aws-amplify";
-
+import { Amplify, Auth } from "aws-amplify";
 import { useAuthStore } from "@/stores/authStore.js";
+
+import awsconfig from '@/src/aws-exports'; 
+Amplify.configure(awsconfig);
+Auth.configure(awsconfig)
+
 
 // class AuthService {
 //   constructor(store) {

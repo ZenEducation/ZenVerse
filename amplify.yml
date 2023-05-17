@@ -13,6 +13,7 @@ frontend:
       commands:
         - npm install
         - npm ci # ci = clean install, its needed to intall the exact packages on linux
+        - npm run prepBuild
     build:
       commands:
         - npm run generate

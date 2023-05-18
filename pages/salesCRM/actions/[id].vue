@@ -282,7 +282,7 @@
           </CardBox>
         </div>
 <!-- forms  -->
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 px-6" v-if="forms">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 px-6" v-if="forms && hybrideValue == 'Profiling'">
           <CardBox class="mb-6 pb-4 lg:mb-0 lg:col-span-2 xl:col-span-3">
             <!-- Preferred Intake -->
             <div class="from_Holder">
@@ -600,7 +600,12 @@ const state = reactive({
       };
 
       const showFrom =(color)=>{
-  forms.value=true
+        if(color=='green'){
+          forms.value=true
+        }else{
+          forms.value=false
+        }
+
   setBgColor(color)
 }
 </script>

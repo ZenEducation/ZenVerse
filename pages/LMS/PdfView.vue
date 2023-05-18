@@ -1,11 +1,25 @@
 <script setup>
 
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 import SectionMain from "@/components/LMS/SectionMain.vue";
+import { onMounted } from 'vue';
 
-
+onMounted(() => {
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js';
+  script.async = true;
+  script.onload = () => {
+    const pdfFontsScript = document.createElement('script');
+    pdfFontsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js';
+    pdfFontsScript.async = true;
+    pdfFontsScript.onload = () => {
+      // Your existing code for generating the PDF
+      // ...
+    };
+    document.head.appendChild(pdfFontsScript);
+  };
+  document.head.appendChild(script);
+});
 onMounted(() => {
  
   {
@@ -40,6 +54,8 @@ pdfDocGenerator.getBlob((blob) => {
 }
 }
 )
+
+
 </script>
 
 <template>

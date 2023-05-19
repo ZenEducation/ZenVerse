@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-import PdfView from "@/components/PdfView/PdfView.vue";
+// import PdfView from "@/components/PdfView/PdfView.vue";
 
 </script>

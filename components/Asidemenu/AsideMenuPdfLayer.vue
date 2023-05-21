@@ -1,4 +1,6 @@
 <script setup>
+  import { ref, computed } from 'vue';
+
 import { useStyleStore } from "@/stores/style.js";
 import PremAsideMenuList from "@/components/Asidemenu/AsideMenuList.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
@@ -22,6 +24,94 @@ defineProps({
   },
   isCompact: Boolean,
 });
+
+const chapters =  ref([
+  {
+    chapterNumber: 1,
+    chapterTitle: "Introduction",
+    lessons: [
+      {
+        lessonNumber: 1,
+        lessonTitle: "Getting Started",
+        lessonContent: "...",
+        done: true,
+      },
+      {
+        lessonNumber: 2,
+        lessonTitle: "Basic Concepts",
+        lessonContent: "...",
+        done: true,
+      },
+    ],
+  },
+  {
+    chapterNumber: 2,
+    chapterTitle: "Intermediate",
+    lessons: [
+      {
+        lessonNumber: 1,
+        lessonTitle: "Advanced Topics",
+        lessonContent: "...",
+        done: false,
+      },
+      {
+        lessonNumber: 2,
+        lessonTitle: "Hands-On Exercises",
+        lessonContent: "...",
+        done: false,
+      },
+    ],
+  },
+]);
+
+const searchText = ref('');
+
+const filteredChapters = computed(() => {
+  const searchValue = searchText.value.toLowerCase().trim();
+  if (!searchValue) {
+    return chapters.value;
+  }
+
+  return chapters.value.filter((chapter) => {
+    return chapter.lessons.some((lesson) =>
+      lesson.lessonTitle.toLowerCase().includes(searchValue)
+    );
+  });
+});
+
+
+const isChapterOpen = ref( Array(chapters.value.length).fill(false) )
+
+const totalLessons = computed(() => {
+    let count = 0;
+    chapters.value.forEach((chapter) => {
+      count += chapter.lessons.length;
+    });
+    return count;
+  });
+
+  const completedLessons = computed(() => {
+    let count = 0;
+    let x = []
+    chapters.value.forEach((chapter) => {
+      let temp = 0;
+      chapter.lessons.forEach((lesson) => {
+        if (lesson.done) {
+          count++;
+          temp++;
+        }
+      });
+      x.push(temp);
+    });
+    return {count:count , completedList : x}
+  });
+
+  const totalPercentageDone = computed(() => {
+    return (completedLessons.value.count/ totalLessons.value) * 100;
+  });
+
+
+
 const isOpen = ref(false);
 
 function handleClick(e) {
@@ -118,11 +208,11 @@ function toggleDropdownMenu() {
           <progress
             class="flex w-2/5 self-center lg:w-60 py-1"
             max="100"
-            value="5"
+            :value="totalPercentageDone"
           >
-            5%
+            {{totalPercentageDone}}%
           </progress>
-          <p>5% complete</p>
+          <p>{{totalPercentageDone}}% complete</p>
 
           <div class="py-4">
             <button
@@ -178,13 +268,14 @@ function toggleDropdownMenu() {
                   </div>
                   <input
                     type="text"
+                    v-model="searchText"
                     id="input-group-search"
                     class="block w-full p-2 pl-10 text-sm text-white border border-gray-300 rounded-lg bg-fuchsia-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
               </div>
               <ul
-                class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                class="px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
               >
                 <h1
                   class="w-full py-2 text-sm font-medium text-white rounded dark:text-gray-300"
@@ -228,19 +319,14 @@ function toggleDropdownMenu() {
             </div>
           </div>
 
-          <div class="flex text-white rounded dark:text-gray-300">
-            <!-- <BaseIcon
-     
-          :path="mdiCheckboxMarkedCircle"
-         
-          class="cursor-pointer"
-          size="30"
-        />
-        <h1 class = "ml-3">Archaeology</h1>
-        <div class = "ml-5">1/2</div> -->
+          <div
+            class="flex text-white rounded dark:text-gray-300"
+            v-for="chapter in filteredChapters"
+            :key="chapter.chapterNumber"
+          >
             <div class="py-1">
               <button
-                @click="handleClickChapter"
+                @click="isChapterOpen[chapter.chapterNumber-1] = !isChapterOpen[chapter.chapterNumber-1] "
                 id="dropdownSearchButtonChapter"
                 data-dropdown-placement="bottom"
                 class="buttomBorder text-white border-b justify-between font-medium pb-2 text-center inline-flex items-center w-60"
@@ -250,8 +336,17 @@ function toggleDropdownMenu() {
                   :path="mdiCheckboxMarkedCircle"
                   class="cursor-pointer"
                   size="30"
+                  v-if="completedLessons.completedList[chapter.chapterNumber-1] == chapter.lessons.length "
                 />
-                Political Science &nbsp; &nbsp; &nbsp; 1/1
+
+                <BaseIcon
+                v-else
+                  :path="mdiCircleOutline"
+                  class="cursor-pointer"
+                  size="30"
+                />
+
+                {{ chapter.chapterTitle }} &nbsp; &nbsp; &nbsp; {{ completedLessons.completedList[chapter.chapterNumber-1] }} / {{ chapter.lessons.length }}
                 <div class="">
                   <svg
                     class="w-4 h-4"
@@ -273,81 +368,41 @@ function toggleDropdownMenu() {
 
               <!-- Dropdown menu -->
               <div
-                v-if="isOpenChapter"
+                v-if="isChapterOpen[chapter.chapterNumber-1]"
                 id="dropdownSearch"
                 class="z-10 dark:bg-gray-700"
               >
                 <div class="p-2"></div>
                 <ul
-                  class="h-48 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                  class=" pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
                 >
-                  <li>
+                  <li
+                    v-for="lesson in chapter.lessons"
+                    :key="lesson.lessonNumber"
+                  >
                     <div
                       class="text-white items-center rounded hover:bg-fuchsia-500"
                     >
                       <BaseIcon
+                      v-if="!lesson.done"
                         :path="mdiCircleOutline"
                         class="cursor-pointer"
                         size="20"
                       />
 
-                      <label
-                        for="checkbox-item-16"
-                        class="w-full ml-4 text-sm font-medium text-white"
-                        >Leslie Livingston studies</label
-                      >
-
-                      <div class="flex text-white py-1 ml-3">
-                        <BaseIcon
-                          :path="mdiFilePdfBox"
-                          class="cursor-pointer ml-7 mr-3"
-                          size="30"
-                        />
-                        <div>PDF</div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li>
-                    <div
-                      class="text-white items-center rounded hover:bg-fuchsia-500"
-                    >
                       <BaseIcon
-                        :path="mdiCircleOutline"
-                        class="cursor-pointer"
-                        size="20"
-                      />
+                      v-if="lesson.done"
+                      :path="mdiCheckboxMarkedCircle"
+                      class="cursor-pointer"
+                      size="20"
+                    />
+
+
 
                       <label
                         for="checkbox-item-16"
                         class="w-full ml-4 text-sm font-medium text-white"
-                        >Leslie Livingston studies</label
-                      >
-
-                      <div class="flex text-white py-1 ml-3">
-                        <BaseIcon
-                          :path="mdiFilePdfBox"
-                          class="cursor-pointer ml-7 mr-3"
-                          size="30"
-                        />
-                        <div>PDF</div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      class="text-white items-center rounded hover:bg-fuchsia-500"
-                    >
-                      <BaseIcon
-                        :path="mdiCircleOutline"
-                        class="cursor-pointer"
-                        size="20"
-                      />
-
-                      <label
-                        for="checkbox-item-16"
-                        class="w-full ml-4 text-sm font-medium text-white"
-                        >Leslie Livingston studies</label
+                        >{{ lesson.lessonTitle }}</label
                       >
 
                       <div class="flex text-white py-1 ml-3">

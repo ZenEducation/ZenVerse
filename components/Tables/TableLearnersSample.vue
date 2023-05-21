@@ -14,86 +14,134 @@ import PremFormControl from "@/components/Forms/PremFormControl.vue";
 defineProps({
   checkable: { type: Boolean, default: false },
 });
-
 const mainStore = useMainStore();
+const deleteItemId = ref("");
+const EnableItemId = ref("");
 
-const items = ref(mainStore.learners);
 
 const isModalActive = ref(false);
-
 const isModalDangerActive = ref(false);
+const isModalEnableActive = ref(false);
 
-const searchValue = ref("");
 
-const deleteItemId = ref("");
-
-const filterByJoinedOptions = ref("");
-
-const filterByLastLoginOptions = ref("");
-
-const perPage = ref(25);
-
+const items = ref(mainStore.learners);
+const joinDateOptions = ["all", "before", "on", "after", "between"];
+const membershipOptions = ["all", "enabled", "disabled"];
+const membershipSelectedFilter  = ref("all")
+const searchQuery = ref("");
+const joinedFilterOption = ref("all");
+const joinedFilterDate = ref("");
+const joinedFilterStartDate = ref("");
+const joinedFilterEndDate = ref("");
+const lastLoginFilterOption = ref("all");
+const lastLoginFilterDate = ref("");
+const lastLoginFilterStartDate = ref("");
+const lastLoginFilterEndDate = ref("");
+const perPage = 25;
+const totalPages = ref(1);
 const currentPage = ref(0);
 
-const itemsPaginated = computed(() => {
-  const search = new RegExp(searchValue.value, "i");
-  const joinDate = converDate(filterByJoinedOptions.value);
-  const lastLogindate = converDate(filterByLastLoginOptions.value);
-  return items.value
-    .slice(
-      perPage.value * currentPage.value,
-      perPage.value * (currentPage.value + 1)
-    )
-    .filter((item) => {
-      return search
-        ? item.name.match(search) ||
-            item.email.match(search) ||
-            item.mobile.match(search)
-        : true;
-    })
-    .filter((item) => {
-      return joinDate || lastLogindate
-        ? item.joinedOn.includes(joinDate) ||
-            item.lastLogin.includes(lastLogindate)
-        : true;
-    });
-});
+const filteredItems = computed(() => {
+  let filtered = items.value;
+  console.log(joinDateOptions);
+  console.log(joinedFilterOption);
+  console.log(joinedFilterDate);
+  console.log( joinedFilterOption !== 'all' && joinedFilterOption !== 'between');
+  console.log(totalPages.value);
+  console.log(membershipSelectedFilter.value);
 
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
-
-const currentPageHuman = computed(() => currentPage.value + 1);
-
-const converDate = (date) => {
-  if (!date) return;
-  const newDate = new Date(date).toDateString().split(" ");
-  return `${newDate[1]} ${newDate[2]}, ${newDate[3]}`;
-};
-
-const pagesList = computed(() => {
-  const pagesList = [];
-
-  for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i);
+  if (searchQuery.value) {
+    filtered = filtered.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
   }
 
-  return pagesList;
+  if(membershipSelectedFilter.value == 'enabled'){
+    filtered = filtered.filter((item) => item.isEnabled);
+  }
+  if(membershipSelectedFilter.value == 'disabled'){
+    filtered = filtered.filter((item) => !item.isEnabled );
+  }
+
+
+
+  if (joinedFilterOption.value !== "all") {
+    filtered = filtered.filter((item) => {
+      const joinedDate = new Date(item.joinedOn);
+
+      if (joinedFilterOption.value === "on") {
+        const filterDate = new Date(joinedFilterDate.value);
+        return joinedDate.toDateString() === filterDate.toDateString();
+      }
+
+      if (joinedFilterOption.value === "before") {
+        const filterDate = new Date(joinedFilterDate.value);
+        return joinedDate < filterDate;
+      }
+
+      if (joinedFilterOption.value === "after") {
+        const filterDate = new Date(joinedFilterDate.value);
+        return joinedDate > filterDate;
+      }
+
+      if (joinedFilterOption.value === "between") {
+        const startDate = new Date(joinedFilterStartDate.value);
+        const endDate = new Date(joinedFilterEndDate.value);
+        return joinedDate >= startDate && joinedDate <= endDate;
+      }
+    });
+  }
+
+  if (lastLoginFilterOption.value !== "all") {
+    filtered = filtered.filter((item) => {
+      const lastLoginDate = new Date(item.lastLogin);
+
+      if (lastLoginFilterOption.value === "on") {
+        const filterDate = new Date(lastLoginFilterDate.value);
+        return lastLoginDate.toDateString() === filterDate.toDateString();
+      }
+
+      if (lastLoginFilterOption.value === "before") {
+        const filterDate = new Date(lastLoginFilterDate.value);
+        return lastLoginDate < filterDate;
+      }
+
+      if (lastLoginFilterOption.value === "after") {
+        const filterDate = new Date(lastLoginFilterDate.value);
+        return lastLoginDate > filterDate;
+      }
+
+      if (lastLoginFilterOption.value === "between") {
+        const startDate = new Date(lastLoginFilterStartDate.value);
+        const endDate = new Date(lastLoginFilterEndDate.value);
+        return lastLoginDate >= startDate && lastLoginDate <= endDate;
+      }
+    });
+  }
+  totalPages.value = Math.ceil(filtered.length / perPage);
+  const start = currentPage.value * perPage;
+  const end = (currentPage.value + 1) * perPage;
+
+  return filtered.slice(start, end);
 });
 
-const buildDropDown = (list, key, header) => {
-  const uniqueList = [
-    ...new Map(list.value.map((item) => [item[key], item])).values(),
-  ];
-  return uniqueList.reduce((acc, cur, idx) => {
-    if (!acc.length) acc.push({ id: 0, label: header });
-    if (!acc.includes(cur[key])) acc.push({ id: idx, label: cur[key] });
 
-    return acc;
-  }, []);
+
+const EnableItem = (popup, id) => {
+  if (popup) {
+    isModalEnableActive.value = true;
+    console.log("id is",id);
+    EnableItemId.value = id;
+    return;
+  }
+  const index = items.value.findIndex(
+    (item) => item.id ===  EnableItemId.value
+  );
+  console.log("index is",index);
+  if (index !== -1) {
+    items.value[index].isEnabled = !items.value[index].isEnabled;
+  }
 };
-
-const filterByisMemberOptions = computed(() =>
-  buildDropDown(itemsPaginated, "isEnabled", "Status")
-);
 
 const deleteItem = (popup, id) => {
   if (popup) {
@@ -101,13 +149,14 @@ const deleteItem = (popup, id) => {
     deleteItemId.value = id;
     return;
   }
-  const index = itemsPaginated.value.findIndex(
+  const index = items.value.findIndex(
     (item) => item.id === deleteItemId.value
   );
   if (index !== -1) {
-    itemsPaginated.value.splice(index, 1);
+    items.value.splice(index, 1);
   }
 };
+
 </script>
 
 <template>
@@ -128,13 +177,22 @@ const deleteItem = (popup, id) => {
     @confirm="deleteItem(false)"
   />
 
+  <CardBoxModal
+  v-model="isModalEnableActive"
+  title="Are you sure you want to Change status of this learner?"
+  button="danger"
+  buttonLabel="Yes"
+  has-cancel
+  @confirm="EnableItem(false)"
+/>
+
   <form class="relative" @submit.prevent="submit">
     <label for="msg-search" class="sr-only">Search</label>
     <input
       id="msg-search"
       class="form-input w-full pl-9 focus:border-slate-300"
       type="search"
-      v-model="searchValue"
+      v-model="searchQuery"
       placeholder="Search by Name, Email or Mobile Number"
     />
     <button class="absolute inset-0 right-auto group" aria-label="Search">
@@ -158,25 +216,79 @@ const deleteItem = (popup, id) => {
     <h3>Filter By:</h3>
     <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
-        type="date"
-        v-model="filterByJoinedOptions"
+        :options="joinDateOptions"
+        v-model="joinedFilterOption"
         help="Joined On"
       />
     </PremFormField>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if= "joinedFilterOption != 'all' && joinedFilterOption != 'between' " >
       <PremFormControl
-        v-model="filterByisMemberOptions[0]"
-        :options="filterByisMemberOptions"
-        help="&nbsp"
-      />
-    </PremFormField>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-      <PremFormControl
+        
+        v-model="joinedFilterDate"
         type="date"
-        v-model="filterByLastLoginOptions"
-        help="Last Login On"
+        help="Joined On"
       />
     </PremFormField>
+    <PremFormField
+      class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
+      v-if="joinedFilterOption == 'between'"
+    >
+      <PremFormControl
+        v-model="joinedFilterStartDate"
+        type="date"
+        help="Start"
+      />
+    </PremFormField>
+    <PremFormField
+      class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
+      v-if="joinedFilterOption == 'between'"
+    >
+      <PremFormControl
+        v-model="joinedFilterEndDate"
+        type="date"
+        help="End"
+      />
+    </PremFormField>
+
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+      <PremFormControl :options="membershipOptions" v-model="membershipSelectedFilter" help="&nbsp" />
+    </PremFormField>
+
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+      <PremFormControl
+        :options="joinDateOptions"
+        v-model="lastLoginFilterOption"
+        help="Joined On"
+      />
+    </PremFormField>
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
+    v-if="
+    lastLoginFilterOption != 'all' && lastLoginFilterOption != 'between'
+  ">
+      <PremFormControl
+
+        v-model="lastLoginFilterDate"
+        type="date"
+        help="Last Login on"
+      />
+    </PremFormField>
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'">
+      <PremFormControl
+        
+        v-model="lastLoginFilterStartDate"
+        type="date"
+        help="Start"
+      />
+    </PremFormField>
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'" >
+      <PremFormControl
+        
+        v-model="lastLoginFilterEndDate"
+        type="date"
+        help="End"
+      />
+    </PremFormField>
+
     <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
         class="w-1/2"
@@ -188,7 +300,7 @@ const deleteItem = (popup, id) => {
   </div>
 
   <div class="text-gray-500 dark:text-white">
-    <span>{{ itemsPaginated.length }} learners</span>
+    <span>{{ filteredItems.length }} learners</span>
   </div>
 
   <table>
@@ -205,7 +317,7 @@ const deleteItem = (popup, id) => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="learners in itemsPaginated" :key="learners.id">
+      <tr v-for="learners in filteredItems" :key="learners.id">
         <td class="border-b-0 lg:w-6 before:hidden">
           <UserAvatar
             :username="learners.name"
@@ -238,6 +350,7 @@ const deleteItem = (popup, id) => {
         <TableLearnerEnabled
           data-label="Enabled"
           :checked="learners.isEnabled"
+          @click="EnableItem(true , learners.id)"
         />
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
@@ -262,16 +375,16 @@ const deleteItem = (popup, id) => {
     <BaseLevel>
       <BaseButtons>
         <BaseButton
-          v-for="page in pagesList"
+          v-for="page in totalPages"
           :key="page"
-          :active="page === currentPage"
-          :label="page + 1"
-          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
+          :active="page-1 === currentPage"
+          :label="page "
+          :color="page-1 === currentPage ? 'lightDark' : 'whiteDark'"
           small
-          @click="currentPage = page"
+          @click="currentPage = page-1"
         />
       </BaseButtons>
-      <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
+      <small>Page {{ currentPage+1 }} of {{ totalPages }}</small>
     </BaseLevel>
   </div>
 </template>

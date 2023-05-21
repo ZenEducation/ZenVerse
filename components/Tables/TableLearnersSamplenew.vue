@@ -39,6 +39,13 @@ const perPage = 25;
 const totalPages = ref(1);
 const currentPage = ref(0);
 
+const resetfilter = ()=>{
+   membershipSelectedFilter.value = "all";
+   joinedFilterOption.value = "all";
+   lastLoginFilterOption.value = "all";
+
+}
+
 const filteredItems = computed(() => {
   let filtered = items.value;
   const search = new RegExp(searchQuery.value, "i");
@@ -154,16 +161,9 @@ const deleteItem = (popup, id) => {
   }
 };
 
-const lastloginPopup = ref({
-  type:'all',
-  date:'',
-  start:'',
-  end:'',
-})
 
-const ApplyLastLogin = ()=>{
 
-}
+
 
 
 const JoinedOnFilterModelActive = ref(false)
@@ -224,6 +224,7 @@ const LastLoginFilterModelActive = ref(false)
   </form>
 
 
+<div class="lg:flex justify-between ">
 
   <div class="flex items-start gap-y-4 flex-wrap">
     <div  class="relative mr-4">
@@ -231,7 +232,7 @@ const LastLoginFilterModelActive = ref(false)
     </div>
     <div class="relative mr-4">
       <div @click="JoinedOnFilterModelActive = !JoinedOnFilterModelActive"
-        class="flex item-center justify-center p-3 cursor-pointer border border-slateStroke"
+        class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
       >
         <p
           role=""
@@ -280,7 +281,7 @@ const LastLoginFilterModelActive = ref(false)
     </div>
     <div class="relative mr-4">
       <div @click="LastLoginFilterModelActive = !LastLoginFilterModelActive"
-        class="flex item-center justify-center p-3 cursor-pointer border border-slateStroke"
+        class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
       >
         <p
           role=""
@@ -326,7 +327,7 @@ const LastLoginFilterModelActive = ref(false)
     </div>
     <div class="relative mr-4">
       <div @click="MembershipFilterModelActive = !MembershipFilterModelActive"
-        class="flex item-center justify-center p-3 cursor-pointer border border-slateStroke"
+        class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
       >
         <p
           role=""
@@ -343,7 +344,7 @@ const LastLoginFilterModelActive = ref(false)
       </div>
     </div>
     <div
-      class="flex-center p-[0.6rem] border border-slateStroke cursor-pointer leading-none"
+      class="flex-center mr-4 p-[0.6rem] border border-black dark:border-white cursor-pointer leading-none"
     >
       <p
         role=""
@@ -353,6 +354,22 @@ const LastLoginFilterModelActive = ref(false)
         More
       </p>
     </div>
+  </div>
+
+    <div
+    class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
+    @click="resetfilter"
+  >
+    <p
+      role=""
+      tabindex="-1"
+      class="break-words text-body text-darkSlate01 false"
+    >
+      Reset Fiters
+    </p>
+  </div>
+
+    
   </div>
 
   <div class="text-gray-500 dark:text-white">

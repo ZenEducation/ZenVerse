@@ -38,11 +38,17 @@ const lastLoginFilterEndDate = ref("");
 const perPage = 25;
 const totalPages = ref(1);
 const currentPage = ref(0);
+const JoinedOnFilterModelActive = ref(false)
+const MembershipFilterModelActive = ref(false)
+const LastLoginFilterModelActive = ref(false)
 
 const resetfilter = ()=>{
    membershipSelectedFilter.value = "all";
    joinedFilterOption.value = "all";
    lastLoginFilterOption.value = "all";
+   JoinedOnFilterModelActive.value = false;
+   MembershipFilterModelActive.value = false;
+   LastLoginFilterModelActive.value = false;
 
 }
 
@@ -166,9 +172,7 @@ const deleteItem = (popup, id) => {
 
 
 
-const JoinedOnFilterModelActive = ref(false)
-const MembershipFilterModelActive = ref(false)
-const LastLoginFilterModelActive = ref(false)
+
 </script>
 
 <template>

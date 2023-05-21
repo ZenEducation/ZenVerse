@@ -43,17 +43,16 @@ const currentPage = ref(0);
 
 const filteredItems = computed(() => {
   let filtered = items.value;
-  console.log(joinDateOptions);
-  console.log(joinedFilterOption);
-  console.log(joinedFilterDate);
-  console.log( joinedFilterOption !== 'all' && joinedFilterOption !== 'between');
-  console.log(totalPages.value);
-  console.log(membershipSelectedFilter.value);
+  const search = new RegExp(searchQuery.value, "i");
 
   if (searchQuery.value) {
-    filtered = filtered.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
+    filtered = filtered.filter((item) => {
+      return search
+        ? item.name.match(search) ||
+            item.email.match(search) ||
+            item.mobile.match(search)
+        : true;
+    })
   }
 
   if(membershipSelectedFilter.value == 'enabled'){
@@ -214,54 +213,50 @@ const deleteItem = (popup, id) => {
     class="flex flex-col mt-3 gap-4 xl:flex-row xl:gap-10 items-center flex-wrap"
   >
     <h3>Filter By:</h3>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" label="Joining Date">
       <PremFormControl
         :options="joinDateOptions"
         v-model="joinedFilterOption"
-        help="Joined On"
       />
     </PremFormField>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if= "joinedFilterOption != 'all' && joinedFilterOption != 'between' " >
+    <PremFormField  label="Date" class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if= "joinedFilterOption != 'all' && joinedFilterOption != 'between' " >
       <PremFormControl
         
         v-model="joinedFilterDate"
         type="date"
-        help="Joined On"
       />
     </PremFormField>
-    <PremFormField
+    <PremFormField label="Start"
       class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
       v-if="joinedFilterOption == 'between'"
     >
       <PremFormControl
         v-model="joinedFilterStartDate"
         type="date"
-        help="Start"
       />
     </PremFormField>
-    <PremFormField
+    <PremFormField label="End"
       class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
       v-if="joinedFilterOption == 'between'"
     >
       <PremFormControl
         v-model="joinedFilterEndDate"
         type="date"
-        help="End"
       />
     </PremFormField>
 
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-      <PremFormControl :options="membershipOptions" v-model="membershipSelectedFilter" help="&nbsp" />
+    <PremFormField label="Membership Status" class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+      <PremFormControl :options="membershipOptions" v-model="membershipSelectedFilter"  />
     </PremFormField>
 
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+    <PremFormField  label="By Last Login" class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
       <PremFormControl
         :options="joinDateOptions"
         v-model="lastLoginFilterOption"
-        help="Joined On"
       />
     </PremFormField>
     <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]"
+    label="Date"
     v-if="
     lastLoginFilterOption != 'all' && lastLoginFilterOption != 'between'
   ">
@@ -269,23 +264,20 @@ const deleteItem = (popup, id) => {
 
         v-model="lastLoginFilterDate"
         type="date"
-        help="Last Login on"
       />
     </PremFormField>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'">
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'" label="Start">
       <PremFormControl
         
         v-model="lastLoginFilterStartDate"
         type="date"
-        help="Start"
       />
     </PremFormField>
-    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'" >
+    <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]" v-if="lastLoginFilterOption == 'between'" label="End">
       <PremFormControl
         
         v-model="lastLoginFilterEndDate"
         type="date"
-        help="End"
       />
     </PremFormField>
 
@@ -294,7 +286,6 @@ const deleteItem = (popup, id) => {
         class="w-1/2"
         buttonLabel="More"
         buttonColor="info"
-        help="&nbsp"
       />
     </PremFormField>
   </div>

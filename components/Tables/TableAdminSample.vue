@@ -299,6 +299,7 @@ const deleteItem = (popup, id) => {
       <tr>
         <th />
         <th>Name</th>
+        <th>Role</th>
         <th>Email</th>
         <th>Mobile no</th>
         <th>Last Login</th>
@@ -317,6 +318,9 @@ const deleteItem = (popup, id) => {
         </td>
         <td data-label="Name">
           {{ learners.name }}
+        </td>
+        <td data-label="Role">
+          {{ learners.role }}
         </td>
         <td data-label="Email">
           {{ learners.email }}

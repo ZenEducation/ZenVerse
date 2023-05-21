@@ -29,12 +29,16 @@ const mainStore = useMainStore();
 const name = ref("");
 const mobile = ref("");
 const email = ref("");
+const role = ref("")
+
+  console.log(role.value);
 
 function submitProfile() {
   isModalActive.value = false;
   useMainStore().addAdmin({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
+    role: role.value,
     login: "percy64",
     name: name.value,
     email: email.value,
@@ -82,6 +86,7 @@ function submitProfile() {
           required
           autocomplete="email"
           placeholder="Enter Admin email"
+
         />
       </FormField>
       <FormField label="Mobile">
@@ -110,11 +115,14 @@ function submitProfile() {
         label="Send email to User"
         :input-value="true"
       />
-      <FormField label="Select role">
+      <FormField :label="role">
         <FormsFormCheckRadioGroup 
         type="radio"
         name="admin-level"
-        :options="['subadmin','superadmin']"
+        required
+        model-value="role"
+        :options="['Admin','Super Admin']"
+        
         />
       </FormField>
       <div class="flex justify-end py-2">
@@ -152,6 +160,7 @@ function submitProfile() {
           />
         </div>
       </div>
+      
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
         <TablesTableAdminSample/>
       </div>

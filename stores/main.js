@@ -166,6 +166,7 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
+            role:"Admin",
             isEnabled: true
         },
         {
@@ -177,6 +178,7 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
+            role:'Super Admin',
             isEnabled: false
         },
         {
@@ -188,6 +190,7 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
+            role:"Admin",
             isEnabled: true
         },
         {
@@ -199,6 +202,7 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
+            role:'Super Admin',
             isEnabled: false
         }
     ],

@@ -33,7 +33,7 @@ const email = ref("");
 
 function submitProfile() {
   isModalActive.value = false;
-  useMainStore().addLearner({
+  useMainStore().addInstructor({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
@@ -217,7 +217,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TableLearnersSample />
+        <TablesTableInstructorSample />
       </div>
     </NuxtLayout>
   </div>

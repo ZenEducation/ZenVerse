@@ -22,7 +22,6 @@ import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
-import TableLearnersSample from "@/components/Tables/TableLearnersSample.vue";
 
 const isModalActive = ref(false);
 const mainStore = useMainStore();
@@ -33,7 +32,7 @@ const email = ref("");
 
 function submitProfile() {
   isModalActive.value = false;
-  useMainStore().addLearner({
+  useMainStore().addAdmin({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
@@ -71,7 +70,7 @@ function submitProfile() {
           required
           v-model="name"
           autocomplete="username"
-          placeholder="Enter learner name"
+          placeholder="Enter Admin name"
         />
       </FormField>
       <FormField label="E-mail">
@@ -82,7 +81,7 @@ function submitProfile() {
           v-model="email"
           required
           autocomplete="email"
-          placeholder="Enter learner email"
+          placeholder="Enter Admin email"
         />
       </FormField>
       <FormField label="Mobile">
@@ -93,7 +92,7 @@ function submitProfile() {
           v-model="mobile"
           required
           autocomplete="current-phone"
-          placeholder="Enter learner mobile"
+          placeholder="Enter Admin mobile"
         />
       </FormField>
       <FormField label="Current password">
@@ -103,7 +102,7 @@ function submitProfile() {
           type="password"
           required
           autocomplete="current-password"
-          placeholder="Set password for learner"
+          placeholder="Set password for Admin"
         />
       </FormField>
       <FormCheckRadio
@@ -154,7 +153,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TableLearnersSample />
+        <TablesTableAdminSample/>
       </div>
     </NuxtLayout>
   </div>

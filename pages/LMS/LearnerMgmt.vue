@@ -147,7 +147,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TablesTableLearnersSamplenew/>
+        <TablesTableLearnersSample/>
       </div>
     </NuxtLayout>
   </div>

@@ -180,6 +180,11 @@ export default [
         label: "Whiteboard",
         icon: mdiOpenInNew,
       },
+      {
+        to: "/whiteboard/fabric",
+        label: "Whiteboard Fabric",
+        icon: mdiOpenInNew,
+      },
     ],
   },
 

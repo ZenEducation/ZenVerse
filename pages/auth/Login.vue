@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mdiAccount, mdiAsterisk } from "@mdi/js";
+import { mdiAccount, mdiAsterisk, mdiEye, mdiEyeOff, mdiMail } from "@mdi/js";
 import SectionFullScreen from "@/components/Sections/SectionFullScreen.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
@@ -9,14 +9,9 @@ import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
+import AuthNotificationBar from "@/components/NotificationBars/AuthNotificationBar.vue";
 import { useAuthStore } from "@/stores/authStore";
-import { useGraphqlAPIStore } from "@/stores/graphqlAPI";
-
-// const form = reactive({
-//   loginEmail: "",
-//   password: "",
-//   remember: true,
-// });
+import { Auth } from 'aws-amplify'
 
 const form = reactive({
   loginEmail: "zenithathang@gmail.com",
@@ -24,26 +19,46 @@ const form = reactive({
   remember: true,
 });
 
-const router = useRouter();
-
 const AuthStore = useAuthStore();
+const errorMsg = ref('');
+const router = useRouter();
+const passwordFieldType = ref('password')
+const passwordFieldIcon = ref(mdiEye)
+const notificationModal = ref(false)
+const toggleNotificationModal = (val) => {
+  notificationModal.value = val
+}
 
-const GraphqlAPIStore = useGraphqlAPIStore();
+const togglePasswordField = () => {
+  if (passwordFieldType.value === 'password') {
+    passwordFieldType.value = 'text'
+    passwordFieldIcon.value = mdiEyeOff
+  } else {
+    passwordFieldType.value = 'password'
+    passwordFieldIcon.value = mdiEye
+  }
+}
 
 const handleSubmit = async () => {
-  // call the login method from the Authstore
-  const user_from_amplify = await AuthStore.login({
-    email: form.loginEmail,
-    password: form.password,
-  });
-  console.log(user_from_amplify);
-
-  // const response = await GraphqlAPIStore.createSuperAdmin({ input: {} });
-  // console.log("response", response);
-
-  if (user_from_amplify) {
-    return;
-    // router.push("/dashboard");
+  try{
+      // call the login method from the Authstore
+      
+      const user_from_amplify = await AuthStore.login({
+        email: form.loginEmail,
+        password: form.password,
+      });
+      console.log(user_from_amplify);
+    
+      // const response = await GraphqlAPIStore.createSuperAdmin({ input: {} });
+      // console.log("response", response);
+    
+      if (user_from_amplify) {
+        router.push("/dashboard");
+        return;
+      }
+  } catch(err) {
+    errorMsg.value = err;
+    toggleNotificationModal(true)
   }
 };
 </script>
@@ -52,23 +67,28 @@ const handleSubmit = async () => {
   <div>
     <NuxtLayout>
       <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
-        <CardBox :class="cardClass" is-form @submit.prevent="handleSubmit">
+        <CardBox :class="cardClass">
+          <AuthNotificationBar :isVisible="notificationModal" @toggle="toggleNotificationModal" color="danger" :icon="mdiMail">
+          {{ errorMsg }} 
+        </AuthNotificationBar>
           <FormField label="Login" help="Please enter your login">
             <FormControl
               v-model="form.loginEmail"
               :icon="mdiAccount"
+              placeholder="user@example.com"
               name="login"
               autocomplete="username"
             />
           </FormField>
 
-          <FormField label="Password" help="Please enter your password">
+          <FormField label="Password" :route="{ to: '/auth/forgetpassword', title: 'Forget Password' }">
             <FormControl
               v-model="form.password"
-              :icon="mdiAsterisk"
-              type="password"
+              :iconPasswordEye="passwordFieldIcon"
+              :type="passwordFieldType"
               name="password"
               autocomplete="current-password"
+              @togglePasswordVisibility="togglePasswordField()"
             />
           </FormField>
 
@@ -79,11 +99,18 @@ const handleSubmit = async () => {
             :input-value="true"
           />
 
+          
+          <div class="flex justify-between">
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'Google' })" color="info" outline label="Login with Google" />
+            <BaseButton @click="() => Auth.federatedSignIn({provider: 'Facebook' })" color="info" outline label="Login with Facebook" />
+          </div>
+
           <template #footer>
             <div class="flex justify-between">
               <BaseButtons>
-                <BaseButton type="submit" color="info" label="Login" />
+                <BaseButton @click.prevent="handleSubmit" color="info" label="Login" />
                 <BaseButton
+                v-if="AuthStore.user"
                   to="/dashboard"
                   color="info"
                   outline
@@ -91,10 +118,10 @@ const handleSubmit = async () => {
                 />
               </BaseButtons>
               <NuxtLink
-                to="/pe/register"
+                to="/auth/register"
                 class="text-sm bg-gray-800 text-white p-3 rounded-md hover:bg-gray-600"
               >
-                Done have an account? Sign Up
+                Don't have an account? Sign Up
               </NuxtLink>
             </div>
           </template>

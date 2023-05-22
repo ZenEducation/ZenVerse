@@ -177,6 +177,7 @@ function toggleDropdownMenu() {
   <aside
     id="aside"
     :class="zIndex"
+    style=""
     class="flex w-80 fixed top-0 h-screen transition-position overflow-hidden"
   >
     <div

@@ -3,10 +3,15 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLayoutStore } from "@/stores/layout.js";
 import { useStyleStore } from "@/stores/style.js";
+import NavBarItemPlain from "@/components/NavBar/NavBarItemPlain.vue";
+import BaseIcon from '@/components/Display/BaseIcon.vue'
+
 import {
   mdiClose,
   mdiChevronRightCircleOutline,
   mdiChevronLeftCircleOutline,
+  mdiBackburger,
+  mdiForwardburger,
   mdiChevronLeft 
 } from "@mdi/js";
 
@@ -103,18 +108,32 @@ const expandCollapseItem = computed(() => ({
     
     :class="[
       layoutStore.isAsideMobileExpanded ? 'left-0' : '-left-80 lg:left-0',
-      isPrimaryMenuCompact ? 'lg-w-60' : 'lg-w-60',
-      { 'lg:hidden xl:flex': !layoutStore.isAsideLgActive },
+      isPrimaryMenuCompact ? 'lg-w-80' : 'lg-w-80',
+      { 'lg:flex xl:flex': !layoutStore.isAsideLgActive },
     ]"
     :is-compact="isPrimaryMenuCompact"
     :z-index="secondaryMenuItem ? 'z-40 md:z-50' : 'z-50'"
     :active-secondary-menu-key="secondaryMenuItem?.key"
     @menu-click="menuClickPrimaryMenu"
   >
-    <div class="flex-1 flex px-3	pt-1 items-center justify-center">
+    <div class="flex-1 flex px-3	pt-1 items-center justify-between">
    
       <b class="font-black cursor-pointer" @click="handleDashboard">Go to dashboard</b>
     
+      <div
+      display="flex"
+      class="lg:hidden"
+      @click.prevent="layoutStore.asideMobileToggle()"
+    >
+      <BaseIcon
+        :path="
+          layoutStore.isAsideMobileExpanded
+            ? mdiBackburger
+            : mdiForwardburger
+        "
+        size="24"
+      />
+    </div>
     </div>
   
 

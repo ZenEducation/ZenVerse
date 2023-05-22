@@ -73,6 +73,10 @@ const filteredChapters = computed(() => {
   }
 
   return chapters.value.filter((chapter) => {
+    if(chapter.chapterTitle.toLowerCase().includes(searchValue)){
+      return true;
+    }
+
     return chapter.lessons.some((lesson) =>
       lesson.lessonTitle.toLowerCase().includes(searchValue)
     );

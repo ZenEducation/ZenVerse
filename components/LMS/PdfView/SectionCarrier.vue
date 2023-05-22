@@ -6,7 +6,7 @@ import {
 mdiFullscreen,
 } from "@mdi/js";
 
-const isFullScreen = ref(true)
+const isFullScreen = ref(false)
 
 const toggleFullScreen = ()=>{
   isFullScreen.value = !isFullScreen.value

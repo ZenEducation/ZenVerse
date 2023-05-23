@@ -64,6 +64,23 @@ const chapters =  ref([
   },
 ]);
 
+const currentLesson = ref({
+  chapterNumber: chapters.value[0].chapterNumber,
+  lessonNumber: chapters.value[0].lessons[0].lessonNumber,
+});
+
+const changeCurrent = (chapterNum , lessonNum)=>{
+  console.log("called" , chapterNum , lessonNum );
+  if( currentLesson.value.chapterNumber !== chapterNum || currentLesson.value.lessonNumber !== lessonNum ){
+    currentLesson.value.chapterNumber = chapterNum;
+    currentLesson.value.lessonNumber = lessonNum;
+  }
+}
+
+const markCompleted = ()=>{
+  chapters.value.find((chapter)=>chapter.chapterNumber = currentLesson.value.chapterNumber).lessons.find((lesson)=>lesson.lessonNumber = currentLesson.value.lessonNumber).done = true;
+}
+
 const searchText = ref('');
 
 const filteredChapters = computed(() => {
@@ -85,6 +102,7 @@ const filteredChapters = computed(() => {
 
 
 const isChapterOpen = ref( Array(chapters.value.length).fill(false) )
+isChapterOpen.value[0]=true;
 
 const totalLessons = computed(() => {
     let count = 0;
@@ -206,7 +224,7 @@ function toggleDropdownMenu() {
         class="flex-1 overflow-y-auto overflow-x-hidden dark:bg-gray-900"
       >
         <div class="justify-center text-white px-4 py-4">
-          <h1 class="text-lg pb-2">
+          <h1 class="text-lg pb-2" @click="markCompleted">
             NM | P12. Oscillatory Motion | Theory and Assignments
           </h1>
 
@@ -385,10 +403,14 @@ function toggleDropdownMenu() {
                     v-for="lesson in chapter.lessons"
                     :key="lesson.lessonNumber"
                   >
-                    <div
+                    <div  @click="changeCurrent( chapter.chapterNumber , lesson.lessonNumber )"
                       class="text-white items-center rounded hover:bg-fuchsia-500"
+                      :class="{'bg-fuchsia-500':(lesson.lessonNumber == currentLesson.lessonNumber && chapter.chapterNumber == currentLesson.chapterNumber)}"
                     >
                       <BaseIcon
+                      @click="()=>{
+                        lesson.done = !lesson.done 
+                      }"
                       v-if="!lesson.done"
                         :path="mdiCircleOutline"
                         class="cursor-pointer"
@@ -396,15 +418,19 @@ function toggleDropdownMenu() {
                       />
 
                       <BaseIcon
+                      @click="()=>{
+                        lesson.done = !lesson.done 
+                      }"
                       v-if="lesson.done"
                       :path="mdiCheckboxMarkedCircle"
                       class="cursor-pointer"
                       size="20"
                     />
+                    
 
 
 
-                      <label
+                      <label 
                         for="checkbox-item-16"
                         class="w-full ml-4 text-sm font-medium text-white"
                         >{{ lesson.lessonTitle }}</label

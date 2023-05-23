@@ -59,7 +59,7 @@ onMounted(() => {
     <NuxtLayout name="pdf">
       <LMSPdfViewSectionCarrier>
         <h1>hello</h1>
-        <iframe id="pdf-iframe"  class="pl-4 w-full h-full"> this is div area  </iframe>
+        <iframe id="pdf-iframe"  class="pl-4 w-full h-full">   </iframe>
       </LMSPdfViewSectionCarrier>
     </NuxtLayout>
   </div>

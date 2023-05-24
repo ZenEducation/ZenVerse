@@ -89,7 +89,37 @@ You can click on the below button to unblock the account
       <p class="py-2">Login Device Reset Count : <span class="font-bold">4</span></p>
       <p class="py-2">last login date : <span class="font-bold">{{new Date("Mar 03 , 2023")}}</span></p>
 
+      <table>
+        <thead>
+          <tr>
+            <th>Login Date</th>
+            <th>IP</th>
+            <th>Status</th>
+            <th>Times</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in learner.LoginDetails['last logins']" :key="item['login ip']">
+            <td data-label="Login Date" class="lg:w-1 whitespace-nowrap">
+              <small
+                class="text-gray-500 dark:text-slate-400"
+                :title="item['login date']"
+                >{{ item["login date"] }}</small
+              >
+            </td>
 
+            <td data-label="IP">
+              {{ item["login ip"] }}
+            </td>
+            <td data-label="Status">
+              {{ item["login status"] }}
+            </td>
+            <td data-label="Times">
+              {{ item["times"] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
     </div>
 

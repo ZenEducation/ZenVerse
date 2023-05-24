@@ -55,29 +55,29 @@ const learner = {
     'last login date':new Date("Mar 03 , 2023"),
     'last logins':[
         {
-            'login date':new Date("Mar 03 , 2023"),
+            'login date':"Mar 03 , 2023",
             'login ip':"192.168.0.1",
             'login status':"success",
             'times':43
 
         },
         {
-            'login date':new Date("Mar 24 , 2023"),
-            'login ip':"192.168.0.1",
+            'login date':"Mar 24 , 2023",
+            'login ip':"192.167.0.1",
             'login status':"success",
             'times':4
 
         },
         {
-            'login date':new Date("Mar 03 , 2023"),
-            'login ip':"192.168.0.1",
+            'login date':"Mar 03 , 2023",
+            'login ip':"192.1665.0.1",
             'login status':"success",
             'times':42
 
         },
         {
-            'login date':new Date("Mar 24 , 2023"),
-            'login ip':"192.168.0.1",
+            'login date':"Mar 24 , 2023",
+            'login ip':"192.150.0.1",
             'login status':"success",
             'times':34
 

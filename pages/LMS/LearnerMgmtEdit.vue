@@ -32,7 +32,7 @@ const options = {
   state: ["delhi", "rajasthan"],
   language: ["hindi", "English"],
   UserSegment: ["free", "paid", "trial", "returning"],
-  LeadStatus: ["open", "fellow up"],
+  LeadStatus: ["Open", "follow up","Converted", "Not Interested"] 
 };
 
 const learner = {
@@ -47,7 +47,7 @@ const learner = {
   },
   AdditionalDetails: {
     UserSegment: "free",
-    LeadStatus: "open",
+    LeadStatus: "Open",
   },
   LoginDetails:{
     'Number of Logins':60,

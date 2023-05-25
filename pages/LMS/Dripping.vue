@@ -161,11 +161,8 @@ const chapterList = ref([
               >
                 <p class="py-3">will be Released</p>
                 <span>on</span>
-                <PremFormControl
-                  class="max-w-xs"
-                  type="Date"
-                  v-model="i.date"
-                />
+
+                <input type="date"  v-model="i.date" :min="specificDate">
                 <span v-if="specificDate && i.date">{{
                   Math.floor(
                     (new Date(i.date).getTime() -

@@ -156,7 +156,7 @@ const isActive = ref(0);
   />
   <CardBoxModal
     v-model="isModalDeleteActive"
-    title="Are you sure you want to delete this learner?"
+    title="Are you sure you want to delete this account?"
     button="danger"
     buttonLabel="Yes"
     has-cancel

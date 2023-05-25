@@ -26,6 +26,8 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 const isModalActive = ref(false);
 const mainStore = useMainStore();
 
+const roleOptions = ['Admin','Super Admin'];
+
 const name = ref("");
 const mobile = ref("");
 const email = ref("");
@@ -115,16 +117,12 @@ function submitProfile() {
         label="Send email to User"
         :input-value="true"
       />
-      <FormField :label="role">
-        <FormsFormCheckRadioGroup 
-        type="radio"
-        name="admin-level"
-        required
-        model-value="role"
-        :options="['Admin','Super Admin']"
-        
-        />
-      </FormField>
+      <br>
+        <template v-for="i in roleOptions">
+          <input type="radio" v-model="role" :value="i" />
+          {{ i }}
+          <br>
+        </template>
       <div class="flex justify-end py-2">
         <BaseButtons>
           <BaseButton type="submit" color="info" label="Submit" />

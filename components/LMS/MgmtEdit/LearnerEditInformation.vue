@@ -159,16 +159,7 @@ You can click on the below button to unblock the account
 
     </div>
 
-    <h2 class="text-2xl mt-8 font-semibold">Delete Learner</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
 
-        <input  type="checkbox"  />
-        <span class="pl-3"  >I agree to delete learner profile</span>
-
-      <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Delete" />
-      </div>
-    </div>
   </div>
 </template>
 

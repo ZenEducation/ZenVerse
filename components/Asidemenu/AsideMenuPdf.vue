@@ -118,7 +118,7 @@ const expandCollapseItem = computed(() => ({
   >
     <div class="flex-1 flex px-3	pt-1 items-center justify-between">
    
-      <b class="font-black cursor-pointer" @click="handleDashboard">Go to dashboard</b>
+      <img src="@/assets/img/PeLogo.png" class="h-7 mx-auto" alt="">
     
       <div
       display="flex"

@@ -110,7 +110,9 @@ const filteredChapters = computed(() => {
   return filtered;
 });
 
-
+const handleDashboard = () => {
+  router.push("/dashboard")
+}
 
 const isChapterOpen = ref( Array(chapters.value.length).fill(false) )
 isChapterOpen.value[0]=true;
@@ -234,6 +236,8 @@ function toggleDropdownMenu() {
         "
         class="flex-1 overflow-y-auto overflow-x-hidden dark:bg-gray-900"
       >
+      <NuxtLink to="/Dashboard" class="pl-4 text-white underline cursor-pointer" >Go to dashboard</NuxtLink>
+
         <div class="justify-center text-white px-4 py-4">
           <h1 class="text-lg pb-2" @click="markCompleted">
             NM | P12. Oscillatory Motion | Theory and Assignments

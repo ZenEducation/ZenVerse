@@ -34,7 +34,7 @@ const items = ref([
       "Course Title": "NEET Course",
       "Joined On": "Mar 15 , 2023",
       "Expiry Date": "Mar 16 , 2024",
-      Enabled: true,
+      isEnabled: true,
     },
   ]);
 
@@ -411,7 +411,7 @@ const deleteItem = (popup, id) => {
         </td>
         <TableLearnerEnabled
           data-label="Enabled"
-          :checked="item.Enabled"
+          :checked="item.isEnabled"
           @click="EnableItem(true, item['Course Id'])"
         />
         <td class="before:hidden lg:w-1 whitespace-nowrap">

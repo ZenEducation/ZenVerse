@@ -88,17 +88,28 @@ const filteredChapters = computed(() => {
   if (!searchValue) {
     return chapters.value;
   }
+  const temp = chapters.value;
 
-  return chapters.value.filter((chapter) => {
-    if(chapter.chapterTitle.toLowerCase().includes(searchValue)){
-      return true;
+  const filtered = [];
+  temp.forEach((chapter) => {
+    if (chapter.chapterTitle.toLowerCase().includes(searchValue)) {
+      filtered.push(chapter);
+    } else {
+      const lessons = chapter.lessons.filter((lesson) =>
+        lesson.lessonTitle.toLowerCase().includes(searchValue)
+      );
+
+      if (lessons.length > 0) {
+        const newChap = { ...chapter }; // Create a shallow copy of the chapter
+        newChap.lessons = lessons;
+        filtered.push(newChap);
+      }
     }
-
-    return chapter.lessons.some((lesson) =>
-      lesson.lessonTitle.toLowerCase().includes(searchValue)
-    );
   });
+
+  return filtered;
 });
+
 
 
 const isChapterOpen = ref( Array(chapters.value.length).fill(false) )
@@ -115,7 +126,7 @@ const totalLessons = computed(() => {
   const completedLessons = computed(() => {
     let count = 0;
     let x = []
-    chapters.value.forEach((chapter) => {
+    filteredChapters.value.forEach((chapter) => {
       let temp = 0;
       chapter.lessons.forEach((lesson) => {
         if (lesson.done) {
@@ -297,48 +308,6 @@ function toggleDropdownMenu() {
                   />
                 </div>
               </div>
-              <ul
-                class="px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
-              >
-                <h1
-                  class="w-full py-2 text-sm font-medium text-white rounded dark:text-gray-300"
-                >
-                  Paathshala Mastery
-                </h1>
-                <li>
-                  <div
-                    class="items-center pl-2 rounded hover:bg-fuchsia-500 dark:hover:bg-gray-600 py-2"
-                  >
-                    <label
-                      for="checkbox-item-16"
-                      class="w-full py-2 ml-2 text-sm font-medium text-white rounded dark:text-gray-300"
-                      >Leslie Livingston studies</label
-                    >
-                  </div>
-                </li>
-                <li>
-                  <div
-                    class="items-center pl-2 rounded hover:bg-fuchsia-500 dark:hover:bg-gray-600 py-2"
-                  >
-                    <label
-                      for="checkbox-item-16"
-                      class="w-full py-2 ml-2 text-sm font-medium text-white rounded dark:text-gray-300"
-                      >Religion and Religious studies</label
-                    >
-                  </div>
-                </li>
-                <li>
-                  <div
-                    class="items-center pl-2 rounded hover:bg-fuchsia-500 dark:hover:bg-gray-600 py-2"
-                  >
-                    <label
-                      for="checkbox-item-16"
-                      class="w-full py-2 ml-2 text-sm font-medium text-white rounded dark:text-gray-300"
-                      >Computer Basics studies</label
-                    >
-                  </div>
-                </li>
-              </ul>
             </div>
           </div>
 

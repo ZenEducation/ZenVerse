@@ -128,7 +128,7 @@ const filteredItems = computed(() => {
       class="form-input w-full pl-9 focus:border-slate-300"
       type="search"
       v-model="searchQuery"
-      placeholder="Search by Order/Transaction ID "
+      placeholder="Search by Order/Transaction ID and Amount "
     />
     <button class="absolute inset-0 right-auto group" aria-label="Search">
       <svg

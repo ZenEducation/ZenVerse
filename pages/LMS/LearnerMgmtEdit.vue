@@ -1,10 +1,10 @@
 <script setup>
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import InformationTab from '@/components/LMS/MgmtEdit/LearnerEditInformation.vue'
-import CoursesTab from '@/components/LMS/MgmtEdit/LearnerEditCourses.vue'
-import PurchaseTab from '@/components/LMS/MgmtEdit/LearnerEditPurchase.vue'
-
+import InformationTab from "@/components/LMS/MgmtEdit/LearnerEditInformation.vue";
+import CoursesTab from "@/components/LMS/MgmtEdit/LearnerEditCourses.vue";
+import PurchaseTab from "@/components/LMS/MgmtEdit/LearnerEditPurchase.vue";
+import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 
 import {
   mdiClose,
@@ -16,10 +16,10 @@ import {
   mdiInformationSlabCircleOutline,
   mdiTextBoxMultipleOutline,
   mdiCreditCard,
-mdiMenu,
+  mdiMenu,
 } from "@mdi/js";
 
-const tabs = ['Information' , "Enrolled Courses" , "Purchase History"]
+const tabs = ["Information", "Enrolled Courses", "Purchase History"];
 const isSidebarActive = ref(false);
 const options = {
   profileRoles: [
@@ -32,7 +32,7 @@ const options = {
   state: ["delhi", "rajasthan"],
   language: ["hindi", "English"],
   UserSegment: ["free", "paid", "trial", "returning"],
-  LeadStatus: ["Open", "follow up","Converted", "Not Interested"] 
+  LeadStatus: ["Open", "follow up", "Converted", "Not Interested"],
 };
 
 const learner = {
@@ -49,40 +49,36 @@ const learner = {
     UserSegment: "free",
     LeadStatus: "Open",
   },
-  LoginDetails:{
-    'Number of Logins':60,
-    'Login Device Reset Count':4,
-    'last login date':new Date("Mar 03 , 2023"),
-    'last logins':[
-        {
-            'login date':"Mar 03 , 2023",
-            'login ip':"192.168.0.1",
-            'login status':"success",
-            'times':43
-
-        },
-        {
-            'login date':"Mar 24 , 2023",
-            'login ip':"192.167.0.1",
-            'login status':"success",
-            'times':4
-
-        },
-        {
-            'login date':"Mar 03 , 2023",
-            'login ip':"192.1665.0.1",
-            'login status':"success",
-            'times':42
-
-        },
-        {
-            'login date':"Mar 24 , 2023",
-            'login ip':"192.150.0.1",
-            'login status':"success",
-            'times':34
-
-        }
-    ]
+  LoginDetails: {
+    "Number of Logins": 60,
+    "Login Device Reset Count": 4,
+    "last login date": new Date("Mar 03 , 2023"),
+    "last logins": [
+      {
+        "login date": "Mar 03 , 2023",
+        "login ip": "192.168.0.1",
+        "login status": "success",
+        times: 43,
+      },
+      {
+        "login date": "Mar 24 , 2023",
+        "login ip": "192.167.0.1",
+        "login status": "success",
+        times: 4,
+      },
+      {
+        "login date": "Mar 03 , 2023",
+        "login ip": "192.1665.0.1",
+        "login status": "success",
+        times: 42,
+      },
+      {
+        "login date": "Mar 24 , 2023",
+        "login ip": "192.150.0.1",
+        "login status": "success",
+        times: 34,
+      },
+    ],
   },
   screenShots: 3,
   ReferralDetails: {
@@ -139,14 +135,53 @@ const learner = {
   ],
 };
 
+const isModalDeactivateActive = ref(false);
+const isModalDeleteActive = ref(false);
+
 const isActive = ref(0);
 </script>
 
 <template>
+  <CardBoxModal
+    v-model="isModalDeactivateActive"
+    title="Are you sure you want to Deactivate this account ?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="
+      () => {
+        isModalDeactivateActive = false;
+      }
+    "
+  />
+  <CardBoxModal
+    v-model="isModalDeleteActive"
+    title="Are you sure you want to delete this learner?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="
+      () => {
+        isModalDeleteActive = false;
+      }
+    "
+  />
   <NuxtLayout name="zen">
     <!-- <SectionMain> -->
-    <div class="relative ml-2 " style="grid-template-columns: min-content auto;" :class="{'block'  : isSidebarActive , 'grid' : !isSidebarActive}">
-      <div class=" w-60 bg-slate-200 dark:bg-transparent overflow-y-hidden" style="height: calc(100vh - 7rem) ; max-height:calc(100vh - 7rem) ; grid-template-columns: min-content auto;" :class="{'hidden' : isSidebarActive}">
+    <div
+      class="relative ml-2"
+      style="grid-template-columns: min-content auto"
+      :class="{ block: isSidebarActive, grid: !isSidebarActive }"
+    >
+      <div
+        class="w-60 bg-slate-200 dark:bg-transparent overflow-y-hidden"
+        style="
+          height: calc(100vh - 7rem);
+          max-height: calc(100vh - 7rem);
+          grid-template-columns: min-content auto;
+        "
+        :class="{ hidden: isSidebarActive }"
+      >
         <div class="pt-8">
           <div class="w-full flex justify-center h-full">
             <img
@@ -174,14 +209,11 @@ const isActive = ref(0);
                 to="/lms/learnerMgmt"
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
               >
-                <BaseIcon
-                  :path="mdiArrowLeft"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />
                 <p>Back To Learners</p>
               </NuxtLink>
               <li
-                class="cursor-pointer w-full pl-8  h-12 flex gap-1 align-middle justify-start items-center"
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
                 :class="{ 'bg-slate-500': isActive == 0 }"
                 @click="() => (isActive = 0)"
               >
@@ -207,43 +239,70 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 2 }"
                 @click="() => (isActive = 2)"
               >
-                <BaseIcon
-                  :path="mdiCreditCard"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiCreditCard" class="cursor-pointer" />
                 <p>Purchase History</p>
               </li>
-             
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="overflow-y-scroll" style="height: calc(100vh - 7rem) ; max-height:calc(100vh - 7rem) ; grid-template-columns: min-content auto;" st>
-        <div class="flex w-full bg-transparent justify-between items-center px-3 h-16 border-b-2 border-slate-800">
-            <div class="flex items-center">
-                <BaseIcon
+      <div
+        class="overflow-y-scroll"
+        style="
+          height: calc(100vh - 7rem);
+          max-height: calc(100vh - 7rem);
+          grid-template-columns: min-content auto;
+        "
+        st
+      >
+        <div
+          class="flex w-full bg-transparent justify-between items-center px-3 h-16 border-b-2 border-slate-800"
+        >
+          <div class="flex items-center">
+            <div class="p-2 bg-red-300 rounded-[50%] mr-4">
+
+              <BaseIcon
                 :path="mdiMenu"
                 class="cursor-pointer"
-                @click="()=>{isSidebarActive =! isSidebarActive}"
+                @click="
+                  () => {
+                    isSidebarActive = !isSidebarActive;
+                  }
+                "
               />
-              <p class="text-2xl"> {{tabs[isActive]}} </p>
             </div>
-            <div v-if="isActive == 0"  class="flex items-center gap-2">
-                <p class=" cursor-pointer hover:bg-slate-200 p-1 border border-black "> Block Discussion </p>
-                <p class=" cursor-pointer hover:bg-slate-200 p-1 border border-black "> Deactivate </p>
-
-            </div>
+            <p class="text-2xl">{{ tabs[isActive] }}</p>
+          </div>
+          <div v-if="isActive == 0" class="flex items-center gap-2">
+            <p
+              @click="
+                () => {
+                  isModalDeactivateActive = true;
+                }
+              "
+              class="cursor-pointer hover:bg-slate-200 p-1 border border-black"
+            >
+              Deactivate
+            </p>
+            <p
+              @click="() => (isModalDeleteActive = true)"
+              class="cursor-pointer hover:bg-slate-200 p-1 border border-black"
+            >
+              Delete
+            </p>
+          </div>
         </div>
-        <div class="p-3">
-            <InformationTab :learner=learner :options=options v-if="isActive == 0"/>
-            <CoursesTab v-if="isActive == 1" />
-            <PurchaseTab v-if="isActive == 2" />
-
+        <div class="md:p-12 p-3">
+          <InformationTab
+            :learner="learner"
+            :options="options"
+            v-if="isActive == 0"
+          />
+          <CoursesTab v-if="isActive == 1" />
+          <PurchaseTab v-if="isActive == 2" />
         </div>
-        
       </div>
-
     </div>
 
     <!-- </SectionMain> -->

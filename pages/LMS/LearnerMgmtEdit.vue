@@ -29,7 +29,42 @@ const options = {
     "affiliate",
     "instructor",
   ],
-  state: ["delhi", "rajasthan"],
+  state: [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu",
+    "Delhi",
+    "Lakshadweep",
+    "Puducherry",
+  ],
   language: ["hindi", "English"],
   UserSegment: ["free", "paid", "trial", "returning"],
   LeadStatus: ["Open", "follow up", "Converted", "Not Interested"],
@@ -42,7 +77,7 @@ const learner = {
     email: "learner@ps.com",
     mobile: "1234567890",
     role: "student",
-    state: "delhi",
+    state: "Delhi",
     language: "hindi",
   },
   AdditionalDetails: {
@@ -261,7 +296,6 @@ const isActive = ref(0);
         >
           <div class="flex items-center">
             <div class="p-2 bg-red-300 rounded-[50%] mr-4">
-
               <BaseIcon
                 :path="mdiMenu"
                 class="cursor-pointer"

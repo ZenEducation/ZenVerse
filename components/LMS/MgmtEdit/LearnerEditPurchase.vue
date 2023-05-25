@@ -16,31 +16,31 @@ defineProps({
 });
 
 const items = ref([
-    {
-      Date: "Mar 03 , 2023",
-      "Order ID/TXN ID": "avds12432432",
-      Amount: 500,
-      Status: "success",
-      Items: 4,
-    },
-    {
-      Date: "Mar 23 , 2023",
-      "Order ID/TXN ID": "avds124fwfedf432",
-      Amount: 400,
-      Status: "failed",
-      Items: 4,
-    },
-    {
-      Date: "Mar 13 , 2023",
-      "Order ID/TXN ID": "avds1sadvad32432",
-      Amount: 1200,
-      Status: "pending",
-      Items: 4,
-    },
-  ]);
+  {
+    Date: "Mar 03 , 2023",
+    "Order ID/TXN ID": "avds12432432",
+    Amount: 500,
+    Status: "success",
+    Items: 4,
+  },
+  {
+    Date: "Mar 23 , 2023",
+    "Order ID/TXN ID": "avds124fwfedf432",
+    Amount: 400,
+    Status: "failed",
+    Items: 4,
+  },
+  {
+    Date: "Mar 13 , 2023",
+    "Order ID/TXN ID": "avds1sadvad32432",
+    Amount: 1200,
+    Status: "pending",
+    Items: 4,
+  },
+]);
 
 const joinDateOptions = ["all", "before", "on", "after", "between"];
-const paymentOptions = ['all', 'success', 'failed', 'pending'];
+const paymentOptions = ["all", "success", "failed", "pending"];
 const paymentSelectedFilter = ref("all");
 const searchQuery = ref("");
 const joinedFilterOption = ref("all");
@@ -50,63 +50,67 @@ const joinedFilterEndDate = ref("");
 const perPage = 25;
 const totalPages = ref(1);
 const currentPage = ref(0);
-const JoinedOnFilterModelActive = ref(false)
-const paymentFilterModelActive = ref(false)
+const JoinedOnFilterModelActive = ref(false);
+const paymentFilterModelActive = ref(false);
 
-const resetfilter = ()=>{
-   paymentSelectedFilter.value = "all";
-   joinedFilterOption.value = "all";
-   JoinedOnFilterModelActive.value = false;
-   paymentFilterModelActive.value = false;
-
-}
+const resetfilter = () => {
+  paymentSelectedFilter.value = "all";
+  joinedFilterOption.value = "all";
+  JoinedOnFilterModelActive.value = false;
+  paymentFilterModelActive.value = false;
+};
 
 const filteredItems = computed(() => {
   let filtered = items.value;
   const search = new RegExp(searchQuery.value, "i");
 
   if (searchQuery.value) {
-      filtered = filtered.filter((item) => {
-        return search ? item["Order ID/TXN ID"].match(search) : true;
-      });
-    }
-
-  if (paymentSelectedFilter.value !== "all") {
-      filtered = filtered.filter((item) => item.Status === paymentSelectedFilter.value);
+    filtered = filtered.filter((item) => {
+      return search
+        ? item["Order ID/TXN ID"].match(search) || item.Amount.toString().match(search)
+        : true;
+    });
   }
 
+  if (paymentSelectedFilter.value !== "all") {
+    filtered = filtered.filter(
+      (item) => item.Status === paymentSelectedFilter.value
+    );
+  }
 
   if (joinedFilterOption.value !== "all") {
     filtered = filtered.filter((item) => {
       const joinedDate = new Date(item.Date);
 
-      if (joinedFilterOption.value === "on"  && joinedFilterDate.value != "" ) {
+      if (joinedFilterOption.value === "on" && joinedFilterDate.value != "") {
         const filterDate = new Date(joinedFilterDate.value);
         return joinedDate.toDateString() === filterDate.toDateString();
-      }
-
-      else if (joinedFilterOption.value === "before" && joinedFilterDate.value != "" ) {
-        console.log('object');
+      } else if (
+        joinedFilterOption.value === "before" &&
+        joinedFilterDate.value != ""
+      ) {
+        console.log("object");
         const filterDate = new Date(joinedFilterDate.value);
         return joinedDate < filterDate;
-      }
-
-      else if (joinedFilterOption.value === "after"  && joinedFilterDate.value != "") {
+      } else if (
+        joinedFilterOption.value === "after" &&
+        joinedFilterDate.value != ""
+      ) {
         const filterDate = new Date(joinedFilterDate.value);
         return joinedDate > filterDate;
-      }
-
-      else if (joinedFilterOption.value === "between" && (joinedFilterStartDate.value && joinedFilterEndDate.value )) {
+      } else if (
+        joinedFilterOption.value === "between" &&
+        joinedFilterStartDate.value &&
+        joinedFilterEndDate.value
+      ) {
         const startDate = new Date(joinedFilterStartDate.value);
         const endDate = new Date(joinedFilterEndDate.value);
         return joinedDate >= startDate && joinedDate <= endDate;
-      }
-      else {
+      } else {
         return true;
       }
     });
   }
-
 
   totalPages.value = Math.ceil(filtered.length / perPage);
   const start = currentPage.value * perPage;
@@ -114,17 +118,9 @@ const filteredItems = computed(() => {
 
   return filtered.slice(start, end);
 });
-
-
-
-
-
-
-
 </script>
 
 <template>
-
   <form class="relative" @submit.prevent="submit">
     <label for="msg-search" class="sr-only">Search</label>
     <input
@@ -150,97 +146,95 @@ const filteredItems = computed(() => {
     </button>
   </form>
 
-
-<div class="lg:flex justify-between py-8 ">
-
-  <div class="flex items-start gap-y-4 flex-wrap">
-    <div  class="relative mr-4">
-      <p>filter by:</p>
-    </div>
-    <div class="relative mr-4">
-      <div @click="JoinedOnFilterModelActive = !JoinedOnFilterModelActive"
-        class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-      >
-        <p
-          role=""
-          tabindex="-1"
-          class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-        >
-          Date
-        </p>
+  <div class="lg:flex justify-between py-8">
+    <div class="flex items-start gap-y-4 flex-wrap">
+      <div class="relative mr-4">
+        <p>filter by:</p>
       </div>
-      <div class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black " v-if="JoinedOnFilterModelActive">
-        <PremFormField class="xl:mb-0  min-w-[50%] xl:min-w-[20%] " >
+      <div class="relative mr-4">
+        <div
+          @click="JoinedOnFilterModelActive = !JoinedOnFilterModelActive"
+          class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+        >
+          <p
+            role=""
+            tabindex="-1"
+            class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+          >
+            Date
+          </p>
+        </div>
+        <div
+          class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+          v-if="JoinedOnFilterModelActive"
+        >
+          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+            <PremFormControl
+              :options="joinDateOptions"
+              v-model="joinedFilterOption"
+            />
+          </PremFormField>
+          <PremFormField
+            class="min-w-[50%] xl:min-w-[20%] mt-3"
+            v-if="
+              joinedFilterOption != 'all' && joinedFilterOption != 'between'
+            "
+          >
+            <PremFormControl v-model="joinedFilterDate" type="date" />
+          </PremFormField>
+          <PremFormField
+            class="min-w-[50%] xl:min-w-[20%] mb-0"
+            v-if="joinedFilterOption == 'between'"
+            label="From"
+          >
+            <PremFormControl v-model="joinedFilterStartDate" type="date" />
+          </PremFormField>
+          <PremFormField
+            class="min-w-[50%] xl:min-w-[20%] mb-0"
+            v-if="joinedFilterOption == 'between'"
+            label="To"
+          >
+            <PremFormControl v-model="joinedFilterEndDate" type="date" />
+          </PremFormField>
+        </div>
+      </div>
+      <div class="relative mr-4">
+        <div
+          @click="paymentFilterModelActive = !paymentFilterModelActive"
+          class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+        >
+          <p
+            role=""
+            tabindex="-1"
+            class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+          >
+            payment Status
+          </p>
+        </div>
+        <div
+          class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+          v-if="paymentFilterModelActive"
+        >
           <PremFormControl
-            :options="joinDateOptions"
-            v-model="joinedFilterOption"
+            :options="paymentOptions"
+            v-model="paymentSelectedFilter"
           />
-        </PremFormField>
-        <PremFormField class=" min-w-[50%] xl:min-w-[20%] mt-3" v-if= "joinedFilterOption != 'all' && joinedFilterOption != 'between' " >
-          <PremFormControl
-            
-            v-model="joinedFilterDate"
-            type="date"
-          />
-        </PremFormField>
-        <PremFormField
-          class=" min-w-[50%] xl:min-w-[20%] mb-0"
-          v-if="joinedFilterOption == 'between'"
-          label="From"
-        >
-          <PremFormControl 
-            v-model="joinedFilterStartDate"
-            type="date"
-          />
-        </PremFormField>
-        <PremFormField
-          class=" min-w-[50%] xl:min-w-[20%] mb-0"
-          v-if="joinedFilterOption == 'between'"
-          label="To"
-        >
-          <PremFormControl 
-            v-model="joinedFilterEndDate"
-            type="date"
-          />
-        </PremFormField>
-
+        </div>
       </div>
     </div>
-    <div class="relative mr-4">
-      <div @click="paymentFilterModelActive = !paymentFilterModelActive"
-        class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-      >
-        <p
-          role=""
-          tabindex="-1"
-          class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-        >
-          payment Status
-        </p>
-      </div>
-      <div class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black " v-if="paymentFilterModelActive">
-        <PremFormControl :options="paymentOptions" v-model="paymentSelectedFilter"  />
-
-
-      </div>
-    </div>
-
-  </div>
 
     <div
-    class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
-    @click="resetfilter"
-  >
-    <p
-      role=""
-      tabindex="-1"
-      class="break-words text-body text-darkSlate01 false"
+      class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
+      @click="resetfilter"
     >
-      Reset Fiters
-    </p>
-  </div>
-
-    
+      <p
+        role=""
+        tabindex="-1"
+        class="break-words text-body text-darkSlate01 false"
+      >
+        Reset Fiters
+      </p>
+    </div>
   </div>
 
   <div class="text-gray-500 dark:text-white">
@@ -260,11 +254,9 @@ const filteredItems = computed(() => {
     <tbody>
       <tr v-for="item in filteredItems" :key="item['Order ID/TXN ID']">
         <td data-label="Date" class="lg:w-1 whitespace-nowrap">
-          <small
-            class="text-gray-500 dark:text-slate-400"
-            :title="item.Date"
-            >{{ item.Date }}</small
-          >
+          <small class="text-gray-500 dark:text-slate-400" :title="item.Date">{{
+            item.Date
+          }}</small>
         </td>
 
         <td data-label="Order ID/TXN ID">

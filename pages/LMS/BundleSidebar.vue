@@ -10,9 +10,14 @@ import AddProducts from "~~/components/LMS/Bundle/AddProducts.vue";
 import ManageOrder from "~~/components/LMS/Bundle/ManageOrder.vue";
 
 import {
+  mdiAccountCog,
   mdiArrowLeft,
-  mdiInformationSlabCircleOutline,
+  mdiCashMultiple,
+  mdiCogOutline,
+  mdiDatabaseCogOutline,
+  mdiFilePlus,
   mdiMenu,
+  mdiPublish,
 } from "@mdi/js";
 
 const tabs = [
@@ -86,10 +91,7 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 0 }"
                 @click="() => (isActive = 0)"
               >
-                <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiCogOutline" class="cursor-pointer" />
                 <p>Basic Settings</p>
               </li>
               <li
@@ -97,10 +99,7 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 1 }"
                 @click="() => (isActive = 1)"
               >
-                <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiCashMultiple" class="cursor-pointer" />
                 <p>Pricing & Validity</p>
               </li>
               <li
@@ -108,10 +107,7 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 2 }"
                 @click="() => (isActive = 2)"
               >
-                <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiPublish" class="cursor-pointer" />
                 <p>Publish Bundle</p>
               </li>
               <li
@@ -119,10 +115,7 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 3 }"
                 @click="() => (isActive = 3)"
               >
-                <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
                 <p>Manage Users</p>
               </li>
               <li
@@ -130,10 +123,7 @@ const isActive = ref(0);
                 :class="{ 'bg-slate-500': isActive == 4 }"
                 @click="() => (isActive = 4)"
               >
-                <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
-                  class="cursor-pointer"
-                />
+                <BaseIcon :path="mdiFilePlus" class="cursor-pointer" />
                 <p>Add Products</p>
               </li>
               <li
@@ -142,7 +132,7 @@ const isActive = ref(0);
                 @click="() => (isActive = 5)"
               >
                 <BaseIcon
-                  :path="mdiInformationSlabCircleOutline"
+                  :path="mdiDatabaseCogOutline"
                   class="cursor-pointer"
                 />
                 <p>Manage Order</p>
@@ -162,7 +152,7 @@ const isActive = ref(0);
         st
       >
         <div
-          class="flex flex-wrap  w-full bg-transparent justify-between items-center px-3 min-h-16 border-b-2 border-slate-800"
+          class="flex flex-wrap w-full bg-transparent justify-between items-center px-3 min-h-16 border-b-2 border-slate-800"
         >
           <div class="flex items-center">
             <div class="p-2 bg-red-300 rounded-[50%] mr-4">

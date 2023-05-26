@@ -20,6 +20,7 @@ const items = ref([
     status: "Published",
     PublishedDate: "2021-10-01",
     isFree: true,
+    price: 200,
   },
   {
     CourseID: "course2",
@@ -29,6 +30,7 @@ const items = ref([
     status: "Unpublished",
     PublishedDate: "2022-01-15",
     isFree: false,
+    price: 1800,
   },
   {
     CourseID: "course3",
@@ -38,6 +40,7 @@ const items = ref([
     status: "Coming Soon",
     PublishedDate: "2023-05-01",
     isFree: true,
+    price: 1500,
   },
   {
     CourseID: "course4",
@@ -47,6 +50,7 @@ const items = ref([
     status: "Scheduled",
     PublishedDate: "2023-08-10",
     isFree: false,
+    price: 2000,
   },
   {
     CourseID: "course5",
@@ -56,6 +60,7 @@ const items = ref([
     status: "Published",
     PublishedDate: "2023-03-25",
     isFree: true,
+    price: 1500,
   },
   {
     CourseID: "course6",
@@ -65,6 +70,7 @@ const items = ref([
     status: "Published",
     PublishedDate: "2022-06-20",
     isFree: true,
+    price: 2000,
   },
   {
     CourseID: "course7",
@@ -74,6 +80,7 @@ const items = ref([
     status: "Unpublished",
     PublishedDate: "2023-01-05",
     isFree: false,
+    price: 1500,
   },
   {
     CourseID: "course8",
@@ -83,6 +90,7 @@ const items = ref([
     status: "Coming Soon",
     PublishedDate: "2024-02-14",
     isFree: true,
+    price: 2000,
   },
   {
     CourseID: "course9",
@@ -92,6 +100,7 @@ const items = ref([
     status: "Published",
     PublishedDate: "2022-12-01",
     isFree: true,
+    price: 1500,
   },
   {
     CourseID: "course10",
@@ -101,6 +110,7 @@ const items = ref([
     status: "Published",
     PublishedDate: "2023-09-30",
     isFree: true,
+    price: 2000,
   }
 ])
 
@@ -112,6 +122,8 @@ const publishedFilterOption = ref("all");
 const publishedFilterDate = ref("");
 const publishedFilterStartDate = ref("");
 const publishedFilterEndDate = ref("");
+const isFreeFilterActive = ref(false)
+
 
 const perPage = 16;
 const totalPages = ref(1);
@@ -124,6 +136,7 @@ const resetfilter = ()=>{
    publishedFilterOption.value = "all";
    publishedOnFilterModelActive.value = false;
    statusFilterModelActive.value = false;
+   isFreeFilterActive.value = false
 
 }
 
@@ -135,10 +148,15 @@ const filteredItems = computed(() => {
     filtered = filtered.filter((item) => {
       return search
         ? item.BundleID.match(search) ||
-            item.CourseID.match(search) ||
             item.title.match(search)
         : true;
     });
+  }
+
+  if(isFreeFilterActive.value){
+    filtered = filtered.filter((item) => {
+      return item.isFree
+    })
   }
 
   if(statusSelectedFilter.value !== 'all'){
@@ -184,7 +202,6 @@ const filteredItems = computed(() => {
 
   return filtered.slice(start, end);
 });
-
 
 
 </script>
@@ -312,6 +329,21 @@ const filteredItems = computed(() => {
               
                     </div>
                   </div>
+
+                  <div class="relative mr-4">
+                    <div @click="isFreeFilterActive = !isFreeFilterActive" 
+                      :class="{'bg-green-100':isFreeFilterActive}"
+                      class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+                    >
+                      <p
+                        role=""
+                        tabindex="-1"
+                        class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+                      >
+                        Free
+                      </p>
+                    </div>
+                  </div>
                 </div>
               
                   <div
@@ -346,7 +378,7 @@ const filteredItems = computed(() => {
                         <p class="">{{item.BundleID}} | {{item.CourseID}}</p>
                         <div class="flex justify-between">
                             <p v-if="item.isFree" class="font-semibold text-sm"> Free </p>
-                            <p v-else class="font-semibold text-sm"> Paid </p>
+                            <p v-else class="font-semibold text-sm"> ₹ {{item.price}} </p>
 
                             <p class="text-sm ">{{item.days}} Days</p>
 

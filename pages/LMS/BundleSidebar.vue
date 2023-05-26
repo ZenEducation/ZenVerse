@@ -1,0 +1,213 @@
+<script setup>
+import SectionMain from "@/components/Sections/SectionMain.vue";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
+import BasicSettings from "~~/components/LMS/Bundle/BasicSettings.vue";
+import pricingValidity from "~~/components/LMS/Bundle/pricingValidity.vue";
+import Publish from "~~/components/LMS/Bundle/Publish.vue";
+import ManageUser from "~~/components/LMS/Bundle/ManageUser.vue";
+import AddProducts from "~~/components/LMS/Bundle/AddProducts.vue";
+import ManageOrder from "~~/components/LMS/Bundle/ManageOrder.vue";
+
+import {
+  mdiArrowLeft,
+  mdiInformationSlabCircleOutline,
+  mdiMenu,
+} from "@mdi/js";
+
+const tabs = [
+  "Basic Settings",
+  "Pricing & Validity",
+  "Publish Bundle",
+  "Manage Users",
+  "Add Products",
+  "Manage Order",
+];
+const isSidebarActive = ref(false);
+const isModalSaveActive = ref(false);
+const isModalDeleteActive = ref(false);
+
+const isActive = ref(0);
+</script>
+
+<template>
+  <CardBoxModal
+    v-model="isModalSaveActive"
+    title="Are you sure you want to Save Current Changes ?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="
+      () => {
+        isModalSaveActive = false;
+      }
+    "
+  />
+  <CardBoxModal
+    v-model="isModalDeleteActive"
+    title="Are you sure you want to delete this Bundle ?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="
+      () => {
+        isModalDeleteActive = false;
+      }
+    "
+  />
+  <NuxtLayout name="zen">
+    <!-- <SectionMain> -->
+    <div
+      class="relative ml-2"
+      style="grid-template-columns: min-content auto"
+      :class="{ block: isSidebarActive, grid: !isSidebarActive }"
+    >
+      <div
+        class="w-60 bg-slate-200 dark:bg-transparent overflow-y-hidden"
+        style="
+          height: calc(100vh - 7rem);
+          max-height: calc(100vh - 7rem);
+          grid-template-columns: min-content auto;
+        "
+        :class="{ hidden: isSidebarActive }"
+      >
+        <div class="">
+          <div class="">
+            <ul>
+              <NuxtLink
+                to="/lms/BundleSingle"
+                class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
+              >
+                <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />
+                <p>Back To Bundle</p>
+              </NuxtLink>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 0 }"
+                @click="() => (isActive = 0)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Basic Settings</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 1 }"
+                @click="() => (isActive = 1)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Pricing & Validity</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 2 }"
+                @click="() => (isActive = 2)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Publish Bundle</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 3 }"
+                @click="() => (isActive = 3)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Manage Users</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 4 }"
+                @click="() => (isActive = 4)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Add Products</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 5 }"
+                @click="() => (isActive = 5)"
+              >
+                <BaseIcon
+                  :path="mdiInformationSlabCircleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Manage Order</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="overflow-y-scroll"
+        style="
+          height: calc(100vh - 7rem);
+          max-height: calc(100vh - 7rem);
+          grid-template-columns: min-content auto;
+        "
+        st
+      >
+        <div
+          class="flex flex-wrap  w-full bg-transparent justify-between items-center px-3 min-h-16 border-b-2 border-slate-800"
+        >
+          <div class="flex items-center">
+            <div class="p-2 bg-red-300 rounded-[50%] mr-4">
+              <BaseIcon
+                :path="mdiMenu"
+                class="cursor-pointer"
+                @click="
+                  () => {
+                    isSidebarActive = !isSidebarActive;
+                  }
+                "
+              />
+            </div>
+            <p class="text-2xl">{{ tabs[isActive] }}</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 px-4 py-4">
+            <p
+              @click="
+                () => {
+                  isModalSaveActive = true;
+                }
+              "
+              class="cursor-pointer rounded-md py-2 px-3 text-white bg-black"
+            >
+              Save
+            </p>
+            <p
+              @click="() => (isModalDeleteActive = true)"
+              class="cursor-pointer rounded-md py-2 px-3 text-white bg-red-500"
+            >
+              Delete Bundle
+            </p>
+          </div>
+        </div>
+        <div class="md:p-12 p-3">
+          <BasicSettings v-if="isActive == 0" />
+          <pricingValidity v-if="isActive == 1" />
+          <Publish v-if="isActive == 2" />
+          <ManageUser v-if="isActive == 3" />
+          <AddProducts v-if="isActive == 4" />
+          <ManageOrder v-if="isActive == 5" />
+        </div>
+      </div>
+    </div>
+
+    <!-- </SectionMain> -->
+  </NuxtLayout>
+</template>

@@ -33,7 +33,7 @@ const email = ref("");
 
 function submitProfile() {
   isModalActive.value = false;
-  useMainStore().addLearner({
+  useMainStore().addInstructor({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
@@ -48,7 +48,7 @@ function submitProfile() {
 </script>
 
 <template>
-  <CardBoxModal v-model="isModalActive" :showFooter="false" title="">
+  <CardBoxModal v-model="isModalActive"  :showFooter="false" title="">
     <header
       class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
     >
@@ -56,8 +56,8 @@ function submitProfile() {
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
-        <h1 class="font-bold">Add Learner</h1>
-        <h3 class="text-xs">Enter details to create learner manually</h3>
+        <h1 class="font-bold">Add Instructor</h1>
+        <h3 class="text-xs">Enter details to create Instructor manually</h3>
       </div>
       <div class="text-gray-500 cursor-pointer" @click="isModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
@@ -71,7 +71,7 @@ function submitProfile() {
           required
           v-model="name"
           autocomplete="username"
-          placeholder="Enter learner name"
+          placeholder="Enter Instructor name"
         />
       </FormField>
       <FormField label="E-mail">
@@ -82,7 +82,7 @@ function submitProfile() {
           v-model="email"
           required
           autocomplete="email"
-          placeholder="Enter learner email"
+          placeholder="Enter Instructor email"
         />
       </FormField>
       <FormField label="Mobile">
@@ -93,7 +93,7 @@ function submitProfile() {
           v-model="mobile"
           required
           autocomplete="current-phone"
-          placeholder="Enter learner mobile"
+          placeholder="Enter Instructor mobile"
         />
       </FormField>
       <FormField label="Current password">
@@ -103,7 +103,7 @@ function submitProfile() {
           type="password"
           required
           autocomplete="current-password"
-          placeholder="Set password for learner"
+          placeholder="Set password for Instructor"
         />
       </FormField>
       <FormCheckRadio
@@ -111,6 +111,76 @@ function submitProfile() {
         label="Send email to User"
         :input-value="true"
       />
+      <br>
+      <FormCheckRadio
+      name="publishingCourse"
+      label="Editing of Published courses"
+      :input-value="true"
+    />
+    <br>
+    <FormCheckRadio
+      name="askpublish"
+      label="Ask for approval for published cources"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accesslive"
+      label="Access of live recording"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accessdash"
+      label="Access to live dashboard"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accessmessanger"
+      label="Access to messenger"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accessband"
+      label="Access to bandwidth reports"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accessusage"
+      label="Access to usage reports"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accessreport"
+      label="Access to live test reports"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+      name="accesslearner"
+      label="Access to learner details"
+      :input-value="true"
+    />
+    <br>
+
+    <FormCheckRadio
+    name="accessdownload"
+    label="Access to download quiz/live tests"
+    :input-value="true"
+  />
+  <br>
+
       <div class="flex justify-end py-2">
         <BaseButtons>
           <BaseButton type="submit" color="info" label="Submit" />
@@ -124,9 +194,9 @@ function submitProfile() {
         class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
       >
         <div class="heading">
-          <h1 class="font-bold text-2xl">Learner Management</h1>
+          <h1 class="font-bold text-2xl">Instructor Management</h1>
           <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
-            Manage your learning community. Learn More.
+            Manage your community. Learn More.
           </h3>
         </div>
         <BaseButtons type="ml-auto xl:mr-4 mr-1">
@@ -147,7 +217,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TablesTableLearnersSample/>
+        <TablesTableInstructorSample />
       </div>
     </NuxtLayout>
   </div>

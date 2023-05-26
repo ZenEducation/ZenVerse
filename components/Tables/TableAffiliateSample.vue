@@ -22,7 +22,7 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.learners);
+const items = ref(mainStore.affiliates);
 const joinDateOptions = ["all", "before", "on", "after", "between"];
 const membershipOptions = ["all", "enabled", "disabled"];
 const membershipSelectedFilter = ref("all");
@@ -177,15 +177,15 @@ const deleteItem = (popup, id) => {
 <template>
   <CardBoxModal
     v-model="isModalActive"
-    title="Edit Learners"
+    title="Edit Affiliates"
     buttonLabel="Okay"
   >
-    <p>You can edit learner details here.(WIP)</p>
+    <p>You can edit Affiliate details here.(WIP)</p>
   </CardBoxModal>
 
   <CardBoxModal
     v-model="isModalDangerActive"
-    title="Are you sure you want to delete this learner?"
+    title="Are you sure you want to delete this Affiliate?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -194,7 +194,7 @@ const deleteItem = (popup, id) => {
 
   <CardBoxModal
     v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this learner?"
+    title="Are you sure you want to Change status of this Affiliate?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -376,7 +376,7 @@ const deleteItem = (popup, id) => {
   </div>
 
   <div class="text-gray-500 dark:text-white">
-    <span>{{ filteredItems.length }} learners</span>
+    <span>{{ filteredItems.length }} Affiliates</span>
   </div>
 
   <table>

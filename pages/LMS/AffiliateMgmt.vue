@@ -1,4 +1,3 @@
-
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import { useMainStore } from "@/stores/main";
@@ -12,6 +11,7 @@ import {
   mdiCellphone,
   mdiAsterisk,
   mdiFormTextboxPassword,
+  mdiSearchWeb,
 } from "@mdi/js";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
@@ -33,7 +33,7 @@ const email = ref("");
 
 function submitProfile() {
   isModalActive.value = false;
-  useMainStore().addLearner({
+  useMainStore().addAffiliate({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
@@ -56,8 +56,8 @@ function submitProfile() {
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
-        <h1 class="font-bold">Add Learner</h1>
-        <h3 class="text-xs">Enter details to create learner manually</h3>
+        <h1 class="font-bold">Add Affiliate</h1>
+        <h3 class="text-xs">Enter details to create Affiliate manually</h3>
       </div>
       <div class="text-gray-500 cursor-pointer" @click="isModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
@@ -71,7 +71,7 @@ function submitProfile() {
           required
           v-model="name"
           autocomplete="username"
-          placeholder="Enter learner name"
+          placeholder="Enter Affiliate name"
         />
       </FormField>
       <FormField label="E-mail">
@@ -82,7 +82,7 @@ function submitProfile() {
           v-model="email"
           required
           autocomplete="email"
-          placeholder="Enter learner email"
+          placeholder="Enter Affiliate email"
         />
       </FormField>
       <FormField label="Mobile">
@@ -93,7 +93,7 @@ function submitProfile() {
           v-model="mobile"
           required
           autocomplete="current-phone"
-          placeholder="Enter learner mobile"
+          placeholder="Enter Affiliate mobile"
         />
       </FormField>
       <FormField label="Current password">
@@ -103,9 +103,47 @@ function submitProfile() {
           type="password"
           required
           autocomplete="current-password"
-          placeholder="Set password for learner"
+          placeholder="Set password for Affiliate"
         />
       </FormField>
+      <FormField label="Commission rate">
+        <FormControl
+          name="commission-rate"
+          type="phone"
+          required
+          placeholder="Enter Commission"
+        />
+      </FormField>
+
+      <FormCheckRadio
+        name="allowCommission"
+        label="Allow commission on all courses"
+        :input-value="true"
+      />
+
+      <FormField label="">
+        <FormControl
+          :icon="mdiSearchWeb"
+          type="search"
+          name="courses"
+          placeholder="Search by course title"
+        />
+      </FormField>
+
+      <FormCheckRadio
+        name="linkAffiliate"
+        label="Link Affiliate for Limited Days"
+        :input-value="true"
+      />
+
+      <FormField label="">
+        <FormControl
+          type="number"
+          name="numberOfDays"
+          placeholder="Enter number of days"
+        />
+      </FormField>
+
       <FormCheckRadio
         name="notifyUser"
         label="Send email to User"
@@ -124,9 +162,9 @@ function submitProfile() {
         class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
       >
         <div class="heading">
-          <h1 class="font-bold text-2xl">Learner Management</h1>
+          <h1 class="font-bold text-2xl">Affiliate Management</h1>
           <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
-            Manage your learning community. Learn More.
+            Manage your community. Learn More.
           </h3>
         </div>
         <BaseButtons type="ml-auto xl:mr-4 mr-1">
@@ -147,7 +185,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TablesTableLearnersSample/>
+        <TablesTableAffiliateSample/>
       </div>
     </NuxtLayout>
   </div>

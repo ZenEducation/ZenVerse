@@ -110,6 +110,148 @@ const state = () => ({
             isEnabled: false
         }
     ],
+    affiliates: [
+        {
+            id: 1,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg',
+            login: 'percy64',
+            name: 'Howell Hand',
+            email: 'kiehngreen@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Mar 03, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: true
+        },
+        {
+            id: 2,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg',
+            login: 'dare.concepcion',
+            name: 'Hope Howe',
+            email: 'nolaninc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Dec 01, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: false
+        },
+        {
+            id: 3,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Nelson-Jerde.svg',
+            login: 'geovanni.kessler',
+            name: 'Nelson Jerde',
+            email: 'nitzschellc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 18, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: true
+        },
+        {
+            id: 4,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Kim-Weimann.svg',
+            login: 'macejkovic.dashawn',
+            name: 'Kim affiliate',
+            email: 'brownlueilwitz@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 04, 2021',
+            joinedOn: 'Mar 11, 2021',
+            isEnabled: false
+        }
+    ],
+    admins: [
+        {
+            id: 1,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg',
+            login: 'percy64',
+            name: 'Howell Hand',
+            email: 'kiehngreen@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Mar 03, 2021',
+            joinedOn: 'Mar 03, 2021',
+            role:"Admin",
+            isEnabled: true
+        },
+        {
+            id: 2,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg',
+            login: 'dare.concepcion',
+            name: 'Hope Howe',
+            email: 'nolaninc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Dec 01, 2021',
+            joinedOn: 'Mar 03, 2021',
+            role:'Super Admin',
+            isEnabled: false
+        },
+        {
+            id: 3,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Nelson-Jerde.svg',
+            login: 'geovanni.kessler',
+            name: 'Nelson Jerde',
+            email: 'nitzschellc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 18, 2021',
+            joinedOn: 'Mar 03, 2021',
+            role:"Admin",
+            isEnabled: true
+        },
+        {
+            id: 4,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Kim-Weimann.svg',
+            login: 'macejkovic.dashawn',
+            name: 'Kim admin',
+            email: 'brownlueilwitz@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 04, 2021',
+            joinedOn: 'Mar 11, 2021',
+            role:'Super Admin',
+            isEnabled: false
+        }
+    ],
+    instructors: [
+        {
+            id: 1,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg',
+            login: 'percy64',
+            name: 'Howell Hand',
+            email: 'kiehngreen@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Mar 03, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: true
+        },
+        {
+            id: 2,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg',
+            login: 'dare.concepcion',
+            name: 'Hope Howe',
+            email: 'nolaninc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'Dec 01, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: false
+        },
+        {
+            id: 3,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Nelson-Jerde.svg',
+            login: 'geovanni.kessler',
+            name: 'Nelson Jerde',
+            email: 'nitzschellc@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 18, 2021',
+            joinedOn: 'Mar 03, 2021',
+            isEnabled: true
+        },
+        {
+            id: 4,
+            avatar: 'https://avatars.dicebear.com/v2/gridy/Kim-Weimann.svg',
+            login: 'macejkovic.dashawn',
+            name: 'Kim instructor',
+            email: 'brownlueilwitz@lms.in',
+            mobile: '+91-9987654321',
+            lastLogin: 'May 04, 2021',
+            joinedOn: 'Mar 11, 2021',
+            isEnabled: false
+        }
+    ],
     history: [
         {
             amount: 375.53,
@@ -265,7 +407,16 @@ const actions = {
     },
     addLearner(payload) {
         this.learners.push(payload);
-    }
+    },
+    addAffiliate(payload) {
+        this.affiliates.push(payload);
+    },
+    addInstructor(payload) {
+        this.instructors.push(payload);
+    },
+    addAdmin(payload) {
+        this.admins.push(payload);
+    },
 };
 
 export const useMainStore = defineStore('main', {

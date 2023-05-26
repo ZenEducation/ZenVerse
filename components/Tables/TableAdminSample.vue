@@ -22,7 +22,7 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.learners);
+const items = ref(mainStore.admins);
 const joinDateOptions = ["all", "before", "on", "after", "between"];
 const membershipOptions = ["all", "enabled", "disabled"];
 const membershipSelectedFilter = ref("all");
@@ -180,12 +180,12 @@ const deleteItem = (popup, id) => {
     title="Edit Learners"
     buttonLabel="Okay"
   >
-    <p>You can edit learner details here.(WIP)</p>
+    <p>You can edit Admin details here.(WIP)</p>
   </CardBoxModal>
 
   <CardBoxModal
     v-model="isModalDangerActive"
-    title="Are you sure you want to delete this learner?"
+    title="Are you sure you want to delete this Admin?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -194,7 +194,7 @@ const deleteItem = (popup, id) => {
 
   <CardBoxModal
     v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this learner?"
+    title="Are you sure you want to Change status of this Admin?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -376,7 +376,7 @@ const deleteItem = (popup, id) => {
   </div>
 
   <div class="text-gray-500 dark:text-white">
-    <span>{{ filteredItems.length }} learners</span>
+    <span>{{ filteredItems.length }} Admins</span>
   </div>
 
   <table>
@@ -384,6 +384,7 @@ const deleteItem = (popup, id) => {
       <tr>
         <th />
         <th>Name</th>
+        <th>Role</th>
         <th>Email</th>
         <th>Mobile no</th>
         <th>Last Login</th>
@@ -402,6 +403,9 @@ const deleteItem = (popup, id) => {
         </td>
         <td data-label="Name">
           {{ learners.name }}
+        </td>
+        <td data-label="Role">
+          {{ learners.role }}
         </td>
         <td data-label="Email">
           {{ learners.email }}

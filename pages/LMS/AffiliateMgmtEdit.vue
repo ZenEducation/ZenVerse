@@ -4,6 +4,7 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import InformationTab from "@/components/LMS/MgmtEdit/AffiliateEditInformation.vue";
 import CoursesTab from "@/components/LMS/MgmtEdit/LearnerEditCourses.vue";
 import PurchaseTab from "@/components/LMS/MgmtEdit/LearnerEditPurchase.vue";
+import AffiliateCodes from "~~/components/LMS/MgmtEdit/AffiliateCodes.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 
 import {
@@ -19,7 +20,7 @@ import {
   mdiMenu,
 } from "@mdi/js";
 
-const tabs = ["Information", "Enrolled Courses", "Purchase History"];
+const tabs = ["Information", "Enrolled Courses", "Purchase History","Affiliate Codes"];
 const isSidebarActive = ref(false);
 const options = {
   profileRoles: [
@@ -277,6 +278,17 @@ const isActive = ref(0);
                 <BaseIcon :path="mdiCreditCard" class="cursor-pointer" />
                 <p>Purchase History</p>
               </li>
+              <li
+              class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+              :class="{ 'bg-slate-500': isActive == 3 }"
+              @click="() => (isActive = 3)"
+            >
+              <BaseIcon
+                :path="mdiTextBoxMultipleOutline"
+                class="cursor-pointer"
+              />
+              <p>Affiliate Codes</p>
+            </li>
             </ul>
           </div>
         </div>
@@ -335,6 +347,7 @@ const isActive = ref(0);
           />
           <CoursesTab v-if="isActive == 1" />
           <PurchaseTab v-if="isActive == 2" />
+          <AffiliateCodes v-if="isActive == 3"  />
         </div>
       </div>
     </div>

@@ -189,7 +189,6 @@ const filteredItems = computed(() => {
         publishedFilterOption.value === "before" &&
         publishedFilterDate.value != ""
       ) {
-        console.log("object");
         const filterDate = new Date(publishedFilterDate.value);
         return publishedDate < filterDate;
       } else if (
@@ -220,14 +219,12 @@ const filteredItems = computed(() => {
 
 const layoutStore = useLayoutStore();
 const isLg = computed(() => {
-  console.log(window.innerWidth);
   return window.innerWidth <= 600;
 });
 
 const isGrid = ref(true);
 const isFinalGrid = computed(() => {
-  console.log("islg",isLg.value);
-  console.log("isgrid" ,isGrid.value);
+
   if (isLg.value) {
     return true;
   } else {

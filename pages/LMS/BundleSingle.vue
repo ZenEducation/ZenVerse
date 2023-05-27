@@ -204,7 +204,7 @@ const filteredItems = computed(() => {
                     />
                     <BaseButton
                     color="lightDark"
-                    label="Manage"
+                    label="Re order"
                     small
                     />
                     <BaseButton

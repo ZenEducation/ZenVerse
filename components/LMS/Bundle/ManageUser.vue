@@ -11,16 +11,56 @@ import UserAvatar from "@/components/Avatars/UserAvatar";
 import PremFormField from "@/components/Forms/PremFormField.vue";
 import PremFormControl from "@/components/Forms/PremFormControl.vue";
 
+import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
+import uuid4 from "uuid4";
+import {
+  mdiDotsVertical,
+  mdiAccountPlus,
+  mdiWindowClose,
+  mdiAccount,
+  mdiMail,
+  mdiCellphone,
+  mdiAsterisk,
+  mdiFormTextboxPassword,
+} from "@mdi/js";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import CardBox from "@/components/Cards/CardBox.vue";
+import FormField from "@/components/Forms/FormField.vue";
+import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
+import FormControl from "@/components/Forms/FormControl.vue";
+import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
+
 defineProps({
   checkable: { type: Boolean, default: false },
 });
 const mainStore = useMainStore();
 const deleteItemId = ref("");
 
-const isModalActive = ref(false);
+const isModalEditActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 const EnableItemId = ref("");
+
+const isModalActive = ref(false);
+
+const name = ref("");
+const mobile = ref("");
+const email = ref("");
+
+function submitProfile() {
+  isModalActive.value = false;
+  useMainStore().addLearner({
+    id: uuid4(),
+    avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
+    login: "percy64",
+    name: name.value,
+    email: email.value,
+    mobile: mobile.value,
+    lastLogin: "Mar 03, 2021",
+    joinedOn: "Mar 03, 2021",
+    isEnabled: true,
+  });
+}
 
 const items = ref(mainStore.learners);
 const joinDateOptions = ["all", "before", "on", "after", "between"];
@@ -175,17 +215,89 @@ const deleteItem = (popup, id) => {
 </script>
 
 <template>
+
+  <CardBoxModal v-model="isModalActive" :showFooter="false" title="">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Add User</h1>
+        <h3 class="text-xs">Enter details to create User manually</h3>
+      </div>
+      <div class="text-gray-500 cursor-pointer" @click="isModalActive = false">
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <CardBox is-form @submit.prevent="submitProfile">
+      <FormField label="Name">
+        <FormControl
+          :icon="mdiAccount"
+          name="username"
+          required
+          v-model="name"
+          autocomplete="username"
+          placeholder="Enter User name"
+        />
+      </FormField>
+      <FormField label="E-mail">
+        <FormControl
+          :icon="mdiMail"
+          type="email"
+          name="email"
+          v-model="email"
+          required
+          autocomplete="email"
+          placeholder="Enter User email"
+        />
+      </FormField>
+      <FormField label="Mobile">
+        <FormControl
+          :icon="mdiCellphone"
+          name="phone"
+          type="phone"
+          v-model="mobile"
+          required
+          autocomplete="current-phone"
+          placeholder="Enter User mobile"
+        />
+      </FormField>
+      <FormField label="Current password">
+        <FormControl
+          :icon="mdiAsterisk"
+          name="password_current"
+          type="password"
+          required
+          autocomplete="current-password"
+          placeholder="Set password for User"
+        />
+      </FormField>
+      <FormCheckRadio
+        name="notifyUser"
+        label="Send email to User"
+        :input-value="true"
+      />
+      <div class="flex justify-end py-2">
+        <BaseButtons>
+          <BaseButton type="submit" color="info" label="Submit" />
+        </BaseButtons>
+      </div>
+    </CardBox>
+  </CardBoxModal>
+
   <CardBoxModal
-    v-model="isModalActive"
-    title="Edit Learners"
+    v-model="isModalEditActive"
+    title="Edit Users"
     buttonLabel="Okay"
   >
-    <p>You can edit learner details here.(WIP)</p>
+    <p>You can edit User details here.(WIP)</p>
   </CardBoxModal>
 
   <CardBoxModal
     v-model="isModalDangerActive"
-    title="Are you sure you want to delete this learner?"
+    title="Are you sure you want to delete this User?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -194,12 +306,39 @@ const deleteItem = (popup, id) => {
 
   <CardBoxModal
     v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this learner?"
+    title="Are you sure you want to Change status of this User?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
     @confirm="EnableItem(false)"
   />
+
+  <div
+  class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
+>
+  <div class="heading">
+    <h1 class="font-bold text-2xl">User Management</h1>
+    <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
+      Manage your learning community. Learn More.
+    </h3>
+  </div>
+  <BaseButtons type="ml-auto xl:mr-4 mr-1">
+    <BaseButton
+      class="flex-1"
+      type="submit"
+      label="+ Add"
+      :icon="mdiMessageBadge"
+      color="info"
+      @click="isModalActive = true"
+    />
+  </BaseButtons>
+  <div class="flex items-center justify-center">
+    <PremButtonMenu
+      :options="adminPanelButtonMenu"
+      :icon="mdiDotsVertical"
+    />
+  </div>
+</div>
 
   <form class="relative" @submit.prevent="submit">
     <label for="msg-search" class="sr-only">Search</label>
@@ -376,7 +515,7 @@ const deleteItem = (popup, id) => {
   </div>
 
   <div class="text-gray-500 dark:text-white">
-    <span>{{ filteredItems.length }} learners</span>
+    <span>{{ filteredItems.length }} Users</span>
   </div>
 
   <table>
@@ -434,7 +573,7 @@ const deleteItem = (popup, id) => {
               color="info"
               :icon="mdiPencil"
               small
-              @click="isModalActive = true"
+              @click="isModalEditActive = true"
             />
             <BaseButton
               color="danger"

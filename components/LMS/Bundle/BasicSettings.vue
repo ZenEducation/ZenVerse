@@ -45,6 +45,13 @@ const profileInput = ref(null);
                 />
               </PremFormField>
 
+              <PremFormField label="Bundle ID *">
+                <PremFormControl
+                required
+                type="text"
+                />
+              </PremFormField>
+
               <PremFormField label="Short Description ">
                 <PremFormControl
                 type="textarea"
@@ -63,6 +70,10 @@ const profileInput = ref(null);
                 <img :src="profilePreview" alt="" v-if="profilePreview ">
                 <div class="flex justify-around items-center h-12">
                     <BaseButton
+                    @click = "()=>{
+                      profilePreview = ''
+                    }"
+                    v-if="profilePreview"
                     color="danger"
                     label="REMOVE"
                     small

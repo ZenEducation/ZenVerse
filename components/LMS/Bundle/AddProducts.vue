@@ -201,15 +201,10 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const isModalEnableActive = ref(false);
 const EnableItemId = ref("");
 
 const EnableItem = (popup, id) => {
-  if (popup) {
-    isModalEnableActive.value = true;
     EnableItemId.value = id;
-    return;
-  }
   const index = items.value.findIndex((item) => item.CourseID === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
@@ -219,21 +214,14 @@ const EnableItem = (popup, id) => {
 </script>
 <template>
   <div>
-    <CardBoxModal
-      v-model="isModalEnableActive"
-      title="Are you sure you want to Change status of this Course?"
-      button="danger"
-      buttonLabel="Yes"
-      has-cancel
-      @confirm="EnableItem(false)"
-    />
+
       <div class="flex flex-wrap justify-between items-center">
         <div>
           <p class="font-bold text-xl">Add Products</p>
           <p class="text-sm">Select and add products to your bundle</p>
         </div>
         <div class="flex flex-wrap gap-4 items-center">
-          <BaseButton color="info" :icon="mdiPlus" label="Add Product" small />
+          <BaseButton color="info" label="Add Product" small />
           <BaseButton color="lightDark" label="Cancel" small />
         </div>
       </div>

@@ -14,7 +14,7 @@ import {
   mdiTrashCan,
   mdiPencil,
 } from "@mdi/js";
-import { mdiGrid, mdiListBoxOutline } from "@mdi/js";
+import { mdiGrid, mdiFormatListBulleted } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
@@ -22,7 +22,7 @@ import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([
   {
-    CourseID: "course1",
+    CategoryID: "Category1",
     BundleID: "bundle1",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
@@ -32,7 +32,7 @@ const items = ref([
     price: 200,
   },
   {
-    CourseID: "course2",
+    CategoryID: "Category2",
     BundleID: "bundle2",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
@@ -42,7 +42,7 @@ const items = ref([
     price: 1800,
   },
   {
-    CourseID: "course3",
+    CategoryID: "Category3",
     BundleID: "bundle1",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
@@ -52,7 +52,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course4",
+    CategoryID: "Category4",
     BundleID: "bundle3",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
@@ -62,7 +62,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course5",
+    CategoryID: "Category5",
     BundleID: "bundle2",
     title: "Waves: Wave Properties and Sound",
     days: 567,
@@ -72,7 +72,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course6",
+    CategoryID: "Category6",
     BundleID: "bundle4",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
@@ -82,7 +82,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course7",
+    CategoryID: "Category7",
     BundleID: "bundle2",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
@@ -92,7 +92,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course8",
+    CategoryID: "Category8",
     BundleID: "bundle1",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
@@ -102,7 +102,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course9",
+    CategoryID: "Category9",
     BundleID: "bundle3",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
@@ -112,7 +112,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course10",
+    CategoryID: "Category10",
     BundleID: "bundle4",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
@@ -123,36 +123,16 @@ const items = ref([
   },
 ]);
 
-const publishDateOptions = ["all", "before", "on", "after", "between"];
-const statusOptions = [
-  "all",
-  "Published",
-  "Unpublished",
-  "Coming Soon",
-  "Scheduled",
-];
-const statusSelectedFilter = ref("all");
+
 const searchQuery = ref("");
-const publishedFilterOption = ref("all");
-const publishedFilterDate = ref("");
-const publishedFilterStartDate = ref("");
-const publishedFilterEndDate = ref("");
+
 
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
-const publishedOnFilterModelActive = ref(false);
-const statusFilterModelActive = ref(false);
 
-const isFreeFilterActive = ref(false);
 
-const resetfilter = () => {
-  statusSelectedFilter.value = "all";
-  publishedFilterOption.value = "all";
-  publishedOnFilterModelActive.value = false;
-  statusFilterModelActive.value = false;
-  isFreeFilterActive.value = false;
-};
+
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -161,22 +141,11 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.CourseID.match(search) || item.title.match(search)
+        ? item.CategoryID.match(search) || item.title.match(search)
         : true;
     });
   }
 
-  if (isFreeFilterActive.value) {
-    filtered = filtered.filter((item) => {
-      return item.isFree;
-    });
-  }
-
-  if (statusSelectedFilter.value !== "all") {
-    filtered = filtered.filter((item) => {
-      return item.status === statusSelectedFilter.value;
-    });
-  }
 
   totalPages.value = Math.ceil(filtered.length / perPage);
   const start = currentPage.value * perPage;
@@ -216,13 +185,12 @@ const colors = computed(() => {
       <div class="p-5">
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Physics | CWTs | V01</p>
-            <p class="text-sm">Manage and add products to your Category</p>
+            <p class="font-bold text-xl">Categories</p>
           </div>
           <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
               <BaseButton
-                :icon="mdiListBoxOutline"
+                :icon="mdiFormatListBulleted"
                 :color="colors[0]"
                 @click="
                   () => {
@@ -241,11 +209,10 @@ const colors = computed(() => {
               />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
-              <BaseButton color="lightDark" label="Edit" small />
               <BaseButton
                 color="info"
                 :icon="mdiPlus"
-                label="Add Product"
+                label="Create"
                 small
               />
             </div>
@@ -277,65 +244,6 @@ const colors = computed(() => {
           </button>
         </form>
 
-        <div class="lg:flex justify-between">
-          <div class="flex items-start gap-y-4 flex-wrap">
-            <div class="relative mr-4">
-              <p>filter by:</p>
-            </div>
-
-            <div class="relative mr-4">
-              <div
-                @click="statusFilterModelActive = !statusFilterModelActive"
-                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-              >
-                <p
-                  role=""
-                  tabindex="-1"
-                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-                >
-                  Status
-                </p>
-              </div>
-              <div
-                class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-                v-if="statusFilterModelActive"
-              >
-                <PremFormControl
-                  :options="statusOptions"
-                  v-model="statusSelectedFilter"
-                />
-              </div>
-            </div>
-            <div class="relative mr-4">
-              <div
-                @click="isFreeFilterActive = !isFreeFilterActive"
-                :class="{ 'bg-green-100': isFreeFilterActive }"
-                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-              >
-                <p
-                  role=""
-                  tabindex="-1"
-                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-                >
-                  Free
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
-            @click="resetfilter"
-          >
-            <p
-              role=""
-              tabindex="-1"
-              class="break-words text-body text-darkSlate01 false"
-            >
-              Reset Fiters
-            </p>
-          </div>
-        </div>
 
         <BaseDivider />
 
@@ -353,7 +261,7 @@ const colors = computed(() => {
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.CourseID }}</p>
+                  <p class="">{{ item.CategoryID }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
@@ -368,11 +276,10 @@ const colors = computed(() => {
               <div class="flex gap-2 justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
                   <BaseButton color="" :label="item.status" small />
-                </div  >
-                <div  class="flex gap-3 flex-wrap items-center" >
-
+                </div>
+                <div class="flex gap-3 flex-wrap items-center">
                   <BaseButton color="danger" :icon="mdiTrashCan" />
-                  <BaseButton color="info" :icon="mdiPencil"/>
+                  <BaseButton color="info" :icon="mdiPencil" />
                   <BaseIcon :path="mdiInformationBoxOutline" />
                 </div>
               </div>
@@ -393,7 +300,7 @@ const colors = computed(() => {
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.CourseID }}</p>
+                <p class="">{{ item.CategoryID }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
@@ -407,9 +314,8 @@ const colors = computed(() => {
                   <BaseButton color="" :label="item.status" small />
                 </div>
                 <div class="flex gap-3 flex-wrap items-center">
-
                   <BaseButton color="danger" :icon="mdiTrashCan" />
-                  <BaseButton color="info" :icon="mdiPencil"/>
+                  <BaseButton color="info" :icon="mdiPencil" />
                   <BaseIcon :path="mdiInformationBoxOutline" />
                 </div>
               </div>

@@ -11,7 +11,7 @@ import {
   mdiDancePole,
   mdiGrid,
   mdiInformationBoxOutline,
-  mdiListBoxOutline,
+  mdiFormatListBulleted,
   mdiPlus,
 } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
@@ -250,7 +250,7 @@ const colors = computed(() => {
           <div class="flex flex-wrap gap-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
               <BaseButton
-                :icon="mdiListBoxOutline"
+                :icon="mdiFormatListBulleted"
                 :color="colors[0]"
                 @click="
                   () => {

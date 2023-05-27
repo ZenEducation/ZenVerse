@@ -20,7 +20,7 @@ import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([
   {
-    CourseID: "course1",
+    CategoryID: "Category1",
     BundleID: "bundle1",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
@@ -30,7 +30,7 @@ const items = ref([
     price: 200,
   },
   {
-    CourseID: "course2",
+    CategoryID: "Category2",
     BundleID: "bundle2",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
@@ -40,7 +40,7 @@ const items = ref([
     price: 1800,
   },
   {
-    CourseID: "course3",
+    CategoryID: "Category3",
     BundleID: "bundle1",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
@@ -50,7 +50,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course4",
+    CategoryID: "Category4",
     BundleID: "bundle3",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
@@ -60,7 +60,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course5",
+    CategoryID: "Category5",
     BundleID: "bundle2",
     title: "Waves: Wave Properties and Sound",
     days: 567,
@@ -70,7 +70,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course6",
+    CategoryID: "Category6",
     BundleID: "bundle4",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
@@ -80,7 +80,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course7",
+    CategoryID: "Category7",
     BundleID: "bundle2",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
@@ -90,7 +90,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course8",
+    CategoryID: "Category8",
     BundleID: "bundle1",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
@@ -100,7 +100,7 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course9",
+    CategoryID: "Category9",
     BundleID: "bundle3",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
@@ -110,7 +110,7 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course10",
+    CategoryID: "Category10",
     BundleID: "bundle4",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
@@ -159,7 +159,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.CourseID.match(search) || item.title.match(search)
+        ? item.CategoryID.match(search) || item.title.match(search)
         : true;
     });
   }
@@ -215,7 +215,7 @@ const colors = computed(() => {
         <div class="flex flex-wrap justify-between items-center">
           <div>
             <p class="font-bold text-xl">Physucs | CWTs | V01</p>
-            <p class="text-sm">Manage and add products to your bundle</p>
+            <p class="text-sm">Manage and add products to your Category</p>
           </div>
           <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
@@ -240,14 +240,12 @@ const colors = computed(() => {
             </div>
             <div class="flex flex-wrap gap-4 items-center">
               <BaseButton color="lightDark" label="Edit" small />
-              <BaseButton color="lightDark" label="Re order" small />
               <BaseButton
                 color="info"
                 :icon="mdiPlus"
                 label="Add Product"
                 small
               />
-              <BaseButton color="info" icon="" label="Manage User" small />
             </div>
           </div>
         </div>
@@ -259,7 +257,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or Course ID"
+            placeholder="Search by Title or Category ID"
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg
@@ -340,7 +338,7 @@ const colors = computed(() => {
         <BaseDivider />
 
         <div class="text-gray-500 mb-7 dark:text-white">
-          <span>{{ filteredItems.length }} Courses </span>
+          <span>{{ filteredItems.length }} Categorys </span>
         </div>
 
         <template v-if="!isFinalGrid">
@@ -353,7 +351,7 @@ const colors = computed(() => {
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.CourseID }}</p>
+                  <p class="">{{ item.CategoryID }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
@@ -389,7 +387,7 @@ const colors = computed(() => {
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.CourseID }}</p>
+                <p class="">{{ item.CategoryID }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>

@@ -180,7 +180,8 @@ const filteredItems = computed(() => {
 
 </script>
 <template>
-    <div>
+  <NuxtLayout name="zen">
+    <div class="px-6">
 
             <NuxtLink to="/BundleDashboard" class="h-10 flex items-center border-b ">
                 <BaseIcon
@@ -374,6 +375,8 @@ const filteredItems = computed(() => {
             </div>
         </div>
     </div>
+  </NuxtLayout>
+
 </template>
 
 

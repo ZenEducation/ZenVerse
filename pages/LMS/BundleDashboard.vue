@@ -206,9 +206,10 @@ const filteredItems = computed(() => {
 
 </script>
 <template>
-    <div>
+  <NuxtLayout name="zen">
+
+    <div class="p-6">
         <CardBox>
-            <BaseDivider/>
             <div class="flex flex-wrap justify-between items-center">
                 <div>
                     <p class="font-bold text-xl">Bundles</p>
@@ -431,6 +432,7 @@ const filteredItems = computed(() => {
             </div>
         </CardBox>
     </div>
+  </NuxtLayout>
 </template>
 
 

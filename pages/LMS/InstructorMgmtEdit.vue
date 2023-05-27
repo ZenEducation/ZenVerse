@@ -76,7 +76,7 @@ const Instructor = {
     icon: mdiInformationSlabCircleOutline,
     email: "Instructor@ps.com",
     mobile: "1234567890",
-    role: "student",
+    role: "instructor",
     state: "Delhi",
     language: "hindi",
     choose:{

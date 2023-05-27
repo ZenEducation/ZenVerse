@@ -1,30 +1,11 @@
 import {
-    mdiAccountCircle,
     mdiMonitor,
-    mdiHelpCircle,
-    mdiLock,
-    mdiSquareEditOutline,
-    mdiTable,
-    mdiMenuOpen,
-    mdiTelevisionGuide,
-    mdiBarcode,
-    mdiPalette,
-    mdiCardAccountDetailsOutline,
-    mdiOpenInNew,
-    mdiFormDropdown,
-    mdiBallot,
-    mdiViewQuilt,
-    mdiMessage,
-    mdiFastForwardOutline,
-    mdiBook,
-    mdiFilePdfBox,
-    mdiImport,
-    mdiDownloadBoxOutline,
     mdiMonitorDashboard,
     mdiAccountGroupOutline,
     mdiFileMultipleOutline,
     mdiChartLine,
     mdiDotsTriangle,
+    mdiCogOutline,
   } from "@mdi/js";
   
   export default [
@@ -60,15 +41,20 @@ import {
       menu: [
         {
           label: "Learner",
+          to:"/lms/LearnerMgmt"
         },
         {
           label: "Admin",
+          to:"/lms/AdminMgmt"
+
         },
         {
           label: "Instructor",
+          to:"/lms/InstructorMgmt"
         },
         {
           label: "Affiliates",
+          to:"/lms/AffiliateMgmt"
         },
       ],
     },
@@ -89,7 +75,7 @@ import {
     },
     {
       to: "/",
-      icon: mdiMonitor,
+      icon: mdiCogOutline,
       label: "Settings",
     },
   

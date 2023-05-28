@@ -1,10 +1,16 @@
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-
+import {pdfViewerStore} from "@/stores/pdfView.js"
+import {ref} from "vue"
 import {
 mdiFullscreen,
 } from "@mdi/js";
+
+
+const allPdfData = pdfViewerStore()
+
+
 
 const isFullScreen = ref(false)
 
@@ -25,13 +31,39 @@ const toggleFullScreen = ()=>{
       size="30"
     />
     </div>
+    
     <slot />
     <div class="bottom-bar fixed bottom-0 h-14 bg-blue-400 flex justify-center items-center " :class="{'absolute-bottombar' : isFullScreen}" >
+     
       <BaseButton
-      label="Mark Completed and Next"
+      label="Mark Incomplete "
       type="login"
       color="info"
+      class="mx-1"
+      v-if="allPdfData.currentPDF.done==true"
+      @click="allPdfData.markAsInCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
     />
+    <BaseButton
+      label="Continue "
+      type="login"
+      color="info"
+      class="mx-1"
+      v-if="allPdfData.currentPDF.done==true"
+      @click="allPdfData.markAsCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
+    />
+     
+      <BaseButton
+      label="Mark Completed and Next "
+      type="login"
+      color="info"
+      class="mx-1"
+      v-if="allPdfData.currentPDF.done==false"
+      @click="allPdfData.markAsCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
+    />
+
+ 
+   
+
     </div>
   </section>
 </template>

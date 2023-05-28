@@ -9,9 +9,9 @@ import {
   mdiChevronLeftCircleOutline,
 } from "@mdi/js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import OverlayLayer from "@/components/WBFabric/AsideMenu/OverlayLayer.vue";
-import PremAsideMenuLayer from "@/components/WBFabric/Asidemenu/AsideMenuLayer.vue";
-import PremAsideMenuItem from "@/components/WBFabric/Asidemenu/AsideMenuItem.vue";
+import OverlayLayer from "./OverlayLayer.vue";
+import PremAsideMenuLayer from "./AsideMenuLayer.vue";
+import PremAsideMenuItem from "./AsideMenuItem.vue";
 
 defineProps({
   menu: {

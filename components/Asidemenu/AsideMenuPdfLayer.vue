@@ -1,7 +1,8 @@
 <script setup>
-  import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from "vue";
 
 import { useStyleStore } from "@/stores/style.js";
+import { pdfViewerStore } from "@/stores/pdfView.js";
 import PremAsideMenuList from "@/components/Asidemenu/AsideMenuList.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import {
@@ -9,6 +10,9 @@ import {
   mdiCircleOutline,
   mdiFilePdfBox,
 } from "@mdi/js";
+
+const allPdfData = pdfViewerStore();
+
 defineProps({
   menu: {
     type: Array,
@@ -25,63 +29,76 @@ defineProps({
   isCompact: Boolean,
 });
 
-const chapters =  ref([
-  {
-    chapterNumber: 1,
-    chapterTitle: "Introduction",
-    lessons: [
-      {
-        lessonNumber: 1,
-        lessonTitle: "Getting Started",
-        lessonContent: "...",
-        done: true,
-      },
-      {
-        lessonNumber: 2,
-        lessonTitle: "Basic Concepts",
-        lessonContent: "...",
-        done: true,
-      },
-    ],
-  },
-  {
-    chapterNumber: 2,
-    chapterTitle: "Intermediate",
-    lessons: [
-      {
-        lessonNumber: 1,
-        lessonTitle: "Advanced Topics",
-        lessonContent: "...",
-        done: false,
-      },
-      {
-        lessonNumber: 2,
-        lessonTitle: "Hands-On Exercises",
-        lessonContent: "...",
-        done: false,
-      },
-    ],
-  },
-]);
+const chapters = computed(() => allPdfData.allItems);
+
+// const chapters =  ref([
+//   {
+//     chapterNumber: 1,
+//     chapterTitle: "Introduction",
+//     lessons: [
+//       {
+//         lessonNumber: 1,
+//         lessonTitle: "Getting Started",
+//         lessonContent: "...",
+//         done: true,
+//         src:"https://www.africau.edu/images/default/sample.pdf"
+//       },
+//       {
+//         lessonNumber: 2,
+//         lessonTitle: "Basic Concepts",
+//         lessonContent: "...",
+//         done: true,
+//         src:"https://morth.nic.in/sites/default/files/dd12-13_0.pdf"
+//       },
+//     ],
+//   },
+//   {
+//     chapterNumber: 2,
+//     chapterTitle: "Intermediate",
+//     lessons: [
+//       {
+//         lessonNumber: 1,
+//         lessonTitle: "Advanced Topics",
+//         lessonContent: "...",
+//         done: false,
+//         sec:"https://www.africau.edu/images/default/sample.pdf"
+//       },
+//       {
+//         lessonNumber: 2,
+//         lessonTitle: "Hands-On Exercises",
+//         lessonContent: "...",
+//         done: false,
+//         src:"https://morth.nic.in/sites/default/files/dd12-13_0.pdf"
+//       },
+//     ],
+//   },
+// ]);
 
 const currentLesson = ref({
   chapterNumber: chapters.value[0].chapterNumber,
   lessonNumber: chapters.value[0].lessons[0].lessonNumber,
 });
-
-const changeCurrent = (chapterNum , lessonNum)=>{
-  console.log("called" , chapterNum , lessonNum );
-  if( currentLesson.value.chapterNumber !== chapterNum || currentLesson.value.lessonNumber !== lessonNum ){
+const changeCurrent = (chapterNum, lessonNum) => {
+  console.log("called", chapterNum, lessonNum);
+  if (
+    currentLesson.value.chapterNumber !== chapterNum ||
+    currentLesson.value.lessonNumber !== lessonNum
+  ) {
     currentLesson.value.chapterNumber = chapterNum;
     currentLesson.value.lessonNumber = lessonNum;
   }
-}
+};
+const markCompleted = () => {
+  chapters.value
+    .find(
+      (chapter) => (chapter.chapterNumber = currentLesson.value.chapterNumber)
+    )
+    .lessons.find(
+      (lesson) => (lesson.lessonNumber = currentLesson.value.lessonNumber)
+    ).done = true;
+};
 
-const markCompleted = ()=>{
-  chapters.value.find((chapter)=>chapter.chapterNumber = currentLesson.value.chapterNumber).lessons.find((lesson)=>lesson.lessonNumber = currentLesson.value.lessonNumber).done = true;
-}
-
-const searchText = ref('');
+const searchText = ref("");
 
 const filteredChapters = computed(() => {
   const searchValue = searchText.value.toLowerCase().trim();
@@ -111,41 +128,39 @@ const filteredChapters = computed(() => {
 });
 
 const handleDashboard = () => {
-  router.push("/dashboard")
-}
+  router.push("/dashboard");
+};
 
-const isChapterOpen = ref( Array(chapters.value.length).fill(false) )
-isChapterOpen.value[0]=true;
+const isChapterOpen = ref(Array(chapters.value.length).fill(false));
+isChapterOpen.value[0] = true;
 
 const totalLessons = computed(() => {
-    let count = 0;
-    chapters.value.forEach((chapter) => {
-      count += chapter.lessons.length;
+  let count = 0;
+  chapters.value.forEach((chapter) => {
+    count += chapter.lessons.length;
+  });
+  return count;
+});
+
+const completedLessons = computed(() => {
+  let count = 0;
+  let x = [];
+  filteredChapters.value.forEach((chapter) => {
+    let temp = 0;
+    chapter.lessons.forEach((lesson) => {
+      if (lesson.done) {
+        count++;
+        temp++;
+      }
     });
-    return count;
+    x.push(temp);
   });
+  return { count: count, completedList: x };
+});
 
-  const completedLessons = computed(() => {
-    let count = 0;
-    let x = []
-    filteredChapters.value.forEach((chapter) => {
-      let temp = 0;
-      chapter.lessons.forEach((lesson) => {
-        if (lesson.done) {
-          count++;
-          temp++;
-        }
-      });
-      x.push(temp);
-    });
-    return {count:count , completedList : x}
-  });
-
-  const totalPercentageDone = computed(() => {
-    return (completedLessons.value.count/ totalLessons.value) * 100;
-  });
-
-
+const totalPercentageDone = computed(() => {
+  return (completedLessons.value.count / totalLessons.value) * 100;
+});
 
 const isOpen = ref(false);
 
@@ -206,6 +221,8 @@ const menuClick = (event, item) => {
 function toggleDropdownMenu() {
   isDropdownOpen.value = true;
 }
+
+// get current pdf file
 </script>
 
 <template>
@@ -236,31 +253,36 @@ function toggleDropdownMenu() {
         "
         class="flex-1 overflow-y-auto overflow-x-hidden dark:bg-gray-900"
       >
-      <NuxtLink to="/Dashboard" class="pl-4 text-white underline cursor-pointer" >Go to dashboard</NuxtLink>
+        <NuxtLink
+          to="/Dashboard"
+          class="pl-4 text-white underline cursor-pointer"
+          >Go to dashboard</NuxtLink
+        >
 
         <div class="justify-center text-white px-4 py-4">
-          <h1 class="text-lg pb-2" @click="markCompleted">
+          <h1 class="text-lg pb-2">
             NM | P12. Oscillatory Motion | Theory and Assignments
           </h1>
 
           <progress
-            class="flex w-2/5 self-center lg:w-60 py-1"
+            class="flex w-full self-center py-1"
             max="100"
             :value="totalPercentageDone"
           >
-            {{totalPercentageDone}}%
+            {{ totalPercentageDone }}%
           </progress>
-          <p>{{totalPercentageDone}}% complete</p>
+          <p>{{ totalPercentageDone }}% complete</p>
 
           <div class="py-4">
             <button
               @click="handleClick"
               id="dropdownSearchButton"
               data-dropdown-placement="bottom"
-              class="text-white bg-fuchsia-900 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center w-60"
+              class="text-white bg-fuchsia-900 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center w-full justify-between"
               type="button"
             >
-              Search by lesson title
+              <span> Search by lesson title</span>
+
               <svg
                 class="w-4 h-4 ml-14"
                 aria-hidden="true"
@@ -282,7 +304,7 @@ function toggleDropdownMenu() {
             <div
               v-if="isOpen"
               id="dropdownSearch"
-              class="z-10 bg-fuchsia-900 shadow w-60 dark:bg-gray-700"
+              class="z-10 bg-fuchsia-900 shadow w-full dark:bg-gray-700"
             >
               <div class="p-3">
                 <label for="input-group-search" class="sr-only">Search</label>
@@ -320,30 +342,47 @@ function toggleDropdownMenu() {
             v-for="chapter in filteredChapters"
             :key="chapter.chapterNumber"
           >
-            <div class="py-1">
+            <div class="py-1 w-full">
               <button
-                @click="isChapterOpen[chapter.chapterNumber-1] = !isChapterOpen[chapter.chapterNumber-1] "
+                @click="
+                  isChapterOpen[chapter.chapterNumber - 1] =
+                    !isChapterOpen[chapter.chapterNumber - 1]
+                "
                 id="dropdownSearchButtonChapter"
                 data-dropdown-placement="bottom"
-                class="buttomBorder text-white border-b justify-between font-medium pb-2 text-center inline-flex items-center w-60"
+                class="buttomBorder text-white border-b justify-between font-medium pb-3 text-center inline-flex items-center w-full pt-2"
                 type="button"
               >
-                <BaseIcon
-                  :path="mdiCheckboxMarkedCircle"
-                  class="cursor-pointer"
-                  size="30"
-                  v-if="completedLessons.completedList[chapter.chapterNumber-1] == chapter.lessons.length "
-                />
+                <div class="flex">
+                  <BaseIcon
+                    :path="mdiCheckboxMarkedCircle"
+                    class="cursor-pointer"
+                    size="30"
+                    v-if="
+                      completedLessons.completedList[
+                        chapter.chapterNumber - 1
+                      ] == chapter.lessons.length
+                    "
+                  />
 
-                <BaseIcon
-                v-else
-                  :path="mdiCircleOutline"
-                  class="cursor-pointer"
-                  size="30"
-                />
+                  <BaseIcon
+                    v-else
+                    :path="mdiCircleOutline"
+                    class="cursor-pointer"
+                    size="30"
+                  />
+                  <div class="pl-2">
+                    {{ chapter.chapterTitle }} &nbsp; &nbsp; &nbsp;
+                  </div>
+                </div>
 
-                {{ chapter.chapterTitle }} &nbsp; &nbsp; &nbsp; {{ completedLessons.completedList[chapter.chapterNumber-1] }} / {{ chapter.lessons.length }}
-                <div class="">
+                <div class="flex items-center">
+                  <div class="mr-2 font-light">
+                    {{
+                      completedLessons.completedList[chapter.chapterNumber - 1]
+                    }}
+                    / {{ chapter.lessons.length }}
+                  </div>
                   <svg
                     class="w-4 h-4"
                     aria-hidden="true"
@@ -364,58 +403,55 @@ function toggleDropdownMenu() {
 
               <!-- Dropdown menu -->
               <div
-                v-if="isChapterOpen[chapter.chapterNumber-1]"
+                v-if="isChapterOpen[chapter.chapterNumber - 1]"
                 id="dropdownSearch"
-                class="z-10 dark:bg-gray-700"
+                class="z-10"
               >
-                <div class="p-2"></div>
-                <ul
-                  class=" pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
-                >
+                <ul class="overflow-y-auto text-sm">
                   <li
                     v-for="lesson in chapter.lessons"
                     :key="lesson.lessonNumber"
+                    @click="allPdfData.getCurrentPdf(lesson, chapter)"
+                    class="mt-2 cursor-pointer py-1 hover:bg-gray-700"
+                    :class="{'bg-gray-700':chapter.chapterNumber== allPdfData.currentChapter.chapterNumber &&   allPdfData.currentPDF.lessonNumber==lesson.lessonNumber,}"
                   >
-                    <div  @click="changeCurrent( chapter.chapterNumber , lesson.lessonNumber )"
-                      class="text-white items-center rounded hover:bg-fuchsia-500"
-                      :class="{'bg-fuchsia-500':(lesson.lessonNumber == currentLesson.lessonNumber && chapter.chapterNumber == currentLesson.chapterNumber)}"
+                    <div
+                      class="text-white items-center rounded flex items-start w-full"
                     >
-                      <BaseIcon
-                      @click="()=>{
-                        lesson.done = !lesson.done 
-                      }"
-                      v-if="!lesson.done"
-                        :path="mdiCircleOutline"
-                        class="cursor-pointer"
-                        size="20"
-                      />
-
-                      <BaseIcon
-                      @click="()=>{
-                        lesson.done = !lesson.done 
-                      }"
-                      v-if="lesson.done"
-                      :path="mdiCheckboxMarkedCircle"
-                      class="cursor-pointer"
-                      size="20"
-                    />
                     
 
-
-
-                      <label 
-                        for="checkbox-item-16"
-                        class="w-full ml-4 text-sm font-medium text-white"
-                        >{{ lesson.lessonTitle }}</label
-                      >
-
-                      <div class="flex text-white py-1 ml-3">
+                      <div class="">
                         <BaseIcon
-                          :path="mdiFilePdfBox"
-                          class="cursor-pointer ml-7 mr-3"
-                          size="30"
+                          v-if="!lesson.done"
+                          :path="mdiCircleOutline"
+                          class="ml-1"
+                          size="20"
                         />
-                        <div>PDF</div>
+
+                        <BaseIcon
+                          v-if="lesson.done"
+                          :path="mdiCheckboxMarkedCircle"
+                          class="ml-1"
+                          size="20"
+                        />
+                      </div>
+
+                      <div class="">
+                        <div
+                          for=""
+                          class="w-full ml-4 text-sm font-medium text-white"
+                        >
+                          {{ lesson.lessonTitle }}
+                        </div>
+
+                        <div class="flex text-white py-1 ml-3 text-left flex">
+                          <BaseIcon
+                            :path="mdiFilePdfBox"
+                            class="cursor-pointer mr-1"
+                            size="30"
+                          />
+                          <div class="text-left">PDF</div>
+                        </div>
                       </div>
                     </div>
                   </li>

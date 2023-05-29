@@ -1,4 +1,3 @@
-
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import { useMainStore } from "@/stores/main";
@@ -26,14 +25,14 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 const isModalActive = ref(false);
 const mainStore = useMainStore();
 
-const roleOptions = ['Admin','Super Admin'];
+const roleOptions = ["Admin", "Super Admin"];
 
 const name = ref("");
 const mobile = ref("");
 const email = ref("");
-const role = ref("")
+const role = ref("");
 
-  console.log(role.value);
+console.log(role.value);
 
 function submitProfile() {
   isModalActive.value = false;
@@ -88,7 +87,6 @@ function submitProfile() {
           required
           autocomplete="email"
           placeholder="Enter Admin email"
-
         />
       </FormField>
       <FormField label="Mobile">
@@ -117,12 +115,12 @@ function submitProfile() {
         label="Send email to User"
         :input-value="true"
       />
-      <br>
-        <template v-for="i in roleOptions">
-          <input type="radio" v-model="role" :value="i" />
-          {{ i }}
-          <br>
-        </template>
+      <br />
+      <template v-for="i in roleOptions">
+        <input type="radio" v-model="role" :value="i" />
+        {{ i }}
+        <br />
+      </template>
       <div class="flex justify-end py-2">
         <BaseButtons>
           <BaseButton type="submit" color="info" label="Submit" />
@@ -131,7 +129,7 @@ function submitProfile() {
     </CardBox>
   </CardBoxModal>
   <div>
-    <NuxtLayout name="bundle">
+    <NuxtLayout name="lmsadmin">
       <div
         class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
       >
@@ -158,9 +156,9 @@ function submitProfile() {
           />
         </div>
       </div>
-      
+
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TablesTableAdminSample/>
+        <TablesTableAdminSample />
       </div>
     </NuxtLayout>
   </div>

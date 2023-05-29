@@ -201,7 +201,7 @@ const isActive = ref(0);
       }
     "
   />
-  <NuxtLayout name="bundle">
+  <NuxtLayout name="lmsadmin">
     <!-- <SectionMain> -->
     <div
       class="relative ml-2"

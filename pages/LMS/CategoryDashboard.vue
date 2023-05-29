@@ -123,16 +123,11 @@ const items = ref([
   },
 ]);
 
-
 const searchQuery = ref("");
-
 
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
-
-
-
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -145,7 +140,6 @@ const filteredItems = computed(() => {
         : true;
     });
   }
-
 
   totalPages.value = Math.ceil(filtered.length / perPage);
   const start = currentPage.value * perPage;
@@ -209,12 +203,7 @@ const colors = computed(() => {
               />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
-              <BaseButton
-                color="info"
-                :icon="mdiPlus"
-                label="Create"
-                small
-              />
+              <BaseButton color="info" :icon="mdiPlus" label="Create" small />
             </div>
           </div>
         </div>
@@ -244,7 +233,6 @@ const colors = computed(() => {
           </button>
         </form>
 
-
         <BaseDivider />
 
         <div class="text-gray-500 mb-7 dark:text-white">
@@ -257,7 +245,7 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
-              <div class="flex">
+              <NuxtLink to="/lms/categorysingle" class="flex">
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
@@ -271,7 +259,7 @@ const colors = computed(() => {
                     <p class="text-sm">{{ item.days }} Days</p>
                   </div>
                 </div>
-              </div>
+              </NuxtLink>
 
               <div class="flex gap-2 justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
@@ -294,19 +282,26 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
-              <div
-                class="h-44 w-full bg-cover bg-center bg-no-repeat"
-                :style="'background-image: url(' + image + ')'"
-              ></div>
-              <div class="px-4 h-auto">
-                <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.CategoryID }}</p>
-                <div class="flex justify-between">
-                  <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                  <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
+              <NuxtLink to="/lms/categorysingle">
+                <div
+                  to="/lms/categorysingle"
+                  class="h-44 w-full bg-cover bg-center bg-no-repeat"
+                  :style="'background-image: url(' + image + ')'"
+                ></div>
+              </NuxtLink>
 
-                  <p class="text-sm">{{ item.days }} Days</p>
-                </div>
+              <div class="px-4 h-auto">
+                <NuxtLink to="/lms/categorysingle">
+                  <p class="font-medium h-12">{{ item.title }}</p>
+                  <p class="">{{ item.CategoryID }}</p>
+                  <div class="flex justify-between">
+                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
+                    <p v-else class="font-semibold text-sm">
+                      ₹ {{ item.price }}
+                    </p>
+                    <p class="text-sm">{{ item.days }} Days</p>
+                  </div>
+                </NuxtLink>
               </div>
               <div class="w-full my-1 border-t"></div>
               <div class="flex justify-between items-center h-12 px-3">

@@ -244,8 +244,8 @@ const colors = computed(() => {
       <CardBox>
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">test Series</p>
-            <p class="text-sm">Welcome to your test Series dashboard</p>
+            <p class="font-bold text-xl">Test Series</p>
+            <p class="text-sm">Welcome To Your Test Series Dashboard</p>
           </div>
           <div class="flex flex-wrap gap-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">

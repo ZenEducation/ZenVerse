@@ -428,22 +428,25 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
-              <div class="flex">
-                <img :src="image" class="w-40" />
-                <div class="px-4 h-auto">
-                  <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
-                  <div class="flex gap-48 max-md:gap-10">
-                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                    <p v-else class="font-semibold text-sm">
-                      ₹ {{ item.price }}
-                    </p>
+              <NuxtLink to="/lms/CategorySingle">
+                <div class="flex">
+                  <img :src="image" class="w-40" />
+                  <div class="px-4 h-auto">
+                    <p class="font-medium min-h-18">{{ item.title }}</p>
+                    <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
+                    <div class="flex gap-48 max-md:gap-10">
+                      <p v-if="item.isFree" class="font-semibold text-sm">
+                        Free
+                      </p>
+                      <p v-else class="font-semibold text-sm">
+                        ₹ {{ item.price }}
+                      </p>
 
-                    <p class="text-sm">{{ item.days }} Days</p>
+                      <p class="text-sm">{{ item.days }} Days</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
+              </NuxtLink>
               <div class="flex justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
                   <BaseButton color="lightDark" label="Mock Test" small />
@@ -462,28 +465,32 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
-              <div
-                class="h-44 w-full bg-cover bg-center bg-no-repeat"
-                :style="'background-image: url(' + image + ')'"
-              ></div>
-              <div class="px-4 h-auto">
-                <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
-                <div class="flex justify-between">
-                  <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                  <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
+              <NuxtLink to="/lms/CategorySingle">
+                <div
+                  class="h-44 w-full bg-cover bg-center bg-no-repeat"
+                  :style="'background-image: url(' + image + ')'"
+                ></div>
+                <div class="px-4 h-auto">
+                  <p class="font-medium h-12">{{ item.title }}</p>
+                  <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
+                  <div class="flex justify-between">
+                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
+                    <p v-else class="font-semibold text-sm">
+                      ₹ {{ item.price }}
+                    </p>
 
-                  <p class="text-sm">{{ item.days }} Days</p>
+                    <p class="text-sm">{{ item.days }} Days</p>
+                  </div>
                 </div>
-              </div>
-              <div class="w-full my-1 border-t"></div>
-              <div class="flex justify-between items-center h-12 px-3">
-                <div class="flex flex-wrap gap-2">
-                  <BaseButton color="lightDark" label="Mock Test" small />
-                  <BaseButton color="" :label="item.status" small />
+                <div class="w-full my-1 border-t"></div>
+                <div class="flex justify-between items-center h-12 px-3">
+                  <div class="flex flex-wrap gap-2">
+                    <BaseButton color="lightDark" label="Mock Test" small />
+                    <BaseButton color="" :label="item.status" small />
+                  </div>
+                  <BaseIcon :path="mdiInformationBoxOutline" />
                 </div>
-                <BaseIcon :path="mdiInformationBoxOutline" />
-              </div>
+              </NuxtLink>
             </div>
           </div>
         </template>

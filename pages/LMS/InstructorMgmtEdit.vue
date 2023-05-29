@@ -22,13 +22,7 @@ import {
 const tabs = ["Information", "Enrolled Courses", "Purchase History"];
 const isSidebarActive = ref(false);
 const options = {
-  profileRoles: [
-    "student",
-    "super admin",
-    "sub admin",
-    "affiliate",
-    "instructor",
-  ],
+  profileRoles: ["student", "super admin", "Admin", "affiliate", "instructor"],
   state: [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -79,20 +73,20 @@ const Instructor = {
     role: "instructor",
     state: "Delhi",
     language: "hindi",
-    choose:{
-      "Can Edit Published Courses":true,
-      "Need Approval for Publishing Courses":true,
-      "Access of Live class Recordings":false,
-      "Access of Sales Dashboard":false,
-      "Access of Messenger":false,
-      "Access of Bandwidth Reports":false,
-      "Access of Usage Reports":false,
-      "Access of Live tests Reports":false,
-      "Access of Live class Reports":false,
-      "Access to Learner Details":false,
-      "Access to Download Quiz/Live Test":false,
-      "Access to enroll learners in any course":false,
-    }
+    choose: {
+      "Can Edit Published Courses": true,
+      "Need Approval for Publishing Courses": true,
+      "Access of Live class Recordings": false,
+      "Access of Sales Dashboard": false,
+      "Access of Messenger": false,
+      "Access of Bandwidth Reports": false,
+      "Access of Usage Reports": false,
+      "Access of Live tests Reports": false,
+      "Access of Live class Reports": false,
+      "Access to Learner Details": false,
+      "Access to Download Quiz/Live Test": false,
+      "Access to enroll learners in any course": false,
+    },
   },
   AdditionalDetails: {
     UserSegment: "free",

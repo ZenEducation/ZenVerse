@@ -161,7 +161,22 @@
           </tr>
         </tbody>
       </table>
-
+      <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
+        <BaseLevel>
+          <BaseButtons>
+            <BaseButton
+              v-for="page in totalPages"
+              :key="page"
+              :active="page - 1 === currentPage"
+              :label="page"
+              :color="page - 1 === currentPage ? 'lightDark' : 'whiteDark'"
+              small
+              @click="currentPage = page - 1"
+            />
+          </BaseButtons>
+          <small>Page {{ currentPage + 1 }} of {{ totalPages }}</small>
+        </BaseLevel>
+      </div>
     </div>
 
 
@@ -175,6 +190,7 @@ import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
+import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 
 const props = defineProps({
   Admin: {
@@ -187,7 +203,9 @@ const props = defineProps({
   },
 });
 const searchQuery = ref("");
-
+const perPage = 5;
+const totalPages = ref(1);
+const currentPage = ref(0);
 const items = ref(props?.Admin?.LoginDetails?.['last logins'])
 
 const filteredItems = computed(()=>{
@@ -201,8 +219,12 @@ const filteredItems = computed(()=>{
         : true;
     });
   }
-  return filtered
-})
+  totalPages.value = Math.ceil(filtered.length / perPage);
+  const start = currentPage.value * perPage;
+  const end = (currentPage.value + 1) * perPage;
+
+  return filtered.slice(start, end);
+  })
 </script>
 
 <style lang="scss" scoped></style>

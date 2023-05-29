@@ -20,16 +20,15 @@ import {
   mdiMenu,
 } from "@mdi/js";
 
-const tabs = ["Information", "Enrolled Courses", "Purchase History","Affiliate Codes"];
+const tabs = [
+  "Information",
+  "Enrolled Courses",
+  "Purchase History",
+  "Affiliate Codes",
+];
 const isSidebarActive = ref(false);
 const options = {
-  profileRoles: [
-    "student",
-    "super admin",
-    "sub admin",
-    "affiliate",
-    "instructor",
-  ],
+  profileRoles: ["student", "super admin", "Admin", "affiliate", "instructor"],
   state: [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -279,16 +278,16 @@ const isActive = ref(0);
                 <p>Purchase History</p>
               </li>
               <li
-              class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-              :class="{ 'bg-slate-500': isActive == 3 }"
-              @click="() => (isActive = 3)"
-            >
-              <BaseIcon
-                :path="mdiTextBoxMultipleOutline"
-                class="cursor-pointer"
-              />
-              <p>Affiliate Codes</p>
-            </li>
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 3 }"
+                @click="() => (isActive = 3)"
+              >
+                <BaseIcon
+                  :path="mdiTextBoxMultipleOutline"
+                  class="cursor-pointer"
+                />
+                <p>Affiliate Codes</p>
+              </li>
             </ul>
           </div>
         </div>
@@ -347,7 +346,7 @@ const isActive = ref(0);
           />
           <CoursesTab v-if="isActive == 1" />
           <PurchaseTab v-if="isActive == 2" />
-          <AffiliateCodes v-if="isActive == 3"  />
+          <AffiliateCodes v-if="isActive == 3" />
         </div>
       </div>
     </div>

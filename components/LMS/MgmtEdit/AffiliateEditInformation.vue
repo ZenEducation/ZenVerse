@@ -28,6 +28,8 @@
           :options="options.profileRoles"
         />
       </FormField>
+
+
       <FormField label="Commission Rate">
         <FormControl placeholder="Enter Commission Rate" type="number" />
       </FormField>
@@ -40,6 +42,7 @@
       </template>
       <br />
 
+      
       <h4 class="mt-5 mb-2 font-bold">Affiliate Linking</h4>
       <template v-for="i in optionLinking">
         <input type="radio" v-model="choose[1]" :value="i" />
@@ -48,7 +51,8 @@
         </p>
       </template>
       <br />
-
+      
+      <FormControl v-if="choose[1] == 'Number of Days (Cookie Based)' " placeholder="Enter Days" type="number" />
       <FormField label="State">
         <FormControl
           :model-value="Affiliate.profile.state"
@@ -183,6 +187,23 @@
           </tr>
         </tbody>
       </table>
+      <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
+        <BaseLevel>
+          <BaseButtons>
+            <BaseButton
+              v-for="page in totalPages"
+              :key="page"
+              :active="page - 1 === currentPage"
+              :label="page"
+              :color="page - 1 === currentPage ? 'lightDark' : 'whiteDark'"
+              small
+              @click="currentPage = page - 1"
+            />
+          </BaseButtons>
+          <small>Page {{ currentPage + 1 }} of {{ totalPages }}</small>
+        </BaseLevel>
+      </div>
+
     </div>
   </div>
 </template>
@@ -194,6 +215,8 @@ import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
+import BaseLevel from "@/components/Buttons/BaseLevel.vue";
+
 
 const props = defineProps({
   Affiliate: {
@@ -206,6 +229,10 @@ const props = defineProps({
   },
 });
 const searchQuery = ref("");
+
+const perPage = 5;
+const totalPages = ref(1);
+const currentPage = ref(0);
 
 const optionCommission = ["No", "Yes"];
 const optionLinking = ["Number of Days (Cookie Based)", "Lifelong"];
@@ -222,8 +249,13 @@ const filteredItems = computed(() => {
       return search ? item["login ip"].match(search) : true;
     });
   }
-  return filtered;
-});
+
+  totalPages.value = Math.ceil(filtered.length / perPage);
+  const start = currentPage.value * perPage;
+  const end = (currentPage.value + 1) * perPage;
+
+  return filtered.slice(start, end);
+  });
 </script>
 
 <style lang="scss" scoped></style>

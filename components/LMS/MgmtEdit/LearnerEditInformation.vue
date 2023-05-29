@@ -69,19 +69,6 @@
       </div>
     </div>
 
-    <h2 class="text-2xl mt-8 font-semibold">Unblock Learner on iOS</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p>
-        Learner's accounts are blocked if they try to take more than 3 screenshots in the iOS app.
-On every screenshot taken, they are presented with the warning of account blockage.
-You can click on the below button to unblock the account
-      </p>
-      <br>
-      <h2>Total screenshots taken : <span class="text-blue-400">0</span></h2>
-      <div class="flex mt-4">
-        <BaseButton color="info" label="Unblock Learner" />
-      </div>
-    </div>
 
 
 
@@ -180,7 +167,22 @@ You can click on the below button to unblock the account
           </tr>
         </tbody>
       </table>
-
+      <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
+        <BaseLevel>
+          <BaseButtons>
+            <BaseButton
+              v-for="page in totalPages"
+              :key="page"
+              :active="page - 1 === currentPage"
+              :label="page"
+              :color="page - 1 === currentPage ? 'lightDark' : 'whiteDark'"
+              small
+              @click="currentPage = page - 1"
+            />
+          </BaseButtons>
+          <small>Page {{ currentPage + 1 }} of {{ totalPages }}</small>
+        </BaseLevel>
+      </div>
     </div>
 
   </div>
@@ -193,6 +195,7 @@ import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
+import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 
 const props = defineProps({
   learner: {
@@ -207,6 +210,10 @@ const props = defineProps({
 
 const searchQuery = ref("");
 
+const perPage = 5;
+const totalPages = ref(1);
+const currentPage = ref(0);
+
 const items = ref(props?.learner?.LoginDetails?.['last logins'])
 
 const filteredItems = computed(()=>{
@@ -220,7 +227,11 @@ const filteredItems = computed(()=>{
         : true;
     });
   }
-  return filtered
+  totalPages.value = Math.ceil(filtered.length / perPage);
+  const start = currentPage.value * perPage;
+  const end = (currentPage.value + 1) * perPage;
+
+  return filtered.slice(start, end);
 })
 
 </script>

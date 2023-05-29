@@ -22,13 +22,7 @@ import {
 const tabs = ["Information", "Enrolled Courses", "Purchase History"];
 const isSidebarActive = ref(false);
 const options = {
-  profileRoles: [
-    "student",
-    "super admin",
-    "sub admin",
-    "affiliate",
-    "instructor",
-  ],
+  profileRoles: ["student", "super admin", "Admin", "affiliate", "instructor"],
   state: [
     "Andhra Pradesh",
     "Arunachal Pradesh",

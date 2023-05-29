@@ -25,7 +25,7 @@ const options = {
   profileRoles: [
     "student",
     "super admin",
-    "sub admin",
+    "Admin",
     "affiliate",
     "instructor",
   ],

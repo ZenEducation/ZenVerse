@@ -327,7 +327,7 @@ function toggleDropdownMenu() {
                     </svg>
                   </div>
                   <input
-                    type="text"
+                    type="search"
                     v-model="searchText"
                     id="input-group-search"
                     class="block w-full p-2 pl-10 text-sm text-white border border-gray-300 rounded-lg bg-fuchsia-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -476,4 +476,25 @@ function toggleDropdownMenu() {
   border-bottom: "20px";
   border-color: rgb(176, 174, 174);
 }
+#input-group-search {
+
+
+}
+#input-group-search::-webkit-search-cancel-button{
+ 
+
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+  background:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.014) 0%,rgba(0,0,0,0) 43%,#ffffff 45%,#ffffff 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
+    linear-gradient(135deg, transparent 0%,transparent 43%,#fff9f9 45%,#ffffff 55%,transparent 57%,transparent 100%);
+}
+
+
+
+
+
 </style>

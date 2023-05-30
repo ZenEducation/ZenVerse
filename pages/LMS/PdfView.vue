@@ -7,6 +7,8 @@ import { onMounted,computed } from 'vue';
 import {pdfViewerStore} from "@/stores/pdfView.js"
 const allPdfData = pdfViewerStore()
 
+
+
 // console.log(allPdfData.currentPDF)
 // const generatePDF = () => {
 //   const docDefinition = {

@@ -48,9 +48,11 @@ export const state = () => ({
   allPDFData: dummyData,
   currentChapter: dummyData[0],
   currentPDF: dummyData[0].lessons[0],
+ 
 });
 const getters = {
-  allItems: (state) => state.allPDFData,
+   allItems: (state) => state.allPDFData,
+
 };
 
 export const actions = {
@@ -76,6 +78,11 @@ export const actions = {
 
     // get the next pdf
 
+    const lastChapter =this.allPDFData[this.allPDFData.length - 1];
+    const lastPdf=lastChapter.lessons[lastChapter.lessons.length - 1];
+
+  
+
     if (
       chapter.lessons[chapter.lessons.length - 1].lessonNumber ==
       pdf.lessonNumber
@@ -87,7 +94,10 @@ export const actions = {
       );
       console.log(this.currentChapter);
       this.currentPDF = this.currentChapter.lessons[0];
-    } else {
+    } 
+
+    
+    else {
       this.currentPDF = chapter.lessons.find(
         (item) => item.lessonNumber == pdf.lessonNumber + 1
       );

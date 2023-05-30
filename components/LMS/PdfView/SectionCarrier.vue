@@ -10,13 +10,27 @@ mdiFullscreen,
 
 const allPdfData = pdfViewerStore()
 
+const lastChapter =allPdfData.allPDFData[allPdfData.allPDFData.length-1]
+const lastLessions = lastChapter.lessons[lastChapter.lessons.length-1]
 
+
+
+const isLastItem= ref(true)
 
 const isFullScreen = ref(false)
 
 const toggleFullScreen = ()=>{
   isFullScreen.value = !isFullScreen.value
 }
+
+const checklastLession = () =>{
+ if(lastLessions.lessonNumber==allPdfData.currentPDF.lessonNumber && lastLessions.lessonTitle===allPdfData.currentPDF.lessonTitle){
+  isLastItem.value=false
+ }
+}
+
+
+
 
 </script>
 
@@ -40,7 +54,7 @@ const toggleFullScreen = ()=>{
       type="login"
       color="info"
       class="mx-1"
-      v-if="allPdfData.currentPDF.done==true"
+      v-if="allPdfData.currentPDF.done==true "
       @click="allPdfData.markAsInCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
     />
     <BaseButton
@@ -48,7 +62,7 @@ const toggleFullScreen = ()=>{
       type="login"
       color="info"
       class="mx-1"
-      v-if="allPdfData.currentPDF.done==true"
+      v-if="allPdfData.currentPDF.done==true "
       @click="allPdfData.markAsCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
     />
      
@@ -57,7 +71,7 @@ const toggleFullScreen = ()=>{
       type="login"
       color="info"
       class="mx-1"
-      v-if="allPdfData.currentPDF.done==false"
+      v-if="allPdfData.currentPDF.done==false "
       @click="allPdfData.markAsCompleted(allPdfData.currentPDF, allPdfData.currentChapter)"
     />
 

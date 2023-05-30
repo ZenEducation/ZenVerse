@@ -30,6 +30,9 @@ defineProps({
 });
 
 const chapters = computed(() => allPdfData.allItems);
+console.log(chapters)
+
+const filterItems= ref(chapters)
 
 // const chapters =  ref([
 //   {
@@ -145,7 +148,9 @@ const totalLessons = computed(() => {
 const completedLessons = computed(() => {
   let count = 0;
   let x = [];
-  filteredChapters.value.forEach((chapter) => {
+  console.log(chapters)
+  console.log(filteredChapters.value)
+  filterItems.value.forEach((chapter) => {
     let temp = 0;
     chapter.lessons.forEach((lesson) => {
       if (lesson.done) {
@@ -222,6 +227,16 @@ function toggleDropdownMenu() {
   isDropdownOpen.value = true;
 }
 
+
+const onenPdfOnSearchClick= (lesson,chapter)=>{
+  allPdfData.getCurrentPdf(lesson, chapter)
+  isOpen.value = false;
+  searchText.value = "";
+}
+
+
+
+
 // get current pdf file
 </script>
 
@@ -263,6 +278,7 @@ function toggleDropdownMenu() {
           <h1 class="text-lg pb-2">
             NM | P12. Oscillatory Motion | Theory and Assignments
           </h1>
+     
 
           <progress
             class="flex w-full self-center py-1"
@@ -332,14 +348,32 @@ function toggleDropdownMenu() {
                     id="input-group-search"
                     class="block w-full p-2 pl-10 text-sm text-white border border-gray-300 rounded-lg bg-fuchsia-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+
+         
+
                 </div>
               </div>
+
+              <!-- Search item  -->
+              <div class="search_Item">
+                <div class="search_resualt my-2" v-for="(chapter,idx) in filteredChapters" :key="idx"  >
+                   <div class="chapter_name text-lg uppercase px-3">
+                    {{chapter.chapterTitle  }}
+                   </div>
+                  <div class="subItem text-lg py-1 hover:bg-gray-500 px-3 font-light cursor-pointer" v-for="(lesson,index) in chapter.lessons" :key="index" 
+                  @click="onenPdfOnSearchClick(lesson,chapter)"
+                  >
+                   {{  lesson.lessonTitle}}
+                  </div>
+                </div>
+              </div>
+             
             </div>
           </div>
 
           <div
             class="flex text-white rounded dark:text-gray-300"
-            v-for="chapter in filteredChapters"
+            v-for="chapter in  chapters"
             :key="chapter.chapterNumber"
           >
             <div class="py-1 w-full">
@@ -402,10 +436,12 @@ function toggleDropdownMenu() {
               </button>
 
               <!-- Dropdown menu -->
+              <!-- v-if="isChapterOpen[chapter.chapterNumber - 1]" -->
               <div
-                v-if="isChapterOpen[chapter.chapterNumber - 1]"
+                
                 id="dropdownSearch"
                 class="z-10"
+               v-if="isChapterOpen[chapter.chapterNumber - 1] "
               >
                 <ul class="overflow-y-auto text-sm">
                   <li
@@ -494,6 +530,10 @@ function toggleDropdownMenu() {
 }
 
 
+.search_Item{
+  max-height: 220px;
+  overflow: auto;
+}
 
 
 

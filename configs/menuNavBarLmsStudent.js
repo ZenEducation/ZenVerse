@@ -19,10 +19,14 @@ export default [
   },
   {
     label: "All Courses",
+    to: "/lms/LMSStudent/AllCourses",
+
+
 
   },
   {
     label: "My Dashboard",
+    to: "/lms/LMSStudent/Dashboard",
 
   },
   {
@@ -31,7 +35,7 @@ export default [
       {
         icon: mdiAccount,
         label: "My Account",
-        to: "/pps/profileView",
+        to: "/lms/LMSStudent/profile",
       },
       {
         icon: mdiOpenInNew,

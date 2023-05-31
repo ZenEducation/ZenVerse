@@ -21,7 +21,7 @@
       >
         <div class="w-full border" v-for="(item, index) in items">
           <div class="h-16 px-3 border-b flex justify-between items-center">
-            <p class="text-base font-medium">
+            <p class="text-md font-semibold">
               {{ index + 1+ ". " + item.name }}
             </p>
             <BaseIcon
@@ -38,10 +38,27 @@
           <div v-if="item.isActive" class="p-4 ">
             <div class="flex cursor-pointer" v-for="list in item.content">
               <BaseIcon
+              v-if="list.type=='video'"
                 :path="mdiVideo"
-                @click="item.isActive = !item.isActive"
               />
-              <p class="text-sm font-normal ">{{ list.name }}</p>
+              <BaseIcon
+              v-if="list.type=='PDF'"
+                :path="mdiFilePdfBox"
+              />
+              <BaseIcon
+              v-if="list.type=='presentation'"
+                :path="mdiPresentationPlay"
+              />
+              <BaseIcon
+              v-if="list.type=='audio'"
+                :path="mdiMicrophone"
+              />
+              <BaseIcon
+              v-if="list.type=='text'"
+                :path="mdiPencil"
+              />
+
+              <p class="text-sm font-semibold ">{{ list.name }}</p>
             </div>
           </div>
         </div>
@@ -59,10 +76,14 @@ import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
 import {
+mdiFilePdfBox,
+  mdiMicrophone,
   mdiMinusBoxOutline,
   mdiOpenInNew,
+  mdiPencil,
   mdiPlay,
   mdiPlusBoxOutline,
+  mdiPresentationPlay,
   mdiVideo,
 } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
@@ -91,7 +112,7 @@ const items = ref([
     content: [
       {
         name: "Mathematics Introduction",
-        type: "video",
+        type: "text",
       },
       {
         name: "Mathematics Formulas",

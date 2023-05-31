@@ -13,6 +13,7 @@
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
+    <p class="text-red-500">{{isCardError}}</p>
     <CardBox is-form @submit.prevent="addNewCard">
       <FormField label="Card Name">
         <FormControl
@@ -27,14 +28,15 @@
           :icon="mdiCard"
           required
           v-model="newCardDetails.CardNo"
+          type="number"
           placeholder="Card Number"
         />
       </FormField>
-      <FormField label="Card Number" class="w-2/5 inline-block">
+      <FormField label="Expiry" class="w-2/5 inline-block">
         <FormControl type="month" required placeholder="MM" />
       </FormField>
       <FormField label="CVV" class="w-2/5 inline-block">
-        <FormControl type="number" required placeholder="CVV" />
+        <FormControl type="number" v-model="newCardDetails.cvv" required placeholder="CVV" />
       </FormField>
       <div class="flex justify-end py-2">
           <BaseButton
@@ -141,6 +143,11 @@
                 small
                 @click="deleteSubscription(true, item.id)"
               />
+              <BaseButton
+              color="info"
+              small
+              label="Renew"
+            />
             </BaseButtons>
           </td>
         </tr>
@@ -196,6 +203,7 @@ import {
   mdiInformationBoxOutline,
   mdiPlus,
   mdiArrowLeft,
+  mdiWindowClose,
   mdiTrashCan,
   mdiCard,
 } from "@mdi/js";
@@ -265,11 +273,27 @@ const isModalActive = ref(false);
 const newCardDetails = ref({
   name: "",
   CardNo: "",
+  cvv:"",
 });
+const isCardError = ref("");
+
 const addNewCard = () => {
   let temp = newCardDetails.value;
-  cardDetails.value.push(temp);
-  isModalActive.value = false;
+  console.log(temp.CardNo , temp.CardNo >= 100000000000 , temp.CardNo <= 9999999999999 );
+  if(temp.CardNo >= 1000000000000000 & temp.CardNo < 10000000000000000 & temp.cvv>=100 & temp.cvv < 1000 ){
+    if(cardDetails.value.find((item)=>{
+      return item.CardNo == temp.CardNo;
+    })){
+      isCardError.value = "Card Number Already Exists";
+    }
+    else{
+      cardDetails.value.push(temp);
+      isCardError.value = "";
+      isModalActive.value = false;
+    }
+  }else{
+    isCardError.value = "Invalid Card Number";
+  }
 };
 
 const isModalCardDangerActive = ref(false);

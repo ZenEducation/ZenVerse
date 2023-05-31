@@ -22,7 +22,7 @@ const items = ref([
     type: 'Lessons',
     quantity: 4,
     isFree: true,
-    category: "A",
+    category: "Courses",
   },
   {
     ID: "BCD123",
@@ -31,7 +31,7 @@ const items = ref([
     type: 'Tests',
     quantity: 2,
     isFree: false,
-    category: "B",
+    category: "Mock test",
   },
   {
     ID: "DEF789",
@@ -40,7 +40,7 @@ const items = ref([
     type: 'Courses',
     quantity: 8,
     isFree: true,
-    category: "C",
+    category: "Bundle",
   },
   {
     ID: "EFG456",
@@ -49,7 +49,7 @@ const items = ref([
     type: 'Tests',
     quantity: 3,
     isFree: false,
-    category: "A",
+    category: "test series",
   },
   {
     ID: "GHI654",
@@ -58,7 +58,7 @@ const items = ref([
     type: 'Lessons',
     quantity: 6,
     isFree: true,
-    category: "B",
+    category: "Courses",
   },
 ]);
 const currentTab = ref("X");
@@ -114,19 +114,19 @@ const filteredItems = computed(() => {
         </div>
 
         <div class="w-full flex gap-5 items-center justify-start my-4">
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='X'}" @click="currentTab = 'X'">
+            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='X'}" @click="()=>{currentTab = 'X'; searchQuery = ''}">
                 <p class="pb-2">All Courses</p>
             </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='A'}" @click="currentTab = 'A'">
+            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='A'}" @click="()=>{currentTab = 'Courses'; searchQuery = ''}">
                 <p class="pb-2">Courses</p>
             </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='B'}" @click="currentTab = 'B'">
+            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='B'}" @click="()=>{currentTab = 'Bundle'; searchQuery = ''}">
                 <p class="pb-2">Bundles</p>
             </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='C'}" @click="currentTab = 'C'">
+            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='C'}" @click="()=>{currentTab = 'Mock test'; searchQuery = ''}">
                 <p class="pb-2">Mock Tests</p>
             </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='D'}" @click="currentTab = 'D'">
+            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='D'}" @click="()=>{currentTab = 'test series'; searchQuery = ''}">
                 <p class="pb-2">Test Series</p>
             </div>
         </div>

@@ -259,7 +259,7 @@ const colors = computed(() => {
             </div>
             <div class="w-full  border-t mt-4"></div>
             <div class="grid grid-cols-2 gap-0 h-16">
-                <NuxtLink to="#" class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform ">
+                <NuxtLink to="/lms/LMSStudent/coursecontent" class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform ">
 
                     <BaseIcon :path="mdiOpenInNew" />
                     <p>See Overview</p>

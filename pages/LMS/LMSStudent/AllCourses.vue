@@ -118,16 +118,16 @@ const filteredItems = computed(() => {
                 <p class="pb-2">All Courses</p>
             </div>
             <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='A'}" @click="currentTab = 'A'">
-                <p class="pb-2">Type 1</p>
+                <p class="pb-2">Courses</p>
             </div>
             <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='B'}" @click="currentTab = 'B'">
-                <p class="pb-2">Type 2</p>
+                <p class="pb-2">Bundles</p>
             </div>
             <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='C'}" @click="currentTab = 'C'">
-                <p class="pb-2">Type 3</p>
+                <p class="pb-2">Mock Tests</p>
             </div>
             <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='D'}" @click="currentTab = 'D'">
-                <p class="pb-2">Type 4</p>
+                <p class="pb-2">Test Series</p>
             </div>
         </div>
 
@@ -166,7 +166,7 @@ const filteredItems = computed(() => {
           class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           <div
-            class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
+            class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
             v-for="item in filteredItems"
           >
             <div
@@ -184,7 +184,7 @@ const filteredItems = computed(() => {
             </div>
             <div class="w-full  border-t mt-4"></div>
             <div class="flex items-center justify-center h-16">
-                <div to="#" class="flex flex-1 flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform ">
+                <div to="#" class="flex flex-1 flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform ">
 
                     
                     <p> <span class="font-semibold">{{item.type}}</span> : {{item.quantity}}</p>

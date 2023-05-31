@@ -244,7 +244,7 @@ const colors = computed(() => {
           class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           <div
-            class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
+            class="rounded-md mt-4 overflow-hidden border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
             v-for="item in filteredItems"
           >
             <div
@@ -264,10 +264,10 @@ const colors = computed(() => {
                     <BaseIcon :path="mdiOpenInNew" />
                     <p>See Overview</p>
                 </NuxtLink>
-                <NuxtLink to="#" class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform ">
+                <NuxtLink to="#" class="flex flex-wrap items-center justify-center  hover:scale-105 cursor-pointer transition-transform ">
 
                     <BaseIcon :path="mdiPlay" />
-                    <p>Resume Course</p>
+                    <p>Go To Course</p>
                 </NuxtLink> 
             </div>
           </div>

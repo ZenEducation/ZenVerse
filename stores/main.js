@@ -87,7 +87,8 @@ const state = () => ({
     {
       name: "Course Welcome Email"
     }
-  ]
+  ],
+  selectedItem: "Curriculum"
 });
 
 const getters = {

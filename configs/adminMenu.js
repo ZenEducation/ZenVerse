@@ -1,4 +1,4 @@
-import { mdiMenu, mdiThemeLightDark } from "@mdi/js";
+import { mdiEye, mdiThemeLightDark } from "@mdi/js";
 export default [
   {
     label: "Curriculum",
@@ -30,7 +30,7 @@ export default [
   },
 
   {
-    icon: mdiMenu,
+    icon: mdiEye,
     label: "Preview",
     isAdditional: true,
     menu: [

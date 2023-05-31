@@ -47,6 +47,7 @@ let chapters = reactive([]);
 const saveChaptrerNames = () => {
   if (!chapterName.value) {
     isError.value = true;
+    setTimeout(hideNotification,2000);
     return;
   }
 
@@ -62,7 +63,18 @@ const saveChaptrerNames = () => {
     className = "grid grid-cols-1 gap-6 xl:grid-cols-3";
     isUntitleFieldVisible.value = false;
   }
+  setTimeout(hideNotification,2000);
 };
+
+const hideNotification = () => {
+  if(isSuccess.value) {
+  isSuccess.value = false
+  }
+
+  if(isError.value) {
+    isError.value = false
+  }
+}
 
 const discardChapterName = () => {
   chapterName.value = "Untitled chapter";
@@ -77,6 +89,7 @@ const addChapter = () => {
 };
 
 const deleteChaptrerName = () => {
+  window.confirm('Are you sure, you want to delete?')
   if (editedChapterIndex.value !== -1) {
     chapters.splice(editedChapterIndex.value, 1);
     editedChapterIndex.value = -1;
@@ -205,11 +218,12 @@ const deleteImg = () => {
     <NuxtLayout name="admin">
       <SectionMain>
         <SectionTitleLineWithButton main>
-          <div v-if="layoutStore.currAsideMenu === 'Curriculum'" v-bind:class="className">
+          <!-- <div v-if="layoutStore.currAsideMenu === 'Curriculum'" v-bind:class="className">
             <div v-if="isDivVisible">
               <BaseButton
-                color="info"
+                color="danger"
                 type="button"
+                :icon="mdiDelete"
                 label="DELETE"
                 @click="deleteChaptrerName"
               /> 
@@ -231,7 +245,7 @@ const deleteImg = () => {
                 @click="saveChaptrerNames"
               />
             </div>
-          </div>
+          </div> -->
         </SectionTitleLineWithButton>
         <div v-if="layoutStore.currAsideMenu === 'Curriculum'" class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-6">
           <CardBox class="lg:col-span-3 xl:col-span-2">
@@ -332,15 +346,47 @@ const deleteImg = () => {
             <FormCheckRadioGroup
               v-if="isDivVisible"
               name="sample-checkbox-one"
+              class="pb-3"
               :options="checkboxOptions"
             />
-            <div v-if="isDivVisible" class="my-32">
+
+            <div v-if="layoutStore.currAsideMenu === 'Curriculum'" v-bind:class="className">
+            <div v-if="isDivVisible">
+              <BaseButton
+                color="danger"
+                type="button"
+                :icon="mdiDelete"
+                label="DELETE"
+                @click="deleteChaptrerName"
+              /> 
+            </div>
+            <div class="hidden sm:block">
+              <BaseButton
+                color="info"
+                label="Discard changes"
+                type="button"
+                outline
+                @click="discardChapterName"
+              />
+            </div>
+            <div>
+              <BaseButton
+                color="info"
+                type="button"
+                label="Save"
+                @click="saveChaptrerNames"
+              />
+            </div>
+          </div>
+
+            <div v-if="isDivVisible" class="mt-32 mb-5">
               <p><b>Pro tip</b></p>
               <p class="opacity-75 text-sm">
                 You can cusomize the course completion experience with a
                 certificate or a custom completion page
               </p>
             </div>
+
             <NotificationBar color="danger" v-if="isError" @click="handleError">
               Chapter name is required
             </NotificationBar>

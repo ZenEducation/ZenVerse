@@ -14,7 +14,6 @@ import FormCheckRadioGroup from "~~/components/Forms/FormCheckRadioGroup.vue";
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import {
   mdiDotsVertical,
-  mdiAccountPlus,
   mdiWindowClose,
   mdiAccount,
   mdiMail,
@@ -22,6 +21,7 @@ import {
   mdiAsterisk,
   mdiFormTextboxPassword,
 } from "@mdi/js";
+import BaseIcon from "~~/components/Display/BaseIcon.vue";
 
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 
@@ -33,8 +33,11 @@ const deleteItemId = ref("");
 const EnableItemId = ref("");
 
 const isModalActive = ref(false);
-const isModalDangerActive = ref(false);
-const isModalEnableActive = ref(false);
+const previewItem = ref(4);
+const handlePreview = (index)=>{
+  previewItem.value = index;
+  isModalActive.value = true;
+}
 
 const items = ref([
   {
@@ -161,13 +164,15 @@ const assetTypeFilterModelActive = ref(false);
 const modifiedDateFilterModelActive = ref(false);
 const courseFilterModelActive = ref(false);
 
-
 const resetfilter = () => {
   assetTypeSelectedFilter.value = "all";
   modifiedDateFilterOption.value = "all";
   assetTypeFilterModelActive.value = false;
   modifiedDateFilterModelActive.value = false;
   searchQuery.value = "";
+  courseFilterModelActive.value = false;
+  courseSearchQuery.value = "";
+  coursesFilterSelected.value = [];
 };
 
 const filteredItems = computed(() => {
@@ -178,8 +183,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.title.match(search) ||
-            item.course.match(search)
+        ? item.title.match(search) || item.course.match(search)
         : true;
     });
   }
@@ -190,10 +194,13 @@ const filteredItems = computed(() => {
     });
   }
 
-  if(coursesFilterSelected.value.length > 0 & coursesFilterSelected!=["on"] ){
+  if (
+    (coursesFilterSelected.value.length > 0) &
+    (coursesFilterSelected != ["on"])
+  ) {
     filtered = filtered.filter((item) => {
       return coursesFilterSelected.value.includes(item.course);
-    })
+    });
   }
 
   if (modifiedDateFilterOption.value !== "all") {
@@ -239,14 +246,61 @@ const filteredItems = computed(() => {
 });
 </script>
 <template>
-  <CardBoxModal
-    v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this learner?"
-    button="danger"
-    buttonLabel="Yes"
-    has-cancel
-    @confirm="EnableItem(false)"
-  />
+  <CardBoxModal v-model="isModalActive" :showFooter="false" title="">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">preview</h1>
+      </div>
+      <div class="text-gray-500 cursor-pointer" @click="isModalActive = false">
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <div class="w-full">
+      <img
+        src="@/assets/img/indexremovebgpreview.png"
+        class="w-full mb-8"
+        alt=""
+      />
+      <p  class="font-semibold px-4 text-lg" >{{ items.at(previewItem).title }}</p>
+      <div class="grid grid-cols-2 px-4">
+        <p class="font-semibold">Type :</p>
+        <p>{{ items.at(previewItem).type }}</p>
+        <p class="font-semibold">Size :</p>
+        <p>{{ items.at(previewItem).size }}</p>
+        <p class="font-semibold">Modified Date :</p>
+        <p>{{ items.at(previewItem).modifiedDate }}</p>
+        <p class="font-semibold">Created Date :</p>
+        <p>{{ items.at(previewItem).createdDate }}</p>
+        <p class="font-semibold">Created By :</p>
+        <p>{{items.at(previewItem).createdBy}}</p>
+        <NavBarBaseDivider/>
+        <NavBarBaseDivider/>
+        <p class="font-semibold">Courses</p>
+        <p>{{ items.at(previewItem).course }}</p>
+
+      </div>
+      <div class="flex justify-evenly my-6">
+        <BaseButton
+        label="Edit"
+        color="info"
+        />
+        <BaseButton
+        label="Download"
+        color="info"
+        />
+        <BaseButton
+        label="Delete"
+        color="danger"
+        />
+      </div>
+
+    </div>
+  </CardBoxModal>
 
   <NuxtLayout name="zen">
     <div
@@ -295,9 +349,7 @@ const filteredItems = computed(() => {
           </div>
           <div class="relative mr-4">
             <div
-              @click="
-              courseFilterModelActive = !courseFilterModelActive
-              "
+              @click="courseFilterModelActive = !courseFilterModelActive"
               class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
             >
               <p
@@ -312,16 +364,19 @@ const filteredItems = computed(() => {
               class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
               v-if="courseFilterModelActive"
             >
-            <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-              <PremFormControl
-                v-model="courseSearchQuery"
-              />
-            </PremFormField>
               <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-                <label v-for="item in filteredCourses"  >
-                  <input type="checkbox" :value="item" class="my-2" v-model="coursesFilterSelected" />
-                  {{item}}
-                  <br>
+                <PremFormControl v-model="courseSearchQuery" />
+              </PremFormField>
+              <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+                <label v-for="item in filteredCourses">
+                  <input
+                    type="checkbox"
+                    :value="item"
+                    class="my-2"
+                    v-model="coursesFilterSelected"
+                  />
+                  {{ item }}
+                  <br />
                 </label>
               </PremFormField>
             </div>
@@ -384,9 +439,7 @@ const filteredItems = computed(() => {
           </div>
           <div class="relative mr-4">
             <div
-              @click="
-                assetTypeFilterModelActive = !assetTypeFilterModelActive
-              "
+              @click="assetTypeFilterModelActive = !assetTypeFilterModelActive"
               class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
             >
               <p
@@ -407,7 +460,6 @@ const filteredItems = computed(() => {
               />
             </div>
           </div>
-
         </div>
 
         <div
@@ -439,14 +491,17 @@ const filteredItems = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="learners in filteredItems" :key="learners.id">
+          <tr v-for="(learners,index) in filteredItems" :key="learners.id" @click="handlePreview(index)" >
             <td data-label="Title">
-              <div class="flex gap-4 ">
-                <img src="@/assets/img/indexremovebgpreview.png" class="h-8 w-8" alt="">
+              <div class="flex gap-4">
+                <img
+                  src="@/assets/img/indexremovebgpreview.png"
+                  class="h-8 w-8"
+                  alt=""
+                />
                 <div>
                   <p class="text-lg">{{ learners.title }}</p>
                   <p class="text-xs">{{ learners.course }}</p>
-
                 </div>
               </div>
             </td>
@@ -467,8 +522,6 @@ const filteredItems = computed(() => {
             <td data-label="Created By">
               {{ learners.createdBy }}
             </td>
-
-
           </tr>
         </tbody>
       </table>

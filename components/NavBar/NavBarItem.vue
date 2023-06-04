@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
     v-else
     ref="root"
     class="block lg:flex items-center relative cursor-pointer"
-    :class="[componentClass, mainStore.selectedItem == props.item.label && 'border-b border-blue-500']"
+    :class="[componentClass, mainStore.selectedItem == props.item.label && mainStore.selectedItem != 'Preview' ? 'border-b border-blue-500' : '']"
     :to="item.to ?? null"
     :href="item.href ?? null"
     :target="item.target ?? null"

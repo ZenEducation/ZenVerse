@@ -1,7 +1,7 @@
 <script setup>
 import { mdiDotsVertical } from "@mdi/js";
-import { mdiDelete } from "@mdi/js";
-import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
+import { mdiDelete,mdiEye } from "@mdi/js";
+import { mdiChevronUp, mdiChevronDown,mdiKeyboardBackspace } from "@mdi/js";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import { courseMenuOptions } from "@/configs/sampleButtonMenuOptions.js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
@@ -18,6 +18,8 @@ import uploadImg from "@/assets/img/upload.png";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import CourseImgAndDescription from "@/components/LMS/CourseImgandDescription.vue"
 import CardBoxWidget from "@/components/Cards/CardBoxWidget.vue";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import adminMenu from "@/configs/adminMenu.js";
 import { reactive, ref } from "vue";
 import { useMainStore } from "~~/stores/main";
 import { useLayoutStore } from "@/stores/layout.js";
@@ -211,12 +213,57 @@ const deleteImg = () => {
     course.file = uploadImg
 }
 
+const emit = defineEmits(["menu-click"]);
+
+const menuClick = (event, item) => {
+  emit("menu-click", event, item);
+  layoutStore.currAsideMenu = item.label;
+};
+
+const previewMenu = {
+    icon: mdiEye,
+    label: "Preview",
+    isAdditional: true,
+    menu: [
+      {
+        label: "ALL COURSES ONLINE",
+      },
+      {
+        label: "COURSES AS AN ENROLLED STUDENTS",
+      },
+    ],
+  }
+
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="admin">
+    <NuxtLayout name="zen">
       <SectionMain>
+        <div class="grid grid-cols-1"> 
+      <div class="flex items-center justify-between w-full xl:mx-auto bg-blue-600 py-5 px-5 rounded text-white">
+          <div>
+            <BaseIcon :path="mdiKeyboardBackspace" :size="24" />
+          </div>
+          <div class="flex">New course</div>
+          <div>
+            <input
+              id="msg-search"
+              class="form-input w-full pl-9 border-slate-300 focus:border-slate-100 placeholder-white rounded-md bg-blue-600 text-white"
+              type="search"
+              placeholder="Search"
+            />
+          </div>
+        </div>
+      </div> 
+      <div class="flex flex-col md:flex-row">
+      <div class="grid xl:grid-cols-8 md:grid-cols-1 mt-5"> 
+        <NavBarItem v-for="(item, index) in adminMenu" :key="index" :item="item" @menu-click="menuClick" /> 
+      </div>
+      <div class="grid xl:grid-cols-1 md:grid-cols-1 mt-5">
+        <NavBarItem :key="index" :item="previewMenu" @menu-click="menuClick" /> 
+      </div> 
+      </div>
         <SectionTitleLineWithButton main>
           <!-- <div v-if="layoutStore.currAsideMenu === 'Curriculum'" v-bind:class="className">
             <div v-if="isDivVisible">
@@ -288,13 +335,6 @@ const deleteImg = () => {
               </div>
               <BaseDivider />
             </div>
-
-            <p><b>Pro tip</b></p>
-
-            <p class="opacity-75 text-xs">
-              You can cusomize the course completion experience with a
-              certificate or a custom completion page
-            </p>
             <p
               class="text-sm text-blue-700 my-3 cursor-pointer hover:underline"
             >
@@ -350,17 +390,17 @@ const deleteImg = () => {
               :options="checkboxOptions"
             />
 
-            <div v-if="layoutStore.currAsideMenu === 'Curriculum'" v-bind:class="className">
+            <div v-if="layoutStore.currAsideMenu === 'Curriculum'" class="flex item-center space-x-3 my-10">
             <div v-if="isDivVisible">
               <BaseButton
                 color="danger"
                 type="button"
                 :icon="mdiDelete"
-                label="DELETE"
+                label="Delete"
                 @click="deleteChaptrerName"
               /> 
             </div>
-            <div class="hidden sm:block">
+            <div>
               <BaseButton
                 color="info"
                 label="Discard changes"
@@ -378,14 +418,6 @@ const deleteImg = () => {
               />
             </div>
           </div>
-
-            <div v-if="isDivVisible" class="mt-32 mb-5">
-              <p><b>Pro tip</b></p>
-              <p class="opacity-75 text-sm">
-                You can cusomize the course completion experience with a
-                certificate or a custom completion page
-              </p>
-            </div>
 
             <NotificationBar color="danger" v-if="isError" @click="handleError">
               Chapter name is required

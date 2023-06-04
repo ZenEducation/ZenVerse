@@ -9,6 +9,8 @@ import {
   mdiCheckboxMarkedCircle,
   mdiCircleOutline,
   mdiFilePdfBox,
+  mdiMotionPlayOutline,
+  mdiMovieOpenPlay
 } from "@mdi/js";
 
 const allPdfData = pdfViewerStore();
@@ -484,9 +486,24 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                           <BaseIcon
                             :path="mdiFilePdfBox"
                             class="cursor-pointer mr-1"
-                            size="30"
+                            size="22"
+                            v-if="lesson.type=='pdf'"
                           />
-                          <div class="text-left">PDF</div>
+                          <BaseIcon
+                            :path="mdiMotionPlayOutline"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='audio'"
+                          />
+                          <BaseIcon
+                            :path="mdiMovieOpenPlay"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='video'"
+                          />
+                          <div class="text-left uppercase">
+                            {{lesson.type  }}
+                          </div>
                         </div>
                       </div>
                     </div>

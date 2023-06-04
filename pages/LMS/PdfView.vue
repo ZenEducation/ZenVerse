@@ -6,7 +6,13 @@ import { onMounted,computed } from 'vue';
 // import pdfMake from "pdfmake/build/pdfmake";
 import {pdfViewerStore} from "@/stores/pdfView.js"
 const allPdfData = pdfViewerStore()
+import pdfView from "../../components/LMS/PdfView.vue"
+import audioView from "../../components/LMS/AudioView.vue"
+import videoView from "../../components/LMS/VideoView.vue"
 
+const file = computed(()=>{
+  return allPdfData.currentPDF
+})
 
 
 // console.log(allPdfData.currentPDF)
@@ -63,13 +69,10 @@ const allPdfData = pdfViewerStore()
   <div>
     <NuxtLayout name="pdf">
       <LMSPdfViewSectionCarrier>
-   
-        <!-- <p class="text-orange-700">
-          {{ allPdfData.currentPDF}}
-        </p> -->
-        <!-- <iframe id="pdf-iframe"  class="pl-4 w-full h-full">   </iframe> -->
-        <embed :src="allPdfData.currentPDF.src" class="pl-4 w-full h-full">  
 
+        <pdfView :source="allPdfData.currentPDF" v-if="file.type=='pdf'"  />
+        <audioView  :source="allPdfData.currentPDF" v-if="file.type=='audio'" />
+        <videoView  :source="allPdfData.currentPDF" v-if="file.type=='video'" />
       </LMSPdfViewSectionCarrier>
     </NuxtLayout>
   </div>

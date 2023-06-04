@@ -105,6 +105,7 @@ const deleteChaptrerName = () => {
     chapterName.value = "Untitled Chapter";
     return;
   }
+  chapters.pop();
 };
 
 let limit = chapters.length;
@@ -217,7 +218,9 @@ const emit = defineEmits(["menu-click"]);
 
 const menuClick = (event, item) => {
   emit("menu-click", event, item);
+  if(item.label != "Preview"){
   layoutStore.currAsideMenu = item.label;
+  }
 };
 
 const previewMenu = {
@@ -245,7 +248,7 @@ const previewMenu = {
           <div>
             <BaseIcon :path="mdiKeyboardBackspace" :size="24" />
           </div>
-          <div class="flex">New course</div>
+          <div class="flex">New course</div> 
           <div>
             <input
               id="msg-search"

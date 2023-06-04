@@ -72,8 +72,10 @@ const menuClick = (event) => {
   if (props.item.menu) {
     isDropdownActive.value = !isDropdownActive.value;
   }
-
+  
+  if(props.item.label != "Preview") {
   mainStore.selectedItem = props.item.label
+  }
   // mainStore.selectedItem == props.item.label ? componentClass.value.push("border-b border-blue-500"): null
 
   console.log(props.item.label)
@@ -110,7 +112,7 @@ onBeforeUnmount(() => {
     :is="is"
     v-else
     ref="root"
-    class="block lg:flex items-center relative cursor-pointer"
+    class="block lg:flex items-center justify-center relative cursor-pointer"
     :class="[componentClass, mainStore.selectedItem == props.item.label && mainStore.selectedItem != 'Preview' ? 'border-b border-blue-500' : '']"
     :to="item.to ?? null"
     :href="item.href ?? null"

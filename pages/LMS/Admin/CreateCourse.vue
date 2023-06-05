@@ -105,7 +105,8 @@ const deleteChaptrerName = () => {
     chapterName.value = "Untitled Chapter";
     return;
   }
-  chapters.pop();
+  let index = chapters.indexOf(chapterName.value)
+  chapters.splice(index,1);
 };
 
 let limit = chapters.length;

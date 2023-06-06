@@ -6,10 +6,7 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
-import {
-mdiOpenInNew,
-mdiPlay,
-} from "@mdi/js";
+import { mdiOpenInNew, mdiPlay, mdiFormatListBulleted, mdiGrid } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
@@ -19,7 +16,7 @@ const items = ref([
     ID: "AAC432",
     title: "Mechanics: Newton's Laws of Motion",
     status: "Published",
-    type: 'Lessons',
+    type: "Lessons",
     quantity: 4,
     isFree: true,
     category: "Courses",
@@ -28,7 +25,7 @@ const items = ref([
     ID: "BCD123",
     title: "Thermodynamics: Heat and Temperature",
     status: "Unpublished",
-    type: 'Tests',
+    type: "Tests",
     quantity: 2,
     isFree: false,
     category: "Mock test",
@@ -37,7 +34,7 @@ const items = ref([
     ID: "DEF789",
     title: "Optics: Geometrical Optics and Reflection",
     status: "Coming Soon",
-    type: 'Courses',
+    type: "Courses",
     quantity: 8,
     isFree: true,
     category: "Bundle",
@@ -46,7 +43,7 @@ const items = ref([
     ID: "EFG456",
     title: "Electricity and Magnetism: Electric Circuits",
     status: "Scheduled",
-    type: 'Tests',
+    type: "Tests",
     quantity: 3,
     isFree: false,
     category: "test series",
@@ -55,7 +52,7 @@ const items = ref([
     ID: "GHI654",
     title: "Waves: Wave Properties and Sound",
     status: "Published",
-    type: 'Lessons',
+    type: "Lessons",
     quantity: 6,
     isFree: true,
     category: "Courses",
@@ -64,14 +61,9 @@ const items = ref([
 const currentTab = ref("X");
 const searchQuery = ref("");
 
-
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
-
-
-
-
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -79,16 +71,14 @@ const filteredItems = computed(() => {
 
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
-      return search
-        ? item.ID.match(search) || item.title.match(search)
-        : true;
+      return search ? item.ID.match(search) || item.title.match(search) : true;
     });
   }
 
-  if(currentTab.value!= "X" ){
+  if (currentTab.value != "X") {
     filtered = filtered.filter((item) => {
-        return item.category == currentTab.value;
-    })
+      return item.category == currentTab.value;
+    });
   }
 
   totalPages.value = Math.ceil(filtered.length / perPage);
@@ -98,37 +88,124 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
+const isLg = computed(() => {
+  return window.innerWidth <= 600;
+});
 
-
-
-
-
+const isGrid = ref(true);
+const isFinalGrid = computed(() => {
+  if (isLg.value) {
+    return true;
+  } else {
+    return isGrid.value;
+  }
+});
+const colors = computed(() => {
+  if (isGrid.value) {
+    return ["lightDark", "info"];
+  }
+  return ["info", "lightDark"];
+});
 </script>
 <template>
   <NuxtLayout name="lmsstudent">
     <div class="px-6">
       <div class="p-5">
-
-        <div class="mt-10">
+        <div class="mt-10 flex justify-between">
           <p class="font-bold text-3xl">All Courses</p>
+          <div class="flex flex-wrap gap-0 items-center">
+            <BaseButton
+              :icon="mdiFormatListBulleted"
+              :color="colors[0]"
+              @click="
+                () => {
+                  isGrid = false;
+                }
+              "
+            />
+            <BaseButton
+              :icon="mdiGrid"
+              :color="colors[1]"
+              @click="
+                () => {
+                  isGrid = true;
+                }
+              "
+            />
+          </div>
         </div>
 
         <div class="w-full flex gap-5 items-center justify-start my-4">
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='X'}" @click="()=>{currentTab = 'X'; searchQuery = ''}">
-                <p class="pb-2">All Courses</p>
-            </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='A'}" @click="()=>{currentTab = 'Courses'; searchQuery = ''}">
-                <p class="pb-2">Courses</p>
-            </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='B'}" @click="()=>{currentTab = 'Bundle'; searchQuery = ''}">
-                <p class="pb-2">Bundles</p>
-            </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='C'}" @click="()=>{currentTab = 'Mock test'; searchQuery = ''}">
-                <p class="pb-2">Mock Tests</p>
-            </div>
-            <div class="cursor-pointer" :class="{'text-blue-500 border-b border-b-blue-500':currentTab=='D'}" @click="()=>{currentTab = 'test series'; searchQuery = ''}">
-                <p class="pb-2">Test Series</p>
-            </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'X',
+            }"
+            @click="
+              () => {
+                currentTab = 'X';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">All Courses</p>
+          </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'A',
+            }"
+            @click="
+              () => {
+                currentTab = 'Courses';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Courses</p>
+          </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'B',
+            }"
+            @click="
+              () => {
+                currentTab = 'Bundle';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Bundles</p>
+          </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'C',
+            }"
+            @click="
+              () => {
+                currentTab = 'Mock test';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Mock Tests</p>
+          </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'D',
+            }"
+            @click="
+              () => {
+                currentTab = 'test series';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Test Series</p>
+          </div>
         </div>
 
         <form class="relative my-4" @submit.prevent="submit">
@@ -156,42 +233,65 @@ const filteredItems = computed(() => {
           </button>
         </form>
 
-
-
-
-
         <BaseDivider />
-
-        <div
-          class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
+        <template v-if="isFinalGrid">
           <div
-            class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
-            v-for="item in filteredItems"
+            class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <div
-              class="h-44 w-full bg-cover bg-center bg-no-repeat relative"
-              :style="'background-image: url(' + image + ')'"
-            ></div>
-            <div  class="flex justify-center relative mb-8 top-[-20px]">
-                <div v-if="item.isFree" class="px-4  py-2 bg-white absolute border-2 border-green-500 " >
-                    <p>Free</p>
+              class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
+              v-for="item in filteredItems"
+            >
+              <div
+                class="h-44 w-full bg-cover bg-center bg-no-repeat relative"
+                :style="'background-image: url(' + image + ')'"
+              ></div>
+              <div class="flex justify-center relative mb-8 top-[-20px]">
+                <div
+                  v-if="item.isFree"
+                  class="px-4 py-2 bg-white absolute border-2 border-green-500"
+                >
+                  <p>Free</p>
                 </div>
-            </div>
+              </div>
 
-            <div class="px-4 h-auto">
-              <p class="font-medium h-12">{{ item.title }}</p>
-            </div>
-            <div class="w-full  border-t mt-4"></div>
-            <div class="flex items-center justify-center h-16">
-                <div to="#" class="flex flex-1 flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform ">
-
-                    
-                    <p> <span class="font-semibold">{{item.type}}</span> : {{item.quantity}}</p>
-                </div> 
+              <div class="px-4 h-auto">
+                <p class="font-medium h-12">{{ item.title }}</p>
+              </div>
+              <div class="w-full border-t mt-4"></div>
+              <div class="flex items-center justify-center h-16">
+                <div
+                  to="#"
+                  class="flex flex-1 flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
+                >
+                  <p>
+                    <span class="font-semibold">{{ item.type }}</span> :
+                    {{ item.quantity }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <div class="grid grid-cols-1 gap-3">
+            <div
+              class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] cursor-pointer transition-transform"
+              v-for="item in filteredItems"
+            >
+              <div class="flex">
+                <img :src="image" class="w-40" />
+                <div class="px-4 h-auto">
+                  <p class="font-medium min-h-18">{{ item.title }}</p>
+                  <p class="">{{ item.type }} : {{ item.quantity }}</p>
+                  <div class="flex gap-48 max-md:gap-10">
+                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
 
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
           <BaseLevel>

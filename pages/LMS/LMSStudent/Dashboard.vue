@@ -6,10 +6,7 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
-import {
-mdiOpenInNew,
-mdiPlay,
-} from "@mdi/js";
+import { mdiOpenInNew, mdiPlay, mdiFormatListBulleted, mdiGrid } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
@@ -89,7 +86,6 @@ const statusSelectedFilter = ref("all");
 const searchQuery = ref("");
 const publishedFilterOption = ref("all");
 
-
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
@@ -117,7 +113,6 @@ const filteredItems = computed(() => {
         : true;
     });
   }
-
 
   if (statusSelectedFilter.value !== "all") {
     filtered = filtered.filter((item) => {
@@ -160,8 +155,28 @@ const colors = computed(() => {
         <div>
           <p class="font-bold text-xl">Welcome Back, S</p>
         </div>
-        <div class="mt-10">
-          <p class="font-bold text-xl">All Courses</p>
+        <div class="mt-10 flex justify-between">
+          <p class="font-bold text-3xl">All Courses</p>
+          <div class="flex flex-wrap gap-0 items-center">
+            <BaseButton
+              :icon="mdiFormatListBulleted"
+              :color="colors[0]"
+              @click="
+                () => {
+                  isGrid = false;
+                }
+              "
+            />
+            <BaseButton
+              :icon="mdiGrid"
+              :color="colors[1]"
+              @click="
+                () => {
+                  isGrid = true;
+                }
+              "
+            />
+          </div>
         </div>
 
         <form class="relative my-4" @submit.prevent="submit">
@@ -240,39 +255,93 @@ const colors = computed(() => {
           <span>{{ filteredItems.length }} Courses </span>
         </div>
 
-        <div
-          class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
+        <template v-if="isFinalGrid">
           <div
-            class="rounded-md mt-4 overflow-hidden border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
-            v-for="item in filteredItems"
+            class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <div
-              class="h-44 w-full bg-cover bg-center bg-no-repeat"
-              :style="'background-image: url(' + image + ')'"
-            ></div>
-            <div class="px-4 h-auto">
-              <p class="font-medium h-12">{{ item.title }}</p>
-              <div class="w-full flex justify-center items-center gap-4 h-4">
-                <progress class="h-1 w-3/5" :value="item.percentCompleted" max="100"></progress> {{item.percentCompleted}}%
+              class="rounded-md mt-4 overflow-hidden border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
+              v-for="item in filteredItems"
+            >
+              <div
+                class="h-44 w-full bg-cover bg-center bg-no-repeat"
+                :style="'background-image: url(' + image + ')'"
+              ></div>
+              <div class="px-4 h-auto">
+                <p class="font-medium h-12">{{ item.title }}</p>
+                <div class="w-full flex justify-center items-center gap-4 h-4">
+                  <progress
+                    class="h-1 w-3/5"
+                    :value="item.percentCompleted"
+                    max="100"
+                  ></progress>
+                  {{ item.percentCompleted }}%
+                </div>
+              </div>
+              <div class="w-full border-t mt-4"></div>
+              <div class="grid grid-cols-2 gap-0 h-16">
+                <NuxtLink
+                  to="/lms/LMSStudent/coursecontent"
+                  class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform"
+                >
+                  <BaseIcon :path="mdiOpenInNew" />
+                  <p>See Overview</p>
+                </NuxtLink>
+                <NuxtLink
+                  to="#"
+                  class="flex flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
+                >
+                  <BaseIcon :path="mdiPlay" />
+                  <p>Go To Course</p>
+                </NuxtLink>
               </div>
             </div>
-            <div class="w-full  border-t mt-4"></div>
-            <div class="grid grid-cols-2 gap-0 h-16">
-                <NuxtLink to="/lms/LMSStudent/coursecontent" class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform ">
+          </div>
+        </template>
+        <template v-else>
+          <div class="grid grid-cols-1 gap-3">
+            <div
+              class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] cursor-pointer transition-transform"
+              v-for="item in filteredItems"
+            >
+              <div class="flex justify-between max-sm:block">
+                <div class="flex max-sm:block">
 
+                  <img :src="image" class="w-40 max-sm:w-full" />
+                  <div class="px-4 h-auto">
+                    <p class="font-medium min-h-18">{{ item.title }}</p>
+                    <div class="w-full flex justify-center items-center gap-4 h-4">
+                      <progress
+                        class="h-1 w-3/5"
+                        :value="item.percentCompleted"
+                        max="100"
+                      ></progress>
+                      {{ item.percentCompleted }}%
+                    </div>                  <div class="flex gap-48 max-md:gap-10">
+                      <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 gap-2 pr-4 min-w-[140px]">
+                  <NuxtLink
+                    to="/lms/LMSStudent/coursecontent"
+                    class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform"
+                  >
                     <BaseIcon :path="mdiOpenInNew" />
                     <p>See Overview</p>
-                </NuxtLink>
-                <NuxtLink to="#" class="flex flex-wrap items-center justify-center  hover:scale-105 cursor-pointer transition-transform ">
-
+                  </NuxtLink>
+                  <NuxtLink
+                    to="#"
+                    class="flex flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
+                  >
                     <BaseIcon :path="mdiPlay" />
                     <p>Go To Course</p>
-                </NuxtLink> 
+                  </NuxtLink>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
+        </template>
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
           <BaseLevel>
             <BaseButtons>

@@ -12,9 +12,30 @@
           </div>
         </div>
       </div>
-      <div class="w-full flex justify-center p-4 my-8">
+      <div class="w-full mx-auto px-[15px] sm:max-w-[540px] sm:px-4 md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1170px] flex justify-between my-8">
         <p class="text-3xl font-light capitalize">Here are all the courses included in your bundle</p>
+                  <div class="flex flex-wrap gap-0 items-center">
+            <BaseButton
+              :icon="mdiFormatListBulleted"
+              :color="colors[0]"
+              @click="
+                () => {
+                  isGrid = false;
+                }
+              "
+            />
+            <BaseButton
+              :icon="mdiGrid"
+              :color="colors[1]"
+              @click="
+                () => {
+                  isGrid = true;
+                }
+              "
+            />
+          </div>
       </div>
+        <template v-if="isFinalGrid">
 
       <div
         class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3  w-full mx-auto px-[15px] sm:max-w-[540px] sm:px-4 md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1170px] "
@@ -36,6 +57,23 @@
 
         </div>
       </div>
+              </template>
+        <template v-else>
+          <div class="grid grid-cols-1 gap-3 px-6">
+            <div
+              class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] cursor-pointer transition-transform"
+              v-for="item in items"
+            >
+              <div class="flex">
+                <img :src="image" class="w-40" />
+                <div class="px-4 h-auto flex items-center">
+                  <p class="font-medium min-h-18">{{ item.title }}</p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
     </NuxtLayout>
   </div>
 </template>
@@ -54,6 +92,8 @@ import {
   mdiPlay,
   mdiPlusBoxOutline,
   mdiVideo,
+  mdiFormatListBulleted,
+  mdiGrid
 } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
@@ -107,6 +147,26 @@ const items = ref([
     category: "B",
   },
 ]);
+
+const isLg = computed(() => {
+  return window.innerWidth <= 600;
+});
+
+const isGrid = ref(true);
+const isFinalGrid = computed(() => {
+  if (isLg.value) {
+    return true;
+  } else {
+    return isGrid.value;
+  }
+});
+
+const colors = computed(() => {
+  if (isGrid.value) {
+    return ["lightDark", "info"];
+  }
+  return ["info", "lightDark"];
+});
 </script>
 
 <style lang="scss" scoped></style>

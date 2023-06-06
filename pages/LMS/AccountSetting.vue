@@ -1,137 +1,140 @@
 <template>
-  <div class="max-w-3xl mx-auto py-10">
-    <div class="flex px-8 justify-between items-center">
-      <p class="text-2xl font-semibold">Profile Picture</p>
-      <div class="w-24 h-24 relative">
-        <img
-          :src="profilePreview"
-          class="w-full h-full rounded-[50%] overflow-hidden"
-          alt=""
-        />
-        <div
-          class="absolute right-0 bottom-0 cursor-pointer rounded-[50%] w-8 h-8 bg-slate-400 flex items-center justify-center"
-          @click="
-            () => {
-              openFileInput('profileInput');
-            }
-          "
-        >
-          <BaseIcon :path="mdiCamera" />
+  <NuxtLayout name="zen">
+    <div class="max-w-3xl mx-auto py-10">
+      <div class="flex px-8 justify-between items-center">
+        <p class="text-2xl font-semibold">Profile Picture</p>
+        <div class="w-24 h-24 relative">
+          <img
+            :src="profilePreview"
+            class="w-full h-full rounded-[50%] overflow-hidden"
+            alt=""
+          />
+          <div
+            class="absolute right-0 bottom-0 cursor-pointer rounded-[50%] w-8 h-8 bg-slate-400 flex items-center justify-center"
+            @click="
+              () => {
+                openFileInput('profileInput');
+              }
+            "
+          >
+            <BaseIcon :path="mdiCamera" />
+          </div>
+          <input
+            ref="profileInput"
+            type="file"
+            @change="handleFileUpload($event, 'profile')"
+            accept="image/*"
+            class="hidden"
+          />
         </div>
-        <input
-          ref="profileInput"
-          type="file"
-          @change="handleFileUpload($event, 'profile')"
-          accept="image/*"
-          class="hidden"
-        />
       </div>
-    </div>
-    <h2 class="text-2xl font-semibold">Profile Details</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <FormField label="Name">
-        <FormControl
-          :model-value="user.profile.name"
-          placeholder="Enter user Name"
-        />
-      </FormField>
+      <h2 class="text-2xl font-semibold">Profile Details</h2>
+      <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
+        <FormField label="Name">
+          <FormControl
+            :model-value="user.profile.name"
+            placeholder="Enter user Name"
+          />
+        </FormField>
 
-      <FormField label="E-mail">
-        <FormControl
-          :model-value="user.profile.email"
-          placeholder="Enter user email"
-        />
-      </FormField>
+        <FormField label="E-mail">
+          <FormControl
+            :model-value="user.profile.email"
+            placeholder="Enter user email"
+          />
+        </FormField>
 
-      <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <div class="flex flex-row-reverse">
+          <BaseButton color="info" label="Save" />
+        </div>
       </div>
-    </div>
 
-    <h2 class="text-2xl mt-8 font-semibold">Communication email</h2>
-    <p class="text-xs">
-      All communication like billing , product update , important notification
-      will be sent to this email address
-    </p>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <FormField label="Communication E-mail">
-        <FormControl
-          placeholder="Enter user email"
-        />
-      </FormField>
-
-      <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
-      </div>
-    </div>
-    <h2 class="text-2xl mt-8 font-semibold">Billing Details</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <FormField label="Billing Name">
-        <FormControl placeholder="Enter Billing Name" />
-      </FormField>
-      <FormField label="Billing Address">
-        <FormControl type="textarea" placeholder="Enter Billing Name" />
-      </FormField>
-      <FormField label="Country">
-        <FormControl :options="options.Countries" />
-      </FormField>
-      <FormField label="Mobile">
-        <FormControl
-          :model-value="user.profile.mobile"
-          placeholder="Enter user Mobile"
-        />
-      </FormField>
-      <FormField label="City">
-        <FormControl placeholder="Enter City" />
-      </FormField>
-      <FormField label="State">
-        <FormControl
-          :model-value="user.profile.state"
-          :options="options.state"
-        />
-      </FormField>
-      <FormField label="Zip Code">
-        <FormControl type="number" placeholder="Enter Zip Code" />
-      </FormField>
-      <FormField label="GST Number">
-        <FormControl placeholder="GST Number" />
-      </FormField>
-
-      <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
-      </div>
-    </div>
-
-    <h2 class="text-2xl mt-8 font-semibold">Change Password</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <FormField label="Current Password">
-        <FormControl placeholder="Current Password" />
-      </FormField>
-
-      <FormField label="New Password">
-        <FormControl placeholder="New Password" />
-      </FormField>
-
-      <FormField label="Retype new Password" help="Minimum 6 characters required">
-        <FormControl placeholder="Retype new Password" />
-      </FormField>
-
-      <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
-      </div>
-    </div>
-
-    <h2 class="text-2xl mt-8 font-semibold">Account Deletion</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p>
-        By changing this security setting , your account would no longer
-        exists.Your user would not be access your website , course and apps.
+      <h2 class="text-2xl mt-8 font-semibold">Communication email</h2>
+      <p class="text-xs">
+        All communication like billing , product update , important notification
+        will be sent to this email address
       </p>
-      <div class="flex flex-row-reverse mt-4">
-        <BaseButton color="info" label="Delete" />
+      <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
+        <FormField label="Communication E-mail">
+          <FormControl placeholder="Enter user email" />
+        </FormField>
+
+        <div class="flex flex-row-reverse">
+          <BaseButton color="info" label="Save" />
+        </div>
+      </div>
+      <h2 class="text-2xl mt-8 font-semibold">Billing Details</h2>
+      <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
+        <FormField label="Billing Name">
+          <FormControl placeholder="Enter Billing Name" />
+        </FormField>
+        <FormField label="Billing Address">
+          <FormControl type="textarea" placeholder="Enter Billing Name" />
+        </FormField>
+        <FormField label="Country">
+          <FormControl :options="options.Countries" />
+        </FormField>
+        <FormField label="Mobile">
+          <FormControl
+            :model-value="user.profile.mobile"
+            placeholder="Enter user Mobile"
+          />
+        </FormField>
+        <FormField label="City">
+          <FormControl placeholder="Enter City" />
+        </FormField>
+        <FormField label="State">
+          <FormControl
+            :model-value="user.profile.state"
+            :options="options.state"
+          />
+        </FormField>
+        <FormField label="Zip Code">
+          <FormControl type="number" placeholder="Enter Zip Code" />
+        </FormField>
+        <FormField label="GST Number">
+          <FormControl placeholder="GST Number" />
+        </FormField>
+
+        <div class="flex flex-row-reverse">
+          <BaseButton color="info" label="Save" />
+        </div>
+      </div>
+
+      <h2 class="text-2xl mt-8 font-semibold">Change Password</h2>
+      <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
+        <FormField label="Current Password">
+          <FormControl placeholder="Current Password" />
+        </FormField>
+
+        <FormField label="New Password">
+          <FormControl placeholder="New Password" />
+        </FormField>
+
+        <FormField
+          label="Retype new Password"
+          help="Minimum 6 characters required"
+        >
+          <FormControl placeholder="Retype new Password" />
+        </FormField>
+
+        <div class="flex flex-row-reverse">
+          <BaseButton color="info" label="Save" />
+        </div>
+      </div>
+
+      <h2 class="text-2xl mt-8 font-semibold">Account Deletion</h2>
+      <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
+        <p>
+          By changing this security setting , your account would no longer
+          exists.Your user would not be access your website , course and apps.
+        </p>
+        <div class="flex flex-row-reverse mt-4">
+          <BaseButton color="info" label="Delete" />
+        </div>
       </div>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
 
 <script setup>

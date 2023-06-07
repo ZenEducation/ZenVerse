@@ -11,8 +11,8 @@ import {
   mdiLockOff,
 } from "@mdi/js";
 import PremFormControlIcon from "@/components/Forms/FormControlIcon.vue";
-import PremFormFieldHelp from "@/components/Forms/PremFormFieldHelp.vue";
-import PremFormControlListbox from "@/components/Forms/PremFormControlListbox.vue";
+import PremFormFieldHelp from "@/components/Forms/FormFieldHelp.vue";
+import PremFormControlListbox from "@/components/Forms/FormControlListbox.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import PremTipTag from "@/components/Display/TipTag.vue";
 

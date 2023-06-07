@@ -49,47 +49,23 @@ const dripOptions = [
 ];
 const dripSelected = ref(dripOptions[0].label);
 
-const isDrip = ref(true);
-const specificDate = ref();
-const chapterList = ref([
-  {
-    chapterId: 1,
-    title: "chapter 1",
-    lessonList: [
-      { id: 1, label: "Demo", date: "", days: 6 },
-      { id: 2, label: "Video lesson", date: "", days: 8 },
-    ],
-  },
-  {
-    chapterId: 2,
-    title: "chapter 2",
-    lessonList: [
-      { id: 3, label: "Audio lesson", date: "", days: 9 },
-      { id: 4, label: "PDF lesson", date: "", days: 12 },
-    ],
-  },
-]);
-
 const list = ref([
   {
     id: 0,
     type: "one Time",
     amount: 15000,
     time: 4,
+    TimeType: "Months",
   },
   {
     id: 1,
     type: "Subscription",
     amount: 1000,
     time: 6,
+    TimeType: "Months",
   },
 ]);
 const isAddDataActive = ref(false);
-const NewFormData = ref({
-  type: "",
-  amount: 0,
-  time: 0,
-});
 
 const newDataFormLabels = computed(() => {
   let labelAmount = "Amount";
@@ -108,16 +84,67 @@ const newDataFormLabels = computed(() => {
   return { labelAmount, labelTime };
 });
 
-const addNewFormData = () => {
-  list.value.push(NewFormData.value);
-  isAddDataActive.value = false;
+const allFormData = ref({
+  free: {
+    Time: 0,
+    amount: 0,
+    TimeType: "Days",
+  },
+  oneTime: {
+    Time: 0,
+    amount: 0,
+    TimeType: "Days",
+  },
+  subscription: {
+    Time: 0,
+    amount: 0,
+    TimeType: "Days",
+  },
+  monthly: {
+    amount: 0,
+    Time: 0,
+    TimeType: "Months",
+  },
+});
+
+const addNewItemInList = () => {
+  let amount, Time, TimeType;
+  if (dripSelected.value == "Free") {
+    amount = 0;
+    Time = allFormData.value.free.Time;
+    TimeType = allFormData.value.free.TimeType;
+  } else if (dripSelected.value == "One-time payment") {
+    amount = allFormData.value.oneTime.amount;
+    Time = allFormData.value.oneTime.Time;
+    TimeType = allFormData.value.oneTime.TimeType;
+  } else if (dripSelected.value == "Subscription/Membership") {
+    amount = allFormData.value.subscription.amount;
+    Time = allFormData.value.subscription.Time;
+    TimeType = allFormData.value.subscription.TimeType;
+  } else if (dripSelected.value == "Monthly payment plan") {
+    amount = allFormData.value.monthly.amount;
+    Time = allFormData.value.monthly.Time;
+    TimeType = allFormData.value.monthly.TimeType;
+  }
+  console.log("add pricing called ", amount, Time, TimeType);
+  if (amount >= 0 && Time > 0) {
+    const newItem = {
+      type: dripSelected.value,
+      amount,
+      time: Time,
+      TimeType,
+    };
+    list.value.push(newItem);
+  }
 };
+
 const EditItemId = ref(-1);
 const isEditDataActive = ref(false);
 const EditFormData = ref({
   type: "",
   amount: 0,
   time: 0,
+  TimeType: "Months",
 });
 const EditFormDataAction = () => {
   let temp = EditFormData.value;
@@ -156,42 +183,6 @@ const deleteItem = (popup, id) => {
     @confirm="deleteItem(false)"
   />
 
-  <CardBoxModal v-model="isAddDataActive" :showFooter="false" title="">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
-      <div class="flex flex-col ml-5 mx-auto">
-        <h1 class="font-bold">Add New Pricing</h1>
-      </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddDataActive = false"
-      >
-        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
-      </div>
-    </header>
-    <CardBox is-form @submit.prevent="submitProfile">
-      <PremFormField label="Pricing Type">
-        <PremFormControl
-          v-model="NewFormData.type"
-          :options="['One Time', 'Subscription', 'Monthly plan']"
-        />
-      </PremFormField>
-      <PremFormField :label="newDataFormLabels.labelAmount">
-        <PremFormControl v-model="NewFormData.amount" type="number" />
-      </PremFormField>
-      <PremFormField :label="newDataFormLabels.labelTime" help="In Months">
-        <PremFormControl v-model="NewFormData.time" type="number" />
-      </PremFormField>
-
-      <div class="flex justify-end py-2">
-        <BaseButtons>
-          <BaseButton color="info" label="Submit" @click="addNewFormData" />
-        </BaseButtons>
-      </div>
-    </CardBox>
-  </CardBoxModal>
-
   <CardBoxModal v-model="isEditDataActive" :showFooter="false" title="">
     <header
       class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
@@ -216,8 +207,21 @@ const deleteItem = (popup, id) => {
       <PremFormField label="Amount / Price per payment">
         <PremFormControl v-model="EditFormData.amount" type="number" />
       </PremFormField>
-      <PremFormField label="Enrollment Duration / Paid every" help="In Months">
-        <PremFormControl v-model="EditFormData.time" type="number" />
+      <PremFormField label="Enrollment Duration / Paid every">
+        <div class="flex flex-row flex-nowrap">
+          <PremFormControl
+            type="number"
+            placeholder="50"
+            class="w-20"
+            v-model="EditFormData.time"
+          />
+          <PremFormControl
+            :options="['Days', 'Months']"
+            placeholder="50"
+            class="w-36"
+            v-model="EditFormData.TimeType"
+          />
+        </div>
       </PremFormField>
 
       <div class="flex justify-end py-2">
@@ -273,20 +277,40 @@ const deleteItem = (popup, id) => {
                       label="Days Untill Expiry"
                       help="Leave blank for unlimited access"
                     >
-                      <PremFormControl
-                        type="number"
-                        placeholder="Days"
-                        class="max-w-md"
-                      />
+                      <div class="flex flex-row flex-nowrap">
+                        <PremFormControl
+                          type="number"
+                          placeholder="50"
+                          class="w-20"
+                          v-model="allFormData.free.Time"
+                        />
+                        <PremFormControl
+                          :options="['Days', 'Months']"
+                          placeholder="50"
+                          class="w-36"
+                          v-model="allFormData.free.TimeType"
+                        />
+                      </div>
                     </PremFormField>
                   </div>
+                  <BaseButton
+                  :icon="mdiPlus"
+                  :label="'Add Pricing'"
+                  :color="'info'"
+                  @click="addNewItemInList"
+                  class="my-4"
+                />
                 </div>
                 <div
                   class="pl-8"
                   v-if="(i.id == 3) & (dripSelected == i.label)"
                 >
                   <PremFormField label="Amount(Rs.)" class="sm:w-1/3">
-                    <PremFormControl type="number" placeholder="50" />
+                    <PremFormControl
+                      type="number"
+                      placeholder="50"
+                      v-model="allFormData.subscription.amount"
+                    />
                   </PremFormField>
                   <PremFormField label="Paid every " class="sm:w-1/2">
                     <div class="flex flex-row flex-nowrap">
@@ -294,11 +318,13 @@ const deleteItem = (popup, id) => {
                         type="number"
                         placeholder="50"
                         class="w-20"
+                        v-model="allFormData.subscription.Time"
                       />
                       <PremFormControl
-                        :options="['Day(s)', 'Month(s)']"
+                        :options="['Days', 'Months']"
                         placeholder="50"
                         class="w-36"
+                        v-model="allFormData.subscription.TimeType"
                       />
                     </div>
                   </PremFormField>
@@ -347,6 +373,13 @@ const deleteItem = (popup, id) => {
                       </div>
                     </PremFormField>
                   </div>
+                  <BaseButton
+                    :icon="mdiPlus"
+                    :label="'Add Pricing'"
+                    :color="'info'"
+                    @click="addNewItemInList"
+                    class="my-4"
+                  />
                 </div>
 
                 <div
@@ -359,19 +392,34 @@ const deleteItem = (popup, id) => {
                         type="number"
                         placeholder="Price (Rs.)"
                         class="max-w-md"
+                        v-model="allFormData.oneTime.amount"
                       />
                     </PremFormField>
-                    <PremFormField
-                      label="Enrollment Duration"
-                      help="Leave blank for unlimited access"
-                    >
-                      <PremFormControl
-                        type="number"
-                        placeholder="Days"
-                        class="max-w-md"
-                      />
+
+                    <PremFormField label="Enrollment Duration">
+                      <div class="flex flex-row flex-nowrap mt-5">
+                        <PremFormControl
+                          type="number"
+                          placeholder="50"
+                          class="w-20"
+                          v-model="allFormData.oneTime.Time"
+                        />
+                        <PremFormControl
+                          :options="['Days', 'Months']"
+                          placeholder="50"
+                          class="w-36"
+                          v-model="allFormData.oneTime.TimeType"
+                        />
+                      </div>
                     </PremFormField>
                   </div>
+                  <BaseButton
+                    :icon="mdiPlus"
+                    :label="'Add Pricing'"
+                    :color="'info'"
+                    @click="addNewItemInList"
+                    class="my-4"
+                  />
                 </div>
                 <div
                   class="pl-8"
@@ -382,10 +430,18 @@ const deleteItem = (popup, id) => {
                       label="Payment per payment (Rs.)"
                       class="sm:w-1/2"
                     >
-                      <PremFormControl type="number" placeholder="50" />
+                      <PremFormControl
+                        type="number"
+                        placeholder="50"
+                        v-model="allFormData.monthly.amount"
+                      />
                     </PremFormField>
                     <PremFormField label="Total Months" class="sm:w-1/3">
-                      <PremFormControl type="number" placeholder="4" />
+                      <PremFormControl
+                        type="number"
+                        placeholder="4"
+                        v-model="allFormData.monthly.Time"
+                      />
                     </PremFormField>
                   </div>
 
@@ -414,6 +470,13 @@ const deleteItem = (popup, id) => {
                       <PremFormControl type="text" placeholder="$10/month" />
                     </PremFormField>
                   </div>
+                  <BaseButton
+                    :icon="mdiPlus"
+                    :label="'Add Pricing'"
+                    :color="'info'"
+                    @click="addNewItemInList"
+                    class="my-4"
+                  />
                 </div>
               </template>
             </div>
@@ -422,14 +485,6 @@ const deleteItem = (popup, id) => {
             <p class="text-xs mb-8">
               Set a variable pricing for your bundle based on different validity
             </p>
-
-            <BaseButton
-              :icon="mdiPlus"
-              :label="'Add Pricing'"
-              :color="'info'"
-              @click="isAddDataActive = true"
-              class="mb-4"
-            />
 
             <table>
               <thead>
@@ -446,7 +501,7 @@ const deleteItem = (popup, id) => {
                     Rs. {{ item.amount }}
                   </td>
                   <td data-label="Enrollment duration / Paid every">
-                    {{ item.time }} months
+                    {{ item.time + " " + item.TimeType }}
                   </td>
                   <td>
                     <div class="flex gap-4">

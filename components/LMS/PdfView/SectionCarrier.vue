@@ -1,7 +1,7 @@
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import {pdfViewerStore} from "@/stores/pdfView.js"
+import {pdfViewerStore} from "~/stores/lmsLearnerDisplay.js"
 import {ref} from "vue"
 import {
 mdiFullscreen,

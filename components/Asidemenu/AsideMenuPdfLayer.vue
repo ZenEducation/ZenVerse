@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 
 import { useStyleStore } from "@/stores/style.js";
-import { pdfViewerStore } from "@/stores/pdfView.js";
+import { pdfViewerStore } from "~/stores/lmsLearnerDisplay.js";
 import PremAsideMenuList from "@/components/Asidemenu/AsideMenuList.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import {
@@ -231,7 +231,7 @@ function toggleDropdownMenu() {
 
 
 const onenPdfOnSearchClick= (lesson,chapter)=>{
-  allPdfData.getCurrentPdf(lesson, chapter)
+  allPdfData.getCurrentChapter(lesson, chapter)
   isOpen.value = false;
   searchText.value = "";
 }
@@ -449,7 +449,7 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                   <li
                     v-for="lesson in chapter.lessons"
                     :key="lesson.lessonNumber"
-                    @click="allPdfData.getCurrentPdf(lesson, chapter)"
+                    @click="allPdfData.getCurrentChapter(lesson, chapter)"
                     class="mt-2 cursor-pointer py-1 hover:bg-gray-700"
                     :class="{'bg-gray-700':chapter.chapterNumber== allPdfData.currentChapter.chapterNumber &&   allPdfData.currentPDF.lessonNumber==lesson.lessonNumber,}"
                   >

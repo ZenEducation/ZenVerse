@@ -1,10 +1,12 @@
 <script setup>
 
+const layout = 'lmslearnerdisplay'
+// const layout = 'pdf'
 
 // import SectionMain from "@/components/LMS/SectionMain.vue";
 import { onMounted,computed } from 'vue';
 // import pdfMake from "pdfmake/build/pdfmake";
-import {pdfViewerStore} from "@/stores/pdfView.js"
+import {pdfViewerStore} from "~/stores/lmsLearnerDisplay.js"
 const allPdfData = pdfViewerStore()
 import pdfView from "../../components/LMS/PdfView.vue"
 import audioView from "../../components/LMS/AudioView.vue"
@@ -67,9 +69,8 @@ const file = computed(()=>{
 
 <template>
   <div>
-    <NuxtLayout name="pdf">
+    <NuxtLayout  :name="layout">
       <LMSPdfViewSectionCarrier>
-
         <pdfView :source="allPdfData.currentPDF" v-if="file.type=='pdf'"  />
         <audioView  :source="allPdfData.currentPDF" v-if="file.type=='audio'" />
         <videoView  :source="allPdfData.currentPDF" v-if="file.type=='video'" />

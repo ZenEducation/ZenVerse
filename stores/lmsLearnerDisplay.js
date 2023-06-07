@@ -96,7 +96,7 @@ const getters = {
 };
 
 export const actions = {
-  getCurrentPdf(pdf, chapter) {
+  getCurrentChapter(pdf, chapter) {
     (this.currentPDF = pdf), (this.currentChapter = chapter);
   },
   markAsCompleted(pdf, chapter) {

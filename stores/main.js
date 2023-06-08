@@ -74,7 +74,14 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course2" , "course3" , "course4"],
+            bundle:['bundle1' , "bundle2" , "bundle3" , "bundle4"],
+            testSerieses: ['ts1' , "ts2" , "ts3"],
+            mockTests : ["Mk1" , "Mk2" , "Mk3"],
+            leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Returning' // Free, Trial, Paid,Returning
+
         },
         {
             id: 2,
@@ -85,7 +92,13 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course2" , "course3" ],
+            bundle:['bundle1' , "bundle2" , "bundle4"],
+            testSerieses: ['ts1' , "ts2" ],
+            mockTests : [ "Mk2" , "Mk3"],
+            leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Free' // Free, Trial, Paid,
         },
         {
             id: 3,
@@ -96,7 +109,13 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course4"],
+            bundle:["bundle3" , "bundle4"],
+            testSerieses: ['ts1' , "ts3"],
+            mockTests : [ "Mk2" , "Mk3"],
+            leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Paid' // Free, Trial, Paid,
         },
         {
             id: 4,
@@ -107,7 +126,13 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course4"],
+            bundle:['bundle1' , "bundle2" ],
+            testSerieses: ['ts1' , "ts3"],
+            mockTests : ["Mk1" , "Mk2"],
+            leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Trial" // Free, Trial, Paid,
         }
     ],
     affiliates: [
@@ -120,7 +145,15 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            commitionRate:50,
+            isLifelong : true ,
+            courses:["course1" , "course14"],
+            bundle:['bundle1' , "bundle22" ],
+            testSerieses: ['ts23' , "ts43"],
+            mockTests : ["Mk1" , "Mk2"],
+            leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Paid" // Free, Trial, Paid,
         },
         {
             id: 2,
@@ -131,7 +164,15 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            commitionRate:50,
+            isLifelong : true ,
+            courses:["course1" , "course6"],
+            bundle:['bundle1' , "bundle3" ],
+            testSerieses: ['ts9' , "ts12"],
+            mockTests : ["Mk2" , "Mk5"],
+            leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Returning" // Free, Trial, Paid,
         },
         {
             id: 3,
@@ -142,7 +183,15 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            commitionRate:50,
+            isLifelong : true ,
+            courses:["course1" , "course7"],
+            bundle:['bundle1' , "bundle6" ],
+            testSerieses: ['ts1' , "ts3"],
+            mockTests : ["Mk1" , "Mk8"],
+            leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Free" // Free, Trial, Paid,
         },
         {
             id: 4,
@@ -153,7 +202,15 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            commitionRate:50,
+            isLifelong : false ,
+            courses:["course1" , "course2"],
+            bundle:['bundle1' , "bundle4" ],
+            testSerieses: ['ts1' , "ts6"],
+            mockTests : ["Mk10" , "Mk12"],
+            leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Trial" // Free, Trial, Paid,
         }
     ],
     admins: [
@@ -167,7 +224,11 @@ const state = () => ({
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course14"],
+            bundle:['bundle1' , "bundle22" ],
+            testSerieses: ['ts23' , "ts43"],
+            mockTests : ["Mk1" , "Mk2"],
         },
         {
             id: 2,
@@ -179,7 +240,11 @@ const state = () => ({
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
             role:'Super Admin',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course6"],
+            bundle:['bundle1' , "bundle3" ],
+            testSerieses: ['ts9' , "ts12"],
+            mockTests : ["Mk2" , "Mk5"],
         },
         {
             id: 3,
@@ -191,7 +256,11 @@ const state = () => ({
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course7"],
+            bundle:['bundle1' , "bundle6" ],
+            testSerieses: ['ts1' , "ts3"],
+            mockTests : ["Mk1" , "Mk8"],
         },
         {
             id: 4,
@@ -203,7 +272,11 @@ const state = () => ({
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
             role:'Super Admin',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course2"],
+            bundle:['bundle1' , "bundle4" ],
+            testSerieses: ['ts1' , "ts6"],
+            mockTests : ["Mk10" , "Mk12"],
         }
     ],
     instructors: [
@@ -216,7 +289,11 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course2"],
+            bundle:['bundle1' , "bundle4" ],
+            testSerieses: ['ts1' , "ts6"],
+            mockTests : ["Mk10" , "Mk12"],
         },
         {
             id: 2,
@@ -227,7 +304,11 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course6"],
+            bundle:['bundle1' , "bundle3" ],
+            testSerieses: ['ts9' , "ts12"],
+            mockTests : ["Mk2" , "Mk5"],
         },
         {
             id: 3,
@@ -238,7 +319,11 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            courses:["course1" , "course14"],
+            bundle:['bundle1' , "bundle22" ],
+            testSerieses: ['ts23' , "ts43"],
+            mockTests : ["Mk1" , "Mk2"],
         },
         {
             id: 4,
@@ -249,7 +334,11 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            courses:["course1" , "course4"],
+            bundle:['bundle1' , "bundle2" ],
+            testSerieses: ['ts1' , "ts3"],
+            mockTests : ["Mk1" , "Mk2"],
         }
     ],
     history: [

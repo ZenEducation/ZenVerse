@@ -159,7 +159,7 @@ export default [
     icon: mdiHelpCircle,
   },
   {
-    to: "/tests",
+    to: "/examPortal/tests",
     label: "Tests",
     icon: mdiAbTesting,
   }

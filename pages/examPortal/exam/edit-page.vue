@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import ExamNav from '~~/components/Exam/Exam-Nav.vue'
-import SideBar from '~~/components/Exam/Side-Bar.vue'
-import PageContent from '~~/components/Exam/Page-Content.vue'
+import ExamNav from '~~/components/ExamPortal/Exam/Exam-Nav.vue'
+import SideBar from '~~/components/ExamPortal/Exam/Side-Bar.vue'
+import PageContent from '~~/components/ExamPortal/Exam/Page-Content.vue'
 export default {
   components: { ExamNav, SideBar, PageContent },
 }

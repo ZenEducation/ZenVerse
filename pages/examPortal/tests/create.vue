@@ -21,7 +21,7 @@ let form = reactive({
 })
 
 const onCancel = () => {
-    router.push('/tests')
+    router.push('/examPortal/tests')
 }
 </script>
 

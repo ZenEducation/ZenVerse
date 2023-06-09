@@ -31,94 +31,35 @@ const isModalEnableActive = ref(false);
 const items = ref(mainStore.learners);
 
 const uniqueList = () => {
-  let uniqueCourses = [];
-  let uniquebundle = [];
-  let uniquetestSerieses = [];
-  let uniquemockTests = [];
+  let uniqueProducts = [];
 
   items.value.forEach((obj) => {
-    if (Array.isArray(obj.courses)) {
-      obj.courses.forEach((item) => {
-        if (!uniqueCourses.includes(item)) {
-          uniqueCourses.push(item);
-        }
-      });
-    }
-    if (Array.isArray(obj.bundle)) {
-      obj.bundle.forEach((item) => {
-        if (!uniquebundle.includes(item)) {
-          uniquebundle.push(item);
-        }
-      });
-    }
-    if (Array.isArray(obj.mockTests)) {
-      obj.mockTests.forEach((item) => {
-        if (!uniquemockTests.includes(item)) {
-          uniquemockTests.push(item);
-        }
-      });
-    }
-    if (Array.isArray(obj.testSerieses)) {
-      obj.testSerieses.forEach((item) => {
-        if (!uniquetestSerieses.includes(item)) {
-          uniquetestSerieses.push(item);
+    if (Array.isArray(obj.products)) {
+      obj.products.forEach((item) => {
+        if (!uniqueProducts.includes(item)) {
+          uniqueProducts.push(item);
         }
       });
     }
   });
-
-  return { uniqueCourses, uniquebundle, uniquemockTests, uniquetestSerieses };
+  return { uniqueProducts };
 };
 
-const courseSearchQuery = ref("");
-const bundleSearchQuery = ref("");
-const MTSearchQuery = ref("");
-const TSSearchQuery = ref("");
+const productSearchQuery = ref("");
 
-const filteredCourses = computed(() => {
-  let filtered = uniqueList().uniqueCourses;
-  if (courseSearchQuery.value.length > 0) {
+const filteredProducts = computed(() => {
+  let filtered = uniqueList().uniqueProducts;
+  if (productSearchQuery.value.length > 0) {
     filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(courseSearchQuery.value.toLowerCase());
+      return item
+        .toLowerCase()
+        .includes(productSearchQuery.value.toLowerCase());
     });
   }
   return filtered;
 });
 
-const filteredBundles = computed(() => {
-  let filtered = uniqueList().uniquebundle;
-  if (bundleSearchQuery.value.length > 0) {
-    filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(bundleSearchQuery.value.toLowerCase());
-    });
-  }
-  return filtered;
-});
-
-const filteredMTs = computed(() => {
-  let filtered = uniqueList().uniquemockTests;
-  if (MTSearchQuery.value.length > 0) {
-    filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(MTSearchQuery.value.toLowerCase());
-    });
-  }
-  return filtered;
-});
-
-const filteredTSs = computed(() => {
-  let filtered = uniqueList().uniquetestSerieses;
-  if (TSSearchQuery.value.length > 0) {
-    filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(TSSearchQuery.value.toLowerCase());
-    });
-  }
-  return filtered;
-});
-
-const selectedCourses = ref([]);
-const selectedbundles = ref([]);
-const selectedMTs = ref([]);
-const selectedTSs = ref([]);
+const selectedProducts = ref([]);
 
 const leadStatusOptions = [
   "All",
@@ -160,10 +101,10 @@ const resetfilter = () => {
   LastLoginFilterModelActive.value = false;
   userSegmentSelected.value = "All";
   leadStatusSelected.value = "All";
-  selectedCourses.value = [];
-  selectedbundles.value = [];
-  selectedMTs.value = [];
-  selectedTSs.value = [];
+  selectedProducts.value = [];
+  nes.value[7] = false;
+  nes.value[6] = false;
+  nes.value[1] = false;
 };
 
 const filteredItems = computed(() => {
@@ -254,38 +195,13 @@ const filteredItems = computed(() => {
     });
   }
 
-  if ((selectedCourses.value.length > 0) & (selectedCourses != ["on"])) {
-    const set1 = new Set(selectedCourses.value);
+  if ((selectedProducts.value.length > 0) & (selectedProducts != ["on"])) {
+    const set1 = new Set(selectedProducts.value);
 
     filtered = filtered.filter((item) => {
-      return item.courses.some((element) => set1.has(element));
+      return item.products.some((element) => set1.has(element));
     });
   }
-
-  if ((selectedbundles.value.length > 0) & (selectedbundles != ["on"])) {
-    const set1 = new Set(selectedbundles.value);
-
-    filtered = filtered.filter((item) => {
-      return item.bundle.some((element) => set1.has(element));
-    });
-  }
-
-  if ((selectedMTs.value.length > 0) & (selectedMTs != ["on"])) {
-    const set1 = new Set(selectedMTs.value);
-
-    filtered = filtered.filter((item) => {
-      return item.mockTests.some((element) => set1.has(element));
-    });
-  }
-
-  if ((selectedTSs.value.length > 0) & (selectedTSs != ["on"])) {
-    const set1 = new Set(selectedTSs.value);
-
-    filtered = filtered.filter((item) => {
-      return item.testSerieses.some((element) => set1.has(element));
-    });
-  }
-
   if (leadStatusSelected.value != "All") {
     filtered = filtered.filter((item) => {
       return item.leadStatus == leadStatusSelected.value;
@@ -335,203 +251,6 @@ const nes = ref([]);
 </script>
 
 <template>
-  <div
-    v-if="isMoreModalActive"
-    class="fixed z-20 top-0 right-0 w-80 max-w-md h-full bg-gray-200 overflow-scroll"
-  >
-    <div class="flex px-3 justify-between pt-16 h-ma">
-      <p class="leading-8 font-medium text-lg">More Filters</p>
-      <BaseIcon :path="mdiClose" @click="isMoreModalActive = false" />
-    </div>
-    <div class="flex flex-col mb-8">
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>Courses</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[1] = true"
-            v-if="!nes[1]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[1] = false"
-            v-if="nes[1]"
-          />
-        </div>
-        <div v-if="nes[1]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <PremFormControl v-model="courseSearchQuery" />
-          </PremFormField>
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in filteredCourses">
-              <input
-                type="checkbox"
-                :value="item"
-                class="my-2"
-                v-model="selectedCourses"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>Bundles</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[2] = true"
-            v-if="!nes[2]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[2] = false"
-            v-if="nes[2]"
-          />
-        </div>
-        <div v-if="nes[2]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <PremFormControl v-model="bundleSearchQuery" />
-          </PremFormField>
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in filteredBundles">
-              <input
-                type="checkbox"
-                :value="item"
-                class="my-2"
-                v-model="selectedbundles"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>Mock Tests</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[3] = true"
-            v-if="!nes[3]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[3] = false"
-            v-if="nes[3]"
-          />
-        </div>
-        <div v-if="nes[3]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <PremFormControl v-model="MTSearchQuery" />
-          </PremFormField>
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in filteredMTs">
-              <input
-                type="checkbox"
-                :value="item"
-                class="my-2"
-                v-model="selectedMTs"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>Test Series</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[5] = true"
-            v-if="!nes[5]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[5] = false"
-            v-if="nes[5]"
-          />
-        </div>
-        <div v-if="nes[5]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <PremFormControl v-model="TSSearchQuery" />
-          </PremFormField>
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in filteredTSs">
-              <input
-                type="checkbox"
-                :value="item"
-                class="my-2"
-                v-model="selectedTSs"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>Lead Status</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[6] = true"
-            v-if="!nes[6]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[6] = false"
-            v-if="nes[6]"
-          />
-        </div>
-        <div v-if="nes[6]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in leadStatusOptions">
-              <input
-                type="radio"
-                :value="item"
-                class="my-2"
-                v-model="leadStatusSelected"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-      <div class="border-b-2 border-b-[#000000] mt-0">
-        <div class="flex justify-between items-center p-2 h-12 bg-slate-100">
-          <p>User Segment</p>
-          <BaseIcon
-            :path="mdiPlusCircleOutline"
-            @click="nes[7] = true"
-            v-if="!nes[7]"
-          />
-          <BaseIcon
-            :path="mdiMinusCircleOutline"
-            @click="nes[7] = false"
-            v-if="nes[7]"
-          />
-        </div>
-        <div v-if="nes[7]" class="p-4">
-          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-            <label v-for="item in userSegmentOptions">
-              <input
-                type="radio"
-                :value="item"
-                class="my-2"
-                v-model="userSegmentSelected"
-              />
-              {{ item }}
-              <br />
-            </label>
-          </PremFormField>
-        </div>
-      </div>
-    </div>
-  </div>
   <CardBoxModal
     v-model="isModalActive"
     title="Edit Learners"
@@ -685,7 +404,7 @@ const nes = ref([]);
       </div>
       <div class="relative mr-4">
         <div
-          @click="MembershipFilterModelActive = !MembershipFilterModelActive"
+          @click="nes[1] = !nes[1]"
           class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
         >
           <p
@@ -693,30 +412,94 @@ const nes = ref([]);
             tabindex="-1"
             class="break-words text-body text-darkSlate01 false flex-grow leading-none"
           >
-            Membership Status
+            Products
           </p>
         </div>
         <div
           class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-          v-if="MembershipFilterModelActive"
+          v-if="nes[1]"
         >
-          <PremFormControl
-            :options="membershipOptions"
-            v-model="membershipSelectedFilter"
-          />
+          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+            <PremFormControl
+              v-model="productSearchQuery"
+              placeholder="Search...."
+            />
+          </PremFormField>
+          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+            <label v-for="item in filteredProducts">
+              <input
+                type="checkbox"
+                :value="item"
+                class="my-2"
+                v-model="selectedProducts"
+              />
+              {{ item }}
+              <br />
+            </label>
+          </PremFormField>
         </div>
       </div>
-      <div
-        class="flex-center mr-4 p-[0.6rem] border border-black dark:border-white cursor-pointer leading-none"
-        @click="isMoreModalActive = !isMoreModalActive"
-      >
-        <p
-          role=""
-          tabindex="-1"
-          class="break-words text-body text-darkSlate01 false"
+      <div class="relative mr-4">
+        <div
+          @click="nes[6] = !nes[6]"
+          class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
         >
-          More
-        </p>
+          <p
+            role=""
+            tabindex="-1"
+            class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+          >
+            Lead Status
+          </p>
+        </div>
+        <div
+          class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+          v-if="nes[6]"
+        >
+          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+            <label v-for="item in leadStatusOptions">
+              <input
+                type="radio"
+                :value="item"
+                class="my-2"
+                v-model="leadStatusSelected"
+              />
+              {{ item }}
+              <br />
+            </label>
+          </PremFormField>
+        </div>
+      </div>
+      <div class="relative mr-4">
+        <div
+          @click="nes[7] = !nes[7]"
+          class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+        >
+          <p
+            role=""
+            tabindex="-1"
+            class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+          >
+            User Segment
+          </p>
+        </div>
+        <div
+          class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+          v-if="nes[7]"
+        >
+          <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
+            <label v-for="item in userSegmentOptions">
+              <input
+                type="radio"
+                :value="item"
+                class="my-2"
+                v-model="userSegmentSelected"
+              />
+              {{ item }}
+              <br />
+            </label>
+          </PremFormField>
+        </div>
       </div>
     </div>
 

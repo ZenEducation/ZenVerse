@@ -75,10 +75,7 @@ const state = () => ({
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: true,
-            courses:["course1" , "course2" , "course3" , "course4"],
-            bundle:['bundle1' , "bundle2" , "bundle3" , "bundle4"],
-            testSerieses: ['ts1' , "ts2" , "ts3"],
-            mockTests : ["Mk1" , "Mk2" , "Mk3"],
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
             leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
             userSegment : 'Returning' // Free, Trial, Paid,Returning
 
@@ -93,10 +90,7 @@ const state = () => ({
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: false,
-            courses:["course1" , "course2" , "course3" ],
-            bundle:['bundle1' , "bundle2" , "bundle4"],
-            testSerieses: ['ts1' , "ts2" ],
-            mockTests : [ "Mk2" , "Mk3"],
+            products:["course1" , "mt1" , "bundle1"],
             leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
             userSegment : 'Free' // Free, Trial, Paid,
         },
@@ -110,10 +104,7 @@ const state = () => ({
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: true,
-            courses:["course1" , "course4"],
-            bundle:["bundle3" , "bundle4"],
-            testSerieses: ['ts1' , "ts3"],
-            mockTests : [ "Mk2" , "Mk3"],
+            products:[ "ts1" , "bundle1"],
             leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
             userSegment : 'Paid' // Free, Trial, Paid,
         },
@@ -127,10 +118,7 @@ const state = () => ({
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
             isEnabled: false,
-            courses:["course1" , "course4"],
-            bundle:['bundle1' , "bundle2" ],
-            testSerieses: ['ts1' , "ts3"],
-            mockTests : ["Mk1" , "Mk2"],
+            products:["course1" , "mt1" ],
             leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
             userSegment : "Trial" // Free, Trial, Paid,
         }
@@ -148,10 +136,7 @@ const state = () => ({
             isEnabled: true,
             commitionRate:50,
             isLifelong : true ,
-            courses:["course1" , "course14"],
-            bundle:['bundle1' , "bundle22" ],
-            testSerieses: ['ts23' , "ts43"],
-            mockTests : ["Mk1" , "Mk2"],
+            products:["course1"  , "bundle1"],
             leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
             userSegment : "Paid" // Free, Trial, Paid,
         },
@@ -165,12 +150,9 @@ const state = () => ({
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: false,
-            commitionRate:50,
+            commitionRate:25,
             isLifelong : true ,
-            courses:["course1" , "course6"],
-            bundle:['bundle1' , "bundle3" ],
-            testSerieses: ['ts9' , "ts12"],
-            mockTests : ["Mk2" , "Mk5"],
+            products:["course1" ],
             leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
             userSegment : "Returning" // Free, Trial, Paid,
         },
@@ -184,12 +166,9 @@ const state = () => ({
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: true,
-            commitionRate:50,
+            commitionRate:20,
             isLifelong : true ,
-            courses:["course1" , "course7"],
-            bundle:['bundle1' , "bundle6" ],
-            testSerieses: ['ts1' , "ts3"],
-            mockTests : ["Mk1" , "Mk8"],
+            products:["course1" ],
             leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
             userSegment : "Free" // Free, Trial, Paid,
         },
@@ -203,12 +182,9 @@ const state = () => ({
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
             isEnabled: false,
-            commitionRate:50,
+            commitionRate:18,
             isLifelong : false ,
-            courses:["course1" , "course2"],
-            bundle:['bundle1' , "bundle4" ],
-            testSerieses: ['ts1' , "ts6"],
-            mockTests : ["Mk10" , "Mk12"],
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
             leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
             userSegment : "Trial" // Free, Trial, Paid,
         }
@@ -225,10 +201,8 @@ const state = () => ({
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
             isEnabled: true,
-            courses:["course1" , "course14"],
-            bundle:['bundle1' , "bundle22" ],
-            testSerieses: ['ts23' , "ts43"],
-            mockTests : ["Mk1" , "Mk2"],
+            products:["course1" ,  "bundle1"],
+
         },
         {
             id: 2,
@@ -241,10 +215,7 @@ const state = () => ({
             joinedOn: 'Mar 03, 2021',
             role:'Super Admin',
             isEnabled: false,
-            courses:["course1" , "course6"],
-            bundle:['bundle1' , "bundle3" ],
-            testSerieses: ['ts9' , "ts12"],
-            mockTests : ["Mk2" , "Mk5"],
+            products:["course1" , "mt1" ],
         },
         {
             id: 3,
@@ -257,10 +228,8 @@ const state = () => ({
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
             isEnabled: true,
-            courses:["course1" , "course7"],
-            bundle:['bundle1' , "bundle6" ],
-            testSerieses: ['ts1' , "ts3"],
-            mockTests : ["Mk1" , "Mk8"],
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+
         },
         {
             id: 4,
@@ -273,10 +242,8 @@ const state = () => ({
             joinedOn: 'Mar 11, 2021',
             role:'Super Admin',
             isEnabled: false,
-            courses:["course1" , "course2"],
-            bundle:['bundle1' , "bundle4" ],
-            testSerieses: ['ts1' , "ts6"],
-            mockTests : ["Mk10" , "Mk12"],
+            products:[ "ts1" , "bundle1"],
+
         }
     ],
     instructors: [
@@ -290,10 +257,8 @@ const state = () => ({
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: true,
-            courses:["course1" , "course2"],
-            bundle:['bundle1' , "bundle4" ],
-            testSerieses: ['ts1' , "ts6"],
-            mockTests : ["Mk10" , "Mk12"],
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+
         },
         {
             id: 2,
@@ -305,10 +270,8 @@ const state = () => ({
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: false,
-            courses:["course1" , "course6"],
-            bundle:['bundle1' , "bundle3" ],
-            testSerieses: ['ts9' , "ts12"],
-            mockTests : ["Mk2" , "Mk5"],
+            products:["course1" , "bundle1"],
+
         },
         {
             id: 3,
@@ -320,10 +283,8 @@ const state = () => ({
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
             isEnabled: true,
-            courses:["course1" , "course14"],
-            bundle:['bundle1' , "bundle22" ],
-            testSerieses: ['ts23' , "ts43"],
-            mockTests : ["Mk1" , "Mk2"],
+            products:["course1" , "ts1" , "bundle1"],
+
         },
         {
             id: 4,
@@ -335,10 +296,8 @@ const state = () => ({
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
             isEnabled: false,
-            courses:["course1" , "course4"],
-            bundle:['bundle1' , "bundle2" ],
-            testSerieses: ['ts1' , "ts3"],
-            mockTests : ["Mk1" , "Mk2"],
+            products:["course1" , "mt1" ],
+
         }
     ],
     history: [

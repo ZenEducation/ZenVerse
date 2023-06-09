@@ -292,7 +292,7 @@ const isMoreModalActive = ref(true);
       class="form-input w-full pl-9 focus:border-slate-300"
       type="search"
       v-model="searchQuery"
-      placeholder="Search by Name, Email or Mobile Number"
+      placeholder="Search by Name, Email , commission rate or Mobile Number"
     />
     <button class="absolute inset-0 right-auto group" aria-label="Search">
       <svg

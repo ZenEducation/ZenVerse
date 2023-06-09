@@ -95,18 +95,17 @@ const deleteChaptrerName = () => {
   if (editedChapterIndex.value !== -1) {
     chapters.splice(editedChapterIndex.value, 1);
     editedChapterIndex.value = -1;
-    isUntitleFieldVisible.value = true;
+    isUntitleFieldVisible.value = false;
     chapterName.value = "Untitled Chapter";
   }
   if (chapters.length === 0) {
     isDivVisible.value = false;
-    isUntitleFieldVisible.value = true;
+    isUntitleFieldVisible.value = false;
     editedChapterIndex.value = -1;
     chapterName.value = "Untitled Chapter";
     return;
   }
-  let index = chapters.indexOf(chapterName.value)
-  chapters.splice(index,1);
+  chapters.filter(item => item != chapterName.value)
 };
 
 let limit = chapters.length;
@@ -299,13 +298,13 @@ const previewMenu = {
           </div> -->
         </SectionTitleLineWithButton>
         <div v-if="layoutStore.currAsideMenu === 'Curriculum'" class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-6">
-          <CardBox class="lg:col-span-3 xl:col-span-2">
-            <div>
+          <CardBox class="lg:col-span-3 xl:col-span-2 overflow-y-auto" style="height: 400px;">
+            <div> 
               <BaseButton
                 v-if="isUntitleFieldVisible"
                 :label="chapterName ? chapterName : 'New Chapter'"
                 color="contrast"
-                :styles="['w-full', 'font-medium']"
+              :styles="['w-full', 'font-medium']"
               />
             </div>
             <BaseDivider />
@@ -375,7 +374,7 @@ const previewMenu = {
                   ? 'Edit' + ' : ' + chapterName
                   : 'New Chapter' + ' : ' + chapterName
               "
-            />
+            /> 
             <PremFormField label="Chapter title" horizontal>
               <input
                 v-model="chapterName"

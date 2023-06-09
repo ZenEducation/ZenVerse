@@ -404,6 +404,29 @@ const nes = ref([]);
       </div>
       <div class="relative mr-4">
         <div
+          @click="MembershipFilterModelActive = !MembershipFilterModelActive"
+          class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+        >
+          <p
+            role=""
+            tabindex="-1"
+            class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+          >
+            Membership Status
+          </p>
+        </div>
+        <div
+          class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+          v-if="MembershipFilterModelActive"
+        >
+          <PremFormControl
+            :options="membershipOptions"
+            v-model="membershipSelectedFilter"
+          />
+        </div>
+      </div>
+      <div class="relative mr-4">
+        <div
           @click="nes[1] = !nes[1]"
           class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
         >

@@ -153,8 +153,8 @@ export default [
     icon: mdiHelpCircle,
   },
   {
-    href: "",
-    label: "About",
+    to: "/blog?category=all",
+    label: "Blog",
     icon: mdiHelpCircle,
   },
 ];

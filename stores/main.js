@@ -74,7 +74,11 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+            leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Returning' // Free, Trial, Paid,Returning
+
         },
         {
             id: 2,
@@ -85,7 +89,10 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            products:["course1" , "mt1" , "bundle1"],
+            leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Free' // Free, Trial, Paid,
         },
         {
             id: 3,
@@ -96,7 +103,10 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            products:[ "ts1" , "bundle1"],
+            leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
+            userSegment : 'Paid' // Free, Trial, Paid,
         },
         {
             id: 4,
@@ -107,7 +117,10 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            products:["course1" , "mt1" ],
+            leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Trial" // Free, Trial, Paid,
         }
     ],
     affiliates: [
@@ -120,7 +133,12 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            commitionRate:50,
+            isLifelong : true ,
+            products:["course1"  , "bundle1"],
+            leadStatus:"Follow up",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Paid" // Free, Trial, Paid,
         },
         {
             id: 2,
@@ -131,7 +149,12 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            commitionRate:25,
+            isLifelong : true ,
+            products:["course1" ],
+            leadStatus:"Not Interested",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Returning" // Free, Trial, Paid,
         },
         {
             id: 3,
@@ -142,7 +165,12 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            commitionRate:20,
+            isLifelong : true ,
+            products:["course1" ],
+            leadStatus:"Converted",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Free" // Free, Trial, Paid,
         },
         {
             id: 4,
@@ -153,7 +181,12 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            commitionRate:18,
+            isLifelong : false ,
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+            leadStatus:"Open",//can be Open, Follow up, Converted, Not Interested
+            userSegment : "Trial" // Free, Trial, Paid,
         }
     ],
     admins: [
@@ -167,7 +200,9 @@ const state = () => ({
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
-            isEnabled: true
+            isEnabled: true,
+            products:["course1" ,  "bundle1"],
+
         },
         {
             id: 2,
@@ -179,7 +214,8 @@ const state = () => ({
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
             role:'Super Admin',
-            isEnabled: false
+            isEnabled: false,
+            products:["course1" , "mt1" ],
         },
         {
             id: 3,
@@ -191,7 +227,9 @@ const state = () => ({
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
             role:"Admin",
-            isEnabled: true
+            isEnabled: true,
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+
         },
         {
             id: 4,
@@ -203,7 +241,9 @@ const state = () => ({
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
             role:'Super Admin',
-            isEnabled: false
+            isEnabled: false,
+            products:[ "ts1" , "bundle1"],
+
         }
     ],
     instructors: [
@@ -216,7 +256,9 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Mar 03, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            products:["course1" , "mt1" , "ts1" , "bundle1"],
+
         },
         {
             id: 2,
@@ -227,7 +269,9 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'Dec 01, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: false
+            isEnabled: false,
+            products:["course1" , "bundle1"],
+
         },
         {
             id: 3,
@@ -238,7 +282,9 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 18, 2021',
             joinedOn: 'Mar 03, 2021',
-            isEnabled: true
+            isEnabled: true,
+            products:["course1" , "ts1" , "bundle1"],
+
         },
         {
             id: 4,
@@ -249,7 +295,9 @@ const state = () => ({
             mobile: '+91-9987654321',
             lastLogin: 'May 04, 2021',
             joinedOn: 'Mar 11, 2021',
-            isEnabled: false
+            isEnabled: false,
+            products:["course1" , "mt1" ],
+
         }
     ],
     history: [

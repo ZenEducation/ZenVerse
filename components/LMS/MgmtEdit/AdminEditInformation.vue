@@ -4,39 +4,39 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="Name">
         <FormControl
-          :model-value="learner.profile.name"
-          placeholder="Enter learner Name"
+          :model-value="Admin.profile.name"
+          placeholder="Enter Admin Name"
         />
       </FormField>
 
       <FormField label="E-mail">
         <FormControl
-          :model-value="learner.profile.email"
-          placeholder="Enter learner email"
+          :model-value="Admin.profile.email"
+          placeholder="Enter Admin email"
         />
       </FormField>
 
       <FormField label="Mobile">
         <FormControl
-          :model-value="learner.profile.mobile"
-          placeholder="Enter learner Mobile"
+          :model-value="Admin.profile.mobile"
+          placeholder="Enter Admin Mobile"
         />
       </FormField>
       <FormField label="Role">
         <FormControl
-          :model-value="learner.profile.role"
+          :model-value="Admin.profile.role"
           :options="options.profileRoles"
         />
       </FormField>
       <FormField label="State">
         <FormControl
-          :model-value="learner.profile.state"
+          :model-value="Admin.profile.state"
           :options="options.state"
         />
       </FormField>
       <FormField label="Language">
         <FormControl
-          :model-value="learner.profile.language"
+          :model-value="Admin.profile.language"
           :options="options.language"
         />
       </FormField>
@@ -49,13 +49,13 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="User Segment">
         <FormControl
-          :model-value="learner.AdditionalDetails.UserSegment"
+          :model-value="Admin.AdditionalDetails.UserSegment"
           :options="options.UserSegment"
         />
       </FormField>
       <FormField label="Lead Status">
         <FormControl
-          :model-value="learner.AdditionalDetails.LeadStatus"
+          :model-value="Admin.AdditionalDetails.LeadStatus"
           :options="options.LeadStatus"
         />
       </FormField>
@@ -67,14 +67,6 @@
       <div class="flex flex-row-reverse">
         <BaseButton color="info" label="Save" />
       </div>
-    </div>
-
-
-
-
-    <h2 class="text-2xl mt-8 font-semibold">Downloaded Courses</h2>
-    <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      No Downloaded Courses
     </div>
 
     <h2 class="text-2xl mt-8 font-semibold">Change Password</h2>
@@ -98,20 +90,22 @@
 
     <h2 class="text-2xl mt-8 font-semibold">Referral Details</h2>
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p v-for="(value , key) in learner.ReferralDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
+      <p v-for="(value , key) in Admin.ReferralDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
 
     </div>
 
     <h2 class="text-2xl mt-8 font-semibold">UTM Details</h2>
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p v-for="(value , key) in learner.UTMDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
+      <p v-for="(value , key) in Admin.UTMDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
 
     </div>
+
     <h2 class="text-2xl mt-8 font-semibold">Login Details</h2>
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <p class="py-2">Number of Logins : <span class="font-bold">60</span></p>
       <p class="py-2">Login Device Reset Count : <span class="font-bold">4</span></p>
       <p class="py-2">last login date : <span class="font-bold">{{new Date("Mar 03 , 2023")}}</span></p>
+
       <form class="relative" @submit.prevent="submit">
         <label for="msg-search" class="sr-only">Search</label>
         <input
@@ -185,6 +179,7 @@
       </div>
     </div>
 
+
   </div>
 </template>
 
@@ -198,7 +193,7 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 
 const props = defineProps({
-  learner: {
+  Admin: {
     type: Object,
     required: true,
   },
@@ -207,14 +202,11 @@ const props = defineProps({
     required: true,
   },
 });
-
 const searchQuery = ref("");
-
 const perPage = 5;
 const totalPages = ref(1);
 const currentPage = ref(0);
-
-const items = ref(props?.learner?.LoginDetails?.['last logins'])
+const items = ref(props?.Admin?.LoginDetails?.['last logins'])
 
 const filteredItems = computed(()=>{
   let filtered = items.value;
@@ -232,8 +224,7 @@ const filteredItems = computed(()=>{
   const end = (currentPage.value + 1) * perPage;
 
   return filtered.slice(start, end);
-})
-
+  })
 </script>
 
 <style lang="scss" scoped></style>

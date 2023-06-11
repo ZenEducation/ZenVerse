@@ -1,4 +1,8 @@
 export default defineNuxtConfig({
+  sourcemap: {
+    client: true,
+    server: false
+  },
   ssr: false,
   srcDir: "./",
   css: ["@/assets/css/main.css"],
@@ -45,6 +49,9 @@ export default defineNuxtConfig({
       // global: {}
       "window.global": {},
     },
+    build: {
+      chunkSizeWarningLimit: 2000
+    },
   },
 
   postcss: {
@@ -54,7 +61,6 @@ export default defineNuxtConfig({
     },
   },
 
-  build: {},
 
   // target: "static"
 });

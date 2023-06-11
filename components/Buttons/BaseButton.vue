@@ -76,6 +76,7 @@ const computedType = computed(() => {
   return null;
 });
 
+
 const labelClass = computed(() =>
   props.small && props.icon ? "px-1" : "px-2"
 );
@@ -120,6 +121,7 @@ const componentClass = computed(() => {
       :class="componentClass"
       :href="href"
       :type="computedType"
+      
       :to="to"
       :target="target"
       :disabled="disabled"

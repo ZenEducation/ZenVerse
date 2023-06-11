@@ -32,6 +32,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  iconPasswordEye: {
+    type: String,
+    default: null,
+  },
   options: {
     type: Array,
     default: null,
@@ -50,7 +54,14 @@ const props = defineProps({
   ctrlKFocus: Boolean,
 });
 
-const emit = defineEmits(["update:modelValue", "setRef"]);
+const emit = defineEmits([
+  "update:modelValue",
+  "setRef",
+  "togglePasswordVisibility",
+]);
+const toggle = () => {
+  emit("togglePasswordVisibility");
+};
 
 const computedValue = computed({
   get: () => props.modelValue,
@@ -169,6 +180,17 @@ if (props.ctrlKFocus) {
       :class="inputElClass"
     />
     <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
-    <FormControlIcon v-if="iconRight" :icon="iconRight" :h="controlIconH" />
+    <FormControlIcon
+      v-if="iconRight"
+      :iconRight="iconRight"
+      :h="controlIconH"
+    />
+    <button @click="toggle()" class="cursor-pointer z-50 inline-block">
+      <FormControlIcon
+        v-if="iconPasswordEye"
+        :iconPasswordEye="iconPasswordEye"
+        :h="controlIconH"
+      />
+    </button>
   </div>
 </template>

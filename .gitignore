@@ -8,7 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 .nuxt
 .nuxt/types
-models
 
 node_modules
 
@@ -27,7 +26,7 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-
+package-lock.json
 
 node_modules
 .DS_Store

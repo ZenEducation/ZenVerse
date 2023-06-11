@@ -17,6 +17,9 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiFilePdfBox,
+  mdiImport ,
+  mdiDownloadBoxOutline
 } from "@mdi/js";
 
 export default [
@@ -57,6 +60,36 @@ export default [
     to: "/pps/pricingView",
     label: "Pricing layout",
     icon: mdiBarcode,
+  },
+  {
+    to: "/LMS/uploadfiles",
+    label: "Add New Lesson",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/audiofile",
+    label: "Add Audio",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/pdffiles",
+    label: "Add Pdf",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/pdfView",
+    label: "Pdf View",
+    icon: mdiFilePdfBox,
+  },
+  {
+    to: "/LMS/import",
+    label: "Add Bulk Importer",
+    icon: mdiImport,
+  },
+  {
+    to: "/LMS/download",
+    label: "Add Download",
+    icon: mdiDownloadBoxOutline,
   },
   {
     label: "Dropdown",
@@ -120,6 +153,11 @@ export default [
         label: "Whiteboard",
         icon: mdiOpenInNew,
       },
+      {
+        to: "/whiteboard/fabric",
+        label: "Whiteboard Fabric",
+        icon: mdiOpenInNew,
+      },
     ],
   },
   {
@@ -152,4 +190,11 @@ export default [
     label: "About",
     icon: mdiHelpCircle,
   },
+
+  {
+    to: "/LMS/LearnerMgmt",
+    label: "Learner Management",
+    icon: mdiAccountCircle,
+  },
+
 ];

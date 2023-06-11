@@ -393,7 +393,7 @@ const previewMenu = {
               :options="checkboxOptions"
             />
 
-            <div v-if="layoutStore.currAsideMenu === 'Curriculum'" class="flex item-center space-x-3 my-10">
+            <div v-if="layoutStore.currAsideMenu === 'Curriculum'" class="flex item-center my-10 flex-wrap xs:grid grid-cols-1 gap-3">
             <div v-if="isDivVisible">
               <BaseButton
                 color="danger"

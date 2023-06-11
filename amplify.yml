@@ -11,9 +11,9 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install
+        # - npm install
         - npm ci # ci = clean install, its needed to install the exact packages on linux
-        - npm run prepBuild
+        # - npm run prepBuild
     build:
       commands:
         - npm run generate

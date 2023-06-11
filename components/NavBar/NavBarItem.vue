@@ -14,7 +14,13 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  selectedItem: {
+    type: Object,
+    default: null,
+  },
 });
+
+const mainStore = useMainStore();
 
 const emit = defineEmits(["menu-click"]);
 
@@ -43,9 +49,16 @@ const componentClass = computed(() => {
   if (props.item.isDesktopNoLabel) {
     base.push("lg:w-16", "lg:justify-center");
   }
-
+  // base.push("hover:border-b border-blue-500")
   return base;
 });
+
+const selectedClass = computed(() => {
+    const newbase = [
+    mainStore.selectedItem === item.label ? "selected" : ""
+]
+return newbase
+})
 
 const itemLabel = computed(() =>
   props.item.isCurrentUser ? useMainStore().userName : props.item.label
@@ -59,6 +72,13 @@ const menuClick = (event) => {
   if (props.item.menu) {
     isDropdownActive.value = !isDropdownActive.value;
   }
+  
+  if(props.item.label != "Preview") {
+  mainStore.selectedItem = props.item.label
+  }
+  // mainStore.selectedItem == props.item.label ? componentClass.value.push("border-b border-blue-500"): null
+
+  console.log(props.item.label)
 };
 
 const menuClickDropdown = (event, item) => {
@@ -86,31 +106,31 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<template>
+<template> 
   <BaseDivider v-if="item.isDivider" nav-bar />
-  <component
+  <component id="menuclick"
     :is="is"
     v-else
     ref="root"
-    class="block lg:flex items-center relative cursor-pointer"
-    :class="componentClass"
+    class="block lg:flex items-center justify-center relative cursor-pointer"
+    :class="[componentClass, mainStore.selectedItem == props.item.label && mainStore.selectedItem != 'Preview' ? 'border-b border-blue-500' : '']"
     :to="item.to ?? null"
     :href="item.href ?? null"
     :target="item.target ?? null"
     @click="menuClick"
-  >
+  > 
     <div
       class="flex items-center"
       :class="{
         'bg-gray-100 dark:bg-slate-800 lg:bg-transparent lg:dark:bg-transparent p-3 lg:p-0':
           item.menu,
       }"
-    >
+    > 
       <UserAvatarCurrentUser
         v-if="item.isCurrentUser"
         class="w-6 h-6 mr-3 inline-flex"
       />
-      <BaseIcon v-if="item.icon" :path="item.icon" class="transition-colors" />
+      <BaseIcon v-if="item.icon" :path="item.icon" class="transition-colors" /> 
       <span
         class="px-2 transition-colors"
         :class="{ 'lg:hidden': item.isDesktopNoLabel && item.icon }"
@@ -121,13 +141,19 @@ onBeforeUnmount(() => {
         :path="isDropdownActive ? mdiChevronUp : mdiChevronDown"
         class="inline-flex transition-colors"
       />
-    </div>
+    </div> 
     <div
       v-if="item.menu"
       class="text-sm border-b border-gray-100 lg:border lg:bg-white lg:absolute lg:top-full lg:left-0 lg:min-w-full lg:z-20 lg:rounded-lg lg:shadow-lg lg:dark:bg-slate-800 dark:border-slate-700"
       :class="{ hidden: !isDropdownActive }"
     >
-      <NavBarMenuList :menu="item.menu" @menu-click="menuClickDropdown" />
+      <NavBarMenuList :menu="item.menu" @menu-click="menuClickDropdown" /> 
     </div>
   </component>
 </template>
+
+<style>
+.selected {
+  border: 1px solid red
+}
+</style>

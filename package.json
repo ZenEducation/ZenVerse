@@ -26,7 +26,7 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^1.1.20",
+    "@aws-amplify/ui-vue": "^3.1.18",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
     "@headlessui/vue": "^1.4.2",
@@ -36,8 +36,9 @@
     "@rollup/plugin-inject": "^5.0.3",
     "@rollup/plugin-terser": "^0.4.0",
     "@vuelidate/core": "^2.0.2",
+    "@vuelidate/validators": "^2.0.2",
     "@vueup/vue-quill": "^1.0.1",
-    "aws-amplify": "^2.3.0",
+    "aws-amplify": "^5.0.5",
     "chart.js": "^3.9.1",
     "fabric": "^5.3.0",
     "numeral": "^2.0.6",

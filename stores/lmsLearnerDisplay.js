@@ -8,6 +8,30 @@ const dummyData = [
     lessons: [
       {
         lessonNumber: 1,
+        lessonTitle: "Hands-On Exercises",
+        lessonContent: "...",
+        done: false,
+        src: "",
+        type:"quiz"
+      },
+      {
+        lessonNumber: 2,
+        lessonTitle: "Text Lesson",
+        lessonContent: `<h1 style="color:blue; font-size:30px" >We are learning Vue js  </h1><div style=" font-size:20px;margin:10px 0px;">I am using the test data</div><img width="300px" src="https://images.pexels.com/photos/16961970/pexels-photo-16961970/free-photo-of-bike.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" > <h2 style="color:blue; font-size:30px" >Hi I am Inajamul Hoque and I am vuejs developer  </h2> <p>You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:items-center to apply the items-center utility at only medium screen sizes and above. </p>`,
+        done: false,
+        src: "",
+        type:"text",
+      },
+      {
+        lessonNumber: 3,
+        lessonTitle: "Sample PPT File",
+        lessonContent: "...",
+        done: false,
+        src: "https://scholar.harvard.edu/files/torman_personal/files/samplepptx.pptx",
+        type:"ppt"
+      },
+      {
+        lessonNumber: 4,
         lessonTitle: "Getting Started",
         lessonContent: "...",
         done: false,
@@ -15,7 +39,7 @@ const dummyData = [
         type:"pdf",
       },
       {
-        lessonNumber: 2,
+        lessonNumber: 5,
         lessonTitle: "Basic Concepts",
         lessonContent: "...",
         done: false,
@@ -23,7 +47,7 @@ const dummyData = [
         type:"pdf"
       },
       {
-        lessonNumber: 3,
+        lessonNumber: 6,
         lessonTitle: "Video Processing Language",
         lessonContent: "...",
         done: false,
@@ -32,7 +56,7 @@ const dummyData = [
       },
     
       {
-        lessonNumber: 4,
+        lessonNumber: 7,
         lessonTitle: "We love nature",
         lessonContent: "...",
         done: false,
@@ -40,7 +64,7 @@ const dummyData = [
         type:"video"
       },
       {
-        lessonNumber: 5,
+        lessonNumber: 8,
         lessonTitle: "Audio Processing",
         lessonContent: `<h1>Get data from the text editor</h1><div>I am using the test data</div><img src="https:/images.pexels.com/photos/16349262/pexels-photo-16349262/free-photo-of-love-people-art-vintage.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" >`,
         done: false,
@@ -48,7 +72,7 @@ const dummyData = [
         type:"audio"
       },
       {
-        lessonNumber: 6,
+        lessonNumber: 9,
         lessonTitle: "Basic Audio",
         lessonContent:`<h1 class='text-black-500 text-xxl'>Hi this is Injamamul Hoque</h1>
         <div>I am working on the project</div>
@@ -57,6 +81,7 @@ const dummyData = [
         src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3",
         type:"audio"
       },
+      
     ],
   },
   {
@@ -79,7 +104,8 @@ const dummyData = [
         done: false,
         src: "https://www.antennahouse.com/hubfs/xsl-fo-sample/pdf/basic-link-1.pdf",
         type:"pdf"
-      },
+      }
+    
     ],
   },
 ];

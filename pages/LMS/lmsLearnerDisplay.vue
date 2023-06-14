@@ -11,7 +11,9 @@ const allPdfData = pdfViewerStore()
 import pdfView from "../../components/LMS/PdfView.vue"
 import audioView from "../../components/LMS/AudioView.vue"
 import videoView from "../../components/LMS/VideoView.vue"
-
+import RichTextView from "../../components/LMS/RichTextView.vue"
+import QuizView from "../../components/LMS/QuizView.vue"
+import PPTView from "../../components/LMS/PPTView.vue"
 const file = computed(()=>{
   return allPdfData.currentPDF
 })
@@ -74,6 +76,11 @@ const file = computed(()=>{
         <pdfView :source="allPdfData.currentPDF" v-if="file.type=='pdf'"  />
         <audioView  :source="allPdfData.currentPDF" v-if="file.type=='audio'" />
         <videoView  :source="allPdfData.currentPDF" v-if="file.type=='video'" />
+        <RichTextView :source="allPdfData.currentPDF" v-if="file.type=='text'" />
+        <QuizView :source="allPdfData.currentPDF" v-if="file.type=='quiz'" />
+        <PPTView :source="allPdfData.currentPDF" v-if="file.type=='ppt'" />
+
+        
       </LMSPdfViewSectionCarrier>
     </NuxtLayout>
   </div>

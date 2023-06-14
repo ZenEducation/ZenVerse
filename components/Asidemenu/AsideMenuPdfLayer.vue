@@ -10,7 +10,10 @@ import {
   mdiCircleOutline,
   mdiFilePdfBox,
   mdiMotionPlayOutline,
-  mdiMovieOpenPlay
+  mdiMovieOpenPlay,
+  mdiTextBoxOutline,
+  mdiFormatListBulleted,
+  mdiPresentationPlay
 } from "@mdi/js";
 
 const allPdfData = pdfViewerStore();
@@ -289,7 +292,7 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
           >
             {{ totalPercentageDone }}%
           </progress>
-          <p>{{ totalPercentageDone }}% complete</p>
+          <p>{{ totalPercentageDone.toFixed(0) }}% complete</p>
 
           <div class="py-4">
             <button
@@ -472,6 +475,8 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                           class="ml-1"
                           size="20"
                         />
+
+
                       </div>
 
                       <div class="">
@@ -482,7 +487,7 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                           {{ lesson.lessonTitle }}
                         </div>
 
-                        <div class="flex text-white py-1 ml-3 text-left flex">
+                        <div class="flex text-white py-1 ml-3 text-left flex justify-start items-center">
                           <BaseIcon
                             :path="mdiFilePdfBox"
                             class="cursor-pointer mr-1"
@@ -500,6 +505,25 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                             class="cursor-pointer mr-1"
                             size="20"
                             v-if="lesson.type=='video'"
+                          />
+                          <BaseIcon
+                            :path="mdiTextBoxOutline"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='text'"
+                          />
+                          
+                          <BaseIcon
+                            :path="mdiFormatListBulleted"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='quiz'"
+                          />
+                          <BaseIcon
+                            :path="mdiPresentationPlay"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='ppt'"
                           />
                           <div class="text-left uppercase">
                             {{lesson.type  }}

@@ -104,7 +104,7 @@ const itemPro = {
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionTitle custom>
         <h1 class="text-5xl lg:text-6xl font-black">Sample Pricing</h1>
         <h2 class="text-2xl">some catchy headline</h2>

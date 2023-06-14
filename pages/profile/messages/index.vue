@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <SectionMain>
       <div class="flex h-screen">
         <!-- Content area -->

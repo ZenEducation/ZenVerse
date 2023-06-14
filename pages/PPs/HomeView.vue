@@ -88,7 +88,7 @@ const productBarItems = computed(() => mainStore.products);
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton
           :icon="mdiChartTimelineVariant"

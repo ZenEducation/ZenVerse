@@ -77,7 +77,7 @@ const styleStore = useStyleStore();
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <CardBoxModal
         v-model="modalOneActive"
         title="Please confirm action"

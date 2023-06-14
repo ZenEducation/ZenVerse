@@ -31,7 +31,7 @@ function toTitleCase(txt) {
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton :icon="mdiBank" :title="category" main>
           <BaseButton

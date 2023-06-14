@@ -5,7 +5,7 @@ import SectionMain from "@/components/Sections/SectionMain.vue";
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionTitle first>Mobile & Tablet</SectionTitle>
 
       <SectionMain>

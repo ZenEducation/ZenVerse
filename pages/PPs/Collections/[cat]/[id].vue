@@ -145,7 +145,7 @@ const twoFactorEnabled = ref(true);
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main>
           <BaseButton

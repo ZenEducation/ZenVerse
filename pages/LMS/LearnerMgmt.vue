@@ -1,4 +1,3 @@
-
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import { useMainStore } from "@/stores/main";
@@ -119,7 +118,7 @@ function submitProfile() {
     </CardBox>
   </CardBoxModal>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <div
         class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
       >
@@ -147,7 +146,7 @@ function submitProfile() {
         </div>
       </div>
       <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
-        <TablesTableLearnersSample/>
+        <TablesTableLearnersSample />
       </div>
     </NuxtLayout>
   </div>

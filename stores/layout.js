@@ -9,6 +9,7 @@ export const useLayoutStore = defineStore("layout", {
     isXl: false,
     isLg: false,
     isMd: false,
+    currAsideMenu: "Curriculum",
   }),
 
   actions: {

@@ -1,4 +1,3 @@
-
 <script setup>
 import { adminPanelButtonMenu } from "@/configs/adminPanelButtonMenu.js";
 import { useMainStore } from "@/stores/main";
@@ -48,7 +47,7 @@ function submitProfile() {
 </script>
 
 <template>
-  <CardBoxModal v-model="isModalActive"  :showFooter="false" title="">
+  <CardBoxModal v-model="isModalActive" :showFooter="false" title="">
     <header
       class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
     >
@@ -111,75 +110,75 @@ function submitProfile() {
         label="Send email to User"
         :input-value="true"
       />
-      <br>
+      <br />
       <FormCheckRadio
-      name="publishingCourse"
-      label="Editing of Published courses"
-      :input-value="true"
-    />
-    <br>
-    <FormCheckRadio
-      name="askpublish"
-      label="Ask for approval for published cources"
-      :input-value="true"
-    />
-    <br>
+        name="publishingCourse"
+        label="Editing of Published courses"
+        :input-value="true"
+      />
+      <br />
+      <FormCheckRadio
+        name="askpublish"
+        label="Ask for approval for published cources"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accesslive"
-      label="Access of live recording"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accesslive"
+        label="Access of live recording"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accessdash"
-      label="Access to live dashboard"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accessdash"
+        label="Access to live dashboard"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accessmessanger"
-      label="Access to messenger"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accessmessanger"
+        label="Access to messenger"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accessband"
-      label="Access to bandwidth reports"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accessband"
+        label="Access to bandwidth reports"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accessusage"
-      label="Access to usage reports"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accessusage"
+        label="Access to usage reports"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accessreport"
-      label="Access to live test reports"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accessreport"
+        label="Access to live test reports"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-      name="accesslearner"
-      label="Access to learner details"
-      :input-value="true"
-    />
-    <br>
+      <FormCheckRadio
+        name="accesslearner"
+        label="Access to learner details"
+        :input-value="true"
+      />
+      <br />
 
-    <FormCheckRadio
-    name="accessdownload"
-    label="Access to download quiz/live tests"
-    :input-value="true"
-  />
-  <br>
+      <FormCheckRadio
+        name="accessdownload"
+        label="Access to download quiz/live tests"
+        :input-value="true"
+      />
+      <br />
 
       <div class="flex justify-end py-2">
         <BaseButtons>
@@ -189,7 +188,7 @@ function submitProfile() {
     </CardBox>
   </CardBoxModal>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <div
         class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
       >

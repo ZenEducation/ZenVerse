@@ -1,0 +1,20 @@
+{
+  "lms": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-zenverse-lms-203936-authRole",
+      "UnauthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-lms-203936-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-lms-203936-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-zenverse-lms-203936-deployment",
+      "UnauthRoleName": "amplify-zenverse-lms-203936-unauthRole",
+      "StackName": "amplify-zenverse-lms-203936",
+      "StackId": "arn:aws:cloudformation:ap-south-1:596109967064:stack/amplify-zenverse-lms-203936/94080bb0-0af3-11ee-b88a-069760dee42a",
+      "AmplifyAppId": "d3cj7wydqbt02k"
+    },
+    "categories": {
+      "auth": {
+        "zenverseb8cbb136": {}
+      }
+    }
+  }
+}

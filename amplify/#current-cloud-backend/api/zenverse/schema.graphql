@@ -1,0 +1,654 @@
+enum MCQResponses{
+  A
+  B
+  C
+  D
+  E
+}
+
+enum LMS_CourseLevel {
+  Beginner
+  Intermediate
+  Advanced
+}
+type Course @model{
+  id: ID!
+  publishStatus: CoursePublishStatus!
+}
+type LMSCourseDuration {
+  hours: Int
+  min: Int
+}
+#Drip Scheduling
+type LMSDripSchedule @model {
+  enableDripping: Boolean @default(value: "false") # Enabling the Dripping option
+  dripType: DripType # Specify the data type for dripType
+}
+
+enum DripType {
+  StudentEnrollmentDate #When Student enrolls in this course
+  StudentCourseStart #When Student accesses the course for the first time
+  On_A_specificDate #Select the date when this course will be release
+}
+#Admin, revenue partners & affiliates
+type Admin {
+  id: ID!
+  email: String!
+  name: String!
+}
+
+type Payee {
+  id: ID!
+  email: String!
+  name: String!
+}
+type Revenue @model{
+  id: ID!
+  name: String!
+  courses: [Course] 
+  payoutPercentage: Float!
+}
+
+type Affiliate @model{
+  id: ID!
+  name: String!
+  courses: [Course]
+}
+
+#pricing
+
+type Pricing @model {
+  pricing_Type: pricingType #specify the correct option
+}
+
+enum pricingType {
+  Free #offer free contents to the subscribers
+  OneTimePayment #Charges student a One time fee to access the content
+  SubscriptionCharge #Charge students recurring monthly feesfor access to the content
+  MonthlyPaymentPlan #Split the full community price into several monthly payment
+}
+type SubscriptionCharge {
+ amount: Float!
+ paidEveryMonth: Int
+ freeTrialPeriod: Boolean 
+ freeTrialPeriodDurationUnit: DurationUnit
+ freeTrialPeriodDuration: Int
+ customFirstPaymentEnabling: Boolean
+ customFirstPaymentPrice: Float
+ }
+#set additional pricing option
+type SetAdditionalPricingOption {
+  id: ID!
+  label: String
+  price: Float!
+}
+
+enum DurationUnit {
+  DAYS
+  MONTHS
+}
+
+type MonthlyPaymentPlan{
+  pricePerPayment: Int!
+  totalMonths: Int!
+  enrollmentDuration: Int!
+  buyButtonTextLabel: String!
+}
+
+#publish
+enum CoursePublishStatus {
+  DRAFT
+  PRE_ORDER
+  PUBLISHED
+}
+
+
+#Chapter in course
+
+type LearningContent @model {
+  id: ID!
+  courseId: ID! @index(name: "learningContentByCourse")
+  course: [Course]! 
+  duration: LMSCourseDuration
+  type: LearningContentType!
+}
+
+enum LearningContentType {
+  VIDEO
+  PDF
+  TEXT
+  AUDIO
+  DOWNLOAD
+  PRESENTATION
+  MULTIMEDIA
+  LIVE
+}
+
+type newLesson{
+  id: ID!
+  title: String!
+  content: String!
+  uploadAudio: String!
+  draft: Boolean
+}
+type LMSSurvey{
+  id: ID!
+  title: String!
+  content: String!
+  questions: [SurveyQuestion!]!
+}
+
+type SurveyQuestion {
+  id: ID!
+  text: String!
+  options: [SurveyOption!]!
+  answer: String
+}
+
+type SurveyOption {
+  id: ID!
+  questionId: ID!
+  key: Int
+  content: String!
+}
+
+type SurveyResponse {
+  userId: ID!
+  surveyId: ID!
+  answers: [SurveyAnswer!]!
+  totalScore: Int
+}
+
+type SurveyAnswer {
+  questionId: ID!
+  selectedOptionId: ID!
+}
+
+type LessonSetting @model{
+  id: ID!
+  courseId: ID! @index(name: "lessonByCourse")
+  course: [Course]! 
+  isFreePreview: Boolean!
+  isPrerequisite: Boolean!
+  discussionEnabled: Boolean!
+  isVideoDownloadable: Boolean!
+  lessonIconAndLabel: String
+
+}
+type LMSQuizOption @model 
+@auth(rules:[
+  { allow: owner } # Defaults to use the "owner" field
+  { allow: private, operations: [read] }
+  ])
+{ #this fits for both multi-correct and single-correct quiz
+  id: ID!
+  questionid: ID! @index(name: "optionsByMCQ")
+  key: Int #to separately identify the different options.
+  image: String #if user contains image
+  content: String!
+  val: Boolean @default(value: "false") #default value should be in double quotes even for boolean:amplify-issue
+}
+type LMSQuizResponse @model 
+@auth(rules:[
+  { allow: owner } # Defaults to use the "owner" field
+  { allow: private, operations: [update, read] }
+  ])
+{
+  userId: ID!
+  chapterId: ID
+  chapter: [MCQResponses]
+  totalScore: Int
+}
+#learner Management learner
+
+type learnerManagementLearner @model{
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+}
+
+enum LearnerRole {
+  SUPER_ADMIN #grant complete access
+  SUB_ADMIN #limited access with customisable permission
+}
+
+#user Management
+type userManagementadmin @model 
+@auth(rules:[
+  { allow: owner } # Defaults to use the "owner" field
+  { allow: private, operations: [update, read] }
+  ])
+{
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean @default(value: "false")
+  role: LearnerRole!
+}
+type userManagementInstruction @model 
+@auth(rules:[
+  { allow: owner } # Defaults to use the "owner" field
+  { allow: private, operations: [update, read] }
+  ])
+{
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  assignedCourses: [Course]! 
+  #enter more details
+  sendEmailToUser: Boolean @default(value: "false")
+  #set Permission
+  editingOfPublishedCourses: Boolean @default(value: "false")
+  askForApprovalForPublishedCourses: Boolean @default(value: "false")
+  accessOfLiveRecordings: Boolean @default(value: "false")
+  accessToSalesDashboard: Boolean @default(value: "false")
+  accessToMessenger: Boolean @default(value: "false")
+  accessToBandwidthReport: Boolean @default(value: "false")
+  accessToUsageReport: Boolean @default(value: "false")
+  accessToLiveTestReport: Boolean @default(value: "false")
+  accessToLiveClassReport: Boolean @default(value: "false")
+  accessToLearnerDetails: Boolean @default(value: "false")
+  accessToDownload_quiz_OR_liveTests: Boolean @default(value: "false")
+  accessToEnrollLearnerToAnyCourse: Boolean @default(value: "false")
+
+}
+
+type userManagementAffiliate @model @auth(rules:[
+  { allow: owner } #Defaults to use the "owner" field
+  { allow: private, operations: [update, read] }
+  ])
+{
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  commisionRate_in_Percentage: Int
+  allowCommisionOnAllCourses: Boolean
+  course: [Course]! 
+  linkAffiliatesForLimitedDays: Boolean 
+  enterNumberOfDays: Int #if true
+  sendEmailToUser: Boolean 
+
+}
+
+type LernerprofileDetails {
+  name: String!
+  email: String!
+  mobile: Int!
+  role: LearnerRoleSelect!
+  state: SelectState!
+  languange: SelectLanguage!
+
+}
+enum LearnerRoleSelect {
+  STUDENT
+  #ADD more if any
+}
+
+enum SelectLanguage{
+  English
+  Hindi
+  Telugu
+  #add or delete if any
+
+}
+
+enum SelectState{
+  AndhraPradesh
+  ArunachalPradesh
+  Assam
+  Bihar
+  Chhattisgarh
+  Goa
+  Gujarat
+  Haryana
+  HimachalPradesh
+  Jharkhand
+  Karnataka
+  Kerala
+  Maharashtra
+  MadhyaPradesh
+  Manipur
+  Meghalaya
+  Mizoram
+  Nagaland
+  Odisha
+  Punjab
+  Rajasthan
+  Sikkim
+  TamilNadu
+  Tripura
+  Telangana
+  UttarPradesh
+  Uttarakhand
+  West Bengal
+  Andaman_and_Nicobar_UT
+  Chandigarh_UT
+  Dadra_and_Nagar_Haveli_and_Daman_and_Diu_UT
+  Delhi_National_Capital_Territory_NCT
+  Jammu_and_Kashmir_UT
+  Ladakh_UT
+  Lakshadweep_UT
+  Puducherry_UT
+}
+
+type LerneradditionalDetails{
+      chooseSegment: UserSegment!
+      leadStatus: LeadStatus!
+
+}
+
+enum UserSegment{
+  Free
+  Trail
+  Paid
+  Returning
+}
+
+enum LeadStatus{
+  Open
+  Follow_Up
+  Converted
+  NotInterested
+}
+
+#change password
+
+type changePassword{
+  newPassword: String!
+  reTypeNewPassword: String!
+}
+
+#enrolledCourses
+
+
+
+type EnrolledCourse @model{
+  id: ID!
+  course: [Course]! 
+  joiningDate: AWSDate!
+  expiryDate: AWSDate!
+  status: EnrolledCourseStatus!
+}
+
+enum EnrolledCourseStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+}
+
+input EnrolledCourseFilterInput {
+  joiningDate: AWSDate
+  expiryDate: AWSDate
+  status: EnrolledCourseStatus
+}
+
+#purchase history
+
+type PurchaseHistory {
+  id: ID!
+  date: String!
+  orderId: String!
+  txnId: String!
+  items: [PurchaseItem]!
+  amount: Float!
+  status: PurchaseStatus!
+}
+
+type PurchaseItem {
+  id: ID
+  name: String
+  quantity: Int
+  price: Float
+}
+
+enum PurchaseStatus {
+  PROCESSING
+  SUCCESS
+  FAILED
+}
+
+input PurchaseHistoryFilter {
+  fromDate: String
+  toDate: String
+  orderId: String
+  txnId: String
+  amount: Float
+  status: PurchaseStatus
+}
+
+#bundles of Course
+
+type BundleOfCourse {
+  CourseId: ID
+  title: String
+  status: BundleStatus
+  isFree: Boolean
+  publishedDate: AWSDate
+}
+
+enum BundleStatus {
+  UNPUBLISHED
+  PUBLISHED
+  COMING_SOON
+  SCHEDULED
+}
+#bundle of test
+
+type BundleOfTest {
+  CourseId: ID
+  title: String
+  status: BundleStatus
+  isFree: Boolean
+  publishedDate: String
+}
+
+
+
+input BundleSearchInput {
+  searchByTitle: String
+  statusTag: BundleStatus
+  isFreeTag: Boolean
+}
+
+#Basic setting of bundle
+
+type basicSetting{
+  bundleName: String!
+  bundleShortDescription: String
+  bundleDescription: String
+  bundleImageUrl: String
+}
+
+#pricing and validity
+
+type Bundle {
+  sellingType: BundleSellingType!
+  pricing: BundlePricing!
+  validity: BundleValidity!
+}
+
+type BundlePricing {
+  bundlePrice: Float!
+  discountedPrice: Float
+}
+
+type BundleValidity {
+  validityDays: Int!
+  expiryDays: Int
+}
+
+enum BundleSellingType {
+  MakeThisFreeBundle
+  MakeThisPaidBundle
+}
+
+input BundlePricingInput {
+  bundlePrice: Float!
+  discountedPrice: Float
+}
+
+input BundleValidityInput {
+  validityDays: Int!
+  expiryDays: Int
+}
+
+#publish bundle
+enum BundleStatusOfCourse {
+  LIVE
+  UNPUBLISHED
+  SCHEDULED
+}
+
+input PublishInput {
+  
+  status: BundleStatusOfCourse!
+  releasedDate: AWSDate #If scheduled is selected
+}
+
+#add products
+type Product {
+  id: ID!
+  title: String!
+  courseID: ID!
+  price: Int!
+  status: BundleStatusOfCourse
+  type: String!
+}
+
+type BundleOfAddProduct {
+selectedProductCount: Int!
+}
+input AddProductInput {
+  id: ID
+  title: String
+  courseID: ID
+  status: BundleStatusOfCourse
+  type: String
+  isFree: Boolean
+}
+
+
+#manage order
+type ManageOrder @model{
+  id: ID!
+  courses: [Course] 
+}
+
+#manage user
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  mobileNumber: String  
+  joiningDate: String
+  lastLoginDate: String
+  membershipStatus: MembershipStatus
+  learnerCount: Int
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+type ManageUser {
+  users: [User!]!
+}
+
+input UserFilterInput {
+  name: String
+  email: String
+  mobileNumber: String
+  joiningDateTag: AWSDate
+  lastLoginDateTag: AWSDate
+  Enabled: Boolean 
+  learnerCount: Int
+}
+
+#categories
+
+type categories {
+  id: ID!
+  name: String!
+  url: String!
+}
+
+input categoriesInput {
+  name: String!
+  url: String!
+}
+
+#Edit category
+type EditCategory {
+  id: ID!
+  name: String!
+  url: String!
+  categoryImage: String!
+}
+
+input EditCategoryInput {
+  name: String!
+  url: String!
+  categoryImage: String!
+}
+
+#manage products in this category
+
+type manageCategory @model{
+  id: ID!
+  category: [categories!]!
+  delete: Boolean @default(value: "false")
+}
+
+#asset Management
+
+type Asset {
+  id: ID!
+  name: String!
+  type: AssetType!
+  url: String!
+  size: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  folders: [Folder!]!
+  tags: [String!]!
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+type Folder {
+  id: ID!
+  name: String!
+  lastEdit: AWSDateTime!
+  size: Int!
+  members: [UserOfMembers!]!
+}
+
+type UserOfMembers {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type AssetManagement {
+  recentAssets: [Asset!]!
+  pinnedAssets: [Asset!]!
+  dribbleShots: [Asset!]!
+  designAssets: [Asset!]!
+  portfolio: [Asset!]!
+  behanceFiles: [Asset!]!
+  backupFiles: [Asset!]!
+  folders: [Folder!]!
+  tags: [String!]!
+}

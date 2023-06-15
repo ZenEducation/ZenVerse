@@ -114,8 +114,8 @@ const expandCollapseItem = computed(() => ({
         <img class="h-8 mx-auto" src="@/assets/img/PeLogo.png" alt="" />
       </div>
       <div class="w-full flex-1 px-3 flex flex-wrap justify-center">
-        <b v-if="isPrimaryMenuCompact" class="font-black">LMS</b>
-        <b v-else class="font-black">Paathshala LMS</b>
+        <b v-if="isPrimaryMenuCompact" class="font-black">Exam</b>
+        <b v-else class="font-black">Exam Portal</b>
       </div>
     </div>
 

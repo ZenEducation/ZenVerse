@@ -63,11 +63,11 @@ import {
       menu: [
         {
           label: "Course Report",
-          to: "/examportal/report/coursereport",
+          to: "/examportal/reports/coursereport",
         },
         {
           label: "Product Enrollment",
-          to: "/examportal/report/productenrollment",
+          to: "/examportal/reports/productenrollment",
         },
       ],
     },

@@ -87,8 +87,8 @@ const state = () => ({
       name: "Course Welcome Email"
     }
   ],
-  selectedItem: "Curriculum"
-});
+  selectedItem: "Curriculum",
+
 
     /* User */
     userName: null,

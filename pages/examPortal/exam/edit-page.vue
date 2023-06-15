@@ -142,12 +142,22 @@
             :key="index"
           >
             <div
-              @click="dropdown[index] = !dropdown[index]"
+              @click="dropdown[i.id] = !dropdown[i.id]"
               class="p-5 flex justify-between"
             >
-              {{ i.SectionName }}
+              <template v-if="editsection[i.id]">
+                <PremFormControl v-model="editSectionName" type="text" />
+              </template>
+              <template v-else>
+                {{ i.SectionName }}
+              </template>
               <div class="flex items-center">
-                <button class="lr-btn px-5">EDIT</button>
+                <template v-if="editsection[i.id]">
+                <button @click="EditSectionControl(i.id , false)" class="lr-btn px-5">Done</button>
+                </template>
+                <template v-else>
+                <button @click="EditSectionControl(i.id , true)" class="lr-btn px-5">EDIT</button>
+                </template>
                 <!-- add delete btn -->
                 <img
                   class="w-[16px] h-[18px] ml-5"
@@ -168,7 +178,7 @@
 
             <Transition name="slider">
               <div
-                v-if="dropdown[index]"
+                v-if="dropdown[i.id]"
                 class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]"
               >
                 Drag and Drop new question
@@ -191,49 +201,88 @@
 import ExamNav from "~~/components/ExamPortal/Exam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
+import PremFormControl from "~~/components/Forms/PremFormControl.vue";
 const items = ref([
   {
+    id: 1,
     SectionName: "section 1",
   },
   {
+    id: 2,
     SectionName: "section 2",
   },
   {
+    id: 3,
     SectionName: "section 3",
   },
   {
+    id: 5,
     SectionName: "section 4",
   },
   {
+    id: 6,
     SectionName: "section 5",
   },
   {
+    id: 7,
     SectionName: "section 6",
   },
   {
+    id: 8,
     SectionName: "section 7",
   },
   {
+    id: 9,
     SectionName: "section 8",
   },
   {
+    id: 10,
     SectionName: "section 9",
   },
   {
+    id: 11,
     SectionName: "section 10",
   },
 ]);
 
 const dropdown = ref([]);
+const editsection = ref([]);
+const maxIndex = ref(12);
+
 const sections = ref(2);
 const questions = ref(0);
 const sectionquestions = ref(0);
 
 const addSection = () => {
   let newobj = {
+    id: maxIndex,
     SectionName: "New Section",
   };
+  maxIndex.value = maxIndex.value + 1;
   items.value.push(newobj);
+};
+
+const deleteSection = (id) => {
+  items.value = items.value.filter((obj) => {
+    return obj.id != id;
+  });
+};
+const editSectionName = ref("");
+
+const EditSectionControl = (id, temp) => {
+    console.log(id , "called");
+  if (temp) {
+    editsection.value[id] = !editsection.value[id] ;
+
+  } else {
+    items.value.forEach((element) => {
+      if (element.id == id) {
+        element.SectionName = editSectionName.value;
+      }
+
+    });
+    editsection.value[id] = !editsection.value[id] ;
+  }
 };
 </script>
 

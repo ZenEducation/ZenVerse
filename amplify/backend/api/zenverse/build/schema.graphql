@@ -1,0 +1,1865 @@
+enum MCQResponses {
+  A
+  B
+  C
+  D
+  E
+}
+
+enum LMS_CourseLevel {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+type Course {
+  id: ID!
+  publishStatus: CoursePublishStatus!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type LMSCourseDuration {
+  hours: Int
+  min: Int
+}
+
+type LMSDripSchedule {
+  enableDripping: Boolean
+  dripType: DripType
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum DripType {
+  StudentEnrollmentDate
+  StudentCourseStart
+  On_A_specificDate
+}
+
+type Admin {
+  id: ID!
+  email: String!
+  name: String!
+}
+
+type Payee {
+  id: ID!
+  email: String!
+  name: String!
+}
+
+type Revenue {
+  id: ID!
+  name: String!
+  courses: [Course]
+  payoutPercentage: Float!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Affiliate {
+  id: ID!
+  name: String!
+  courses: [Course]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Pricing {
+  pricing_Type: pricingType
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum pricingType {
+  Free
+  OneTimePayment
+  SubscriptionCharge
+  MonthlyPaymentPlan
+}
+
+type SubscriptionCharge {
+  amount: Float!
+  paidEveryMonth: Int
+  freeTrialPeriod: Boolean
+  freeTrialPeriodDurationUnit: DurationUnit
+  freeTrialPeriodDuration: Int
+  customFirstPaymentEnabling: Boolean
+  customFirstPaymentPrice: Float
+}
+
+type SetAdditionalPricingOption {
+  id: ID!
+  label: String
+  price: Float!
+}
+
+enum DurationUnit {
+  DAYS
+  MONTHS
+}
+
+type MonthlyPaymentPlan {
+  pricePerPayment: Int!
+  totalMonths: Int!
+  enrollmentDuration: Int!
+  buyButtonTextLabel: String!
+}
+
+enum CoursePublishStatus {
+  DRAFT
+  PRE_ORDER
+  PUBLISHED
+}
+
+type LearningContent {
+  id: ID!
+  courseId: ID!
+  course: [Course]!
+  duration: LMSCourseDuration
+  type: LearningContentType!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum LearningContentType {
+  VIDEO
+  PDF
+  TEXT
+  AUDIO
+  DOWNLOAD
+  PRESENTATION
+  MULTIMEDIA
+  LIVE
+}
+
+type newLesson {
+  id: ID!
+  title: String!
+  content: String!
+  uploadAudio: String!
+  draft: Boolean
+}
+
+type LMSSurvey {
+  id: ID!
+  title: String!
+  content: String!
+  questions: [SurveyQuestion!]!
+}
+
+type SurveyQuestion {
+  id: ID!
+  text: String!
+  options: [SurveyOption!]!
+  answer: String
+}
+
+type SurveyOption {
+  id: ID!
+  questionId: ID!
+  key: Int
+  content: String!
+}
+
+type SurveyResponse {
+  userId: ID!
+  surveyId: ID!
+  answers: [SurveyAnswer!]!
+  totalScore: Int
+}
+
+type SurveyAnswer {
+  questionId: ID!
+  selectedOptionId: ID!
+}
+
+type LessonSetting {
+  id: ID!
+  courseId: ID!
+  course: [Course]!
+  isFreePreview: Boolean!
+  isPrerequisite: Boolean!
+  discussionEnabled: Boolean!
+  isVideoDownloadable: Boolean!
+  lessonIconAndLabel: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type LMSQuizOption {
+  id: ID!
+  questionid: ID!
+  key: Int
+  image: String
+  content: String!
+  val: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type LMSQuizResponse {
+  userId: ID!
+  chapterId: ID
+  chapter: [MCQResponses]
+  totalScore: Int
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type learnerManagementLearner {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum LearnerRole {
+  SUPER_ADMIN
+  SUB_ADMIN
+}
+
+type userManagementadmin {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+  role: LearnerRole!
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type userManagementInstruction {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  assignedCourses: [Course]!
+  sendEmailToUser: Boolean
+  editingOfPublishedCourses: Boolean
+  askForApprovalForPublishedCourses: Boolean
+  accessOfLiveRecordings: Boolean
+  accessToSalesDashboard: Boolean
+  accessToMessenger: Boolean
+  accessToBandwidthReport: Boolean
+  accessToUsageReport: Boolean
+  accessToLiveTestReport: Boolean
+  accessToLiveClassReport: Boolean
+  accessToLearnerDetails: Boolean
+  accessToDownload_quiz_OR_liveTests: Boolean
+  accessToEnrollLearnerToAnyCourse: Boolean
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type userManagementAffiliate {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  commisionRate_in_Percentage: Int
+  allowCommisionOnAllCourses: Boolean
+  course: [Course]!
+  linkAffiliatesForLimitedDays: Boolean
+  enterNumberOfDays: Int
+  sendEmailToUser: Boolean
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type LernerprofileDetails {
+  name: String!
+  email: String!
+  mobile: Int!
+  role: LearnerRoleSelect!
+  state: SelectState!
+  languange: SelectLanguage!
+}
+
+enum LearnerRoleSelect {
+  STUDENT
+}
+
+enum SelectLanguage {
+  English
+  Hindi
+  Telugu
+}
+
+enum SelectState {
+  AndhraPradesh
+  ArunachalPradesh
+  Assam
+  Bihar
+  Chhattisgarh
+  Goa
+  Gujarat
+  Haryana
+  HimachalPradesh
+  Jharkhand
+  Karnataka
+  Kerala
+  Maharashtra
+  MadhyaPradesh
+  Manipur
+  Meghalaya
+  Mizoram
+  Nagaland
+  Odisha
+  Punjab
+  Rajasthan
+  Sikkim
+  TamilNadu
+  Tripura
+  Telangana
+  UttarPradesh
+  Uttarakhand
+  West
+  Bengal
+  Andaman_and_Nicobar_UT
+  Chandigarh_UT
+  Dadra_and_Nagar_Haveli_and_Daman_and_Diu_UT
+  Delhi_National_Capital_Territory_NCT
+  Jammu_and_Kashmir_UT
+  Ladakh_UT
+  Lakshadweep_UT
+  Puducherry_UT
+}
+
+type LerneradditionalDetails {
+  chooseSegment: UserSegment!
+  leadStatus: LeadStatus!
+}
+
+enum UserSegment {
+  Free
+  Trail
+  Paid
+  Returning
+}
+
+enum LeadStatus {
+  Open
+  Follow_Up
+  Converted
+  NotInterested
+}
+
+type changePassword {
+  newPassword: String!
+  reTypeNewPassword: String!
+}
+
+type EnrolledCourse {
+  id: ID!
+  course: [Course]!
+  joiningDate: AWSDate!
+  expiryDate: AWSDate!
+  status: EnrolledCourseStatus!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum EnrolledCourseStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+}
+
+input EnrolledCourseFilterInput {
+  joiningDate: AWSDate
+  expiryDate: AWSDate
+  status: EnrolledCourseStatus
+}
+
+type PurchaseHistory {
+  id: ID!
+  date: String!
+  orderId: String!
+  txnId: String!
+  items: [PurchaseItem]!
+  amount: Float!
+  status: PurchaseStatus!
+}
+
+type PurchaseItem {
+  id: ID
+  name: String
+  quantity: Int
+  price: Float
+}
+
+enum PurchaseStatus {
+  PROCESSING
+  SUCCESS
+  FAILED
+}
+
+input PurchaseHistoryFilter {
+  fromDate: String
+  toDate: String
+  orderId: String
+  txnId: String
+  amount: Float
+  status: PurchaseStatus
+}
+
+type BundleOfCourse {
+  CourseId: ID
+  title: String
+  status: BundleStatus
+  isFree: Boolean
+  publishedDate: AWSDate
+}
+
+enum BundleStatus {
+  UNPUBLISHED
+  PUBLISHED
+  COMING_SOON
+  SCHEDULED
+}
+
+type BundleOfTest {
+  CourseId: ID
+  title: String
+  status: BundleStatus
+  isFree: Boolean
+  publishedDate: String
+}
+
+input BundleSearchInput {
+  searchByTitle: String
+  statusTag: BundleStatus
+  isFreeTag: Boolean
+}
+
+type basicSetting {
+  bundleName: String!
+  bundleShortDescription: String
+  bundleDescription: String
+  bundleImageUrl: String
+}
+
+type Bundle {
+  sellingType: BundleSellingType!
+  pricing: BundlePricing!
+  validity: BundleValidity!
+}
+
+type BundlePricing {
+  bundlePrice: Float!
+  discountedPrice: Float
+}
+
+type BundleValidity {
+  validityDays: Int!
+  expiryDays: Int
+}
+
+enum BundleSellingType {
+  MakeThisFreeBundle
+  MakeThisPaidBundle
+}
+
+input BundlePricingInput {
+  bundlePrice: Float!
+  discountedPrice: Float
+}
+
+input BundleValidityInput {
+  validityDays: Int!
+  expiryDays: Int
+}
+
+enum BundleStatusOfCourse {
+  LIVE
+  UNPUBLISHED
+  SCHEDULED
+}
+
+input PublishInput {
+  status: BundleStatusOfCourse!
+  releasedDate: AWSDate
+}
+
+type Product {
+  id: ID!
+  title: String!
+  courseID: ID!
+  price: Int!
+  status: BundleStatusOfCourse
+  type: String!
+}
+
+type BundleOfAddProduct {
+  selectedProductCount: Int!
+}
+
+input AddProductInput {
+  id: ID
+  title: String
+  courseID: ID
+  status: BundleStatusOfCourse
+  type: String
+  isFree: Boolean
+}
+
+type ManageOrder {
+  id: ID!
+  courses: [Course]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  mobileNumber: String
+  joiningDate: String
+  lastLoginDate: String
+  membershipStatus: MembershipStatus
+  learnerCount: Int
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+type ManageUser {
+  users: [User!]!
+}
+
+input UserFilterInput {
+  name: String
+  email: String
+  mobileNumber: String
+  joiningDateTag: AWSDate
+  lastLoginDateTag: AWSDate
+  Enabled: Boolean
+  learnerCount: Int
+}
+
+type categories {
+  id: ID!
+  name: String!
+  url: String!
+}
+
+input categoriesInput {
+  name: String!
+  url: String!
+}
+
+type EditCategory {
+  id: ID!
+  name: String!
+  url: String!
+  categoryImage: String!
+}
+
+input EditCategoryInput {
+  name: String!
+  url: String!
+  categoryImage: String!
+}
+
+type manageCategory {
+  id: ID!
+  category: [categories!]!
+  delete: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Asset {
+  id: ID!
+  name: String!
+  type: AssetType!
+  url: String!
+  size: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  folders: [Folder!]!
+  tags: [String!]!
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+type Folder {
+  id: ID!
+  name: String!
+  lastEdit: AWSDateTime!
+  size: Int!
+  members: [UserOfMembers!]!
+}
+
+type UserOfMembers {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type AssetManagement {
+  recentAssets: [Asset!]!
+  pinnedAssets: [Asset!]!
+  dribbleShots: [Asset!]!
+  designAssets: [Asset!]!
+  portfolio: [Asset!]!
+  behanceFiles: [Asset!]!
+  backupFiles: [Asset!]!
+  folders: [Folder!]!
+  tags: [String!]!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelCourseConnection {
+  items: [Course]!
+  nextToken: String
+}
+
+input ModelCoursePublishStatusInput {
+  eq: CoursePublishStatus
+  ne: CoursePublishStatus
+}
+
+input ModelCourseFilterInput {
+  id: ModelIDInput
+  publishStatus: ModelCoursePublishStatusInput
+  and: [ModelCourseFilterInput]
+  or: [ModelCourseFilterInput]
+  not: ModelCourseFilterInput
+}
+
+type Query {
+  getCourse(id: ID!): Course
+  listCourses(filter: ModelCourseFilterInput, limit: Int, nextToken: String): ModelCourseConnection
+  getLMSDripSchedule(id: ID!): LMSDripSchedule
+  listLMSDripSchedules(filter: ModelLMSDripScheduleFilterInput, limit: Int, nextToken: String): ModelLMSDripScheduleConnection
+  getRevenue(id: ID!): Revenue
+  listRevenues(filter: ModelRevenueFilterInput, limit: Int, nextToken: String): ModelRevenueConnection
+  getAffiliate(id: ID!): Affiliate
+  listAffiliates(filter: ModelAffiliateFilterInput, limit: Int, nextToken: String): ModelAffiliateConnection
+  getPricing(id: ID!): Pricing
+  listPricings(filter: ModelPricingFilterInput, limit: Int, nextToken: String): ModelPricingConnection
+  getLearningContent(id: ID!): LearningContent
+  listLearningContents(filter: ModelLearningContentFilterInput, limit: Int, nextToken: String): ModelLearningContentConnection
+  getLessonSetting(id: ID!): LessonSetting
+  listLessonSettings(filter: ModelLessonSettingFilterInput, limit: Int, nextToken: String): ModelLessonSettingConnection
+  getLMSQuizOption(id: ID!): LMSQuizOption
+  listLMSQuizOptions(filter: ModelLMSQuizOptionFilterInput, limit: Int, nextToken: String): ModelLMSQuizOptionConnection
+  getLMSQuizResponse(id: ID!): LMSQuizResponse
+  listLMSQuizResponses(filter: ModelLMSQuizResponseFilterInput, limit: Int, nextToken: String): ModelLMSQuizResponseConnection
+  getLearnerManagementLearner(id: ID!): learnerManagementLearner
+  listLearnerManagementLearners(filter: ModelLearnerManagementLearnerFilterInput, limit: Int, nextToken: String): ModelLearnerManagementLearnerConnection
+  getUserManagementadmin(id: ID!): userManagementadmin
+  listUserManagementadmins(filter: ModelUserManagementadminFilterInput, limit: Int, nextToken: String): ModelUserManagementadminConnection
+  getUserManagementInstruction(id: ID!): userManagementInstruction
+  listUserManagementInstructions(filter: ModelUserManagementInstructionFilterInput, limit: Int, nextToken: String): ModelUserManagementInstructionConnection
+  getUserManagementAffiliate(id: ID!): userManagementAffiliate
+  listUserManagementAffiliates(filter: ModelUserManagementAffiliateFilterInput, limit: Int, nextToken: String): ModelUserManagementAffiliateConnection
+  getEnrolledCourse(id: ID!): EnrolledCourse
+  listEnrolledCourses(filter: ModelEnrolledCourseFilterInput, limit: Int, nextToken: String): ModelEnrolledCourseConnection
+  getManageOrder(id: ID!): ManageOrder
+  listManageOrders(filter: ModelManageOrderFilterInput, limit: Int, nextToken: String): ModelManageOrderConnection
+  getManageCategory(id: ID!): manageCategory
+  listManageCategories(filter: ModelManageCategoryFilterInput, limit: Int, nextToken: String): ModelManageCategoryConnection
+  learningContentsByCourseId(courseId: ID!, sortDirection: ModelSortDirection, filter: ModelLearningContentFilterInput, limit: Int, nextToken: String): ModelLearningContentConnection
+  lessonSettingsByCourseId(courseId: ID!, sortDirection: ModelSortDirection, filter: ModelLessonSettingFilterInput, limit: Int, nextToken: String): ModelLessonSettingConnection
+  lMSQuizOptionsByQuestionid(questionid: ID!, sortDirection: ModelSortDirection, filter: ModelLMSQuizOptionFilterInput, limit: Int, nextToken: String): ModelLMSQuizOptionConnection
+}
+
+input ModelCourseConditionInput {
+  publishStatus: ModelCoursePublishStatusInput
+  and: [ModelCourseConditionInput]
+  or: [ModelCourseConditionInput]
+  not: ModelCourseConditionInput
+}
+
+input CreateCourseInput {
+  id: ID
+  publishStatus: CoursePublishStatus!
+}
+
+input UpdateCourseInput {
+  id: ID!
+  publishStatus: CoursePublishStatus
+}
+
+input DeleteCourseInput {
+  id: ID!
+}
+
+type Mutation {
+  createCourse(input: CreateCourseInput!, condition: ModelCourseConditionInput): Course
+  updateCourse(input: UpdateCourseInput!, condition: ModelCourseConditionInput): Course
+  deleteCourse(input: DeleteCourseInput!, condition: ModelCourseConditionInput): Course
+  createLMSDripSchedule(input: CreateLMSDripScheduleInput!, condition: ModelLMSDripScheduleConditionInput): LMSDripSchedule
+  updateLMSDripSchedule(input: UpdateLMSDripScheduleInput!, condition: ModelLMSDripScheduleConditionInput): LMSDripSchedule
+  deleteLMSDripSchedule(input: DeleteLMSDripScheduleInput!, condition: ModelLMSDripScheduleConditionInput): LMSDripSchedule
+  createRevenue(input: CreateRevenueInput!, condition: ModelRevenueConditionInput): Revenue
+  updateRevenue(input: UpdateRevenueInput!, condition: ModelRevenueConditionInput): Revenue
+  deleteRevenue(input: DeleteRevenueInput!, condition: ModelRevenueConditionInput): Revenue
+  createAffiliate(input: CreateAffiliateInput!, condition: ModelAffiliateConditionInput): Affiliate
+  updateAffiliate(input: UpdateAffiliateInput!, condition: ModelAffiliateConditionInput): Affiliate
+  deleteAffiliate(input: DeleteAffiliateInput!, condition: ModelAffiliateConditionInput): Affiliate
+  createPricing(input: CreatePricingInput!, condition: ModelPricingConditionInput): Pricing
+  updatePricing(input: UpdatePricingInput!, condition: ModelPricingConditionInput): Pricing
+  deletePricing(input: DeletePricingInput!, condition: ModelPricingConditionInput): Pricing
+  createLearningContent(input: CreateLearningContentInput!, condition: ModelLearningContentConditionInput): LearningContent
+  updateLearningContent(input: UpdateLearningContentInput!, condition: ModelLearningContentConditionInput): LearningContent
+  deleteLearningContent(input: DeleteLearningContentInput!, condition: ModelLearningContentConditionInput): LearningContent
+  createLessonSetting(input: CreateLessonSettingInput!, condition: ModelLessonSettingConditionInput): LessonSetting
+  updateLessonSetting(input: UpdateLessonSettingInput!, condition: ModelLessonSettingConditionInput): LessonSetting
+  deleteLessonSetting(input: DeleteLessonSettingInput!, condition: ModelLessonSettingConditionInput): LessonSetting
+  createLMSQuizOption(input: CreateLMSQuizOptionInput!, condition: ModelLMSQuizOptionConditionInput): LMSQuizOption
+  updateLMSQuizOption(input: UpdateLMSQuizOptionInput!, condition: ModelLMSQuizOptionConditionInput): LMSQuizOption
+  deleteLMSQuizOption(input: DeleteLMSQuizOptionInput!, condition: ModelLMSQuizOptionConditionInput): LMSQuizOption
+  createLMSQuizResponse(input: CreateLMSQuizResponseInput!, condition: ModelLMSQuizResponseConditionInput): LMSQuizResponse
+  updateLMSQuizResponse(input: UpdateLMSQuizResponseInput!, condition: ModelLMSQuizResponseConditionInput): LMSQuizResponse
+  deleteLMSQuizResponse(input: DeleteLMSQuizResponseInput!, condition: ModelLMSQuizResponseConditionInput): LMSQuizResponse
+  createLearnerManagementLearner(input: CreateLearnerManagementLearnerInput!, condition: ModelLearnerManagementLearnerConditionInput): learnerManagementLearner
+  updateLearnerManagementLearner(input: UpdateLearnerManagementLearnerInput!, condition: ModelLearnerManagementLearnerConditionInput): learnerManagementLearner
+  deleteLearnerManagementLearner(input: DeleteLearnerManagementLearnerInput!, condition: ModelLearnerManagementLearnerConditionInput): learnerManagementLearner
+  createUserManagementadmin(input: CreateUserManagementadminInput!, condition: ModelUserManagementadminConditionInput): userManagementadmin
+  updateUserManagementadmin(input: UpdateUserManagementadminInput!, condition: ModelUserManagementadminConditionInput): userManagementadmin
+  deleteUserManagementadmin(input: DeleteUserManagementadminInput!, condition: ModelUserManagementadminConditionInput): userManagementadmin
+  createUserManagementInstruction(input: CreateUserManagementInstructionInput!, condition: ModelUserManagementInstructionConditionInput): userManagementInstruction
+  updateUserManagementInstruction(input: UpdateUserManagementInstructionInput!, condition: ModelUserManagementInstructionConditionInput): userManagementInstruction
+  deleteUserManagementInstruction(input: DeleteUserManagementInstructionInput!, condition: ModelUserManagementInstructionConditionInput): userManagementInstruction
+  createUserManagementAffiliate(input: CreateUserManagementAffiliateInput!, condition: ModelUserManagementAffiliateConditionInput): userManagementAffiliate
+  updateUserManagementAffiliate(input: UpdateUserManagementAffiliateInput!, condition: ModelUserManagementAffiliateConditionInput): userManagementAffiliate
+  deleteUserManagementAffiliate(input: DeleteUserManagementAffiliateInput!, condition: ModelUserManagementAffiliateConditionInput): userManagementAffiliate
+  createEnrolledCourse(input: CreateEnrolledCourseInput!, condition: ModelEnrolledCourseConditionInput): EnrolledCourse
+  updateEnrolledCourse(input: UpdateEnrolledCourseInput!, condition: ModelEnrolledCourseConditionInput): EnrolledCourse
+  deleteEnrolledCourse(input: DeleteEnrolledCourseInput!, condition: ModelEnrolledCourseConditionInput): EnrolledCourse
+  createManageOrder(input: CreateManageOrderInput!, condition: ModelManageOrderConditionInput): ManageOrder
+  updateManageOrder(input: UpdateManageOrderInput!, condition: ModelManageOrderConditionInput): ManageOrder
+  deleteManageOrder(input: DeleteManageOrderInput!, condition: ModelManageOrderConditionInput): ManageOrder
+  createManageCategory(input: CreateManageCategoryInput!, condition: ModelManageCategoryConditionInput): manageCategory
+  updateManageCategory(input: UpdateManageCategoryInput!, condition: ModelManageCategoryConditionInput): manageCategory
+  deleteManageCategory(input: DeleteManageCategoryInput!, condition: ModelManageCategoryConditionInput): manageCategory
+}
+
+input ModelSubscriptionCourseFilterInput {
+  id: ModelSubscriptionIDInput
+  publishStatus: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCourseFilterInput]
+  or: [ModelSubscriptionCourseFilterInput]
+}
+
+type Subscription {
+  onCreateCourse(filter: ModelSubscriptionCourseFilterInput): Course @aws_subscribe(mutations: ["createCourse"])
+  onUpdateCourse(filter: ModelSubscriptionCourseFilterInput): Course @aws_subscribe(mutations: ["updateCourse"])
+  onDeleteCourse(filter: ModelSubscriptionCourseFilterInput): Course @aws_subscribe(mutations: ["deleteCourse"])
+  onCreateLMSDripSchedule(filter: ModelSubscriptionLMSDripScheduleFilterInput): LMSDripSchedule @aws_subscribe(mutations: ["createLMSDripSchedule"])
+  onUpdateLMSDripSchedule(filter: ModelSubscriptionLMSDripScheduleFilterInput): LMSDripSchedule @aws_subscribe(mutations: ["updateLMSDripSchedule"])
+  onDeleteLMSDripSchedule(filter: ModelSubscriptionLMSDripScheduleFilterInput): LMSDripSchedule @aws_subscribe(mutations: ["deleteLMSDripSchedule"])
+  onCreateRevenue(filter: ModelSubscriptionRevenueFilterInput): Revenue @aws_subscribe(mutations: ["createRevenue"])
+  onUpdateRevenue(filter: ModelSubscriptionRevenueFilterInput): Revenue @aws_subscribe(mutations: ["updateRevenue"])
+  onDeleteRevenue(filter: ModelSubscriptionRevenueFilterInput): Revenue @aws_subscribe(mutations: ["deleteRevenue"])
+  onCreateAffiliate(filter: ModelSubscriptionAffiliateFilterInput): Affiliate @aws_subscribe(mutations: ["createAffiliate"])
+  onUpdateAffiliate(filter: ModelSubscriptionAffiliateFilterInput): Affiliate @aws_subscribe(mutations: ["updateAffiliate"])
+  onDeleteAffiliate(filter: ModelSubscriptionAffiliateFilterInput): Affiliate @aws_subscribe(mutations: ["deleteAffiliate"])
+  onCreatePricing(filter: ModelSubscriptionPricingFilterInput): Pricing @aws_subscribe(mutations: ["createPricing"])
+  onUpdatePricing(filter: ModelSubscriptionPricingFilterInput): Pricing @aws_subscribe(mutations: ["updatePricing"])
+  onDeletePricing(filter: ModelSubscriptionPricingFilterInput): Pricing @aws_subscribe(mutations: ["deletePricing"])
+  onCreateLearningContent(filter: ModelSubscriptionLearningContentFilterInput): LearningContent @aws_subscribe(mutations: ["createLearningContent"])
+  onUpdateLearningContent(filter: ModelSubscriptionLearningContentFilterInput): LearningContent @aws_subscribe(mutations: ["updateLearningContent"])
+  onDeleteLearningContent(filter: ModelSubscriptionLearningContentFilterInput): LearningContent @aws_subscribe(mutations: ["deleteLearningContent"])
+  onCreateLessonSetting(filter: ModelSubscriptionLessonSettingFilterInput): LessonSetting @aws_subscribe(mutations: ["createLessonSetting"])
+  onUpdateLessonSetting(filter: ModelSubscriptionLessonSettingFilterInput): LessonSetting @aws_subscribe(mutations: ["updateLessonSetting"])
+  onDeleteLessonSetting(filter: ModelSubscriptionLessonSettingFilterInput): LessonSetting @aws_subscribe(mutations: ["deleteLessonSetting"])
+  onCreateLMSQuizOption(filter: ModelSubscriptionLMSQuizOptionFilterInput, owner: String): LMSQuizOption @aws_subscribe(mutations: ["createLMSQuizOption"])
+  onUpdateLMSQuizOption(filter: ModelSubscriptionLMSQuizOptionFilterInput, owner: String): LMSQuizOption @aws_subscribe(mutations: ["updateLMSQuizOption"])
+  onDeleteLMSQuizOption(filter: ModelSubscriptionLMSQuizOptionFilterInput, owner: String): LMSQuizOption @aws_subscribe(mutations: ["deleteLMSQuizOption"])
+  onCreateLMSQuizResponse(filter: ModelSubscriptionLMSQuizResponseFilterInput, owner: String): LMSQuizResponse @aws_subscribe(mutations: ["createLMSQuizResponse"])
+  onUpdateLMSQuizResponse(filter: ModelSubscriptionLMSQuizResponseFilterInput, owner: String): LMSQuizResponse @aws_subscribe(mutations: ["updateLMSQuizResponse"])
+  onDeleteLMSQuizResponse(filter: ModelSubscriptionLMSQuizResponseFilterInput, owner: String): LMSQuizResponse @aws_subscribe(mutations: ["deleteLMSQuizResponse"])
+  onCreateLearnerManagementLearner(filter: ModelSubscriptionLearnerManagementLearnerFilterInput): learnerManagementLearner @aws_subscribe(mutations: ["createLearnerManagementLearner"])
+  onUpdateLearnerManagementLearner(filter: ModelSubscriptionLearnerManagementLearnerFilterInput): learnerManagementLearner @aws_subscribe(mutations: ["updateLearnerManagementLearner"])
+  onDeleteLearnerManagementLearner(filter: ModelSubscriptionLearnerManagementLearnerFilterInput): learnerManagementLearner @aws_subscribe(mutations: ["deleteLearnerManagementLearner"])
+  onCreateUserManagementadmin(filter: ModelSubscriptionUserManagementadminFilterInput, owner: String): userManagementadmin @aws_subscribe(mutations: ["createUserManagementadmin"])
+  onUpdateUserManagementadmin(filter: ModelSubscriptionUserManagementadminFilterInput, owner: String): userManagementadmin @aws_subscribe(mutations: ["updateUserManagementadmin"])
+  onDeleteUserManagementadmin(filter: ModelSubscriptionUserManagementadminFilterInput, owner: String): userManagementadmin @aws_subscribe(mutations: ["deleteUserManagementadmin"])
+  onCreateUserManagementInstruction(filter: ModelSubscriptionUserManagementInstructionFilterInput, owner: String): userManagementInstruction @aws_subscribe(mutations: ["createUserManagementInstruction"])
+  onUpdateUserManagementInstruction(filter: ModelSubscriptionUserManagementInstructionFilterInput, owner: String): userManagementInstruction @aws_subscribe(mutations: ["updateUserManagementInstruction"])
+  onDeleteUserManagementInstruction(filter: ModelSubscriptionUserManagementInstructionFilterInput, owner: String): userManagementInstruction @aws_subscribe(mutations: ["deleteUserManagementInstruction"])
+  onCreateUserManagementAffiliate(filter: ModelSubscriptionUserManagementAffiliateFilterInput, owner: String): userManagementAffiliate @aws_subscribe(mutations: ["createUserManagementAffiliate"])
+  onUpdateUserManagementAffiliate(filter: ModelSubscriptionUserManagementAffiliateFilterInput, owner: String): userManagementAffiliate @aws_subscribe(mutations: ["updateUserManagementAffiliate"])
+  onDeleteUserManagementAffiliate(filter: ModelSubscriptionUserManagementAffiliateFilterInput, owner: String): userManagementAffiliate @aws_subscribe(mutations: ["deleteUserManagementAffiliate"])
+  onCreateEnrolledCourse(filter: ModelSubscriptionEnrolledCourseFilterInput): EnrolledCourse @aws_subscribe(mutations: ["createEnrolledCourse"])
+  onUpdateEnrolledCourse(filter: ModelSubscriptionEnrolledCourseFilterInput): EnrolledCourse @aws_subscribe(mutations: ["updateEnrolledCourse"])
+  onDeleteEnrolledCourse(filter: ModelSubscriptionEnrolledCourseFilterInput): EnrolledCourse @aws_subscribe(mutations: ["deleteEnrolledCourse"])
+  onCreateManageOrder(filter: ModelSubscriptionManageOrderFilterInput): ManageOrder @aws_subscribe(mutations: ["createManageOrder"])
+  onUpdateManageOrder(filter: ModelSubscriptionManageOrderFilterInput): ManageOrder @aws_subscribe(mutations: ["updateManageOrder"])
+  onDeleteManageOrder(filter: ModelSubscriptionManageOrderFilterInput): ManageOrder @aws_subscribe(mutations: ["deleteManageOrder"])
+  onCreateManageCategory(filter: ModelSubscriptionManageCategoryFilterInput): manageCategory @aws_subscribe(mutations: ["createManageCategory"])
+  onUpdateManageCategory(filter: ModelSubscriptionManageCategoryFilterInput): manageCategory @aws_subscribe(mutations: ["updateManageCategory"])
+  onDeleteManageCategory(filter: ModelSubscriptionManageCategoryFilterInput): manageCategory @aws_subscribe(mutations: ["deleteManageCategory"])
+}
+
+type ModelLMSDripScheduleConnection {
+  items: [LMSDripSchedule]!
+  nextToken: String
+}
+
+input ModelDripTypeInput {
+  eq: DripType
+  ne: DripType
+}
+
+input ModelLMSDripScheduleFilterInput {
+  enableDripping: ModelBooleanInput
+  dripType: ModelDripTypeInput
+  and: [ModelLMSDripScheduleFilterInput]
+  or: [ModelLMSDripScheduleFilterInput]
+  not: ModelLMSDripScheduleFilterInput
+}
+
+input ModelLMSDripScheduleConditionInput {
+  enableDripping: ModelBooleanInput
+  dripType: ModelDripTypeInput
+  and: [ModelLMSDripScheduleConditionInput]
+  or: [ModelLMSDripScheduleConditionInput]
+  not: ModelLMSDripScheduleConditionInput
+}
+
+input CreateLMSDripScheduleInput {
+  enableDripping: Boolean
+  dripType: DripType
+  id: ID
+}
+
+input UpdateLMSDripScheduleInput {
+  enableDripping: Boolean
+  dripType: DripType
+  id: ID!
+}
+
+input DeleteLMSDripScheduleInput {
+  id: ID!
+}
+
+input ModelSubscriptionLMSDripScheduleFilterInput {
+  enableDripping: ModelSubscriptionBooleanInput
+  dripType: ModelSubscriptionStringInput
+  and: [ModelSubscriptionLMSDripScheduleFilterInput]
+  or: [ModelSubscriptionLMSDripScheduleFilterInput]
+}
+
+type ModelRevenueConnection {
+  items: [Revenue]!
+  nextToken: String
+}
+
+input ModelRevenueFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  payoutPercentage: ModelFloatInput
+  and: [ModelRevenueFilterInput]
+  or: [ModelRevenueFilterInput]
+  not: ModelRevenueFilterInput
+}
+
+input ModelRevenueConditionInput {
+  name: ModelStringInput
+  payoutPercentage: ModelFloatInput
+  and: [ModelRevenueConditionInput]
+  or: [ModelRevenueConditionInput]
+  not: ModelRevenueConditionInput
+}
+
+input CreateRevenueInput {
+  id: ID
+  name: String!
+  payoutPercentage: Float!
+}
+
+input UpdateRevenueInput {
+  id: ID!
+  name: String
+  payoutPercentage: Float
+}
+
+input DeleteRevenueInput {
+  id: ID!
+}
+
+input ModelSubscriptionRevenueFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  payoutPercentage: ModelSubscriptionFloatInput
+  and: [ModelSubscriptionRevenueFilterInput]
+  or: [ModelSubscriptionRevenueFilterInput]
+}
+
+type ModelAffiliateConnection {
+  items: [Affiliate]!
+  nextToken: String
+}
+
+input ModelAffiliateFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  and: [ModelAffiliateFilterInput]
+  or: [ModelAffiliateFilterInput]
+  not: ModelAffiliateFilterInput
+}
+
+input ModelAffiliateConditionInput {
+  name: ModelStringInput
+  and: [ModelAffiliateConditionInput]
+  or: [ModelAffiliateConditionInput]
+  not: ModelAffiliateConditionInput
+}
+
+input CreateAffiliateInput {
+  id: ID
+  name: String!
+}
+
+input UpdateAffiliateInput {
+  id: ID!
+  name: String
+}
+
+input DeleteAffiliateInput {
+  id: ID!
+}
+
+input ModelSubscriptionAffiliateFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  and: [ModelSubscriptionAffiliateFilterInput]
+  or: [ModelSubscriptionAffiliateFilterInput]
+}
+
+type ModelPricingConnection {
+  items: [Pricing]!
+  nextToken: String
+}
+
+input ModelpricingTypeInput {
+  eq: pricingType
+  ne: pricingType
+}
+
+input ModelPricingFilterInput {
+  pricing_Type: ModelpricingTypeInput
+  and: [ModelPricingFilterInput]
+  or: [ModelPricingFilterInput]
+  not: ModelPricingFilterInput
+}
+
+input ModelPricingConditionInput {
+  pricing_Type: ModelpricingTypeInput
+  and: [ModelPricingConditionInput]
+  or: [ModelPricingConditionInput]
+  not: ModelPricingConditionInput
+}
+
+input CreatePricingInput {
+  pricing_Type: pricingType
+  id: ID
+}
+
+input UpdatePricingInput {
+  pricing_Type: pricingType
+  id: ID!
+}
+
+input DeletePricingInput {
+  id: ID!
+}
+
+input ModelSubscriptionPricingFilterInput {
+  pricing_Type: ModelSubscriptionStringInput
+  and: [ModelSubscriptionPricingFilterInput]
+  or: [ModelSubscriptionPricingFilterInput]
+}
+
+input LMSCourseDurationInput {
+  hours: Int
+  min: Int
+}
+
+type ModelLearningContentConnection {
+  items: [LearningContent]!
+  nextToken: String
+}
+
+input ModelLearningContentTypeInput {
+  eq: LearningContentType
+  ne: LearningContentType
+}
+
+input ModelLearningContentFilterInput {
+  id: ModelIDInput
+  courseId: ModelIDInput
+  type: ModelLearningContentTypeInput
+  and: [ModelLearningContentFilterInput]
+  or: [ModelLearningContentFilterInput]
+  not: ModelLearningContentFilterInput
+}
+
+input ModelLearningContentConditionInput {
+  courseId: ModelIDInput
+  type: ModelLearningContentTypeInput
+  and: [ModelLearningContentConditionInput]
+  or: [ModelLearningContentConditionInput]
+  not: ModelLearningContentConditionInput
+}
+
+input CreateLearningContentInput {
+  id: ID
+  courseId: ID!
+  duration: LMSCourseDurationInput
+  type: LearningContentType!
+}
+
+input UpdateLearningContentInput {
+  id: ID!
+  courseId: ID
+  duration: LMSCourseDurationInput
+  type: LearningContentType
+}
+
+input DeleteLearningContentInput {
+  id: ID!
+}
+
+input ModelSubscriptionLearningContentFilterInput {
+  id: ModelSubscriptionIDInput
+  courseId: ModelSubscriptionIDInput
+  type: ModelSubscriptionStringInput
+  and: [ModelSubscriptionLearningContentFilterInput]
+  or: [ModelSubscriptionLearningContentFilterInput]
+}
+
+type ModelLessonSettingConnection {
+  items: [LessonSetting]!
+  nextToken: String
+}
+
+input ModelLessonSettingFilterInput {
+  id: ModelIDInput
+  courseId: ModelIDInput
+  isFreePreview: ModelBooleanInput
+  isPrerequisite: ModelBooleanInput
+  discussionEnabled: ModelBooleanInput
+  isVideoDownloadable: ModelBooleanInput
+  lessonIconAndLabel: ModelStringInput
+  and: [ModelLessonSettingFilterInput]
+  or: [ModelLessonSettingFilterInput]
+  not: ModelLessonSettingFilterInput
+}
+
+input ModelLessonSettingConditionInput {
+  courseId: ModelIDInput
+  isFreePreview: ModelBooleanInput
+  isPrerequisite: ModelBooleanInput
+  discussionEnabled: ModelBooleanInput
+  isVideoDownloadable: ModelBooleanInput
+  lessonIconAndLabel: ModelStringInput
+  and: [ModelLessonSettingConditionInput]
+  or: [ModelLessonSettingConditionInput]
+  not: ModelLessonSettingConditionInput
+}
+
+input CreateLessonSettingInput {
+  id: ID
+  courseId: ID!
+  isFreePreview: Boolean!
+  isPrerequisite: Boolean!
+  discussionEnabled: Boolean!
+  isVideoDownloadable: Boolean!
+  lessonIconAndLabel: String
+}
+
+input UpdateLessonSettingInput {
+  id: ID!
+  courseId: ID
+  isFreePreview: Boolean
+  isPrerequisite: Boolean
+  discussionEnabled: Boolean
+  isVideoDownloadable: Boolean
+  lessonIconAndLabel: String
+}
+
+input DeleteLessonSettingInput {
+  id: ID!
+}
+
+input ModelSubscriptionLessonSettingFilterInput {
+  id: ModelSubscriptionIDInput
+  courseId: ModelSubscriptionIDInput
+  isFreePreview: ModelSubscriptionBooleanInput
+  isPrerequisite: ModelSubscriptionBooleanInput
+  discussionEnabled: ModelSubscriptionBooleanInput
+  isVideoDownloadable: ModelSubscriptionBooleanInput
+  lessonIconAndLabel: ModelSubscriptionStringInput
+  and: [ModelSubscriptionLessonSettingFilterInput]
+  or: [ModelSubscriptionLessonSettingFilterInput]
+}
+
+type ModelLMSQuizOptionConnection {
+  items: [LMSQuizOption]!
+  nextToken: String
+}
+
+input ModelLMSQuizOptionFilterInput {
+  id: ModelIDInput
+  questionid: ModelIDInput
+  key: ModelIntInput
+  image: ModelStringInput
+  content: ModelStringInput
+  val: ModelBooleanInput
+  and: [ModelLMSQuizOptionFilterInput]
+  or: [ModelLMSQuizOptionFilterInput]
+  not: ModelLMSQuizOptionFilterInput
+}
+
+input ModelLMSQuizOptionConditionInput {
+  questionid: ModelIDInput
+  key: ModelIntInput
+  image: ModelStringInput
+  content: ModelStringInput
+  val: ModelBooleanInput
+  and: [ModelLMSQuizOptionConditionInput]
+  or: [ModelLMSQuizOptionConditionInput]
+  not: ModelLMSQuizOptionConditionInput
+}
+
+input CreateLMSQuizOptionInput {
+  id: ID
+  questionid: ID!
+  key: Int
+  image: String
+  content: String!
+  val: Boolean
+}
+
+input UpdateLMSQuizOptionInput {
+  id: ID!
+  questionid: ID
+  key: Int
+  image: String
+  content: String
+  val: Boolean
+}
+
+input DeleteLMSQuizOptionInput {
+  id: ID!
+}
+
+input ModelSubscriptionLMSQuizOptionFilterInput {
+  id: ModelSubscriptionIDInput
+  questionid: ModelSubscriptionIDInput
+  key: ModelSubscriptionIntInput
+  image: ModelSubscriptionStringInput
+  content: ModelSubscriptionStringInput
+  val: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionLMSQuizOptionFilterInput]
+  or: [ModelSubscriptionLMSQuizOptionFilterInput]
+}
+
+type ModelLMSQuizResponseConnection {
+  items: [LMSQuizResponse]!
+  nextToken: String
+}
+
+input ModelMCQResponsesListInput {
+  eq: [MCQResponses]
+  ne: [MCQResponses]
+  contains: MCQResponses
+  notContains: MCQResponses
+}
+
+input ModelLMSQuizResponseFilterInput {
+  userId: ModelIDInput
+  chapterId: ModelIDInput
+  chapter: ModelMCQResponsesListInput
+  totalScore: ModelIntInput
+  and: [ModelLMSQuizResponseFilterInput]
+  or: [ModelLMSQuizResponseFilterInput]
+  not: ModelLMSQuizResponseFilterInput
+}
+
+input ModelLMSQuizResponseConditionInput {
+  userId: ModelIDInput
+  chapterId: ModelIDInput
+  chapter: ModelMCQResponsesListInput
+  totalScore: ModelIntInput
+  and: [ModelLMSQuizResponseConditionInput]
+  or: [ModelLMSQuizResponseConditionInput]
+  not: ModelLMSQuizResponseConditionInput
+}
+
+input CreateLMSQuizResponseInput {
+  userId: ID!
+  chapterId: ID
+  chapter: [MCQResponses]
+  totalScore: Int
+  id: ID
+}
+
+input UpdateLMSQuizResponseInput {
+  userId: ID
+  chapterId: ID
+  chapter: [MCQResponses]
+  totalScore: Int
+  id: ID!
+}
+
+input DeleteLMSQuizResponseInput {
+  id: ID!
+}
+
+input ModelSubscriptionLMSQuizResponseFilterInput {
+  userId: ModelSubscriptionIDInput
+  chapterId: ModelSubscriptionIDInput
+  chapter: ModelSubscriptionStringInput
+  totalScore: ModelSubscriptionIntInput
+  and: [ModelSubscriptionLMSQuizResponseFilterInput]
+  or: [ModelSubscriptionLMSQuizResponseFilterInput]
+}
+
+type ModelLearnerManagementLearnerConnection {
+  items: [learnerManagementLearner]!
+  nextToken: String
+}
+
+input ModelLearnerManagementLearnerFilterInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  and: [ModelLearnerManagementLearnerFilterInput]
+  or: [ModelLearnerManagementLearnerFilterInput]
+  not: ModelLearnerManagementLearnerFilterInput
+}
+
+input ModelLearnerManagementLearnerConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  and: [ModelLearnerManagementLearnerConditionInput]
+  or: [ModelLearnerManagementLearnerConditionInput]
+  not: ModelLearnerManagementLearnerConditionInput
+}
+
+input CreateLearnerManagementLearnerInput {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+  id: ID
+}
+
+input UpdateLearnerManagementLearnerInput {
+  name: String
+  email: String
+  mobile: Int
+  password: String
+  sendEmailToUser: Boolean
+  id: ID!
+}
+
+input DeleteLearnerManagementLearnerInput {
+  id: ID!
+}
+
+input ModelSubscriptionLearnerManagementLearnerFilterInput {
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  mobile: ModelSubscriptionIntInput
+  password: ModelSubscriptionStringInput
+  sendEmailToUser: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionLearnerManagementLearnerFilterInput]
+  or: [ModelSubscriptionLearnerManagementLearnerFilterInput]
+}
+
+type ModelUserManagementadminConnection {
+  items: [userManagementadmin]!
+  nextToken: String
+}
+
+input ModelLearnerRoleInput {
+  eq: LearnerRole
+  ne: LearnerRole
+}
+
+input ModelUserManagementadminFilterInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  role: ModelLearnerRoleInput
+  and: [ModelUserManagementadminFilterInput]
+  or: [ModelUserManagementadminFilterInput]
+  not: ModelUserManagementadminFilterInput
+}
+
+input ModelUserManagementadminConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  role: ModelLearnerRoleInput
+  and: [ModelUserManagementadminConditionInput]
+  or: [ModelUserManagementadminConditionInput]
+  not: ModelUserManagementadminConditionInput
+}
+
+input CreateUserManagementadminInput {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+  role: LearnerRole!
+  id: ID
+}
+
+input UpdateUserManagementadminInput {
+  name: String
+  email: String
+  mobile: Int
+  password: String
+  sendEmailToUser: Boolean
+  role: LearnerRole
+  id: ID!
+}
+
+input DeleteUserManagementadminInput {
+  id: ID!
+}
+
+input ModelSubscriptionUserManagementadminFilterInput {
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  mobile: ModelSubscriptionIntInput
+  password: ModelSubscriptionStringInput
+  sendEmailToUser: ModelSubscriptionBooleanInput
+  role: ModelSubscriptionStringInput
+  and: [ModelSubscriptionUserManagementadminFilterInput]
+  or: [ModelSubscriptionUserManagementadminFilterInput]
+}
+
+type ModelUserManagementInstructionConnection {
+  items: [userManagementInstruction]!
+  nextToken: String
+}
+
+input ModelUserManagementInstructionFilterInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  editingOfPublishedCourses: ModelBooleanInput
+  askForApprovalForPublishedCourses: ModelBooleanInput
+  accessOfLiveRecordings: ModelBooleanInput
+  accessToSalesDashboard: ModelBooleanInput
+  accessToMessenger: ModelBooleanInput
+  accessToBandwidthReport: ModelBooleanInput
+  accessToUsageReport: ModelBooleanInput
+  accessToLiveTestReport: ModelBooleanInput
+  accessToLiveClassReport: ModelBooleanInput
+  accessToLearnerDetails: ModelBooleanInput
+  accessToDownload_quiz_OR_liveTests: ModelBooleanInput
+  accessToEnrollLearnerToAnyCourse: ModelBooleanInput
+  and: [ModelUserManagementInstructionFilterInput]
+  or: [ModelUserManagementInstructionFilterInput]
+  not: ModelUserManagementInstructionFilterInput
+}
+
+input ModelUserManagementInstructionConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  sendEmailToUser: ModelBooleanInput
+  editingOfPublishedCourses: ModelBooleanInput
+  askForApprovalForPublishedCourses: ModelBooleanInput
+  accessOfLiveRecordings: ModelBooleanInput
+  accessToSalesDashboard: ModelBooleanInput
+  accessToMessenger: ModelBooleanInput
+  accessToBandwidthReport: ModelBooleanInput
+  accessToUsageReport: ModelBooleanInput
+  accessToLiveTestReport: ModelBooleanInput
+  accessToLiveClassReport: ModelBooleanInput
+  accessToLearnerDetails: ModelBooleanInput
+  accessToDownload_quiz_OR_liveTests: ModelBooleanInput
+  accessToEnrollLearnerToAnyCourse: ModelBooleanInput
+  and: [ModelUserManagementInstructionConditionInput]
+  or: [ModelUserManagementInstructionConditionInput]
+  not: ModelUserManagementInstructionConditionInput
+}
+
+input CreateUserManagementInstructionInput {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  sendEmailToUser: Boolean
+  editingOfPublishedCourses: Boolean
+  askForApprovalForPublishedCourses: Boolean
+  accessOfLiveRecordings: Boolean
+  accessToSalesDashboard: Boolean
+  accessToMessenger: Boolean
+  accessToBandwidthReport: Boolean
+  accessToUsageReport: Boolean
+  accessToLiveTestReport: Boolean
+  accessToLiveClassReport: Boolean
+  accessToLearnerDetails: Boolean
+  accessToDownload_quiz_OR_liveTests: Boolean
+  accessToEnrollLearnerToAnyCourse: Boolean
+  id: ID
+}
+
+input UpdateUserManagementInstructionInput {
+  name: String
+  email: String
+  mobile: Int
+  password: String
+  sendEmailToUser: Boolean
+  editingOfPublishedCourses: Boolean
+  askForApprovalForPublishedCourses: Boolean
+  accessOfLiveRecordings: Boolean
+  accessToSalesDashboard: Boolean
+  accessToMessenger: Boolean
+  accessToBandwidthReport: Boolean
+  accessToUsageReport: Boolean
+  accessToLiveTestReport: Boolean
+  accessToLiveClassReport: Boolean
+  accessToLearnerDetails: Boolean
+  accessToDownload_quiz_OR_liveTests: Boolean
+  accessToEnrollLearnerToAnyCourse: Boolean
+  id: ID!
+}
+
+input DeleteUserManagementInstructionInput {
+  id: ID!
+}
+
+input ModelSubscriptionUserManagementInstructionFilterInput {
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  mobile: ModelSubscriptionIntInput
+  password: ModelSubscriptionStringInput
+  sendEmailToUser: ModelSubscriptionBooleanInput
+  editingOfPublishedCourses: ModelSubscriptionBooleanInput
+  askForApprovalForPublishedCourses: ModelSubscriptionBooleanInput
+  accessOfLiveRecordings: ModelSubscriptionBooleanInput
+  accessToSalesDashboard: ModelSubscriptionBooleanInput
+  accessToMessenger: ModelSubscriptionBooleanInput
+  accessToBandwidthReport: ModelSubscriptionBooleanInput
+  accessToUsageReport: ModelSubscriptionBooleanInput
+  accessToLiveTestReport: ModelSubscriptionBooleanInput
+  accessToLiveClassReport: ModelSubscriptionBooleanInput
+  accessToLearnerDetails: ModelSubscriptionBooleanInput
+  accessToDownload_quiz_OR_liveTests: ModelSubscriptionBooleanInput
+  accessToEnrollLearnerToAnyCourse: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionUserManagementInstructionFilterInput]
+  or: [ModelSubscriptionUserManagementInstructionFilterInput]
+}
+
+type ModelUserManagementAffiliateConnection {
+  items: [userManagementAffiliate]!
+  nextToken: String
+}
+
+input ModelUserManagementAffiliateFilterInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  commisionRate_in_Percentage: ModelIntInput
+  allowCommisionOnAllCourses: ModelBooleanInput
+  linkAffiliatesForLimitedDays: ModelBooleanInput
+  enterNumberOfDays: ModelIntInput
+  sendEmailToUser: ModelBooleanInput
+  and: [ModelUserManagementAffiliateFilterInput]
+  or: [ModelUserManagementAffiliateFilterInput]
+  not: ModelUserManagementAffiliateFilterInput
+}
+
+input ModelUserManagementAffiliateConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  mobile: ModelIntInput
+  password: ModelStringInput
+  commisionRate_in_Percentage: ModelIntInput
+  allowCommisionOnAllCourses: ModelBooleanInput
+  linkAffiliatesForLimitedDays: ModelBooleanInput
+  enterNumberOfDays: ModelIntInput
+  sendEmailToUser: ModelBooleanInput
+  and: [ModelUserManagementAffiliateConditionInput]
+  or: [ModelUserManagementAffiliateConditionInput]
+  not: ModelUserManagementAffiliateConditionInput
+}
+
+input CreateUserManagementAffiliateInput {
+  name: String!
+  email: String!
+  mobile: Int!
+  password: String!
+  commisionRate_in_Percentage: Int
+  allowCommisionOnAllCourses: Boolean
+  linkAffiliatesForLimitedDays: Boolean
+  enterNumberOfDays: Int
+  sendEmailToUser: Boolean
+  id: ID
+}
+
+input UpdateUserManagementAffiliateInput {
+  name: String
+  email: String
+  mobile: Int
+  password: String
+  commisionRate_in_Percentage: Int
+  allowCommisionOnAllCourses: Boolean
+  linkAffiliatesForLimitedDays: Boolean
+  enterNumberOfDays: Int
+  sendEmailToUser: Boolean
+  id: ID!
+}
+
+input DeleteUserManagementAffiliateInput {
+  id: ID!
+}
+
+input ModelSubscriptionUserManagementAffiliateFilterInput {
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  mobile: ModelSubscriptionIntInput
+  password: ModelSubscriptionStringInput
+  commisionRate_in_Percentage: ModelSubscriptionIntInput
+  allowCommisionOnAllCourses: ModelSubscriptionBooleanInput
+  linkAffiliatesForLimitedDays: ModelSubscriptionBooleanInput
+  enterNumberOfDays: ModelSubscriptionIntInput
+  sendEmailToUser: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionUserManagementAffiliateFilterInput]
+  or: [ModelSubscriptionUserManagementAffiliateFilterInput]
+}
+
+type ModelEnrolledCourseConnection {
+  items: [EnrolledCourse]!
+  nextToken: String
+}
+
+input ModelEnrolledCourseStatusInput {
+  eq: EnrolledCourseStatus
+  ne: EnrolledCourseStatus
+}
+
+input ModelEnrolledCourseFilterInput {
+  id: ModelIDInput
+  joiningDate: ModelStringInput
+  expiryDate: ModelStringInput
+  status: ModelEnrolledCourseStatusInput
+  and: [ModelEnrolledCourseFilterInput]
+  or: [ModelEnrolledCourseFilterInput]
+  not: ModelEnrolledCourseFilterInput
+}
+
+input ModelEnrolledCourseConditionInput {
+  joiningDate: ModelStringInput
+  expiryDate: ModelStringInput
+  status: ModelEnrolledCourseStatusInput
+  and: [ModelEnrolledCourseConditionInput]
+  or: [ModelEnrolledCourseConditionInput]
+  not: ModelEnrolledCourseConditionInput
+}
+
+input CreateEnrolledCourseInput {
+  id: ID
+  joiningDate: AWSDate!
+  expiryDate: AWSDate!
+  status: EnrolledCourseStatus!
+}
+
+input UpdateEnrolledCourseInput {
+  id: ID!
+  joiningDate: AWSDate
+  expiryDate: AWSDate
+  status: EnrolledCourseStatus
+}
+
+input DeleteEnrolledCourseInput {
+  id: ID!
+}
+
+input ModelSubscriptionEnrolledCourseFilterInput {
+  id: ModelSubscriptionIDInput
+  joiningDate: ModelSubscriptionStringInput
+  expiryDate: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  and: [ModelSubscriptionEnrolledCourseFilterInput]
+  or: [ModelSubscriptionEnrolledCourseFilterInput]
+}
+
+type ModelManageOrderConnection {
+  items: [ManageOrder]!
+  nextToken: String
+}
+
+input ModelManageOrderFilterInput {
+  id: ModelIDInput
+  and: [ModelManageOrderFilterInput]
+  or: [ModelManageOrderFilterInput]
+  not: ModelManageOrderFilterInput
+}
+
+input ModelManageOrderConditionInput {
+  and: [ModelManageOrderConditionInput]
+  or: [ModelManageOrderConditionInput]
+  not: ModelManageOrderConditionInput
+}
+
+input CreateManageOrderInput {
+  id: ID
+}
+
+input UpdateManageOrderInput {
+  id: ID!
+}
+
+input DeleteManageOrderInput {
+  id: ID!
+}
+
+input ModelSubscriptionManageOrderFilterInput {
+  id: ModelSubscriptionIDInput
+  and: [ModelSubscriptionManageOrderFilterInput]
+  or: [ModelSubscriptionManageOrderFilterInput]
+}
+
+input CategoriesInput {
+  id: ID!
+  name: String!
+  url: String!
+}
+
+type ModelManageCategoryConnection {
+  items: [manageCategory]!
+  nextToken: String
+}
+
+input ModelManageCategoryFilterInput {
+  id: ModelIDInput
+  delete: ModelBooleanInput
+  and: [ModelManageCategoryFilterInput]
+  or: [ModelManageCategoryFilterInput]
+  not: ModelManageCategoryFilterInput
+}
+
+input ModelManageCategoryConditionInput {
+  delete: ModelBooleanInput
+  and: [ModelManageCategoryConditionInput]
+  or: [ModelManageCategoryConditionInput]
+  not: ModelManageCategoryConditionInput
+}
+
+input CreateManageCategoryInput {
+  id: ID
+  category: [CategoriesInput!]!
+  delete: Boolean
+}
+
+input UpdateManageCategoryInput {
+  id: ID!
+  category: [CategoriesInput!]
+  delete: Boolean
+}
+
+input DeleteManageCategoryInput {
+  id: ID!
+}
+
+input ModelSubscriptionManageCategoryFilterInput {
+  id: ModelSubscriptionIDInput
+  delete: ModelSubscriptionBooleanInput
+  and: [ModelSubscriptionManageCategoryFilterInput]
+  or: [ModelSubscriptionManageCategoryFilterInput]
+}

@@ -1,0 +1,90 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-zenverse-lms-203936-authRole",
+      "UnauthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-lms-203936-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-lms-203936-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-zenverse-lms-203936-deployment",
+      "UnauthRoleName": "amplify-zenverse-lms-203936-unauthRole",
+      "StackName": "amplify-zenverse-lms-203936",
+      "StackId": "arn:aws:cloudformation:ap-south-1:596109967064:stack/amplify-zenverse-lms-203936/94080bb0-0af3-11ee-b88a-069760dee42a",
+      "AmplifyAppId": "d3cj7wydqbt02k"
+    }
+  },
+  "auth": {
+    "zenverseb8cbb136": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-zenverse-lms-203936-deployment/amplify-cfn-templates/auth/zenverseb8cbb136-cloudformation-template.json",
+        "logicalId": "authzenverseb8cbb136"
+      },
+      "lastPushTimeStamp": "2023-06-14T22:12:23.743Z",
+      "output": {
+        "UserPoolId": "ap-south-1_gX3DrtPKx",
+        "AppClientIDWeb": "2mlnra81g9e77ha63f4d97oujv",
+        "AppClientID": "ja50s95dg17mtticdefmeraon",
+        "IdentityPoolId": "ap-south-1:4c6f7a23-1991-49d1-895d-5cd9fee54fb3",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-south-1:596109967064:userpool/ap-south-1_gX3DrtPKx",
+        "IdentityPoolName": "zenverseb8cbb136_identitypool_b8cbb136__lms",
+        "UserPoolName": "zenverseb8cbb136_userpool_b8cbb136"
+      },
+      "lastPushDirHash": "ovfFxxzJ7NBVC1WFWk/PzD48m3Q="
+    }
+  },
+  "api": {
+    "zenverse": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "zenverseb8cbb136",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authzenverseb8cbb136"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "eezoixhc45fcnhgx5hzgb5y5pa",
+        "GraphQLAPIEndpointOutput": "https://6va3t2fdtza55otaurnumvio2y.appsync-api.ap-south-1.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-zenverse-lms-203936-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apizenverse"
+      },
+      "lastPushTimeStamp": "2023-06-14T22:12:23.743Z",
+      "lastPushDirHash": "w6xf5NugUupr88HbQQqDkzPKlok="
+    }
+  }
+}

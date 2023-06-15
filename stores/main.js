@@ -88,8 +88,6 @@ const state = () => ({
     }
   ],
   selectedItem: "Curriculum",
-
-
     /* User */
     userName: null,
     userEmail: null,

@@ -164,8 +164,8 @@ const questionType = ref("onecorrect");
                                 class=" bg-white border border-blue-700 p-3 rounded-md text-blue-700">Import More
                                 Questions</button>
                         </div>
-                        <CardBox>
-                            <PremFormField label="" horizontal v-show="uploadQuestion">
+                        <CardBox v-show="uploadQuestion">
+                            <PremFormField label="" horizontal >
                                 <Uploadtext pdffile downloadlist :icon="mdiDragVertical" :iconRight="mdiTrashCanOutline"
                                     dragText="Drag & Drop an XLSX file to import"  :icon-left="mdiAccount"
                                     help="Upload a video file" placeholder="Upload a video file" />

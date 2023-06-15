@@ -49,6 +49,10 @@ const header = computed(() => {
         return "Untitled Quiz";
     }
 });
+const inputValue = ref("");
+const contentValue = ref("");
+const questionVal = ref("")
+const uploadQuestion = ref(false)
 
 const question = computed(() => {
     if (questionVal.value) {
@@ -58,9 +62,10 @@ const question = computed(() => {
     }
 })
 
-const inputValue = ref("");
-const contentValue = ref("");
-const questionVal = ref("")
+const upload = () => {
+    uploadQuestion.value = !uploadQuestion.value
+}
+
 
 const addOption = () => {
     const newOptionId = options.value.length + 1;
@@ -109,9 +114,9 @@ const questionType = ref("onecorrect");
                     <div class="flex flex-col">
                         <CardBox>
                             <div class=" flex">
-                                <SectionsSectionTitleLineWithButton :title="'Question#1 ' + question">
-                                    <BaseButton label="Delete" class=" ml-96 hover:bg-red-300 hover:text-red-900" />
-                                </SectionsSectionTitleLineWithButton>
+                                <SectionTitleLineWithButton :title="'Question#1 ' + question">
+
+                                </SectionTitleLineWithButton>
 
                             </div>
                             <PremFormField label="Question Type" horizontal>
@@ -122,9 +127,10 @@ const questionType = ref("onecorrect");
                             </PremFormField>
 
                             <PremFormField label="Question" horizontal>
-                                <!-- <QuilEditor v-model="questionVal" /> -->
-                                <FormUploadFiles v-model="questionVal" help="Title" />
+                                <QuilEditor v-model="questionVal"></QuilEditor>
                             </PremFormField>
+
+
                             <div v-if="questionType == 'onecorrect'" class="my-2"
                                 v-for="(totaloption, index) in totaloptions" :key="totaloption.id">
                                 <PremFormField :label="'Choice ' + totaloption.id">
@@ -147,9 +153,24 @@ const questionType = ref("onecorrect");
                                 <br>
                                 <button @click="deleteOption(index)">Delete</button>
                             </div>
-                            <button @click="addOption">Add Option</button>
+                            <button @click="addOption" class=" bg-blue-700 p-3 rounded-md text-white">Add Choice</button>
+                            <PremFormField label="Explanation" horizontal>
+                                <QuilEditor />
+                            </PremFormField>
                         </CardBox>
-                        <button>Add Question</button>
+                        <div class="flex my-5 gap-3">
+                            <button class=" bg-blue-700 p-3 rounded-md text-white">Add Question</button>
+                            <button @click="upload"
+                                class=" bg-white border border-blue-700 p-3 rounded-md text-blue-700">Import More
+                                Questions</button>
+                        </div>
+                        <CardBox>
+                            <PremFormField label="" horizontal v-show="uploadQuestion">
+                                <Uploadtext pdffile downloadlist :icon="mdiDragVertical" :iconRight="mdiTrashCanOutline"
+                                    dragText="Drag & Drop an XLSX file to import"  :icon-left="mdiAccount"
+                                    help="Upload a video file" placeholder="Upload a video file" />
+                            </PremFormField>
+                        </CardBox>
                     </div>
 
                 </div>
@@ -158,4 +179,6 @@ const questionType = ref("onecorrect");
     </div>
 </template>
 
+
+  
 

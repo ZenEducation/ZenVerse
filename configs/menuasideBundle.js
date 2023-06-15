@@ -41,32 +41,35 @@ import {
       menu: [
         {
           label: "Learner",
-          to:"/lms/LearnerMgmt"
+          to: "/examportal/usermgmt/LearnerMgmt",
         },
         {
           label: "Admin",
-          to:"/lms/AdminMgmt"
-
+          to: "/examportal/usermgmt/AdminMgmt",
         },
         {
           label: "Instructor",
-          to:"/lms/InstructorMgmt"
+          to: "/examportal/usermgmt/InstructorMgmt",
         },
         {
           label: "Affiliates",
-          to:"/lms/AffiliateMgmt"
+          to: "/examportal/usermgmt/AffiliateMgmt",
         },
       ],
     },
     {
-      to: "/",
-      icon: mdiDotsTriangle,
-      label: "Asset Library",
-    },
-    {
-      to: "/",
       icon: mdiChartLine,
       label: "Reports",
+      menu: [
+        {
+          label: "Course Report",
+          to: "/examportal/report/coursereport",
+        },
+        {
+          label: "Product Enrollment",
+          to: "/examportal/report/productenrollment",
+        },
+      ],
     },
     {
       to: "/",
@@ -74,10 +77,9 @@ import {
       label: "Manage",
     },
     {
-      to: "/",
+      to: "/examportal/settings",
       icon: mdiCogOutline,
       label: "Settings",
     },
-  
   ];
   

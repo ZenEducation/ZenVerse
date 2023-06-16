@@ -8,6 +8,10 @@ import {
   mdiDragVertical,
   mdiTrashCanOutline,
   mdiDotsVertical,
+  mdiTagArrowDown,
+  mdiArrowDown,
+  mdiChevronDown,
+  mdiChevronUp,
 } from "@mdi/js";
 
 import SectionMain from "@/components/Sections/SectionMain.vue";
@@ -26,23 +30,29 @@ import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWi
 import SectionTitle from "@/components/Sections/SectionTitle.vue";
 import PremFormControlListbox from "~~/components/Forms/PremFormControlListbox.vue";
 import PremFormControl from "~~/components/Forms/PremFormControl.vue";
+import BaseDivider from "~~/components/NavBar/BaseDivider.vue";
+import BaseIcon from "~~/components/Display/BaseIcon.vue";
 const options = ref([
   { id: 1, option: "option1" },
   { id: 2, option: "option2" },
 ]);
-const QuestionTypeOptions = ["One Correct Answer", "Multiple Correct Answers"]
+const QuestionTypeOptions = ["One Correct Answer", "Multiple Correct Answers"];
+const maxqueId = ref(2);
 const quiz = ref({
-  title: "question 1",
+  title: "quiz 1",
   questions: [
     {
+      id: 1,
       title: "this is title of question",
-      titleText:"",
+      titleText: "this is title of question",
       type: "One Correct Answer",
       choices: [
         { id: 1, title: "this is choice 1", isCorrect: true },
         { id: 2, title: "this is choice 2", isCorrect: false },
         { id: 3, title: "this is choice 3", isCorrect: false },
       ],
+      answer: 1,
+      isOpen: false,
     },
   ],
 });
@@ -56,53 +66,85 @@ onMounted(() => {
 });
 
 const header = computed(() => {
-  if (inputValue.value) {
-    return `${inputValue.value}`;
+  if (quiz.value.title) {
+    return `${quiz.value.title}`;
   } else {
     return "Untitled Quiz";
   }
 });
-const inputValue = ref("");
-const contentValue = ref("");
-const questionVal = ref("");
-const uploadQuestion = ref(false);
 
-const question = computed(() => {
-  if (questionVal.value) {
-    return `${questionVal.value}`;
-  } else {
-    return "What is your Question?";
-  }
-});
+const addQuestion = () => {
+  maxqueId.value = maxqueId.value + 1;
+  let newQuestion = {
+    id: maxqueId.value,
+    title: "this is title of question",
+    titleText: "this is title of question",
+    type: "One Correct Answer",
+    choices: [{ id: 1, title: "this is choice 1", isCorrect: true }],
+    answer: 1,
+    isOpen: false,
+  };
+  quiz.value.questions.push(newQuestion);
+};
+
+const DuplicateQuestion = (id) => {
+  maxqueId.value = maxqueId.value + 1;
+  let lastQuestion = quiz.value.questions.find((que) => que.id == id);
+  let newQuestion = {
+    id: maxqueId.value,
+    title: lastQuestion.title,
+    titleText: lastQuestion.titleText,
+    type: lastQuestion.type,
+    choices: lastQuestion.choices,
+    answer: lastQuestion.answer,
+    isOpen: false,
+  };
+  quiz.value.questions.push(newQuestion);
+};
+
+const addChoice = (queID) => {
+  quiz.value.questions.forEach((question) => {
+    if (question.id == queID) {
+      let maxID = 1;
+      question.choices.forEach((choice) => {
+        maxID = Math.max(maxID, choice.id + 1);
+      });
+
+      let newChoice = {
+        id: maxID,
+        title: "this is new choice",
+        isCorrect: true,
+      };
+      question.choices.push(newChoice);
+      return;
+    }
+  });
+};
+
+const deleteQuestion = (queID) => {
+  let index = quiz.value.questions.findIndex((que) => {
+    return que.id == queID;
+  });
+  quiz.value.questions.splice(index, 1);
+};
+
+const deleteChoice = (queID, choiceId) => {
+  quiz.value.questions.forEach((question) => {
+    if (question.id == queID) {
+      let index = question.choices.findIndex((choice) => {
+        return choice.id == choiceId;
+      });
+      question.choices.splice(index, 1);
+      return;
+    }
+  });
+};
+
+const uploadQuestion = ref(false);
 
 const upload = () => {
   uploadQuestion.value = !uploadQuestion.value;
 };
-
-const addOption = () => {
-  const newOptionId = options.value.length + 1;
-  const newOption = {
-    id: newOptionId,
-    option: `option${newOptionId}`,
-  };
-  options.value.push(newOption);
-  totaloptions.value.push({
-    id: newOption.id,
-    name: `Transformed ${newOption.option}`,
-  });
-};
-const deleteOption = (index) => {
-  options.value.splice(index, 1);
-  totaloptions.value.splice(index, 1);
-  // Rearrange numbering
-  totaloptions.value.forEach((option, i) => {
-    option.id = i + 1;
-    option.name = `Transformed option${option.id}`;
-  });
-};
-
-const questionType = ref("onecorrect");
-
 </script>
 
 <template>
@@ -129,7 +171,7 @@ const questionType = ref("onecorrect");
           />
         </SeclectionMultipleButton>
 
-        <div class="grid grid-cols-1 gap-6 mb-6">
+        <div class="mb-6">
           <CardBox
             :icon="mdiBallot"
             class="mb-6 lg:mb-0 xl:col-span-3"
@@ -138,113 +180,159 @@ const questionType = ref("onecorrect");
           >
             <PremFormField label="Title" horizontal>
               <FormUploadFiles
-                v-model="inputValue"
+                v-model="quiz.title"
                 :icon-left="mdiAccount"
                 help="Title"
               />
             </PremFormField>
           </CardBox>
 
-
-          <div class="flex flex-col" v-for="(que ,index ) in quiz.questions"   >
+          <div class="mt-4" v-for="(que, index) in quiz.questions">
             <CardBox>
-              <div class="flex">
-                <SectionTitleLineWithButton :title="'Question#'+(index+1) + que.titleText">
-                </SectionTitleLineWithButton>
-                                <SectionTitleLineWithButton :title="'Question#'+(index+1) + que.title">
-                </SectionTitleLineWithButton>
+              <div class="flex justify-between px-4">
+                <SectionTitleLineWithButton
+                  :title="'Question# ' + (index + 1) + ':  '+  que.titleText"
+                />
+                <div class="flex items-center justify-end">
+                  <BaseButton
+                    label="Duplicate"
+                    small
+                    color="info"
+                    @click="DuplicateQuestion(que.id)"
+                  />
+                  <BaseIcon class="cursor-pointer" :path="mdiDotsVertical" />
+                  <BaseIcon
+                    class="cursor-pointer"
+                    :path="mdiChevronDown"
+                    v-if="!que.isOpen"
+                    @click="que.isOpen = !que.isOpen"
+                  />
+                  <BaseIcon
+                    class="cursor-pointer"
+                    :path="mdiChevronUp"
+                    v-if="que.isOpen"
+                    @click="que.isOpen = !que.isOpen"
+                  />
+
+                  <BaseIcon
+                    class="cursor-pointer"
+                    :path="mdiTrashCanOutline"
+                    color="danger"
+                    @click="deleteQuestion(que.id)"
+                  />
+                </div>
               </div>
-              <PremFormField label="Question Type" horizontal>
-                <PremFormControl :options="QuestionTypeOptions" :modelValue="que.type" />
-              </PremFormField>
+              <template v-if="que.isOpen">
+                <PremFormField label="Question Type" horizontal>
+                  <PremFormControl
+                    :options="QuestionTypeOptions"
+                    v-model="que.type"
+                  />
+                </PremFormField>
 
-              <PremFormField label="Question" horizontal>
-                <QuilEditor v-model="que.title" v-model:text="que.titleText"></QuilEditor>
-              </PremFormField>
+                <PremFormField label="Question" horizontal>
+                  <QuilEditor
+                    v-model="que.title"
+                    v-model:text="que.titleText"
+                  />
+                </PremFormField>
+                {{ que.type }}
 
-              <div
-                v-if="questionType == 'onecorrect'"
-                class="my-2"
-                v-for="(totaloption, index) in totaloptions"
-                :key="totaloption.id"
-              >
-                <PremFormField :label="'Choice ' + totaloption.id">
+                <div
+                  v-if="que.type == 'One Correct Answer'"
+                  class="my-2 p-3 bg-slate-100 rounded-lg"
+                  v-for="(totaloption, index) in que.choices"
+                  :key="totaloption.id"
+                >
+                  <div class="flex justify-between px-3 py-2">
+                    <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
+                    <BaseIcon
+                      class="cursor-pointer"
+                      :path="mdiTrashCanOutline"
+                      color="danger"
+                      @click="deleteChoice(que.id, totaloption.id )"
+                    />
+                  </div>
+                  <QuilEditor v-model="totaloption.title"/>
+                  <input
+                    type="radio"
+                    name="option"
+                    id="'option' + totaloption.id"
+                  />
+                  <label for="'option' + totaloption.id" class="ml-2"
+                    >This is the Correct Answer</label
+                  >
+                  <br />
+                </div>
+                <div
+                  v-else
+                  class="my-2 p-3 bg-slate-100 rounded-lg"
+                  v-for="(totaloption, index) in que.choices"
+                  :key="index"
+                >
+                  <div class="flex justify-between px-3 py-2">
+                    <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
+                    <BaseIcon
+                      class="cursor-pointer"
+                      :path="mdiTrashCanOutline"
+                      color="danger"
+                      @click="deleteChoice(que.id, totaloption.id )"
+                    />
+                  </div>
+                  <QuilEditor v-model="totaloption.title"/>
+                  <input
+                    type="checkbox"
+                    class="rounded-3xl"
+                    name="'option' + totaloption.id"
+                    id="'option' + totaloption.id"
+                  />
+                  <label for="'option' + totaloption.id" class="ml-2"
+                    >This is the Correct Answer</label
+                  >
+                  <br />
+                </div>
+                <button
+                  @click="addChoice(que.id)"
+                  class="bg-blue-700 p-3 rounded-md text-white"
+                >
+                  Add Choice
+                </button>
+                <PremFormField label="Explanation" horizontal>
                   <QuilEditor />
                 </PremFormField>
-                <input
-                  type="radio"
-                  name="option"
-                  id="'option' + totaloption.id"
-                />
-                <label for="'option' + totaloption.id" class="ml-2"
-                  >This is the Correct Answer</label
-                >
-                <br />
-                <button @click="deleteOption(index)">Delete</button>
-              </div>
-              <div
-                v-else
-                class="my-2"
-                v-for="(totaloption, index) in totaloptions"
-                :key="index"
-              >
-                <PremFormField :label="'Choice ' + totaloption.id">
-                  <QuilEditor />
-                </PremFormField>
-                <input
-                  type="checkbox"
-                  class="rounded-3xl"
-                  name="'option' + totaloption.id"
-                  id="'option' + totaloption.id"
-                />
-                <label for="'option' + totaloption.id" class="ml-2"
-                  >This is the Correct Answer</label
-                >
-                <br />
-                <button @click="deleteOption(index)">Delete</button>
-              </div>
-              <button
-                @click="addOption"
-                class="bg-blue-700 p-3 rounded-md text-white"
-              >
-                Add Choice
-              </button>
-              <PremFormField label="Explanation" horizontal>
-                <QuilEditor />
-              </PremFormField>
-            </CardBox>
-            <div class="flex my-5 gap-3">
-              <button class="bg-blue-700 p-3 rounded-md text-white">
-                Add Question
-              </button>
-              <button
-                @click="upload"
-                class="bg-white border border-blue-700 p-3 rounded-md text-blue-700"
-              >
-                Import More Questions
-              </button>
-            </div>
-            <CardBox v-show="uploadQuestion">
-              <PremFormField label="" horizontal>
-                <Uploadtext
-                  pdffile
-                  downloadlist
-                  :icon="mdiDragVertical"
-                  :iconRight="mdiTrashCanOutline"
-                  dragText="Drag & Drop an XLSX file to import"
-                  :icon-left="mdiAccount"
-                  help="Upload a video file"
-                  placeholder="Upload a video file"
-                />
-              </PremFormField>
+              </template>
             </CardBox>
           </div>
+          <div class="flex my-5 gap-3">
+            <button
+              @click="addQuestion"
+              class="bg-blue-700 p-3 rounded-md text-white"
+            >
+              Add Question
+            </button>
+            <button
+              class="bg-white border border-blue-700 p-3 rounded-md text-blue-700"
+              @click="uploadQuestion = !uploadQuestion"
+            >
+              Import More Questions
+            </button>
+          </div>
+          <CardBox v-show="uploadQuestion">
+            <PremFormField label="" horizontal>
+              <Uploadtext
+                pdffile
+                downloadlist
+                :icon="mdiDragVertical"
+                :iconRight="mdiTrashCanOutline"
+                dragText="Drag & Drop an XLSX file to import"
+                :icon-left="mdiAccount"
+                help="Upload a video file"
+                placeholder="Upload a video file"
+              />
+            </PremFormField>
+          </CardBox>
         </div>
       </SectionMain>
     </NuxtLayout>
   </div>
-
-
-
-
 </template>

@@ -50,7 +50,7 @@ const quiz = ref({
       id: 1,
       title: "this is title of question",
       titleText: "this is title of question",
-      type: "One or more answers",
+      type: "One Answer",
       choices: [
         { id: 1, title: "this is choice 1", isCorrect: true },
         { id: 2, title: "this is choice 2", isCorrect: false },
@@ -85,7 +85,7 @@ const addQuestion = () => {
     id: maxqueId.value,
     title: "this is title of question",
     titleText: "this is title of question",
-    type: "One Correct Answer",
+    type: "One Answer",
     choices: [{ id: 1, title: "this is choice 1", isCorrect: true }],
     answer: 1,
   };

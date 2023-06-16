@@ -191,7 +191,7 @@ const upload = () => {
             <CardBox>
               <div class="flex justify-between px-4">
                 <SectionTitleLineWithButton
-                  :title="'Question# ' + (index + 1) + ':  '+  que.titleText"
+                  :title="'Question# ' + (index + 1) + ':  ' + que.titleText"
                 />
                 <div class="flex items-center justify-end">
                   <BaseButton
@@ -250,10 +250,10 @@ const upload = () => {
                       class="cursor-pointer"
                       :path="mdiTrashCanOutline"
                       color="danger"
-                      @click="deleteChoice(que.id, totaloption.id )"
+                      @click="deleteChoice(que.id, totaloption.id)"
                     />
                   </div>
-                  <QuilEditor v-model="totaloption.title"/>
+                  <QuilEditor v-model="totaloption.title" />
                   <input
                     type="radio"
                     name="option"
@@ -276,10 +276,10 @@ const upload = () => {
                       class="cursor-pointer"
                       :path="mdiTrashCanOutline"
                       color="danger"
-                      @click="deleteChoice(que.id, totaloption.id )"
+                      @click="deleteChoice(que.id, totaloption.id)"
                     />
                   </div>
-                  <QuilEditor v-model="totaloption.title"/>
+                  <QuilEditor v-model="totaloption.title" />
                   <input
                     type="checkbox"
                     class="rounded-3xl"

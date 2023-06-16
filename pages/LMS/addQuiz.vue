@@ -7,7 +7,6 @@ import {
   mdiFileUploadOutline,
   mdiDragVertical,
   mdiTrashCanOutline,
-  mdiDotsVertical,
   mdiTagArrowDown,
   mdiArrowDown,
   mdiChevronDown,
@@ -52,7 +51,6 @@ const quiz = ref({
         { id: 3, title: "this is choice 3", isCorrect: false },
       ],
       answer: 1,
-      isOpen: false,
     },
   ],
 });
@@ -73,6 +71,8 @@ const header = computed(() => {
   }
 });
 
+const isOpen = ref(1);
+
 const addQuestion = () => {
   maxqueId.value = maxqueId.value + 1;
   let newQuestion = {
@@ -82,9 +82,10 @@ const addQuestion = () => {
     type: "One Correct Answer",
     choices: [{ id: 1, title: "this is choice 1", isCorrect: true }],
     answer: 1,
-    isOpen: false,
   };
   quiz.value.questions.push(newQuestion);
+    isOpen.value = newQuestion.id;
+
 };
 
 const DuplicateQuestion = (id) => {
@@ -97,9 +98,10 @@ const DuplicateQuestion = (id) => {
     type: lastQuestion.type,
     choices: lastQuestion.choices,
     answer: lastQuestion.answer,
-    isOpen: false,
   };
   quiz.value.questions.push(newQuestion);
+  isOpen.value = newQuestion.id;
+
 };
 
 const addChoice = (queID) => {
@@ -171,10 +173,10 @@ const upload = () => {
           />
         </SeclectionMultipleButton>
 
-        <div class="mb-6">
+        <div class="mb-2">
           <CardBox
             :icon="mdiBallot"
-            class="mb-6 lg:mb-0 xl:col-span-3"
+            class="mb-3 lg:mb-0 xl:col-span-3"
             is-form
             @submit.prevent="submit"
           >
@@ -190,9 +192,11 @@ const upload = () => {
           <div class="mt-4" v-for="(que, index) in quiz.questions">
             <CardBox>
               <div class="flex justify-between px-4">
-                <SectionTitleLineWithButton
-                  :title="'Question# ' + (index + 1) + ':  ' + que.titleText"
-                />
+                <div class="flex items-center font-semibold">
+                  <h1>
+                    {{ "Question# " + (index + 1) + ":  " + que.titleText }}
+                  </h1>
+                </div>
                 <div class="flex items-center justify-end">
                   <BaseButton
                     label="Duplicate"
@@ -200,29 +204,33 @@ const upload = () => {
                     color="info"
                     @click="DuplicateQuestion(que.id)"
                   />
-                  <BaseIcon class="cursor-pointer" :path="mdiDotsVertical" />
                   <BaseIcon
-                    class="cursor-pointer"
-                    :path="mdiChevronDown"
-                    v-if="!que.isOpen"
-                    @click="que.isOpen = !que.isOpen"
-                  />
-                  <BaseIcon
-                    class="cursor-pointer"
-                    :path="mdiChevronUp"
-                    v-if="que.isOpen"
-                    @click="que.isOpen = !que.isOpen"
-                  />
-
-                  <BaseIcon
+                    w="w-10"
+                    h="h-10"
                     class="cursor-pointer"
                     :path="mdiTrashCanOutline"
                     color="danger"
                     @click="deleteQuestion(que.id)"
                   />
+                  <BaseIcon
+                    w="w-10"
+                    h="h-10"
+                    class="cursor-pointer"
+                    :path="mdiChevronUp"
+                    v-if="isOpen == que.id"
+                    @click="isOpen = -1"
+                  />
+                  <BaseIcon
+                    w="w-10"
+                    h="h-10"
+                    class="cursor-pointer"
+                    :path="mdiChevronDown"
+                    v-if="isOpen !== que.id"
+                    @click="isOpen = que.id"
+                  />
                 </div>
               </div>
-              <template v-if="que.isOpen">
+              <template v-if="isOpen == que.id">
                 <PremFormField label="Question Type" horizontal>
                   <PremFormControl
                     :options="QuestionTypeOptions"
@@ -247,6 +255,8 @@ const upload = () => {
                   <div class="flex justify-between px-3 py-2">
                     <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
                     <BaseIcon
+                      w="w-10"
+                      h="h-10"
                       class="cursor-pointer"
                       :path="mdiTrashCanOutline"
                       color="danger"
@@ -273,6 +283,8 @@ const upload = () => {
                   <div class="flex justify-between px-3 py-2">
                     <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
                     <BaseIcon
+                      w="w-10"
+                      h="h-10"
                       class="cursor-pointer"
                       :path="mdiTrashCanOutline"
                       color="danger"

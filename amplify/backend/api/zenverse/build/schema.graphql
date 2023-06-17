@@ -1,0 +1,495 @@
+enum Lead_Status {
+  NEW
+  FOLLOW_UP
+  CONTACTED
+  CLOSED
+}
+
+enum SourceType {
+  Website
+  Referral
+  TradeShow
+  ColdCall
+}
+
+type Column {
+  id: ID!
+  name: String!
+  dataType: String!
+}
+
+type CRMLead @aws_cognito_user_pools @aws_api_key {
+  id: ID!
+  email: String!
+  phone: String
+  status: Lead_Status
+  source: SourceType!
+  owner: String!
+  nextTask: String
+  nextTaskDue: String
+  people: [CRMCustomer]
+  activites: [CRMCampaign]
+  lossReason: String
+  lossReasonNotes: String
+  weightedForecast: Float!
+  userId: String!
+  doNotCall: Boolean
+  industry: String
+  jobTitle: String
+  history: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type CRMCustomer @aws_cognito_user_pools @aws_api_key {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String
+  userId: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type CRMCampaign @aws_cognito_user_pools @aws_api_key {
+  id: ID!
+  name: String!
+  startDate: AWSDate!
+  endDate: AWSDate!
+  active: Boolean
+  ActualCost: String
+  description: String
+  userId: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Mutation {
+  addColumn(tableId: ID!, name: String!, dataType: String!): Column
+  deleteColumn(tableId: ID!, columnId: ID!): Boolean
+  createCRMLead(input: CreateCRMLeadInput!, condition: ModelCRMLeadConditionInput): CRMLead @aws_cognito_user_pools
+  updateCRMLead(input: UpdateCRMLeadInput!, condition: ModelCRMLeadConditionInput): CRMLead @aws_cognito_user_pools
+  deleteCRMLead(input: DeleteCRMLeadInput!, condition: ModelCRMLeadConditionInput): CRMLead @aws_cognito_user_pools
+  createCRMCustomer(input: CreateCRMCustomerInput!, condition: ModelCRMCustomerConditionInput): CRMCustomer @aws_cognito_user_pools
+  updateCRMCustomer(input: UpdateCRMCustomerInput!, condition: ModelCRMCustomerConditionInput): CRMCustomer @aws_cognito_user_pools
+  deleteCRMCustomer(input: DeleteCRMCustomerInput!, condition: ModelCRMCustomerConditionInput): CRMCustomer @aws_cognito_user_pools
+  createCRMCampaign(input: CreateCRMCampaignInput!, condition: ModelCRMCampaignConditionInput): CRMCampaign @aws_cognito_user_pools
+  updateCRMCampaign(input: UpdateCRMCampaignInput!, condition: ModelCRMCampaignConditionInput): CRMCampaign @aws_cognito_user_pools
+  deleteCRMCampaign(input: DeleteCRMCampaignInput!, condition: ModelCRMCampaignConditionInput): CRMCampaign @aws_cognito_user_pools
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelCRMLeadConnection @aws_api_key @aws_cognito_user_pools {
+  items: [CRMLead]!
+  nextToken: String
+}
+
+input ModelLead_StatusInput {
+  eq: Lead_Status
+  ne: Lead_Status
+}
+
+input ModelSourceTypeInput {
+  eq: SourceType
+  ne: SourceType
+}
+
+input ModelCRMLeadFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  status: ModelLead_StatusInput
+  source: ModelSourceTypeInput
+  owner: ModelStringInput
+  nextTask: ModelStringInput
+  nextTaskDue: ModelStringInput
+  lossReason: ModelStringInput
+  lossReasonNotes: ModelStringInput
+  weightedForecast: ModelFloatInput
+  userId: ModelStringInput
+  doNotCall: ModelBooleanInput
+  industry: ModelStringInput
+  jobTitle: ModelStringInput
+  history: ModelStringInput
+  and: [ModelCRMLeadFilterInput]
+  or: [ModelCRMLeadFilterInput]
+  not: ModelCRMLeadFilterInput
+}
+
+type Query {
+  getCRMLead(id: ID!): CRMLead @aws_api_key @aws_cognito_user_pools
+  listCRMLeads(filter: ModelCRMLeadFilterInput, limit: Int, nextToken: String): ModelCRMLeadConnection @aws_api_key @aws_cognito_user_pools
+  getCRMCustomer(id: ID!): CRMCustomer @aws_api_key @aws_cognito_user_pools
+  listCRMCustomers(filter: ModelCRMCustomerFilterInput, limit: Int, nextToken: String): ModelCRMCustomerConnection @aws_api_key @aws_cognito_user_pools
+  getCRMCampaign(id: ID!): CRMCampaign @aws_api_key @aws_cognito_user_pools
+  listCRMCampaigns(filter: ModelCRMCampaignFilterInput, limit: Int, nextToken: String): ModelCRMCampaignConnection @aws_api_key @aws_cognito_user_pools
+}
+
+input ModelCRMLeadConditionInput {
+  email: ModelStringInput
+  phone: ModelStringInput
+  status: ModelLead_StatusInput
+  source: ModelSourceTypeInput
+  owner: ModelStringInput
+  nextTask: ModelStringInput
+  nextTaskDue: ModelStringInput
+  lossReason: ModelStringInput
+  lossReasonNotes: ModelStringInput
+  weightedForecast: ModelFloatInput
+  userId: ModelStringInput
+  doNotCall: ModelBooleanInput
+  industry: ModelStringInput
+  jobTitle: ModelStringInput
+  history: ModelStringInput
+  and: [ModelCRMLeadConditionInput]
+  or: [ModelCRMLeadConditionInput]
+  not: ModelCRMLeadConditionInput
+}
+
+input CreateCRMLeadInput {
+  id: ID
+  email: String!
+  phone: String
+  status: Lead_Status
+  source: SourceType!
+  owner: String!
+  nextTask: String
+  nextTaskDue: String
+  lossReason: String
+  lossReasonNotes: String
+  weightedForecast: Float!
+  userId: String!
+  doNotCall: Boolean
+  industry: String
+  jobTitle: String
+  history: String
+}
+
+input UpdateCRMLeadInput {
+  id: ID!
+  email: String
+  phone: String
+  status: Lead_Status
+  source: SourceType
+  owner: String
+  nextTask: String
+  nextTaskDue: String
+  lossReason: String
+  lossReasonNotes: String
+  weightedForecast: Float
+  userId: String
+  doNotCall: Boolean
+  industry: String
+  jobTitle: String
+  history: String
+}
+
+input DeleteCRMLeadInput {
+  id: ID!
+}
+
+input ModelSubscriptionCRMLeadFilterInput {
+  id: ModelSubscriptionIDInput
+  email: ModelSubscriptionStringInput
+  phone: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  source: ModelSubscriptionStringInput
+  owner: ModelSubscriptionStringInput
+  nextTask: ModelSubscriptionStringInput
+  nextTaskDue: ModelSubscriptionStringInput
+  lossReason: ModelSubscriptionStringInput
+  lossReasonNotes: ModelSubscriptionStringInput
+  weightedForecast: ModelSubscriptionFloatInput
+  doNotCall: ModelSubscriptionBooleanInput
+  industry: ModelSubscriptionStringInput
+  jobTitle: ModelSubscriptionStringInput
+  history: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCRMLeadFilterInput]
+  or: [ModelSubscriptionCRMLeadFilterInput]
+}
+
+type Subscription {
+  onCreateCRMLead(filter: ModelSubscriptionCRMLeadFilterInput): CRMLead @aws_subscribe(mutations: ["createCRMLead"]) @aws_api_key @aws_cognito_user_pools
+  onUpdateCRMLead(filter: ModelSubscriptionCRMLeadFilterInput): CRMLead @aws_subscribe(mutations: ["updateCRMLead"]) @aws_api_key @aws_cognito_user_pools
+  onDeleteCRMLead(filter: ModelSubscriptionCRMLeadFilterInput): CRMLead @aws_subscribe(mutations: ["deleteCRMLead"]) @aws_api_key @aws_cognito_user_pools
+  onCreateCRMCustomer(filter: ModelSubscriptionCRMCustomerFilterInput, userId: String): CRMCustomer @aws_subscribe(mutations: ["createCRMCustomer"]) @aws_api_key @aws_cognito_user_pools
+  onUpdateCRMCustomer(filter: ModelSubscriptionCRMCustomerFilterInput, userId: String): CRMCustomer @aws_subscribe(mutations: ["updateCRMCustomer"]) @aws_api_key @aws_cognito_user_pools
+  onDeleteCRMCustomer(filter: ModelSubscriptionCRMCustomerFilterInput, userId: String): CRMCustomer @aws_subscribe(mutations: ["deleteCRMCustomer"]) @aws_api_key @aws_cognito_user_pools
+  onCreateCRMCampaign(filter: ModelSubscriptionCRMCampaignFilterInput): CRMCampaign @aws_subscribe(mutations: ["createCRMCampaign"]) @aws_api_key @aws_cognito_user_pools
+  onUpdateCRMCampaign(filter: ModelSubscriptionCRMCampaignFilterInput): CRMCampaign @aws_subscribe(mutations: ["updateCRMCampaign"]) @aws_api_key @aws_cognito_user_pools
+  onDeleteCRMCampaign(filter: ModelSubscriptionCRMCampaignFilterInput): CRMCampaign @aws_subscribe(mutations: ["deleteCRMCampaign"]) @aws_api_key @aws_cognito_user_pools
+}
+
+type ModelCRMCustomerConnection @aws_api_key @aws_cognito_user_pools {
+  items: [CRMCustomer]!
+  nextToken: String
+}
+
+input ModelCRMCustomerFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  userId: ModelStringInput
+  and: [ModelCRMCustomerFilterInput]
+  or: [ModelCRMCustomerFilterInput]
+  not: ModelCRMCustomerFilterInput
+}
+
+input ModelCRMCustomerConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  phone: ModelStringInput
+  userId: ModelStringInput
+  and: [ModelCRMCustomerConditionInput]
+  or: [ModelCRMCustomerConditionInput]
+  not: ModelCRMCustomerConditionInput
+}
+
+input CreateCRMCustomerInput {
+  id: ID
+  name: String!
+  email: String!
+  phone: String
+  userId: String!
+}
+
+input UpdateCRMCustomerInput {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  userId: String
+}
+
+input DeleteCRMCustomerInput {
+  id: ID!
+}
+
+input ModelSubscriptionCRMCustomerFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  phone: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCRMCustomerFilterInput]
+  or: [ModelSubscriptionCRMCustomerFilterInput]
+}
+
+type ModelCRMCampaignConnection @aws_api_key @aws_cognito_user_pools {
+  items: [CRMCampaign]!
+  nextToken: String
+}
+
+input ModelCRMCampaignFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  active: ModelBooleanInput
+  ActualCost: ModelStringInput
+  description: ModelStringInput
+  userId: ModelStringInput
+  and: [ModelCRMCampaignFilterInput]
+  or: [ModelCRMCampaignFilterInput]
+  not: ModelCRMCampaignFilterInput
+}
+
+input ModelCRMCampaignConditionInput {
+  name: ModelStringInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  active: ModelBooleanInput
+  ActualCost: ModelStringInput
+  description: ModelStringInput
+  userId: ModelStringInput
+  and: [ModelCRMCampaignConditionInput]
+  or: [ModelCRMCampaignConditionInput]
+  not: ModelCRMCampaignConditionInput
+}
+
+input CreateCRMCampaignInput {
+  id: ID
+  name: String!
+  startDate: AWSDate!
+  endDate: AWSDate!
+  active: Boolean
+  ActualCost: String
+  description: String
+  userId: String!
+}
+
+input UpdateCRMCampaignInput {
+  id: ID!
+  name: String
+  startDate: AWSDate
+  endDate: AWSDate
+  active: Boolean
+  ActualCost: String
+  description: String
+  userId: String
+}
+
+input DeleteCRMCampaignInput {
+  id: ID!
+}
+
+input ModelSubscriptionCRMCampaignFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  startDate: ModelSubscriptionStringInput
+  endDate: ModelSubscriptionStringInput
+  active: ModelSubscriptionBooleanInput
+  ActualCost: ModelSubscriptionStringInput
+  description: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCRMCampaignFilterInput]
+  or: [ModelSubscriptionCRMCampaignFilterInput]
+}

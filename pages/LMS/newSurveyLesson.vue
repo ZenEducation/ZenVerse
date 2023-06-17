@@ -208,11 +208,9 @@ const upload = () => {
                     color="info"
                     @click="DuplicateQuestion(que.id)"
                   />
-                  <BaseIcon
-                    w="w-10"
-                    h="h-10"
-                    class="cursor-pointer"
-                    :path="mdiTrashCanOutline"
+                  <BaseButton
+                    class="cursor-pointer pl-3"
+                    :icon="mdiTrashCanOutline"
                     color="danger"
                     @click="deleteQuestion(que.id)"
                   />
@@ -246,13 +244,11 @@ const upload = () => {
                   <PremFormField label="Left Label" class="w-1/2" horizontal>
                     <PremFormControl
                       placeholder="Enter Left value"
-                      type="number"
                     />
                   </PremFormField>
                   <PremFormField label="Left Label" class="w-1/2" horizontal>
                     <PremFormControl
                       placeholder="Enter Left value"
-                      type="number"
                     />
                   </PremFormField>
                 </div>
@@ -292,12 +288,10 @@ const upload = () => {
                   :key="totaloption.id"
                 >
                   <div class="flex justify-between px-3 py-2">
-                    <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
-                    <BaseIcon
-                      w="w-10"
-                      h="h-10"
+                    <h3 class="font-bold">{{ "Choice #" + (index+1) }}</h3>
+                    <BaseButton
                       class="cursor-pointer"
-                      :path="mdiTrashCanOutline"
+                      :icon="mdiTrashCanOutline"
                       color="danger"
                       @click="deleteChoice(que.id, totaloption.id)"
                     />

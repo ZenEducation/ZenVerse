@@ -55,19 +55,19 @@ defineProps({
         small
       />
     </BaseLevel>
-    <BaseLevel mobile>
+    <BaseLevel mobile class="">
       <div>
-        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">
-          {{ label }}
-        </h3>
-        <h1 class="text-3xl leading-tight font-semibold">
+        <h1 class="text-3xl mx-2 leading-tight font-semibold text-black dark:text-white">
           <NumberDynamic :value="number" :prefix="prefix" :suffix="suffix" />
         </h1>
+        <h3 class="text-lg mx-2 leading-tight text-gray-500 dark:text-slate-200">
+          {{ label }}
+        </h3>
       </div>
       <BaseIcon
         v-if="icon"
         :path="icon"
-        size="48"
+        size="60"
         w=""
         h="h-16"
         :class="color"

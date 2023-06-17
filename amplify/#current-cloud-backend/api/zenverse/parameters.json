@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "zenverse",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authzenverse7e195e9c",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

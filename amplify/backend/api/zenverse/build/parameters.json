@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "zenverse",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authzenverse7e195e9c",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-zenverse-salescrm-91019-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/faa47897e5594e26630eadafe27227272bd09ec7"
+}

@@ -1,0 +1,87 @@
+
+enum Lead_Status {
+  NEW
+  FOLLOW_UP
+  CONTACTED
+  CLOSED
+}
+enum SourceType{
+  Website
+  Referral
+  TradeShow
+  ColdCall
+}
+
+type Column {
+  id: ID!
+  name: String!
+  dataType: String!
+}
+
+type CRMLead
+  @model
+  @auth(rules: [
+    { allow: owner, ownerField: "userId", operations: [create, update, delete] }
+    { allow: groups, groups: ["Admins"], operations: [create, update, delete] }
+    { allow: public, operations: [read] }
+    { allow: private, operations: [read] }
+  ]) {
+  id: ID!
+  email: String!
+  phone: String
+  status: Lead_Status
+  source: SourceType!
+  owner: String!
+  nextTask: String
+  nextTaskDue: String
+  people: [CRMCustomer]
+  activites: [CRMCampaign]
+  lossReason: String
+  lossReasonNotes: String
+  weightedForecast: Float!
+  userId: String!
+  doNotCall: Boolean
+  industry: String
+  jobTitle: String
+  history: String
+
+}
+
+type CRMCustomer
+  @model
+  @auth(rules: [
+    { allow: owner, ownerField: "userId", operations: [create, read, update, delete] }
+    { allow: groups, groups: ["Admins"], operations: [create, read, update, delete] }
+    { allow: public, operations: [read] }
+    { allow: private, operations: [read] }
+  ]) {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String
+  userId: String!
+}
+
+
+type CRMCampaign
+  @model
+  @auth(rules: [
+    { allow: owner, ownerField: "userId", operations: [create, update, delete] }
+    { allow: groups, groups: ["Admins"], operations: [create, update, delete] }
+    { allow: public, operations: [read] }
+    { allow: private, operations: [read] }
+  ]) {
+  id: ID!
+  name: String!
+  startDate: AWSDate!
+  endDate: AWSDate!
+  active: Boolean
+  ActualCost: String
+  description: String
+  userId: String!
+}
+
+type Mutation {
+  addColumn(tableId: ID!, name: String!, dataType: String!): Column
+  deleteColumn(tableId: ID!, columnId: ID!): Boolean
+}

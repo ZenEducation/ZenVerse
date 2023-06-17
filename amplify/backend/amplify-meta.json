@@ -1,0 +1,96 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-zenverse-salescrm-91019-authRole",
+      "UnauthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-salescrm-91019-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-salescrm-91019-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-zenverse-salescrm-91019-deployment",
+      "UnauthRoleName": "amplify-zenverse-salescrm-91019-unauthRole",
+      "StackName": "amplify-zenverse-salescrm-91019",
+      "StackId": "arn:aws:cloudformation:ap-south-1:596109967064:stack/amplify-zenverse-salescrm-91019/c88e68f0-0cee-11ee-8179-020dbe7fd39a",
+      "AmplifyAppId": "d3cj7wydqbt02k"
+    }
+  },
+  "api": {
+    "zenverse": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "zenverse7e195e9c"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authzenverse7e195e9c"
+              }
+            }
+          ],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        },
+        "GraphQLAPIIdOutput": "mv6y23ybvfg2xadv4n5g77p5na",
+        "GraphQLAPIEndpointOutput": "https://lo6sfqijbjhhfpnc5ka4wkafqi.appsync-api.ap-south-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-tcqoyyhqv5bvpmcc5nzw7szeny"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-06-17T10:18:09.270Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-zenverse-salescrm-91019-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apizenverse"
+      }
+    }
+  },
+  "auth": {
+    "zenverse7e195e9c": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "ap-south-1_0SqN7Foc3",
+        "AppClientIDWeb": "61iif9fhbj25anfd2v0se5c6j2",
+        "AppClientID": "4kmh470u5jvl6u8goim3bvh257",
+        "IdentityPoolId": "ap-south-1:66fcc0d7-0f5a-4587-97d8-0f9a93e13c6f",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-south-1:596109967064:userpool/ap-south-1_0SqN7Foc3",
+        "IdentityPoolName": "zenverse7e195e9c_identitypool_7e195e9c__salescrm",
+        "UserPoolName": "zenverse7e195e9c_userpool_7e195e9c"
+      },
+      "lastPushTimeStamp": "2023-06-17T10:18:09.300Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-zenverse-salescrm-91019-deployment/amplify-cfn-templates/auth/zenverse7e195e9c-cloudformation-template.json",
+        "logicalId": "authzenverse7e195e9c"
+      }
+    }
+  }
+}

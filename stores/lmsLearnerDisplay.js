@@ -8,6 +8,14 @@ const dummyData = [
     lessons: [
       {
         lessonNumber: 1,
+        lessonTitle: "Survey Lesson",
+        lessonContent: "...",
+        done: false,
+        src: "",
+        type:"survey"
+      },
+      {
+        lessonNumber: 2,
         lessonTitle: "Hands-On Exercises",
         lessonContent: "...",
         done: false,
@@ -15,7 +23,7 @@ const dummyData = [
         type:"quiz"
       },
       {
-        lessonNumber: 2,
+        lessonNumber: 3,
         lessonTitle: "Text Lesson",
         lessonContent: `<h1 style="color:blue; font-size:30px" >We are learning Vue js  </h1><div style=" font-size:20px;margin:10px 0px;">I am using the test data</div><img width="300px" src="https://images.pexels.com/photos/16961970/pexels-photo-16961970/free-photo-of-bike.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" > <h2 style="color:blue; font-size:30px" >Hi I am Inajamul Hoque and I am vuejs developer  </h2> <p>You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:items-center to apply the items-center utility at only medium screen sizes and above. </p>`,
         done: false,
@@ -23,7 +31,7 @@ const dummyData = [
         type:"text",
       },
       {
-        lessonNumber: 3,
+        lessonNumber: 4,
         lessonTitle: "Sample PPT File",
         lessonContent: "...",
         done: false,
@@ -31,21 +39,14 @@ const dummyData = [
         type:"ppt"
       },
       {
-        lessonNumber: 4,
+        lessonNumber: 5,
         lessonTitle: "Getting Started",
         lessonContent: "...",
         done: false,
         src: "https://www.africau.edu/images/default/sample.pdf",
         type:"pdf",
       },
-      {
-        lessonNumber: 5,
-        lessonTitle: "Basic Concepts",
-        lessonContent: "...",
-        done: false,
-        src: "https://www.orimi.com/pdf-test.pdf",
-        type:"pdf"
-      },
+  
       {
         lessonNumber: 6,
         lessonTitle: "Video Processing Language",
@@ -55,22 +56,8 @@ const dummyData = [
         type:"video"
       },
     
-      {
-        lessonNumber: 7,
-        lessonTitle: "We love nature",
-        lessonContent: "...",
-        done: false,
-        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        type:"video"
-      },
-      {
-        lessonNumber: 8,
-        lessonTitle: "Audio Processing",
-        lessonContent: `<h1>Get data from the text editor</h1><div>I am using the test data</div><img src="https:/images.pexels.com/photos/16349262/pexels-photo-16349262/free-photo-of-love-people-art-vintage.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" >`,
-        done: false,
-        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        type:"audio"
-      },
+   
+   
       {
         lessonNumber: 9,
         lessonTitle: "Basic Audio",

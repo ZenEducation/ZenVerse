@@ -13,7 +13,8 @@ import {
   mdiMovieOpenPlay,
   mdiTextBoxOutline,
   mdiFormatListBulleted,
-  mdiPresentationPlay
+  mdiPresentationPlay,
+  mdiListStatus
 } from "@mdi/js";
 
 const allPdfData = pdfViewerStore();
@@ -524,6 +525,12 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                             class="cursor-pointer mr-1"
                             size="20"
                             v-if="lesson.type=='ppt'"
+                          />
+                          <BaseIcon
+                            :path="mdiListStatus"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='survey'"
                           />
                           <div class="text-left uppercase">
                             {{lesson.type  }}

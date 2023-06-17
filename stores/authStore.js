@@ -27,7 +27,7 @@ export const actions = {
       attributes: {
         name,
         address,
-        // 'custom:pincode':pincode
+        'custom:pincode':pincode
       }
     });
     return user;

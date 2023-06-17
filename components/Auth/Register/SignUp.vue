@@ -151,7 +151,7 @@ const handleSubmit = async () => {
               />
             </div>
             <NuxtLink
-              to="/auth/login"
+              to="/"
               class="text-sm bg-gray-800 text-white p-3 rounded-md hover:bg-gray-600"
             >
               Have an account? Sign In

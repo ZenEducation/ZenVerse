@@ -1,4 +1,73 @@
 <template>
+  <CardBoxModal v-model="isEditModalActive" title="" :show-footer="false">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Edit Section</h1>
+      </div>
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isEditModalActive = false"
+      >
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <CardBox is-form @submit.prevent="EditSectionControl(0, false)">
+      <FormField label="Section Name">
+        <FormControl
+          required
+          v-model="editSectionName"
+          placeholder="New Name"
+        />
+      </FormField>
+
+      <div class="flex justify-end py-2">
+        <BaseButton type="submit" color="info" label="Done" />
+      </div>
+    </CardBox>
+  </CardBoxModal>
+
+  <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Add Section</h1>
+      </div>
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isAddModalActive = false"
+      >
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <CardBox is-form @submit.prevent="addSection(false)">
+      <FormField label="Section Name">
+        <FormControl required v-model="newsectionName" placeholder="New Name" />
+      </FormField>
+
+      <div class="flex justify-end py-2">
+        <BaseButton type="submit" color="info" label="Done" />
+      </div>
+    </CardBox>
+  </CardBoxModal>
+
+  <CardBoxModal
+    v-model="isModalDangerActive"
+    title="Are you sure you want to delete this tab?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="deleteSection(false)"
+  />
+
   <div class="text-[#7d7d7d]">
     <exam-nav />
     <div class="side-bar pt-[60px] h-[100vh] float-left">
@@ -12,7 +81,7 @@
         <ul>
           <li
             class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow"
-            @click="addSection"
+            @click="addSection(true)"
           >
             <span class="mr-2.5"
               ><img
@@ -153,12 +222,24 @@
               </template>
               <div class="flex items-center">
                 <template v-if="editsection[i.id]">
-                <button @click="EditSectionControl(i.id , false)" class="lr-btn px-5">Done</button>
+                  <button
+                    @click="EditSectionControl(i.id, false)"
+                    class="lr-btn px-5"
+                  >
+                    Done
+                  </button>
                 </template>
                 <template v-else>
-                <button @click="EditSectionControl(i.id , true)" class="lr-btn px-5">EDIT</button>
+                  <button
+                    @click="EditSectionControl(i.id, true)"
+                    class="lr-btn px-5"
+                  >
+                    EDIT
+                  </button>
                 </template>
                 <!-- add delete btn -->
+                <BaseButton class="pl-4" color="danger" :icon="mdiTrashCan" @click="deleteSection(i.id,true)"
+                />
                 <img
                   class="w-[16px] h-[18px] ml-5"
                   src="@/images/others/delete.svg"
@@ -201,7 +282,25 @@
 import ExamNav from "~~/components/ExamPortal/Exam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
+import {
+  mdiDotsVertical,
+  mdiAccountPlus,
+  mdiWindowClose,
+  mdiAccount,
+  mdiMail,
+  mdiCellphone,
+  mdiAsterisk,
+  mdiFormTextboxPassword,
+mdiTrashCan,
+} from "@mdi/js";
 import PremFormControl from "~~/components/Forms/PremFormControl.vue";
+import BaseButtons from "@/components/Buttons/BaseButtons.vue";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
+import CardBox from "@/components/Cards/CardBox.vue";
+import FormField from "@/components/Forms/FormField.vue";
+import FormControl from "@/components/Forms/FormControl.vue";
+import BaseButton from "@/components/Buttons/BaseButton.vue";
 const items = ref([
   {
     id: 1,
@@ -253,35 +352,51 @@ const sections = ref(2);
 const questions = ref(0);
 const sectionquestions = ref(0);
 
-const addSection = () => {
-  let newobj = {
-    id: maxIndex,
-    SectionName: "New Section",
-  };
-  maxIndex.value = maxIndex.value + 1;
-  items.value.push(newobj);
+const isAddModalActive = ref(false);
+const newsectionName = ref("");
+const addSection = (temp) => {
+  if (temp) {
+    isAddModalActive.value = true;
+  } else {
+    let newobj = {
+      id: maxIndex,
+      SectionName: newsectionName.value,
+    };
+    maxIndex.value = maxIndex.value + 1;
+    items.value.push(newobj);
+    isAddModalActive.value = false;
+  }
 };
 
-const deleteSection = (id) => {
-  items.value = items.value.filter((obj) => {
-    return obj.id != id;
-  });
+const isModalDangerActive = ref(false);
+const deleteSectionId = ref(-1);
+const deleteSection = (id, temp) => {
+  if (temp) {
+    deleteSectionId.value = id;
+    isModalDangerActive.value = true;
+  } else {
+    items.value = items.value.filter((obj) => {
+      return obj.id != deleteSectionId.value;
+    });
+  }
 };
+const isEditModalActive = ref(false);
 const editSectionName = ref("");
+const editSectionId = ref(-1);
 
 const EditSectionControl = (id, temp) => {
-    console.log(id , "called");
+  console.log(id, "called");
   if (temp) {
-    editsection.value[id] = !editsection.value[id] ;
-
+    editSectionId.value = id;
+    isEditModalActive.value = true;
   } else {
     items.value.forEach((element) => {
-      if (element.id == id) {
+      if (element.id == editSectionId.value) {
         element.SectionName = editSectionName.value;
+        isEditModalActive.value = false;
+        return;
       }
-
     });
-    editsection.value[id] = !editsection.value[id] ;
   }
 };
 </script>

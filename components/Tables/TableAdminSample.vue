@@ -30,10 +30,8 @@ const isModalEnableActive = ref(false);
 
 const items = ref(mainStore.admins);
 
-
 const uniqueList = () => {
   let uniqueProducts = [];
-
 
   items.value.forEach((obj) => {
     if (Array.isArray(obj.products)) {
@@ -49,12 +47,13 @@ const uniqueList = () => {
 
 const productSearchQuery = ref("");
 
-
 const filteredProducts = computed(() => {
   let filtered = uniqueList().uniqueProducts;
   if (productSearchQuery.value.length > 0) {
     filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(productSearchQuery.value.toLowerCase());
+      return item
+        .toLowerCase()
+        .includes(productSearchQuery.value.toLowerCase());
     });
   }
   return filtered;
@@ -92,11 +91,10 @@ const resetfilter = () => {
   MembershipFilterModelActive.value = false;
   LastLoginFilterModelActive.value = false;
   selectedProducts.value = [];
-  nes.value[7]= false;
-  nes.value[6]=false;
-  nes.value[1]=false ; 
-  userRoleSelected.value = "All"
-
+  nes.value[7] = false;
+  nes.value[6] = false;
+  nes.value[1] = false;
+  userRoleSelected.value = "All";
 };
 
 const filteredItems = computed(() => {
@@ -553,21 +551,16 @@ const nes = ref([]);
           :checked="learners.isEnabled"
           @click="EnableItem(true, learners.id)"
         />
-        <td class="before:hidden lg:w-1 whitespace-nowrap">
-          <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton
-              color="info"
-              :icon="mdiPencil"
-              small
-              @click="isModalActive = true"
-            />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="deleteItem(true, learners.id)"
-            />
-          </BaseButtons>
+        <td class="before:hidden whitespace-nowrap flex gap-2">
+          <NuxtLink to="/examportal/usermgmt/AdminMgmtEdit">
+            <BaseButton color="info" :icon="mdiPencil" small />
+          </NuxtLink>
+          <BaseButton
+            color="danger"
+            :icon="mdiTrashCan"
+            small
+            @click="deleteItem(true, learners.id)"
+          />
         </td>
       </tr>
     </tbody>

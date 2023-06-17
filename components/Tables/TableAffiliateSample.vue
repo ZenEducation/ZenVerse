@@ -33,7 +33,6 @@ const items = ref(mainStore.affiliates);
 const uniqueList = () => {
   let uniqueProducts = [];
 
-
   items.value.forEach((obj) => {
     if (Array.isArray(obj.products)) {
       obj.products.forEach((item) => {
@@ -48,12 +47,13 @@ const uniqueList = () => {
 
 const productSearchQuery = ref("");
 
-
 const filteredProducts = computed(() => {
   let filtered = uniqueList().uniqueProducts;
   if (productSearchQuery.value.length > 0) {
     filtered = filtered.filter((item) => {
-      return item.toLowerCase().includes(productSearchQuery.value.toLowerCase());
+      return item
+        .toLowerCase()
+        .includes(productSearchQuery.value.toLowerCase());
     });
   }
   return filtered;
@@ -105,9 +105,9 @@ const resetfilter = () => {
   userSegmentSelected.value = "All";
   leadStatusSelected.value = "All";
   selectedProducts.value = [];
-  nes.value[7]= false;
-  nes.value[6]=false;
-  nes.value[1]=false;
+  nes.value[7] = false;
+  nes.value[6] = false;
+  nes.value[1] = false;
   isLifelongFilterOn.value = false;
 };
 
@@ -218,8 +218,8 @@ const filteredItems = computed(() => {
       return item.userSegment == userSegmentSelected.value;
     });
   }
-  if(isLifelongFilterOn.value){
-    filtered = filtered.filter((item)=>item.isLifelong)
+  if (isLifelongFilterOn.value) {
+    filtered = filtered.filter((item) => item.isLifelong);
   }
 
   totalPages.value = Math.ceil(filtered.length / perPage);
@@ -535,7 +535,7 @@ const isMoreModalActive = ref(true);
       <div class="relative mr-4">
         <div
           @click="isLifelongFilterOn = !isLifelongFilterOn"
-          :class="{'bg-green-200' : isLifelongFilterOn}"
+          :class="{ 'bg-green-200': isLifelongFilterOn }"
           class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
         >
           <p
@@ -546,7 +546,6 @@ const isMoreModalActive = ref(true);
             LifeLong
           </p>
         </div>
-
       </div>
     </div>
 
@@ -621,21 +620,16 @@ const isMoreModalActive = ref(true);
           :checked="learners.isEnabled"
           @click="EnableItem(true, learners.id)"
         />
-        <td class="before:hidden lg:w-1 whitespace-nowrap">
-          <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton
-              color="info"
-              :icon="mdiPencil"
-              small
-              @click="isModalActive = true"
-            />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="deleteItem(true, learners.id)"
-            />
-          </BaseButtons>
+        <td class="before:hidden whitespace-nowrap flex gap-2">
+          <NuxtLink to="/examportal/usermgmt/AffiliateMgmtEdit">
+            <BaseButton color="info" :icon="mdiPencil" small />
+          </NuxtLink>
+          <BaseButton
+            color="danger"
+            :icon="mdiTrashCan"
+            small
+            @click="deleteItem(true, learners.id)"
+          />
         </td>
       </tr>
     </tbody>

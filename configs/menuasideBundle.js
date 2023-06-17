@@ -19,16 +19,12 @@ import {
       icon: mdiMonitorDashboard,
       menu: [
         {
-          label: "Courses",
-        },
-        {
-          label: "Bundles",
-        },
-        {
           label: "Mock Tests",
+          to:"/examportal/tests/ExamDashboard"
         },
         {
           label: "Test Series",
+          to:"/examportal/tests/testDashboard"
         },
         {
           label: "Categories",

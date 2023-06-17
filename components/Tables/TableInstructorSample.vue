@@ -520,21 +520,16 @@ const nes = ref([]);
           :checked="learners.isEnabled"
           @click="EnableItem(true, learners.id)"
         />
-        <td class="before:hidden lg:w-1 whitespace-nowrap">
-          <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton
-              color="info"
-              :icon="mdiPencil"
-              small
-              @click="isModalActive = true"
-            />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="deleteItem(true, learners.id)"
-            />
-          </BaseButtons>
+        <td class="before:hidden whitespace-nowrap flex gap-2">
+          <NuxtLink to="/examportal/usermgmt/InstructorMgmtEdit">
+            <BaseButton color="info" :icon="mdiPencil" small />
+          </NuxtLink>
+          <BaseButton
+            color="danger"
+            :icon="mdiTrashCan"
+            small
+            @click="deleteItem(true, learners.id)"
+          />
         </td>
       </tr>
     </tbody>

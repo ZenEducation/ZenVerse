@@ -39,7 +39,7 @@ const togglePasswordField = () => {
 };
 
 const form = reactive({
-  userName: "",
+  name: "",
   signUpEmail: "",
   password: "",
   address: "",
@@ -50,7 +50,7 @@ const handleSubmit = async () => {
   // call the login method from the Authstore
   try {
     const user_to_register_in_amplify = await AuthStore.register({
-      name: form.userName,
+      name: form.name,
       email: form.signUpEmail,
       password: form.password,
       address: form.address,
@@ -78,13 +78,13 @@ const handleSubmit = async () => {
         <AuthNotificationBar :isVisible="notificationModal" @toggle="toggleNotificationModal" color="danger" :icon="mdiMail">
           {{ errorMsg }}
         </AuthNotificationBar>
-        <FormField label="Username" help="Please enter your new username">
+        <FormField label="Name" help="Please enter your new name">
           <FormControl
-            v-model="form.userName"
+            v-model="form.name"
             :iconRight="mdiAccount"
             name="login"
             placeholder="johndoe"
-            autocomplete="username"
+            autocomplete="name"
           />
         </FormField>
         <FormField label="Email" help="Please enter your email">

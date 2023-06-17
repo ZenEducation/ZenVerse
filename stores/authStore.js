@@ -21,14 +21,13 @@ export const actions = {
   },
 
   async register({ name, email, password, address, pincode }) {
-    console.log('name', name)
     const user = await Auth.signUp({
       username: email,
       password,
       attributes: {
         name,
         address,
-        'custom:pincode':pincode
+        // 'custom:pincode':pincode
       }
     });
     return user;
@@ -55,7 +54,7 @@ export const actions = {
       this.isAuthenticated = false;
     }
     this.user = null;
-    if (!user) {
+    if (!this.user) {
       console.log("User successfully logged out");
     }
   },

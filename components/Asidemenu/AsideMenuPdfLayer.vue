@@ -14,7 +14,8 @@ import {
   mdiTextBoxOutline,
   mdiFormatListBulleted,
   mdiPresentationPlay,
-  mdiListStatus
+  mdiListStatus,
+  mdiDownload
 } from "@mdi/js";
 
 const allPdfData = pdfViewerStore();
@@ -532,6 +533,14 @@ const onenPdfOnSearchClick= (lesson,chapter)=>{
                             size="20"
                             v-if="lesson.type=='survey'"
                           />
+                          <BaseIcon
+                            :path="mdiDownload"
+                            class="cursor-pointer mr-1"
+                            size="20"
+                            v-if="lesson.type=='download'"
+                          />
+
+                          
                           <div class="text-left uppercase">
                             {{lesson.type  }}
                           </div>

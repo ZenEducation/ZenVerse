@@ -8,6 +8,38 @@ const dummyData = [
     lessons: [
       {
         lessonNumber: 1,
+        lessonTitle: "Download Lesson",
+        lessonContent: `<h1 class='text-black-500 text-xxl'>Some rich text will be there</h1>
+        <img class="w-6/8" src=https://images.pexels.com/photos/5812094/pexels-photo-5812094.jpeg?auto=compress&cs=tinysrgb&w=250&dpr=1" >`,
+        done: false,
+        src: "",
+        type:"download",
+        files:[
+          {
+            id:1,
+            name:"Sample PDF",
+            location:"https://www.africau.edu/images/default/sample.pdf",
+            type:"pdf",
+            size:"13 KB"
+          },
+          {
+            id:2,
+            name:"Audio file",
+            location:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3",
+            type:"audio",
+            size:"50.5 KB"
+          }, {
+            id:3,
+            name:"Video file",
+            location:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            type:"video",
+            size:"10.1 MB"
+          },
+        ]
+
+      },
+      {
+        lessonNumber: 2,
         lessonTitle: "Survey Lesson",
         lessonContent: "...",
         done: false,
@@ -15,7 +47,7 @@ const dummyData = [
         type:"survey"
       },
       {
-        lessonNumber: 2,
+        lessonNumber: 3,
         lessonTitle: "Hands-On Exercises",
         lessonContent: "...",
         done: false,
@@ -23,7 +55,7 @@ const dummyData = [
         type:"quiz"
       },
       {
-        lessonNumber: 3,
+        lessonNumber: 4,
         lessonTitle: "Text Lesson",
         lessonContent: `<h1 style="color:blue; font-size:30px" >We are learning Vue js  </h1><div style=" font-size:20px;margin:10px 0px;">I am using the test data</div><img width="300px" src="https://images.pexels.com/photos/16961970/pexels-photo-16961970/free-photo-of-bike.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" > <h2 style="color:blue; font-size:30px" >Hi I am Inajamul Hoque and I am vuejs developer  </h2> <p>You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:items-center to apply the items-center utility at only medium screen sizes and above. </p>`,
         done: false,
@@ -31,7 +63,7 @@ const dummyData = [
         type:"text",
       },
       {
-        lessonNumber: 4,
+        lessonNumber: 5,
         lessonTitle: "Sample PPT File",
         lessonContent: "...",
         done: false,
@@ -39,7 +71,7 @@ const dummyData = [
         type:"ppt"
       },
       {
-        lessonNumber: 5,
+        lessonNumber: 6,
         lessonTitle: "Getting Started",
         lessonContent: "...",
         done: false,
@@ -48,18 +80,15 @@ const dummyData = [
       },
   
       {
-        lessonNumber: 6,
+        lessonNumber: 7,
         lessonTitle: "Video Processing Language",
         lessonContent: "...",
         done: false,
         src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         type:"video"
       },
-    
-   
-   
       {
-        lessonNumber: 9,
+        lessonNumber: 8,
         lessonTitle: "Basic Audio",
         lessonContent:`<h1 class='text-black-500 text-xxl'>Hi this is Injamamul Hoque</h1>
         <div>I am working on the project</div>

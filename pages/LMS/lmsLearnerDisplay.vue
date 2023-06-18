@@ -15,6 +15,7 @@ import RichTextView from "../../components/LMS/RichTextView.vue"
 import QuizView from "../../components/LMS/QuizView.vue"
 import PPTView from "../../components/LMS/PPTView.vue"
 import SurveyViewVue from '~/components/LMS/SurveyView.vue';
+import DownloadView from "../../components/LMS/DownloadView.vue"
 const file = computed(()=>{
   return allPdfData.currentPDF
 })
@@ -81,7 +82,7 @@ const file = computed(()=>{
         <QuizView :source="allPdfData.currentPDF" v-if="file.type=='quiz'" />
         <PPTView :source="allPdfData.currentPDF" v-if="file.type=='ppt'" />
         <SurveyViewVue :source="allPdfData.currentPDF" v-if="file.type=='survey'" />
-        
+        <DownloadView  :source="allPdfData.currentPDF" v-if="file.type=='download'" />
       </LMSPdfViewSectionCarrier>
     </NuxtLayout>
   </div>

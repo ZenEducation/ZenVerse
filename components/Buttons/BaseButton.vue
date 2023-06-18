@@ -121,7 +121,6 @@ const componentClass = computed(() => {
       :class="componentClass"
       :href="href"
       :type="computedType"
-      
       :to="to"
       :target="target"
       :disabled="disabled"

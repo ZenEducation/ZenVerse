@@ -1,6 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="newlayout">
+     
       <PdfView/>
     </NuxtLayout>
   </div>

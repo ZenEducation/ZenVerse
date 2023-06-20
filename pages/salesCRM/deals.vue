@@ -150,7 +150,7 @@
 
     </div>
     <div class="">
-      <div class="border px-3 py-1 text-sm bg-white text-sky-500">
+      <div class="border px-3 py-1 text-sm bg-white text-sky-500 dark:bg-transparent">
         Compare to Past
       </div>
     </div>
@@ -163,7 +163,7 @@
     <div class="flex justify-between items-center">
       <div class="text-sm ">7 matches out of 7</div>
       <div class="">
-        <div class="flex justify-between items-center mx-2 border border-sky-500   cursor-pointer rounded bg-white">
+        <div class="flex justify-between items-center mx-2 border border-sky-500   cursor-pointer rounded bg-white dark:bg-transparent">
           <BaseIcon
                   :path="mdiTable"
                   class="cursor-pointer  text-sky-500 dark:text-sky-500 ml-2"

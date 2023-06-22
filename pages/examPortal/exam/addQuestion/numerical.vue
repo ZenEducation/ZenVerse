@@ -188,7 +188,6 @@ const isInstruction = ref(false);
 const question = ref({
   title: "Question Title",
   titleHtml: "Question Title",
-  partialMarking: true,
   Explanation: "",
   answer: 20,
   range: { is: true, start: 10, end: 20 },

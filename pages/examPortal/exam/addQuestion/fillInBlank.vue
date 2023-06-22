@@ -155,7 +155,6 @@ const isInstruction = ref(false);
 const question = ref({
   title: "Question Title",
   titleHtml: "Question Title",
-  partialMarking: true,
   Explanation: "",
   answer: "",
 });

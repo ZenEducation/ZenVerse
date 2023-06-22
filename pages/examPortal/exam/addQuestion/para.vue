@@ -111,7 +111,7 @@
 
           <div
             class=""
-            v-for="(totaloption, index) in question.options"
+            v-for="(totaloption, index) in question.criterias"
             :key="totaloption.id"
           >
             <div class="flex flex-wrap justify-between align-middle px-3">
@@ -175,10 +175,8 @@ const isInstruction = ref(false);
 const question = ref({
   title: "Question Title",
   titleHtml: "Question Title",
-  multipleChoice: true,
-  partialMarking: true,
   Explanation: "",
-  options: [
+  criterias: [
     {
       id: 1,
       text: "",
@@ -203,10 +201,10 @@ const question = ref({
 });
 
 const deleteChoice = (index) => {
-  question.value.options.splice(index, 1);
+  question.value.criterias.splice(index, 1);
 };
 const AddChoice = () => {
-  question.value.options.push({
+  question.value.criterias.push({
     id: 10,
     text: "Option Title",
     html: "Option Title",
@@ -214,38 +212,5 @@ const AddChoice = () => {
   });
 };
 
-const handleMCQOptionChange = () => {
-  question.value.multipleChoice = !question.value.multipleChoice;
-  if (!question.value.multipleChoice) {
-    for (let i = 0; i < question.value.options.length; ++i) {
-      question.value.options[i].isCorrectAnswer = false;
-    }
-    if (question.value.options.length > 0) {
-      question.value.options.at(0).isCorrectAnswer = true;
-    }
-  }
-};
 
-const AddAns = (index) => {
-  if (question.value.multipleChoice) {
-    question.value.options.at(index).isCorrectAnswer = true;
-  } else {
-    for (let i = 0; i < question.value.options.length; ++i) {
-      question.value.options[i].isCorrectAnswer = false;
-    }
-    question.value.options.at(index).isCorrectAnswer = true;
-  }
-};
-const removeAns = (index) => {
-  question.value.options.at(index).isCorrectAnswer = false;
-};
-const handleclick = (index) => {
-  console.log(index);
-  if (!question.value.options.at(index).isCorrectAnswer) {
-    AddAns(index);
-  } else {
-    removeAns(index);
-  }
-  return;
-};
 </script>

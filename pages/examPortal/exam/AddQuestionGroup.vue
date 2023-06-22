@@ -124,7 +124,6 @@ const filteredItems = computed(() => {
             class="cursor-pointer text-base font-light"
           >
         <TableLearnerEnabled
-          data-label="Enabled"
           :checked="item.isSelected"
           @click="item.isSelected = !item.isSelected"
         />

@@ -33,6 +33,30 @@ const addNewFormData = () => {
 };
 </script>
 <template>
+  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+    <div class="border-b w-full flex justify-between items-center px-5 py-2">
+      <NuxtLink to="/examportal/exam/edit-page">
+        <div
+          class="text-[13px] flex items-center justify-center cursor-pointer"
+        >
+          <img
+            class="w-[14px] h-[14px]"
+            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
+            alt=""
+          />
+          <p class="p-2.5">Back</p>
+        </div>
+      </NuxtLink>
+      <div class="pr-16"></div>
+    </div>
+    <div class="border-b w-full flex justify-between items-center px-16 py-2">
+      <div class="flex justify-center items-center"></div>
+      <div class="flex justify-center items-center gap-5">
+        <BaseButton :icon="mdiTrashCan" color="danger" />
+        <BaseButton label="Save" color="info" />
+      </div>
+    </div>
+  </div>
   <CardBoxModal v-model="isAddDataActive" :showFooter="false" title="">
     <header
       class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
@@ -47,7 +71,8 @@ const addNewFormData = () => {
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
-    <CardBox is-form @submit.prevent="submitProfile">
+
+    <CardBox class="" is-form @submit.prevent="submitProfile">
       <PremFormField label="Name">
         <PremFormControl v-model="NewFormData.title" />
       </PremFormField>
@@ -67,7 +92,7 @@ const addNewFormData = () => {
   </CardBoxModal>
 
   <CardBox
-    class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
+    class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3 pt-28"
     is-form
     @submit.prevent="submit"
   >
@@ -81,6 +106,7 @@ const addNewFormData = () => {
       />
     </div>
 
+    <NuxtLink to="/examportal/exam/editGroup" >
     <table>
       <thead>
         <tr>
@@ -91,50 +117,50 @@ const addNewFormData = () => {
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(item, index) in list"
-          :key="index"
-          class="cursor-pointer text-base font-light"
-        >
-          <th data-label="#" class="cursor-pointer text-base font-light">
-            {{ index + 1 }}
-          </th>
-          <th
-            data-label="Group Name"
+          <tr
+            v-for="(item, index) in list"
+            :key="index"
             class="cursor-pointer text-base font-light"
           >
-            {{ item.title }}
-          </th>
-          <th
-            data-label="Difficulty Level"
-            class="cursor-pointer text-base font-light"
-          >
-            {{ item.level }}
-          </th>
-          <th
-            data-label="Questions"
-            class="cursor-pointer text-base font-light"
-          >
-            {{ item.questions }}
-          </th>
-        </tr>
-      </tbody>
+            <th data-label="#" class="cursor-pointer text-base font-light">
+              {{ index + 1 }}
+            </th>
+            <th
+              data-label="Group Name"
+              class="cursor-pointer text-base font-light"
+            >
+              {{ item.title }}
+            </th>
+            <th
+              data-label="Difficulty Level"
+              class="cursor-pointer text-base font-light"
+            >
+              {{ item.level }}
+            </th>
+            <th
+              data-label="Questions"
+              class="cursor-pointer text-base font-light"
+            >
+              {{ item.questions }}
+            </th>
+          </tr>
+        </tbody>
     </table>
+</NuxtLink>
   </CardBox>
 </template>
 
 <style>
-    thead{
-        display: table-header-group;
-    }
-    tr{
-        display: table-row;
-    }
-    td{
-        display: table-cell;
-    }
-    tbody{
-        display: table-row-group;
-    }
-
+thead {
+  display: table-header-group;
+}
+tr {
+  display: table-row;
+}
+td {
+  display: table-cell;
+}
+tbody {
+  display: table-row-group;
+}
 </style>

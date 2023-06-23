@@ -188,7 +188,11 @@
   <!-- deal table  -->
   <DealTable class="mt-5" :data="tableData" />
   </div>
-<AddNewDealPopup class="add_new_deal_popup" v-if="newDealAdd" @on-action="closePopup"/>
+<AddNewDealPopup 
+class="add_new_deal_popup"
+ v-if="newDealAdd"
+  @on-action="closePopup"
+  @get-deal-data="getDealItems"/>
       </SectionMain>
     </NuxtLayout>
   </div>
@@ -220,7 +224,7 @@ const listOptionSow =ref(false)
 const exportList =ref(false)
 const importList =ref(false)
 const newDealAdd =ref(false)
-const tableData =[
+const tableData =ref([
   {
     source:"Website",
     owner:"Bhavya",
@@ -281,7 +285,7 @@ const tableData =[
     weightedForecast:"8,180.00"
     
   },
-]
+])
 
 
 const ShowNewDealList=()=>{
@@ -299,6 +303,12 @@ const importShow=()=>{
 
 const closePopup =()=>{
   newDealAdd.value=false
+}
+
+const getDealItems =(item)=>{
+  newDealAdd.value=false
+  console.log(item)
+  tableData.value.push(item)
 }
 </script>
 

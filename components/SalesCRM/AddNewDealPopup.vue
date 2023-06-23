@@ -22,11 +22,13 @@
             <!-- :icon-left="mdiMail"
                 :icon-right="mdiCheck" -->
               <PremFormControl
-                help="Your full name"
+                help=""
                 placeholder=""
+                v-model="dealName"
               />
         
             </PremFormField>
+   
     </div>
     <div class="mt-3">
         <PremFormField
@@ -35,7 +37,7 @@
               horizontal
             >
               <PremFormControl
-               
+                v-model="summary"
                 type="textarea"
                 placeholder="Explain how we can help you"
               />
@@ -45,9 +47,10 @@
         <PremFormField label="Company Name" >
           
               <PremFormControl
-                help="Your full name"
+                help=""
                 placeholder="Search for a company"
                 :icon-right="mdiChevronDown"
+                v-model="companyName"
               />
         
             </PremFormField>
@@ -59,6 +62,7 @@
                 help=""
                 placeholder="Search for a person"
                 :icon-right="mdiChevronDown"
+                v-model="primaryContact"
               />
         
             </PremFormField>
@@ -68,9 +72,9 @@
         <PremFormField label="Amount" >
           
               <PremFormControl
-                help="Your full name"
+                help=""
                 placeholder=""
-              
+                v-model="amount"
               />
         
             </PremFormField>
@@ -78,12 +82,13 @@
         <div class="flex-auto w-20 pl-2 pt-6">
             <PremFormField
               label=" "
-            
+             
               horizontal
             >
               <PremFormControl
                 type="list"
                 :options="listBoxOptions"
+                v-model="currency"
               />
             </PremFormField>
         </div>
@@ -92,9 +97,10 @@
         <PremFormField label="Pipeline*" >
           
               <PremFormControl
-                help="Your full name"
+                help=""
                 placeholder="Seals Pipeline (default) "
                 :icon-right="mdiChevronDown"
+                v-model="pipeline"
               />
         
             </PremFormField>
@@ -108,6 +114,7 @@
                 placeholder="Qualified"
                 :icon-right="mdiChevronDown"
                 type="search"
+                v-model="stage"
               />
         
             </PremFormField>
@@ -121,6 +128,7 @@
                 placeholder="Me"
                 :icon-right="mdiChevronDown"
                 type="search"
+                v-model="owner"
               />
         
             </PremFormField>
@@ -134,10 +142,11 @@
                 placeholder=""
                 :icon-right="mdiChevronDown"
                 type="range"
-                model-value="+44 (0)"
+                v-model="probability"
               />
         
             </PremFormField>
+         
     </div>
     <div class="mt-3">
         <PremFormField label="Source" >
@@ -146,7 +155,7 @@
                 help=""
                 placeholder="None"
                 :icon-right="mdiChevronDown"
-               
+               v-model="source"
               />
         
             </PremFormField>
@@ -159,10 +168,11 @@
                 help=""
                 placeholder="None"
                 :icon-right="mdiChevronDown"
-              
+               v-model="status"
               />
         
             </PremFormField>
+       
     </div>
     <div class="mt-3">
         <PremFormField label="Expected Code" >
@@ -171,10 +181,11 @@
                 help=""
                 placeholder=""
                
-       
+        v-model="expectedCode"
               />
         
             </PremFormField>
+          
     </div>
     <div class="mt-3">
         <PremFormField label="Revenue type" >
@@ -183,10 +194,11 @@
                 help=""
                 placeholder="None"
                 :icon-right="mdiChevronDown"
-          
+               v-model="revenueType"
               />
         
             </PremFormField>
+         
     </div>
     <div class="mt-3">
         <PremFormField label="Deal Performance Lane" >
@@ -195,10 +207,11 @@
                 help=""
                 placeholder="None"
                 :icon-right="mdiChevronDown"
-       
+                v-model="dealPerformanceLane"
               />
         
             </PremFormField>
+    
     </div>
     <div class="mt-3">
         <PremFormField label="Product Interest" >
@@ -207,10 +220,12 @@
                 help=""
                 placeholder="None"
                 :icon-right="mdiChevronDown"
+                v-model="productInterest"
           
               />
         
             </PremFormField>
+          
     </div>
 </div>
     <div class="flex justify-between items-center mt-6 px-4 ">
@@ -240,6 +255,7 @@
                 color="info"
                 class="uppercase"
                 :style="[]"
+                @click="submitData"
               />
           
         </div>
@@ -252,7 +268,9 @@
 
 
 <script setup>
-const emit = defineEmits(['onAction'])
+const emit = defineEmits(['onAction','getDealData'])
+
+
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
@@ -264,13 +282,60 @@ const listBoxOptions = [
   { id: 3, label: "Sample", },
   
 ];
-
-
 const prob = ref(10)
-
 const closePopup =()=>{
     emit('onAction') 
 }
+
+
+
+
+
+// form data 
+
+const dealName =ref(null)
+const summary = ref(null)
+const companyName = ref(null)
+const primaryContact =ref(null)
+const amount = ref(null)
+const currency = ref('Indian Rupee')
+const pipeline = ref(null)
+const stage=ref(null)
+const owner =ref(null)
+const probability = ref(40)
+const source = ref(null)
+const status=ref(null)
+const expectedCode = ref(null)
+const revenueType = ref(null)
+const dealPerformanceLane = ref(null)
+const productInterest=ref(null)
+
+const submitData = ()=>{
+  const data ={
+    dealName:dealName.value,
+    summary:summary.value,
+    companyName:companyName.value,
+    primaryContact:primaryContact.value,
+    weightedForecast:amount.value,
+    currency:currency.value,
+    pipeline:pipeline.value,
+    stage:stage.value,
+    owner:owner.value,
+    probability:probability.value,
+    source:source.value,
+    status:status.value,
+    expectedCode:expectedCode.value,
+    revenueType:revenueType.value,
+    dealPerformanceLane:dealPerformanceLane.value,
+    productInterest:productInterest.value,
+  }
+
+  emit('getDealData',data) 
+}
+
+
+
+
 
 </script>
 

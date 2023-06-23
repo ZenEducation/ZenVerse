@@ -8,9 +8,9 @@ import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue"
 import { mdiPlus } from "@mdi/js";
 
 const publishOptions = ref([
-  { id: 0, label: "Live", info: "It will Publish bundle for learner to enroll & access" },
-  { id: 1, label: "Unpublished", info: "Unpublished bundle will not be visible to learners" },
-  { id: 2, label: "Scheduled", info: "Unpublished bundle will not be visible to learners" },
+  { id: 0, label: "Live", info: "It will Publish Test Series for learner to enroll & access" },
+  { id: 1, label: "Unpublished", info: "Unpublished Test Series will not be visible to learners" },
+  { id: 2, label: "Scheduled", info: "Unpublished Test Series will not be visible to learners" },
 ]);
 
 const selectedPublish = ref(publishOptions.value[0].label);
@@ -24,9 +24,9 @@ const selectedPublish = ref(publishOptions.value[0].label);
       is-form
       @submit.prevent="submit"
     >
-      <p class="font-bold text-lg">Publish Bundle</p>
+      <p class="font-bold text-lg">Publish Test Series</p>
       <p class="text-xs mb-4">
-        Publish/Unpublish the bundle for your learners
+        Publish/Unpublish the Test Series for your learners
       </p>
       <template v-for="i in publishOptions">
         <div class="border rounded-md my-2 p-3" :class="{'border-green-400 border-2' : i.label == selectedPublish}">

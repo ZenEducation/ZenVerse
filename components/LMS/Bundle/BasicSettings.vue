@@ -38,14 +38,14 @@ const profileInput = ref(null);
           is-form
           @submit.prevent="submit"
         >
-              <PremFormField label="Bundle Name *">
+              <PremFormField label="Test Series Name *">
                 <PremFormControl
                 required
                 type="text"
                 />
               </PremFormField>
 
-              <PremFormField label="Bundle ID *">
+              <PremFormField label="Test Series ID *">
                 <PremFormControl
                 required
                 type="text"
@@ -63,8 +63,8 @@ const profileInput = ref(null);
                 />
               </PremFormField>
 
-              <p class="font-bold"> Bundle Image</p>
-              <p class="text-sm mb-7">Upload a relatable bundle image for visual presentation</p>
+              <p class="font-bold"> Test Series Image</p>
+              <p class="text-sm mb-7">Upload a relatable Test Series image for visual presentation</p>
 
               <div class="w-56 border rounded-md overflow-hidden">
                 <img :src="profilePreview" alt="" v-if="profilePreview ">

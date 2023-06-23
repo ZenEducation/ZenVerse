@@ -15,7 +15,7 @@ import TableLearnerEnabled from "~~/components/Tables/TableLearnerEnabled.vue";
 
 const items = ref([
   {
-    CourseID: "course1",
+    MTID: "MT1",
     type: "Mock Test",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
@@ -26,7 +26,7 @@ const items = ref([
     isEnabled : true,
   },
   {
-    CourseID: "course2",
+    MTID: "MT2",
     type: "Video Lecture",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
@@ -37,7 +37,7 @@ const items = ref([
     isEnabled : false,
   },
   {
-    CourseID: "course3",
+    MTID: "MT3",
     type: "PDF File",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
@@ -49,7 +49,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course4",
+    MTID: "MT4",
     type: "Mock Test",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
@@ -61,7 +61,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course5",
+    MTID: "MT5",
     type: "Mock Test",
     title: "Waves: Wave Properties and Sound",
     days: 567,
@@ -73,7 +73,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course6",
+    MTID: "MT6",
     type: "Mock Test",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
@@ -85,7 +85,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course7",
+    MTID: "MT7",
     type: "Video Lecture",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
@@ -97,7 +97,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course8",
+    MTID: "MT8",
     type: "PDF File",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
@@ -109,7 +109,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course9",
+    MTID: "MT9",
     type: "Video Lecture",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
@@ -121,7 +121,7 @@ const items = ref([
 
   },
   {
-    CourseID: "course10",
+    MTID: "MT10",
     type: "Video Lecture",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
@@ -171,7 +171,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.CourseID.match(search) || item.title.match(search)
+        ? item.MTID.match(search) || item.title.match(search)
         : true;
     });
   }
@@ -205,7 +205,7 @@ const EnableItemId = ref("");
 
 const EnableItem = (popup, id) => {
     EnableItemId.value = id;
-  const index = items.value.findIndex((item) => item.CourseID === EnableItemId.value);
+  const index = items.value.findIndex((item) => item.MTID === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
     items.value[index].isEnabled = !items.value[index].isEnabled;
@@ -218,7 +218,7 @@ const EnableItem = (popup, id) => {
       <div class="flex flex-wrap justify-between items-center">
         <div>
           <p class="font-bold text-xl">Add Products</p>
-          <p class="text-sm">Select and add products to your bundle</p>
+          <p class="text-sm">Select and add products to your Test Series</p>
         </div>
         <div class="flex flex-wrap gap-4 items-center">
           <BaseButton color="info" label="Add Product" small />
@@ -233,7 +233,7 @@ const EnableItem = (popup, id) => {
           class="form-input w-full pl-9 focus:border-slate-300"
           type="search"
           v-model="searchQuery"
-          placeholder="Search by Title , Course ID "
+          placeholder="Search by Title , MT ID "
         />
         <button class="absolute inset-0 right-auto group" aria-label="Search">
           <svg
@@ -339,14 +339,14 @@ const EnableItem = (popup, id) => {
       <BaseDivider />
 
       <div class="text-gray-500 mb-7 dark:text-white">
-        <span>{{ filteredItems.length }} Courses </span>
+        <span>{{ filteredItems.length }} Mock Tests </span>
       </div>
 
       <table>
         <thead>
           <tr>
             <th />
-            <th>Course ID</th>
+            <th>MockTest ID</th>
             <th>Title</th>
             <th>Price</th>
             <th>Status</th>
@@ -355,16 +355,16 @@ const EnableItem = (popup, id) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in filteredItems" :key="item.CourseID">
+          <tr v-for="item in filteredItems" :key="item.MTID">
             <td class="border-b-0 lg:w-6 before:hidden">
               <TableLearnerEnabled
                 data-label="Enabled"
                 :checked="item.isEnabled"
-                @click="EnableItem(true, item.CourseID)"
+                @click="EnableItem(true, item.MTID)"
               />
             </td>
-            <td data-label="Course ID">
-              {{ item.CourseID }}
+            <td data-label="Mock test ID">
+              {{ item.MTID }}
             </td>
             <td data-label="Title">
                 <img :src="image" class=" h-12 inline pr-2" alt="">

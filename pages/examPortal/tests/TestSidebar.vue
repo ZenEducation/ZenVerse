@@ -23,7 +23,7 @@ import {
 const tabs = [
   "Basic Settings",
   "Pricing & Validity",
-  "Publish Bundle",
+  "Publish Test Series",
   "Manage Users",
   "Add Products",
   "Manage Order",
@@ -50,7 +50,7 @@ const isActive = ref(0);
   />
   <CardBoxModal
     v-model="isModalDeleteActive"
-    title="Are you sure you want to delete this Bundle ?"
+    title="Are you sure you want to delete this Test Series ?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -84,7 +84,7 @@ const isActive = ref(0);
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
               >
                 <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />
-                <p>Back To Bundle</p>
+                <p>Back To Test Series</p>
               </NuxtLink>
               <li
                 class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
@@ -108,7 +108,7 @@ const isActive = ref(0);
                 @click="() => (isActive = 2)"
               >
                 <BaseIcon :path="mdiPublish" class="cursor-pointer" />
-                <p>Publish Bundle</p>
+                <p>Publish Test Series</p>
               </li>
               <li
                 class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
@@ -183,7 +183,7 @@ const isActive = ref(0);
               @click="() => (isModalDeleteActive = true)"
               class="cursor-pointer rounded-md py-2 px-3 text-white bg-red-500"
             >
-              Delete Bundle
+              Delete Test Series
             </p>
           </div>
         </div>

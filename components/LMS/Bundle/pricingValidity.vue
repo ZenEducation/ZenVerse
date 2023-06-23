@@ -10,8 +10,8 @@ import CardBoxModal from "~~/components/Cards/CardBoxModal.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 
 const pricingOptions = ref([
-  { id: 0, label: "Make this a free bundle", value: "free" },
-  { id: 1, label: "make this a paid bundle", value: "paid" },
+  { id: 0, label: "Make this a free Test Series", value: "free" },
+  { id: 1, label: "make this a paid Test Series", value: "paid" },
 ]);
 
 
@@ -119,9 +119,9 @@ const deleteItem = (popup, id) => {
       is-form
       @submit.prevent="submit"
     >
-      <p class="font-bold text-lg">Bundle Selling Type</p>
+      <p class="font-bold text-lg">Test Series Selling Type</p>
       <p class="text-xs mb-4">
-        Select a bundle selling type ans make it either free/paid bundle
+        Select a Test Series selling type ans make it either free/paid Test Series
       </p>
       <template v-for="i in pricingOptions">
         <input type="radio" v-model="isPaid" :value="i.label" />
@@ -133,11 +133,11 @@ const deleteItem = (popup, id) => {
 
       <p class="font-bold text-lg mt-4">Pricing</p>
       <p class="text-xs mb-4">
-        Set bundle price for your learners
+        Set Test Series price for your learners
       </p>
 
 
-      <PremFormField label="Bundle Price ₹ *">
+      <PremFormField label="Test Series Price ₹ *">
         <PremFormControl required type="number" placeholder="4999" />
       </PremFormField>
 
@@ -147,7 +147,7 @@ const deleteItem = (popup, id) => {
 
       <p class="font-bold text-lg mt-4">Validity</p>
       <p class="text-xs mb-4">
-        Set a bundle validity or expiry for your bundle
+        Set a Test Series validity or expiry for your Test Series
       </p>
 
       <template v-for="i in validityOptions">
@@ -164,7 +164,7 @@ const deleteItem = (popup, id) => {
 
       <p class="font-bold text-lg mt-4">Variable Pricing </p>
       <p class="text-xs mb-4">
-        Set a variable pricing for your bundle based on different validity
+        Set a variable pricing for your Test Series based on different validity
       </p>
 
       <BaseButton

@@ -424,41 +424,43 @@ const colors = computed(() => {
         </div>
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
-            <div
+            <NuxtLink to="/examportal/tests/testsingle"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
-              <div class="flex">
-                <img :src="image" class="w-40" />
-                <div class="px-4 h-auto">
-                  <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
-                  <div class="flex gap-48 max-md:gap-10">
-                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                    <p v-else class="font-semibold text-sm">
-                      ₹ {{ item.price }}
-                    </p>
+                <div class="flex">
+                  <img :src="image" class="w-40" />
+                  <div class="px-4 h-auto">
+                    <p class="font-medium min-h-18">{{ item.title }}</p>
+                    <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
+                    <div class="flex gap-48 max-md:gap-10">
+                      <p v-if="item.isFree" class="font-semibold text-sm">
+                        Free
+                      </p>
+                      <p v-else class="font-semibold text-sm">
+                        ₹ {{ item.price }}
+                      </p>
 
-                    <p class="text-sm">{{ item.days }} Days</p>
+                      <p class="text-sm">{{ item.days }} Days</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="flex justify-between items-center px-3">
-                <div class="flex flex-wrap justify-center gap-2">
-                  <BaseButton color="lightDark" label="Mock Test" small />
-                  <BaseButton color="" :label="item.status" small />
+                <div class="flex justify-between items-center px-3">
+                  <div class="flex flex-wrap justify-center gap-2">
+                    <BaseButton color="lightDark" label="Mock Test" small />
+                    <BaseButton color="" :label="item.status" small />
+                  </div>
+                  <BaseIcon :path="mdiInformationBoxOutline" />
                 </div>
-                <BaseIcon :path="mdiInformationBoxOutline" />
+              </NuxtLink>
               </div>
-            </div>
-          </div>
         </template>
         <template v-else>
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <div
+            <NuxtLink to="/examportal/tests/testsingle"
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
@@ -484,7 +486,7 @@ const colors = computed(() => {
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
-            </div>
+            </NuxtLink>
           </div>
         </template>
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">

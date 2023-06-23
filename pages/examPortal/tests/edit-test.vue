@@ -309,7 +309,7 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-const selected = ref(-1);
+const selected = ref(1);
 const items = ref([
   {
     id: 1,
@@ -379,6 +379,8 @@ const addSection = (temp) => {
     isAddModalActive.value = false;
   }
 };
+
+
 
 const isAddTestModalActive = ref(false);
 const newTestName = ref("");

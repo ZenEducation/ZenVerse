@@ -59,6 +59,34 @@
     </CardBox>
   </CardBoxModal>
 
+  <CardBoxModal v-model="isAddQueModalActive" title="" :show-footer="false">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Add Que</h1>
+      </div>
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isAddQueModalActive = false"
+      >
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <CardBox is-form @submit.prevent="addQue(false)">
+      <FormField label="Que Name">
+        <FormControl required v-model="newQueName" placeholder="New Que" />
+      </FormField>
+
+      <div class="flex justify-end py-2">
+        <BaseButton type="submit" color="info" label="Done" />
+      </div>
+    </CardBox>
+  </CardBoxModal>
+
   <CardBoxModal
     v-model="isModalDangerActive"
     title="Are you sure you want to delete this tab?"
@@ -66,6 +94,15 @@
     buttonLabel="Yes"
     has-cancel
     @confirm="deleteSection(false)"
+  />
+
+  <CardBoxModal
+    v-model="isModalQueDangerActive"
+    title="Are you sure you want to delete this Que?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="deleteQue(-1, -1, false)"
   />
 
   <div class="text-[#7d7d7d]">
@@ -113,7 +150,10 @@
 
           <!-- questions -->
           <p class="list-lable">questions</p>
-          <li class="border-l-[3px] border-[#c38aff] rounded-sm box-shadow">
+          <li
+            class="border-l-[3px] border-[#c38aff] rounded-sm box-shadow"
+            @click="addQue('MCQ')"
+          >
             <span class="mr-2.5"
               ><img
                 src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -121,7 +161,10 @@
             /></span>
             Multiple choice
           </li>
-          <li class="border-l-[3px] border-[#EF9A9A] rounded-sm box-shadow">
+          <li
+            class="border-l-[3px] border-[#EF9A9A] rounded-sm box-shadow"
+            @click="addQue('Numerical')"
+          >
             <span class="mr-2.5"
               ><img
                 src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -129,7 +172,10 @@
             /></span>
             Numerical
           </li>
-          <li class="border-l-[3px] border-[#FFCC80] rounded-sm box-shadow">
+          <li
+            class="border-l-[3px] border-[#FFCC80] rounded-sm box-shadow"
+            @click="addQue('Essay')"
+          >
             <span class="mr-2.5"
               ><img
                 src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -137,7 +183,10 @@
             /></span>
             Essay
           </li>
-          <li class="border-l-[3px] border-[#a266cc] rounded-sm box-shadow">
+          <li
+            class="border-l-[3px] border-[#a266cc] rounded-sm box-shadow"
+            @click="addQue('Fill')"
+          >
             <span class="mr-2.5"
               ><img
                 src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -150,10 +199,10 @@
       <div>
         <ul>
           <li class="bottom-side-nav">
-            <a href="">Groups</a>
+            <a href="/examportal/exam/groupList">Groups</a>
           </li>
           <li class="bottom-side-nav">
-            <a href="">Export questions</a>
+            <a href="/examportal/exam/exportPDF">Export questions</a>
           </li>
           <li class="bottom-side-nav">
             <a href="">All questions</a>
@@ -209,9 +258,16 @@
             class="section-add m-3 pb-[1px]"
             v-for="(i, index) in items"
             :key="index"
+            :class="{ 'border-2 border-violet-400': selected == i.id }"
           >
             <div
-              @click="dropdown[i.id] = !dropdown[i.id]"
+              @click="
+                () => {
+                  dropdown[i.id] = !dropdown[i.id];
+
+                  selected = i.id;
+                }
+              "
               class="p-5 flex justify-between"
             >
               <template v-if="editsection[i.id]">
@@ -238,7 +294,11 @@
                   </button>
                 </template>
                 <!-- add delete btn -->
-                <BaseButton class="pl-4" color="danger" :icon="mdiTrashCan" @click="deleteSection(i.id,true)"
+                <BaseButton
+                  class="pl-4"
+                  color="danger"
+                  :icon="mdiTrashCan"
+                  @click="deleteSection(i.id, true)"
                 />
                 <img
                   class="w-[16px] h-[18px] ml-5"
@@ -258,11 +318,43 @@
             </div>
 
             <Transition name="slider">
-              <div
-                v-if="dropdown[i.id]"
-                class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]"
-              >
-                Drag and Drop new question
+              <div v-if="dropdown[i.id]">
+                <div>
+                  <div
+                    class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow w-lg flex py-2 justify-between"
+                    v-for="(test, index) in i.Ques"
+                    :class="{
+                      'border-[#c38aff]': test.type == 'MCQ',
+                      'border-[#EF9A9A]': test.type == 'Numerical',
+                      'border-[#FFCC80]': test.type == 'Essay',
+                      'border-[#a266cc]': test.type == 'Fill',
+                    }"
+                  >
+                    <NuxtLink :to="toLink(test.type)">
+                      <div class="flex">
+                        <span class="mr-2.5"
+                          ><img
+                            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
+                            alt=""
+                        /></span>
+                        <span>{{ test.Quename }}</span>
+                      </div>
+                    </NuxtLink>
+                    <div class="pr-8 flex gap-2">
+                      <BaseIcon
+                        :path="mdiTrashCan"
+                        @click="deleteQue(index, i.id, true)"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  v-if="dropdown[i.id]"
+                  class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]"
+                >
+                  Drag and Drop new question
+                </div>
               </div>
             </Transition>
           </div>
@@ -291,7 +383,7 @@ import {
   mdiCellphone,
   mdiAsterisk,
   mdiFormTextboxPassword,
-mdiTrashCan,
+  mdiTrashCan,
 } from "@mdi/js";
 import PremFormControl from "~~/components/Forms/PremFormControl.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
@@ -301,46 +393,50 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
+const selected = ref(1);
 const items = ref([
   {
     id: 1,
-    SectionName: "section 1",
+    SectionName: "Section 1",
+    Ques: [
+      {
+        Quename: "Que 1",
+        type: "MCQ",
+      },
+      {
+        Quename: "Que 1",
+        type: "Numerical",
+      },
+    ],
   },
   {
     id: 2,
-    SectionName: "section 2",
+    SectionName: "Section 2",
+    Ques: [
+      {
+        Quename: "Que 1",
+        type: "MCQ",
+      },
+      {
+        Quename: "Que 1",
+        type: "Numerical",
+      },
+    ],
   },
   {
     id: 3,
-    SectionName: "section 3",
+    SectionName: "Section 3",
+    Ques: [],
   },
   {
     id: 5,
-    SectionName: "section 4",
+    SectionName: "Section 4",
+    Ques: [],
   },
   {
     id: 6,
-    SectionName: "section 5",
-  },
-  {
-    id: 7,
-    SectionName: "section 6",
-  },
-  {
-    id: 8,
-    SectionName: "section 7",
-  },
-  {
-    id: 9,
-    SectionName: "section 8",
-  },
-  {
-    id: 10,
-    SectionName: "section 9",
-  },
-  {
-    id: 11,
-    SectionName: "section 10",
+    SectionName: "Section 5",
+    Ques: [],
   },
 ]);
 
@@ -368,6 +464,23 @@ const addSection = (temp) => {
   }
 };
 
+const isAddQueModalActive = ref(false);
+const newQueName = ref("");
+const addQue = (type) => {
+  let newobj = {
+    Quename: "New Question Title",
+    type: type,
+  };
+
+  items.value.forEach((set) => {
+    if (set.id == selected.value) {
+      set.Ques.push(newobj);
+    }
+  });
+
+  isAddQueModalActive.value = false;
+};
+
 const isModalDangerActive = ref(false);
 const deleteSectionId = ref(-1);
 const deleteSection = (id, temp) => {
@@ -380,6 +493,24 @@ const deleteSection = (id, temp) => {
     });
   }
 };
+
+const isModalQueDangerActive = ref(false);
+const deleteQueSetId = ref(-1);
+const deleteQueId = ref(-1);
+const deleteQue = (Que, sec, temp) => {
+  if (temp) {
+    deleteQueSetId.value = sec;
+    deleteQueId.value = Que;
+    isModalQueDangerActive.value = true;
+  } else {
+    items.value.forEach((obj) => {
+      if (obj.id == deleteQueSetId.value) {
+        obj.Ques.splice(deleteQueId.value, 1);
+      }
+    });
+  }
+};
+
 const isEditModalActive = ref(false);
 const editSectionName = ref("");
 const editSectionId = ref(-1);
@@ -397,6 +528,22 @@ const EditSectionControl = (id, temp) => {
         return;
       }
     });
+  }
+};
+
+const toLink = (type) => {
+  switch (type) {
+    case "MCQ":
+      return "/examportal/exam/addQuestion/mcq";
+    case "Numerical":
+      return "/examportal/exam/addQuestion/numerical";
+    case "Essay":
+      return "/examportal/exam/addQuestion/para";
+    case "Fill":
+      return "/examportal/exam/addQuestion/fillinblank";
+
+    default:
+      return "#"
   }
 };
 </script>

@@ -28,8 +28,8 @@
         </div>
       </div>
     </div>
-    <div class="pt-32 h-screen">
-      <div class="w-2/3 m-auto bg-white p-4 border-2">
+    <div class="pt-32 pb-3 h-screen overflow-y-scroll scrollbar-none">
+      <div class="w-2/3 m-auto bg-white p-4 border-2 ">
         <div  ref="pdfContent">
 
           <p class="font-bold text-3xl text-center">{{ test.title }}</p>

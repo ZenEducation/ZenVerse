@@ -157,7 +157,7 @@ const item = ref({
                     <span>{{ test.title }}</span>
                   </div>
                   <div class="pr-8">
-                    <p>Relese <input class="w-16" type="number" name="" id="" value="0"> Days After Start Date</p>
+                    <p>Relese <input class="w-16" type="number" name="" id="" value="0"> Days After <span v-if="dripSelected!=='Student Enrollment Date'">Start </span> <span v-else>Enrollment </span> Date</p>
                   </div>
                 </div>
               </div>

@@ -1,4 +1,31 @@
 <template>
+  <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="text-gray-500">
+        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
+      </div>
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Add Tag</h1>
+      </div>
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isAddModalActive = false"
+      >
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
+    <CardBox is-form @submit.prevent="addTag(false)">
+      <PremFormField label="Tag Name">
+        <PremFormControl required v-model="newtagName" placeholder="New Name" />
+      </PremFormField>
+
+      <div class="flex justify-end py-2">
+        <BaseButton type="submit" color="info" label="Done" />
+      </div>
+    </CardBox>
+  </CardBoxModal>
   <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink to="/examportal/exam/edit-page">
@@ -13,8 +40,10 @@
           <p class="p-2.5">Test Name | Q1</p>
         </div>
       </NuxtLink>
-      <div class="pr-16">
+      <div class="pr-16 flex gap-3 items-center">
         <BaseButton label="New" color="info" />
+        <BaseIcon :path="mdiChevronLeftBoxOutline" />
+        <BaseIcon :path="mdiChevronRightBoxOutline" />
       </div>
     </div>
     <div class="border-b w-full flex justify-between items-center px-16 py-2">
@@ -56,14 +85,16 @@
             <PremFormControl placeholder="Wrong" />
           </PremFormField>
         </div>
-        <p class="text-blue-400 underline pb-2 cursor-pointer">Create Tag</p>
+        <p
+          @click="addTag(true)"
+          class="text-blue-400 underline pb-2 cursor-pointer"
+        >
+          Create Tag
+        </p>
         <br />
 
         <PremFormField label="Tag Question">
-          <PremFormControl
-            :options="['T1', 'T2', 'T3']"
-            placeholder="Enter Tags..."
-          />
+          <PremFormControl :options="tags" placeholder="Enter Tags..." />
         </PremFormField>
         <PremFormField class="flex" label="Guideline Time">
           <PremFormControl type="number" placeholder="sec" />
@@ -72,17 +103,20 @@
         <div class="flex gap-4">
           <div
             @click="handleMCQOptionChange"
-            class="max-w-max p-2 m-2 border rounded-sm cursor-pointer"
-            :class="{ 'bg-green-400': question.multipleChoice }"
+            class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
+            :class="{ 'bg-green-200': question.multipleChoice }"
           >
+            <BaseIcon v-if="question.multipleChoice" :path="mdiCheck" />
+
             <p>Multiple Answer</p>
           </div>
 
           <div
             @click="question.partialMarking = !question.partialMarking"
-            class="max-w-max p-2 m-2 border rounded-sm cursor-pointer"
-            :class="{ 'bg-green-400': question.partialMarking }"
+            class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
+            :class="{ 'bg-green-200': question.partialMarking }"
           >
+            <BaseIcon v-if="question.partialMarking" :path="mdiCheck" />
             <p>Partial marking</p>
           </div>
         </div>
@@ -196,6 +230,8 @@
   </div>
 </template>
 <script setup>
+import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
+
 import {
   mdiAbacus,
   mdiTrashCan,
@@ -203,6 +239,10 @@ import {
   mdiCloseCircleMultipleOutline,
   mdiPlusCircleOutline,
   mdiMinusCircleOutline,
+  mdiCheck,
+  mdiWindowClose,
+  mdiChevronRightBoxOutline,
+  mdiChevronLeftBoxOutline,
 } from "@mdi/js";
 import BaseButton from "~~/components/Buttons/BaseButton.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
@@ -213,8 +253,9 @@ import QuilEditor from "~~/components/ExamPortal/QuilEditor.vue";
 import { ref } from "vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 
-const isPreview = ref(true);
+const isPreview = ref(false);
 const isInstruction = ref(false);
+const tags = ref(["tag 1", "tag 2 ", "tag 3"]);
 
 const question = ref({
   instruction: "",
@@ -296,5 +337,16 @@ const handleclick = (index) => {
     removeAns(index);
   }
   return;
+};
+
+const isAddModalActive = ref(false);
+const newtagName = ref("");
+const addTag = (temp) => {
+  if (temp) {
+    isAddModalActive.value = true;
+  } else {
+    tags.value.push(newtagName.value);
+    isAddModalActive.value = false;
+  }
 };
 </script>

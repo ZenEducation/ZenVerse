@@ -14,29 +14,22 @@
         </div>
       </NuxtLink>
       <div class="pr-16">
-        <BaseButton label="New" color="info" />
-      </div>
-    </div>
-    <div class="border-b w-full flex justify-between items-center px-16 py-2">
-      <div class="flex justify-center items-center"></div>
-      <div class="flex justify-center items-center gap-5">
-        <BaseButton :icon="mdiTrashCan" color="danger" />
         <BaseButton label="Save" color="info" />
       </div>
     </div>
+
   </div>
-  <div class="pt-28 h-screen w-full flex">
+  <div class="pt-14 h-screen w-full flex">
     <!-- sidebar -->
     <div class="w-1/4 px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
+      <h1 class="border-b-1 text-center text-lg font-semibold">Preview</h1>
 
       <div class="w-full" v-html="instruction" />
-      
     </div>
     <div class="w-3/4 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
-      <QuilEditor v-model="instruction" styleP="height: 60vh;"  />
-
+      <QuilEditor v-model="instruction" styleP="height: 60vh;" />
     </div>
   </div>
 </template>
@@ -59,5 +52,4 @@ import { ref } from "vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 
 const instruction = ref("s");
-
 </script>

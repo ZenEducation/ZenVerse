@@ -96,6 +96,15 @@
     @confirm="deleteSection(false)"
   />
 
+  <CardBoxModal
+    v-model="isModalTestDangerActive"
+    title="Are you sure you want to delete this test?"
+    button="danger"
+    buttonLabel="Yes"
+    has-cancel
+    @confirm="deleteTest(-1,-1,false)"
+  />
+
   <div class="text-[#7d7d7d]">
     <exam-nav />
     <div
@@ -240,9 +249,9 @@
                 <div>
                   <div
                     class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow w-lg flex py-2 justify-between"
-                    v-for="test in i.tests"
+                    v-for="(test,index) in i.tests"
                   >
-                    <div class="flex ">
+                    <div class="flex">
                       <span class="mr-2.5"
                         ><img
                           src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -250,8 +259,9 @@
                       /></span>
                       <span>{{ test.testname }}</span>
                     </div>
-                    <div class="pr-8">
-                      <p>{{test.status}}</p>
+                    <div class="pr-8 flex gap-2">
+                      <p>{{ test.status }}</p>
+                      <BaseIcon :path="mdiTrashCan" @click="deleteTest(index,i.id,true)" />
                     </div>
                   </div>
                 </div>
@@ -407,6 +417,24 @@ const deleteSection = (id, temp) => {
     });
   }
 };
+
+const isModalTestDangerActive = ref(false);
+const deleteTestSetId = ref(-1);
+const deleteTestId = ref(-1);
+const deleteTest = (test, sec, temp) => {
+  if (temp) {
+    deleteTestSetId.value = sec;
+    deleteTestId.value = test;
+    isModalTestDangerActive.value = true;
+  } else {
+    items.value.forEach((obj) => {
+      if (obj.id == deleteTestSetId.value) {
+        obj.tests.splice(deleteTestId.value, 1);
+      }
+    });
+  }
+};
+
 const isEditModalActive = ref(false);
 const editSectionName = ref("");
 const editSectionId = ref(-1);

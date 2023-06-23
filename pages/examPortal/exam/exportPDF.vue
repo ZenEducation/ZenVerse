@@ -14,64 +14,58 @@
             <p class="p-2.5">Test Name | Q1</p>
           </div>
         </NuxtLink>
-        <div class="pr-16">
-        </div>
+        <div class="pr-16"></div>
       </div>
       <div class="border-b w-full flex justify-between items-center px-16 py-2">
-        <div class="flex justify-center items-center"></div>
+        <div class="flex justify-center items-center">
+          <BaseButton label="PRINT" @click="generatePdf" color="info" />
+        </div>
         <div class="flex justify-start items-center gap-2">
-          <BaseButton label="PRINT COMPLETE TEST" />
-          <BaseButton label="PRINT EXPLANATIONS" />
-          <BaseButton label="PRINT ANSWERS" />
-          <BaseButton label="PRINT ALL QUESTIONS" />
+          <BaseButton label="COMPLETE TEST" @click="mode = 0" />
+          <BaseButton label="EXPLANATIONS" @click="mode = 1" />
+          <BaseButton label="ANSWERS" @click="mode = 2" />
+          <BaseButton label="ALL QUESTIONS" @click="mode = 3" />
         </div>
       </div>
     </div>
     <div class="pt-32 h-screen">
-        <div class="w-2/3 m-auto bg-white p-4 border-2">
-            <p class="font-bold text-3xl text-center">{{test.title}}</p>
-            <div class="py-3 " v-for="section in test.sections">
-            <p class="text-xl">{{section.title}}</p>
-            <div v-for="(que,index) in section.questions">
-                <span>{{"Q."+(index+1) +") " }}  </span>
-                <span v-if="que.instruction">
-                    <p>
-                        Instruction :
-                    </p>
-                    <p v-html="que.instruction">
+      <div class="w-2/3 m-auto bg-white p-4 border-2">
+        <div  ref="pdfContent">
 
-                    </p>
-                </span>
-                <span v-html="que.titleHtml"></span>
-                                <div v-if="que.answer">
-                    <span>
-                        Answer :
-                    </span>
-                    <span v-html="que.answer">
-
-                    </span>
-                </div>
-                <div v-if="que.Explanation">
-                    <p>
-                        Explanation :
-                    </p>
-                    <p v-html="que.Explanation">
-
-                    </p>
-                </div>
-
+          <p class="font-bold text-3xl text-center">{{ test.title }}</p>
+          <div class="py-3" v-for="section in test.sections">
+            <p v-if="mode == 0 || mode == 3" class="text-xl">
+              {{ section.title }}
+            </p>
+            <div v-for="(que, index) in section.questions">
+              <span>{{ "Q." + (index + 1) + ") " }} </span>
+              <span v-if="que.instruction && (mode == 0 || mode == 3)">
+                <p>Instruction :</p>
+                <p v-html="que.instruction"></p>
+              </span>
+              <span v-if="mode == 0 || mode == 3" v-html="que.titleHtml"></span>
+              <div   v-if="que.answer  && (mode == 0 || mode == 1 || mode == 2) ">
+                <span> Answer : </span>
+                <span v-html="que.answer"> </span>
+              </div>
+              <div v-if="que.Explanation  && (mode == 0 || mode == 1)">
+                <p>Explanation :</p>
+                <p v-html="que.Explanation"></p>
+              </div>
             </div>
-
-            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import BaseButton from "~~/components/Buttons/BaseButton.vue";
-// 0 - complete test  1 - print explanation 3 print answers 4 print all questions
-const mode = ref(0)
+import html2pdf from 'html2pdf.js';
+const pdfContent = ref(null);
+// 0 - complete test  1 - print explanation 2 print answers 3 print all questions
+const mode = ref(0);
 
 const test = {
   title: "Test 2",
@@ -81,23 +75,24 @@ const test = {
       questions: [
         {
           id: 1,
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           partialMarking: true,
-          Explanation: "",
+          Explanation: "this is sample Explanation",
           type: "NUM",
           answer: 20,
           range: { is: true, start: 10, end: 20 },
+
         },
         {
           id: 2,
 
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           type: "PARA",
-          Explanation: "",
+          Explanation: "this is explanation",
           criterias: [
             {
               id: 1,
@@ -124,22 +119,22 @@ const test = {
         {
           id: 3,
 
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           type: "FILLIN",
-          Explanation: "",
-          answer: "",
+          Explanation: "this is sample Explanation",
+          answer: "this is answer",
         },
         {
           id: 4,
-
-          instruction: "",
+          answer: "this is answer",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           multipleChoice: true,
           partialMarking: true,
-          Explanation: "",
+          Explanation: "this is sample Explanation",
           options: [
             {
               id: 1,
@@ -174,11 +169,11 @@ const test = {
       questions: [
         {
           id: 1,
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           partialMarking: true,
-          Explanation: "",
+          Explanation: "this is sample Explanation",
           type: "NUM",
           answer: 20,
           range: { is: true, start: 10, end: 20 },
@@ -186,11 +181,11 @@ const test = {
         {
           id: 2,
 
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           type: "PARA",
-          Explanation: "",
+          Explanation: "this is sample Explanation",
           criterias: [
             {
               id: 1,
@@ -216,23 +211,22 @@ const test = {
         },
         {
           id: 3,
-
-          instruction: "",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           type: "FILLIN",
-          Explanation: "",
-          answer: "",
+          Explanation: "this is sample Explanation",
+          answer: "this is answer",
         },
         {
           id: 4,
-
-          instruction: "",
+          answer: "this is answer",
+          instruction: "this is sample instruction",
           title: "Question Title",
           titleHtml: "Question Title",
           multipleChoice: true,
           partialMarking: true,
-          Explanation: "",
+          Explanation: "this is sample Explanation",
           options: [
             {
               id: 1,
@@ -264,6 +258,19 @@ const test = {
     },
   ],
 };
+const generatePdf = () => {
+  const element = pdfContent.value;
+  const opt = {
+    margin: 0.5,
+    filename: 'example.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+  };
+
+  html2pdf().set(opt).from(element).save();
+};
+
 </script>
 
 <style lang="scss" scoped></style>

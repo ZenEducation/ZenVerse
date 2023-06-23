@@ -55,7 +55,9 @@ export default defineNuxtConfig({
   },
 
   build: {},
+  router: {
+    routes: [{ path: "/pdf", component: "@/pages/examPortal/exportPDF" }],
+  },
 
   // target: "static"
 });
-

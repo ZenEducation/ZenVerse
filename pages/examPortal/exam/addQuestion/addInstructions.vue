@@ -19,15 +19,15 @@
     </div>
 
   </div>
-  <div class="pt-14 h-screen w-full flex">
+  <div class="pt-14 h-screen max-md:overflow-y-scroll w-full flex max-md:block">
     <!-- sidebar -->
-    <div class="w-1/4 mx-4 my-2 border border-2 py-2 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-1/4 max-md:w-5/6 max-md:mx-auto mx-4 my-2 border border-2 py-2 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <h1 class="border-b border-b-2 text-center text-lg font-semibold">Preview</h1>
 
-      <div class="w-full p-4" v-html="instruction" />
+      <div class="w-full  p-4" v-html="instruction" />
     </div>
-    <div class="w-3/4 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-3/4  max-md:w-5/6 max-md:mx-auto max-md:px-0  p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
       <QuilEditor v-model="instruction" styleP="height: 60vh;" />
     </div>

@@ -26,7 +26,7 @@
       </div>
     </CardBox>
   </CardBoxModal>
-  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+  <div class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink to="/examportal/exam/edit-page">
         <div
@@ -68,9 +68,9 @@
       </div>
     </div>
   </div>
-  <div class="pt-28 h-screen w-full flex">
+  <div class="pt-28 max-md:block max-md:overflow-y-scroll scrollbar-thin h-screen w-full flex">
     <!-- sidebar -->
-    <div class="w-1/4 px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-1/4 max-md:w-5/6 max-md:mx-auto  px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <template v-if="!isPreview">
         <p class="font-semibold text-lg">Question Settings</p>
@@ -112,7 +112,7 @@
         </CardBox>
       </template>
     </div>
-    <div class="w-3/4 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-3/4 max-md:w-5/6 max-md:mx-auto  p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
       <div class="flex flex-col">
         <CardBox>
@@ -145,15 +145,15 @@
             v-for="(totaloption, index) in question.criterias"
             :key="totaloption.id"
           >
-            <div class="flex flex-wrap justify-between align-middle px-3">
-              <div class="flex align-middle gap-6">
+            <div class="flex w-full flex-wrap justify-between align-middle px-3">
+              <div class="flex justify-between py-2 align-middle gap-6">
                 <p class="pt-3">
                   {{ String.fromCharCode(65 + index) }}
                 </p>
                 <PremFormControl placeholder="Criteria Title..." />
               </div>
-              <div class="flex align-middle justify-between gap-2">
-                <div class="flex align-middle gap-2">
+              <div class="flex max-md:w-full flex-wrap py-2 align-middle justify-between gap-2">
+                <div class="flex flex-wrap align-middle gap-2">
                   <p class="pt-3">Percentage for this Criteria</p>
                   <PremFormControl type="number" placeholder="in percent" />
                 </div>

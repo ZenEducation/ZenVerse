@@ -106,8 +106,24 @@
   />
 
   <div class="text-[#7d7d7d]">
-    <exam-nav />
-    <div
+  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+    <div class="border-b w-full flex justify-between items-center px-5 py-2">
+      <a href="/examportal/tests/TestDashboard">
+        <div
+          class="text-[13px] flex items-center justify-center cursor-pointer"
+        >
+          <img
+            class="w-[14px] h-[14px]"
+            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
+            alt=""
+          />
+          <p class="p-2.5">Test Dashboard</p>
+        </div>
+      </a>
+      <div class="pr-16 flex gap-3 items-center">
+      </div>
+    </div>
+  </div>    <div
       class="side-bar pt-[60px] h-[100vh] float-left flex flex-col justify-between"
     >
       <div class="max-h-[418px]">
@@ -251,14 +267,15 @@
                     class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow w-lg flex py-2 justify-between"
                     v-for="(test,index) in i.tests"
                   >
-                    <div class="flex">
+
+                    <NuxtLink to="/examportal/test/lessonBuilder" class="flex">
                       <span class="mr-2.5"
                         ><img
                           src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
                           alt=""
                       /></span>
                       <span>{{ test.testname }}</span>
-                    </div>
+                    </NuxtLink>
                     <div class="pr-8 flex gap-2">
                       <p>{{ test.status }}</p>
                       <BaseIcon :path="mdiTrashCan" @click="deleteTest(index,i.id,true)" />

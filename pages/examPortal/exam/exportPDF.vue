@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+    <div class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
       <div class="border-b w-full flex justify-between items-center px-5 py-2">
         <NuxtLink to="/examportal/exam/edit-page">
           <div
@@ -20,31 +20,31 @@
         <div class="flex justify-center items-center">
           <BaseButton label="PRINT" @click="generatePdf" color="info" />
         </div>
-        <div class="flex justify-start items-center gap-2">
-          <ul class="flex gap-3 flex-wrap">
+        <div class="flex  justify-start items-center ">
+          <ul class="flex max-md:flex-col md:gap-6">
             <li
-              class="flex justify-center"
+              class="flex justify-center md:w-32"
               @click="mode = 0"
               :class="{ 'border-b-2': mode == 0 }"
             >
               COMPLETE TEST
             </li>
             <li
-              class="flex justify-center"
+              class="flex justify-center  md:max-w-min"
               @click="mode = 1"
               :class="{ 'border-b-2': mode == 1 }"
             >
               EXPLANATION
             </li>
             <li
-              class="flex justify-center"
+              class="flex justify-center  md:max-w-min"
               @click="mode = 2"
               :class="{ 'border-b-2': mode == 2 }"
             >
               ANSWERS
             </li>
             <li
-              class="flex justify-center"
+              class="flex justify-center  md:max-w-min"
               @click="mode = 3"
               :class="{ 'border-b-2': mode == 3 }"
             >
@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="pt-32 pb-3 h-screen overflow-y-scroll scrollbar-none">
+    <div class="pt-32 max-md:pt-60 pb-3 h-screen overflow-y-scroll scrollbar-none">
       <div class="w-2/3 m-auto bg-white p-4 border-2">
         <div ref="pdfContent">
           <p class="font-bold text-3xl text-center">{{ test.title }}</p>

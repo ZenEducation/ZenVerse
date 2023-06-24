@@ -239,8 +239,8 @@
       </div>
 
       <div>
-        <div class="section">Instruction</div>
-        <div class="section flex items-center border-l-[3px] border-[#FFB11B]">
+        <NuxtLink to="/examPortal/exam/addQuestion/addInstructions" class="section">Instruction</NuxtLink>
+        <NuxtLink to="/examPortal/exam/TestAttachment" class="section flex items-center border-l-[3px] border-[#FFB11B]">
           Test Attachments
 
           <img
@@ -248,7 +248,7 @@
             src="@/images/others/delete.svg"
             alt=""
           />
-        </div>
+        </NuxtLink>
         <VueDraggableNext
           :list="items"
           tag="body"

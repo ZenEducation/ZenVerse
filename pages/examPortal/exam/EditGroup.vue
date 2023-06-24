@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+  <div class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink to="/examportal/exam/groupList">
         <div
@@ -23,16 +23,16 @@
       </div>
     </div>
   </div>
-  <div class="pt-28 h-screen w-full flex">
+  <div class="pt-28 h-screen max-md:block max-md:overflow-y-scroll scrollbar-thin  w-full flex">
     <!-- sidebar -->
-    <div class="w-1/4 px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-1/4  max-md:w-5/6 max-md:mx-auto px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <p class="font-semibold text-lg">Question Settings</p>
       <PremFormField label="Difficulty Level">
         <PremFormControl :options="['Easy', 'Medium', 'Hard']" />
       </PremFormField>
     </div>
-    <div class="w-3/4 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-3/4  max-md:w-5/6 max-md:mx-auto p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
       <div class="flex flex-col">
         <CardBox>

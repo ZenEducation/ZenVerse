@@ -93,7 +93,7 @@ const filteredItems = computed(() => {
     is-form
     @submit.prevent="submit"
   >
-    <div class="px-8 flex justify-between align-middle">
+    <div class="px-8 flex max-md:flex-wrap justify-between align-middle">
 
       <p class="font-bold text-lg mt-4">
         {{ "Select Questions( " + (list.length + 1) + " )" }}
@@ -105,7 +105,7 @@ const filteredItems = computed(() => {
       </p>
       <NuxtLink to="/examportal/exam/editGroup">
 
-          <BaseButton :icon="mdiPlus" :label="'Add Questions'" :color="'info'" />
+          <BaseButton class="max-md:py-8" :icon="mdiPlus" :label="'Add Questions'" :color="'info'" />
         </NuxtLink>
     </div>
 

@@ -68,8 +68,8 @@ const item = ref({
         <div class="pr-16"></div>
       </div>
     </div>
-    <div class="h-screen flex pt-14">
-      <div class="w-1/3 border-r-2 pt-6 px-4">
+    <div class="h-screen flex pt-14 max-md:block">
+      <div class="w-1/3 max-md:w-full border-r-2 pt-6 px-4">
         <p class="font-semibold text-xl uppercase">CONTENT DRIPPING</p>
         <p class="py-1 text-sm">
           Content Dripping is the gradual pre scheduled release of tests in a
@@ -91,7 +91,7 @@ const item = ref({
         <br />
         <BaseButton label="Save" class="pt-4" color="info" />
       </div>
-      <div class="w-2/3 pt-6 px-4 overflow-scroll scrollbar-none">
+      <div class="w-2/3 max-md:w-full pt-6 px-4 overflow-scroll scrollbar-none">
         <p class="font-semibold text-xl uppercase pb-6">Tedy</p>
         <div>
           <template v-for="i in dripOptions">

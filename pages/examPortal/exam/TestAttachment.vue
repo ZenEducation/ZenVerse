@@ -1,34 +1,8 @@
 <template>
-  <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
-      <div class="text-gray-500">
-        <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
-      </div>
-      <div class="flex flex-col ml-5 mx-auto">
-        <h1 class="font-bold">Add Tag</h1>
-      </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddModalActive = false"
-      >
-        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
-      </div>
-    </header>
-    <CardBox is-form @submit.prevent="addTag(false)">
-      <PremFormField label="Tag Name">
-        <PremFormControl required v-model="newtagName" placeholder="New Name" />
-      </PremFormField>
 
-      <div class="flex justify-end py-2">
-        <BaseButton type="submit" color="info" label="Done" />
-      </div>
-    </CardBox>
-  </CardBoxModal>
   <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
-    <div class="border-b w-full flex flex-wrap justify-between items-center px-5 py-2">
-      <NuxtLink to="/examportal/tests/edit-test">
+    <div class="border-b w-full flex justify-between items-center px-5 py-2">
+      <NuxtLink to="/examportal/exam/edit-page">
         <div
           class="text-[13px] flex items-center justify-center cursor-pointer"
         >
@@ -37,106 +11,31 @@
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
             alt=""
           />
-          <p class="p-2.5">Tedy | Set 1</p>
+          <p class="p-2.5">Tedy | Test Attachments</p>
         </div>
       </NuxtLink>
       <div class="pr-16 flex gap-3 items-center">
-        <BaseButton label="Reload" :icon="mdiReload" />
-        <BaseButton label="Delete" color="danger" :icon="mdiTrashCanOutline" />
-        1 of 4
-        <BaseIcon :path="mdiChevronLeftBoxOutline" />
-        <BaseIcon :path="mdiChevronRightBoxOutline" />
       </div>
     </div>
   </div>
-  <div class="pt-14 max-md:pt-24 h-screen w-full flex max-md:block ">
+  <div class="pt-14 h-screen w-full flex max-md:block max-md:overflow-y-scroll">
     <!-- sidebar -->
     <div
-      class="w-1/5 max-md:w-full px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1 border-r-2"
+      class="w-1/5 max-md:w-full  px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1 border-r-2"
     >
       <!-- if Settings  -->
-      <p class="font-semibold text-lg uppercase">Create Test</p>
+      <p class="font-semibold text-lg uppercase">Test Attachments</p>
       <PremFormField label="Title">
         <PremFormControl value="Test 1" />
       </PremFormField>
-      <p
-        @click="addTag(true)"
-        class="text-blue-400 underline pb-2 cursor-pointer"
-      >
-        Create Tag
-      </p>
-      <br />
-
-      <PremFormField label="Test Tag">
-        <PremFormControl :options="tags" placeholder="Enter Tags..." />
-      </PremFormField>
-      <p class="font-bold">Test Type</p>
-      <input type="radio" name="test" id="" /><span class="pl-3 capitalize"
-        >Trial</span
-      ><br />
-      <input type="radio" name="test" id="" /><span class="pl-3 capitalize"
-        >Paid</span
-      ><br />
       <PremFormField label="Short Description" class="pt-3">
         <PremFormControl type="textarea" value="Test 1" />
       </PremFormField>
-      <PremFormField label="Long Description" class="pt-3">
-        <QuilEditor aria-placeholder="Enter text here" />
-      </PremFormField>
-
-      <p class="font-bold pb-3">Display in syllabus</p>
-      <input type="radio" name="disp" id="" /><span class="pl-3 capitalize"
-        >Hide</span
-      ><br />
-      <input type="radio" name="disp" id="" /><span class="pl-3 capitalize"
-        >Show</span
-      ><br />
       <BaseButton label="Save" color="info" class="pt-6" />
-      <div class="flex justify-center">
-        <BaseButton
-          class="pt-6"
-          label="Add Next Test"
-          :icon="mdiChevronRight"
-        />
-      </div>
     </div>
-    <div class="w-4/5 max-md:w-full p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-4/5 max-md:w-full  p-4 overflow-y-scroll scroll-m-0 scrollbar-w-0">
       <!-- Main Content -->
       <div class="flex flex-col gap-3">
-        <div class="px-2 flex justify-between">
-          <p class="capitalize font-semibold text-lg py-8">TEST</p>
-        </div>
-        <div class="w-full rounded-sm bg-slate-300 p-4">
-          <div class="flex flex-row-reverse">
-            <BaseButton
-              label="Add/View Question"
-              :icon="mdiPlusCircleOutline"
-            />
-          </div>
-          <div class="flex gap-4 flex-wrap py-10 text-center justify-evenly">
-            <div>
-              <p>2</p>
-              <p class="font-semibold">No Of Question</p>
-            </div>
-            <div>
-              <p>120</p>
-              <p class="font-semibold">Duration</p>
-            </div>
-            <div>
-              <p>4.0</p>
-              <p class="font-semibold">Total Marks</p>
-            </div>
-            <div>
-              <p>Unpublished</p>
-              <p class="font-semibold">Status</p>
-            </div>
-            <div>
-              <p>-</p>
-              <p class="font-semibold">Expiry Date</p>
-            </div>
-          </div>
-        </div>
-
         <div class="px-2 flex justify-between pt-8 pb-2">
           <p class="capitalize font-semibold text-lg">LESSON THUMBNAIL</p>
           <div class="flex gap-2">

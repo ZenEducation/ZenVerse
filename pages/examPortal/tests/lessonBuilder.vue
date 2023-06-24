@@ -263,8 +263,8 @@ const question = ref({
   instruction: "",
   title: "Question Title",
   titleHtml: "Question Title",
-  multipleChoice: true,
-  partialMarking: true,
+  multipleChoice: false,
+  partialMarking: false,
   Explanation: "",
   options: [
     {

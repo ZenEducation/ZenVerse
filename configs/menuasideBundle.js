@@ -20,7 +20,7 @@ import {
       menu: [
         {
           label: "Mock Tests",
-          to:"/examportal/tests/ExamDashboard"
+          to:"/examportal/exam/ExamDashboard"
         },
         {
           label: "Test Series",

@@ -20,8 +20,8 @@ import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([
   {
-    CourseID: "course1",
-    BundleID: "bundle1",
+    testID: "test1",
+    MTID: "MT1",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
     status: "Published",
@@ -30,8 +30,8 @@ const items = ref([
     price: 200,
   },
   {
-    CourseID: "course2",
-    BundleID: "bundle2",
+    testID: "test2",
+    MTID: "MT2",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
     status: "Unpublished",
@@ -40,8 +40,8 @@ const items = ref([
     price: 1800,
   },
   {
-    CourseID: "course3",
-    BundleID: "bundle1",
+    testID: "test3",
+    MTID: "MT1",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
     status: "Coming Soon",
@@ -50,8 +50,8 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course4",
-    BundleID: "bundle3",
+    testID: "test4",
+    MTID: "MT3",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
     status: "Scheduled",
@@ -60,8 +60,8 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course5",
-    BundleID: "bundle2",
+    testID: "test5",
+    MTID: "MT2",
     title: "Waves: Wave Properties and Sound",
     days: 567,
     status: "Published",
@@ -70,8 +70,8 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course6",
-    BundleID: "bundle4",
+    testID: "test6",
+    MTID: "MT4",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
     status: "Published",
@@ -80,8 +80,8 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course7",
-    BundleID: "bundle2",
+    testID: "test7",
+    MTID: "MT2",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
     status: "Unpublished",
@@ -90,8 +90,8 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course8",
-    BundleID: "bundle1",
+    testID: "test8",
+    MTID: "MT1",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
     status: "Coming Soon",
@@ -100,8 +100,8 @@ const items = ref([
     price: 2000,
   },
   {
-    CourseID: "course9",
-    BundleID: "bundle3",
+    testID: "test9",
+    MTID: "MT3",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
     status: "Published",
@@ -110,8 +110,8 @@ const items = ref([
     price: 1500,
   },
   {
-    CourseID: "course10",
-    BundleID: "bundle4",
+    testID: "test10",
+    MTID: "MT4",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
     status: "Published",
@@ -159,7 +159,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.CourseID.match(search) || item.title.match(search)
+        ? item.testID.match(search) || item.title.match(search)
         : true;
     });
   }
@@ -207,7 +207,7 @@ const colors = computed(() => {
 <template>
   <NuxtLayout name="lmsadmin">
     <div class="px-6">
-      <NuxtLink to="/BundleDashboard" class="h-10 flex items-center border-b">
+      <NuxtLink to="/TestDashboard" class="h-10 flex items-center border-b">
         <BaseIcon :path="mdiArrowLeft" />
         Back
       </NuxtLink>
@@ -215,7 +215,7 @@ const colors = computed(() => {
         <div class="flex flex-wrap justify-between items-center">
           <div>
             <p class="font-bold text-xl">Physucs | CWTs | V01</p>
-            <p class="text-sm">Manage and add products to your bundle</p>
+            <p class="text-sm">Manage and add products to your Mock Test</p>
           </div>
           <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
@@ -259,7 +259,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or Course ID"
+            placeholder="Search by Title or test ID"
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg
@@ -340,7 +340,7 @@ const colors = computed(() => {
         <BaseDivider />
 
         <div class="text-gray-500 mb-7 dark:text-white">
-          <span>{{ filteredItems.length }} Courses </span>
+          <span>{{ filteredItems.length }} tests </span>
         </div>
 
         <template v-if="!isFinalGrid">
@@ -353,7 +353,7 @@ const colors = computed(() => {
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.CourseID }}</p>
+                  <p class="">{{ item.testID }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
@@ -389,7 +389,7 @@ const colors = computed(() => {
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.CourseID }}</p>
+                <p class="">{{ item.testID }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>

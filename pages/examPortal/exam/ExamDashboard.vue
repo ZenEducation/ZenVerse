@@ -425,7 +425,7 @@ const colors = computed(() => {
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
             <NuxtLink
-              to="/lms/bundlesingle"
+              to="#"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
@@ -460,7 +460,7 @@ const colors = computed(() => {
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <NuxtLink
-              to="/lms/bundlesingle"
+              to="#"
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >

@@ -207,7 +207,7 @@ const colors = computed(() => {
 <template>
   <NuxtLayout name="lmsadmin">
     <div class="px-6">
-      <NuxtLink to="/TestDashboard" class="h-10 flex items-center border-b">
+      <NuxtLink to="/examPortal/tests/TestDashboard" class="h-10 flex items-center border-b">
         <BaseIcon :path="mdiArrowLeft" />
         Back
       </NuxtLink>

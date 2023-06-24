@@ -21,11 +21,11 @@
   </div>
   <div class="pt-14 h-screen w-full flex">
     <!-- sidebar -->
-    <div class="w-1/4 px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
+    <div class="w-1/4 mx-4 my-2 border border-2 py-2 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
-      <h1 class="border-b-1 text-center text-lg font-semibold">Preview</h1>
+      <h1 class="border-b border-b-2 text-center text-lg font-semibold">Preview</h1>
 
-      <div class="w-full" v-html="instruction" />
+      <div class="w-full p-4" v-html="instruction" />
     </div>
     <div class="w-3/4 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->

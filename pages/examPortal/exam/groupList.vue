@@ -49,13 +49,6 @@ const addNewFormData = () => {
       </NuxtLink>
       <div class="pr-16"></div>
     </div>
-    <div class="border-b w-full flex justify-between items-center px-16 py-2">
-      <div class="flex justify-center items-center"></div>
-      <div class="flex justify-center items-center gap-5">
-        <BaseButton :icon="mdiTrashCan" color="danger" />
-        <BaseButton label="Save" color="info" />
-      </div>
-    </div>
   </div>
   <CardBoxModal v-model="isAddDataActive" :showFooter="false" title="">
     <header
@@ -92,7 +85,7 @@ const addNewFormData = () => {
   </CardBoxModal>
 
   <CardBox
-    class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3 pt-28"
+    class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3 pt-14"
     is-form
     @submit.prevent="submit"
   >

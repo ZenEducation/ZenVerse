@@ -1,164 +1,239 @@
 <template>
-  <div class="table_Holder ">
+  <div class="table_Holder">
     <!-- table section  -->
     <table>
       <thead>
         <tr class="">
-          <th
-          class=""
-          >
-          <div class="text-center flex  uppercase text-sm font-light">
-            <FormCheckRadioGroup
-              name="sample-checkbox-two"
-              :options="{ i: '' }"
-              component-class="check-radio-success"
-            />
+          <th class="">
+            <div class="text-center flex uppercase text-sm font-light">
+              <FormCheckRadioGroup
+                name="sample-checkbox-two"
+                :options="{ i: '' }"
+                component-class="check-radio-success"
+              />
 
-            <BaseIcon
-              :path="mdiChevronDown"
-              class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
-              size="20"
-              h="20"
-              w="20"
-            /></div>
-          </th>
-          <th
-          
-          >
-          <div class="text-center flex  uppercase text-sm font-light ">
-            Source
-
-            <BaseIcon
-              :path="mdiChevronDown"
-              class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
-              size="20"
-              h="20"
-              w="20"
-            />
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
             </div>
           </th>
-          <th
-            
-          >
-          <div class="text-center flex  uppercase text-sm font-light ">
-            Owner
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Deal Name
 
-            <BaseIcon
-              :path="mdiChevronDown"
-              class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
-              size="20"
-              h="20"
-              w="20"
-            />
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
             </div>
           </th>
-          <th >
-         
-            <div class="text-center flex  uppercase text-sm font-light">
-         Next Task
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Company
 
-                 <th >
-         
-                  <div class="text-center flex  uppercase text-sm font-light">
-         Next Task Due
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Summary
 
-                </th>
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Amount
 
-                 <th >
-         
-             <div class="text-center flex  uppercase text-sm font-light">
-         People
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Status
 
-                 <th >
-                  <div class="text-center flex  uppercase text-sm font-light">
-           
-         Activities
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
-                 <th >
-         
-                  <div class="text-center flex  uppercase text-sm font-light">
-         Loss Reason
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
-                 <th >
-         
-                  <div class="text-center flex  uppercase text-sm font-light">
-         Loss Reason Notes
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Pipeline
 
-                 <th class=" ">
-                  <div class="text-center flex uppercase text-sm font-light w-5 ">
-           
-         Weighted forecast
-                 
-                 <BaseIcon
-                   :path="mdiChevronDown"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
-                </div>
-                </th>
-                
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Stage
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Source
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Owner
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Next Task
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Next Task Due
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              People
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Activities
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Loss Reason
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th>
+            <div class="text-center flex uppercase text-sm font-light">
+              Loss Reason Notes
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+
+          <th class=" ">
+            <div class="text-center flex uppercase text-sm font-light w-5">
+              Weighted forecast
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
         </tr>
-
-        
       </thead>
       <tbody>
         <tr v-for="(item, idx) in data" :key="idx">
@@ -169,51 +244,76 @@
               component-class="check-radio-success"
             />
           </td>
-          <td >
+          <td>
+            {{ item.dealName }}
+          </td>
+          <td>
+            {{ item.companyName }}
+          </td>
+          <td>
+            {{ item.summary }}
+          </td>
+          <td class="text-right">
+            {{ item.currency.symbol}}{{ item.amount }}
+          </td>
+          <td>
+              <div class="flex justify-start items-center ">
+                <div class="w-4 h-4  rounded-full mr-2"
+                :class="`bg-${item.status}-500`"
+                >
+                   
+                </div>
+                <div class="capitalize">{{ item.status}}</div>
+
+              </div>   
+          </td>
+          <td>
+            {{ item.pipeline }}
+          </td>
+          <td>
+            {{ item.stage }}
+          </td>
+          <td>
             {{ item.source }}
           </td>
-
-          <td >
+          <td>
             {{ item.owner }}
-         
           </td>
-          <td >
-            {{ item.nextTask }}
+          <td>
+        
           </td>
-          <td >
-            {{ item.nextTaskDue }}
+          <td>
+          
           </td>
-          <td >
+          <td>
             <BaseIcon
-                   :path="mdiCardAccountDetailsOutline"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
+              :path="mdiCardAccountDetailsOutline"
+              class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+              size="20"
+              h="20"
+              w="20"
+            /> {{ item.primaryContact }}
           </td>
-
-          <td >
+          <td>
             <BaseIcon
-                   :path="mdiSquareEditOutline"
-                   class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100 "
-                   size="20"
-                   h="20"
-                   w="20"
-                 />
+              :path="mdiSquareEditOutline"
+              class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+              size="20"
+              h="20"
+              w="20"
+            />
+          </td>
+          <td>
+      
+          </td>
+          <td>
+      
+          </td>
+          <td class="text-right">
+            {{ item.currency.symbol}}{{ item.amount }}.00
+          
           </td>
 
-          <td >
-            {{ item.lossresion }}
-        </td>
-
-        <td >
-          {{ item.lossresionNote }}
-        </td>
-
-        <td class="text-right w-12/12">
-          ₹{{ item.weightedForecast }}
-        </td>
         </tr>
       </tbody>
     </table>
@@ -242,7 +342,11 @@
 
 <script setup>
 // imports
-import { mdiEye ,mdiCardAccountDetailsOutline,mdiSquareEditOutline} from "@mdi/js";
+import {
+  mdiEye,
+  mdiCardAccountDetailsOutline,
+  mdiSquareEditOutline,
+} from "@mdi/js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
@@ -323,33 +427,28 @@ const goToAction = (id) => {
 </script>
 
 <style scoped>
-
-.table_Holder{
+.table_Holder {
   width: 100% !important;
-   
 }
 
-table { 
-    table-layout:fixed;
-     width:100%;
-     overflow: auto !important;
-     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    max-height: 280px;
-   
-     }
+table {
+  table-layout: fixed;
+  width: 100%;
+  overflow: auto !important;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-height: 280px;
+}
 
-     table thead {
-      /* width:100%; */
-      /* display:table-header-group !important; */
-      display: table-header-group !important;
-      width:100%;
-
-     }
+table thead {
+  /* width:100%; */
+  /* display:table-header-group !important; */
+  display: table-header-group !important;
+  width: 100%;
+}
 
 th {
-
   /* white-space: nowrap; */
   padding: 0.5rem 1rem !important;
 }
@@ -357,6 +456,6 @@ td {
   width: 100% !important;
 }
 tr {
-                page-break-inside: avoid;
-            }
+  page-break-inside: avoid;
+}
 </style>

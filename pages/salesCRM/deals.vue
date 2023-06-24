@@ -226,6 +226,18 @@ const importList =ref(false)
 const newDealAdd =ref(false)
 const tableData =ref([
   {
+    dealName:"My deal",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"red",
+    pipeline:"somthing",
+    stage:"somthing",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -236,6 +248,18 @@ const tableData =ref([
     
   },
   {
+    dealName:"App Develop",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"green",
+    pipeline:"somthing",
+    stage:"somthing",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -246,45 +270,93 @@ const tableData =ref([
     
   },
   {
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"Competitor",
-    lossresionNote:"",
-    weightedForecast:"18,180.00"
-    
-  },
-  {
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"14,800.00"
-    
-  },
-  {
+    dealName:"Graphics Manager",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"red",
+    pipeline:"somthing",
+    stage:"somthing",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
     nextTaskDue:"",
     lossresion:"",
     lossresionNote:"",
-    weightedForecast:"6,312.00"
+    weightedForecast:"25,150.00"
     
   },
   {
+    dealName:"Potik",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"yellow",
+    pipeline:"somthing",
+    stage:"somthing",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
     nextTaskDue:"",
-    lossresion:"Competitor",
+    lossresion:"",
     lossresionNote:"",
-    weightedForecast:"8,180.00"
+    weightedForecast:"25,150.00"
     
   },
+  {
+    dealName:"New Website Create",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"green",
+    pipeline:"somthing",
+    stage:"somthing",
+    source:"Website",
+    owner:"Bhavya",
+    nextTask:"",
+    nextTaskDue:"",
+    lossresion:"",
+    lossresionNote:"",
+    weightedForecast:"25,150.00"
+    
+  },
+  {
+    dealName:"New Website Create",
+    companyName:"Bymond",
+    summary:"Some text here",
+    amount:"1000",
+    currency:{
+      id:1,
+      level:"USD",
+      symbol:"$"
+    },
+    status:"green",
+    pipeline:"somthing",
+    stage:"somthing",
+    source:"Website",
+    owner:"Bhavya",
+    nextTask:"",
+    nextTaskDue:"",
+    lossresion:"",
+    lossresionNote:"",
+    weightedForecast:"25,150.00"
+    
+  }
 ])
 
 
@@ -308,7 +380,8 @@ const closePopup =()=>{
 const getDealItems =(item)=>{
   newDealAdd.value=false
   console.log(item)
-  tableData.value.push(item)
+
+  tableData.value.unshift(item)
 }
 </script>
 

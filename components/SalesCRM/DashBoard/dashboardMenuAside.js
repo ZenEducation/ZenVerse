@@ -8,7 +8,8 @@ import {
   mdiTagText,
   mdiBank,
   mdiGmail,
-  mdiChartBar
+  mdiChartBar,
+  mdiFormDropdown
   
 } from "@mdi/js";
 
@@ -26,7 +27,18 @@ export default [
   {
     to: "/",
     icon: mdiPlus,
-    label: "Add Lead",
+    label: "Add Lead ",
+  },
+  {
+    label: "Sales CRM",
+    icon: mdiFormDropdown,
+    menu: [
+      {
+        label: "All Deals",
+        to: "/SalesCRm/deals",
+      },
+     
+    ],
   },
   {
     to: "/",

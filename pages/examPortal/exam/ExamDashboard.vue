@@ -21,7 +21,7 @@ import image from "@/assets/img/bundleImage.png";
 const items = ref([
   {
     CourseID: "course1",
-    TestSeriesID: "Test Series 1",
+    TestSeriesID: "Mock Test 1",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
     status: "Published",
@@ -31,7 +31,7 @@ const items = ref([
   },
   {
     CourseID: "course2",
-    TestSeriesID: "Test Series 2",
+    TestSeriesID: "Mock Test 2",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
     status: "Unpublished",
@@ -41,7 +41,7 @@ const items = ref([
   },
   {
     CourseID: "course3",
-    TestSeriesID: "Test Series 1",
+    TestSeriesID: "Mock Test 1",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
     status: "Coming Soon",
@@ -51,7 +51,7 @@ const items = ref([
   },
   {
     CourseID: "course4",
-    TestSeriesID: "Test Series 3",
+    TestSeriesID: "Mock Test 3",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
     status: "Scheduled",
@@ -61,7 +61,7 @@ const items = ref([
   },
   {
     CourseID: "course5",
-    TestSeriesID: "Test Series 2",
+    TestSeriesID: "Mock Test 2",
     title: "Waves: Wave Properties and Sound",
     days: 567,
     status: "Published",
@@ -71,7 +71,7 @@ const items = ref([
   },
   {
     CourseID: "course6",
-    TestSeriesID: "Test Series 4",
+    TestSeriesID: "Mock Test 4",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
     status: "Published",
@@ -81,7 +81,7 @@ const items = ref([
   },
   {
     CourseID: "course7",
-    TestSeriesID: "Test Series 2",
+    TestSeriesID: "Mock Test 2",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
     status: "Unpublished",
@@ -91,7 +91,7 @@ const items = ref([
   },
   {
     CourseID: "course8",
-    TestSeriesID: "Test Series 1",
+    TestSeriesID: "Mock Test 1",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
     status: "Coming Soon",
@@ -101,7 +101,7 @@ const items = ref([
   },
   {
     CourseID: "course9",
-    TestSeriesID: "Test Series 3",
+    TestSeriesID: "Mock Test 3",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
     status: "Published",
@@ -111,7 +111,7 @@ const items = ref([
   },
   {
     CourseID: "course10",
-    TestSeriesID: "Test Series 4",
+    TestSeriesID: "Mock Test 4",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
     status: "Published",
@@ -244,8 +244,8 @@ const colors = computed(() => {
       <CardBox>
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Test Series</p>
-            <p class="text-sm">Welcome to your Test Series dashboard</p>
+            <p class="font-bold text-xl">Mock Test</p>
+            <p class="text-sm">Welcome to your Mock Test dashboard</p>
           </div>
           <div class="flex flex-wrap gap-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
@@ -282,7 +282,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or Test Series ID "
+            placeholder="Search by Title or Mock Test ID "
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg

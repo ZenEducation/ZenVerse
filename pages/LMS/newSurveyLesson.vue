@@ -98,13 +98,14 @@ const DuplicateQuestion = (id) => {
   let lastQuestion = quiz.value.questions.find((que) => que.id == id);
   let newQuestion = {
     id: maxqueId.value,
-    title: lastQuestion.title,
+    title: lastQuestion.title+' ',
     titleText: lastQuestion.titleText,
     type: lastQuestion.type,
     choices: lastQuestion.choices,
     answer: lastQuestion.answer,
   };
   quiz.value.questions.push(newQuestion);
+  
   isOpen.value = newQuestion.id;
 };
 
@@ -220,7 +221,7 @@ const upload = () => {
                     class="cursor-pointer"
                     :path="mdiChevronUp"
                     v-if="isOpen == que.id"
-                    @click="isOpen = -1"
+                    @click="isOpen = null"
                   />
                   <BaseIcon
                     w="w-10"
@@ -246,9 +247,9 @@ const upload = () => {
                       placeholder="Enter Left value"
                     />
                   </PremFormField>
-                  <PremFormField label="Left Label" class="w-1/2" horizontal>
+                  <PremFormField label="Right Label" class="w-1/2" horizontal>
                     <PremFormControl
-                      placeholder="Enter Left value"
+                      placeholder="Enter Right value"
                     />
                   </PremFormField>
                 </div>
@@ -297,15 +298,6 @@ const upload = () => {
                     />
                   </div>
                   <QuilEditor v-model="totaloption.title" />
-                  <input
-                    type="radio"
-                    name="option"
-                    id="'option' + totaloption.id"
-                  />
-                  <label for="'option' + totaloption.id" class="ml-2"
-                    >This is the Correct Answer</label
-                  >
-                  <br />
                 </div>
 
                 <button

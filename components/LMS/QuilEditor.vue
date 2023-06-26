@@ -41,7 +41,6 @@ const toolbarOptions = [
 const emit = defineEmits(["update:modelValue", "update:text"]);
 
 const data = ref("");
-const prevdata = ref("");
 
 watchEffect(() => {
   data.value = props.modelValue;
@@ -49,10 +48,11 @@ watchEffect(() => {
 
 watchEffect(() => {
   emit("update:modelValue", data.value);
+  if(quillEditorRef?.value?.getText()){
+
+    emit("update:text", quillEditorRef?.value?.getText());
+  }
 });
-watch(data.value,()=>{
-  emit("update:text" , quillEditorRef.value.getText());
-})
 
 console.log(props.modelValue, " : model");
 </script>

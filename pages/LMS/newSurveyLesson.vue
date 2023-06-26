@@ -198,8 +198,7 @@ const upload = () => {
             <CardBox>
               <div class="flex justify-between px-4">
                 <div class="flex items-center font-semibold text-lg">
-                  <h1>
-                    {{ "Question# " + (index + 1) + ":  " + que.titleText }}
+                  <h1 v-html='"Question# " + (index + 1) + ":  " + que.title'>
                   </h1>
                 </div>
                 <div class="flex items-center justify-end">

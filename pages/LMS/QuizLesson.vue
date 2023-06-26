@@ -193,8 +193,7 @@ const upload = () => {
             <CardBox>
               <div class="flex justify-between px-4">
                 <div class="flex items-center font-semibold text-lg">
-                  <h1>
-                    {{ "Question# " + (index + 1) + ":  " + que.titleText }}
+                  <h1 v-html='"Question# " + (index + 1) + ":  " + que.title'>
                   </h1>
                 </div>
                 <div class="flex items-center justify-end">
@@ -252,7 +251,7 @@ const upload = () => {
                   :key="totaloption.id"
                 >
                   <div class="flex justify-between px-3 py-2">
-                    <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
+                    <h3 class="font-bold">{{ "Choice #" + index }}</h3>
                     <BaseIcon
                       w="w-10"
                       h="h-10"
@@ -280,7 +279,7 @@ const upload = () => {
                   :key="index"
                 >
                   <div class="flex justify-between px-3 py-2">
-                    <h3 class="font-bold">{{ "Choice #" + totaloption.id }}</h3>
+                    <h3 class="font-bold">{{ "Choice #" + index }}</h3>
                     <BaseIcon
                       w="w-10"
                       h="h-10"

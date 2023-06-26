@@ -39,6 +39,10 @@ const mainStore = useMainStore();
 const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
 
 const transactionBarItems = computed(() => mainStore.history);
+
+definePageMeta({
+  middleware: 'auth-check'
+})
 </script>
 
 <template>

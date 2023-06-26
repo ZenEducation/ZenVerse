@@ -7,6 +7,9 @@ const form = reactive({
   remember: ["remember"],
 });
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 const hasTip = ref(false);
 
 setTimeout(() => {

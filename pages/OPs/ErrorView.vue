@@ -3,6 +3,9 @@ import SectionFullScreen from "@/components/Sections/SectionFullScreen.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
+definePageMeta({
+  middleware: 'auth-check'
+})
 </script>
 
 <template>

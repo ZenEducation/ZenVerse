@@ -31,6 +31,9 @@ const selectFieldOptions = [
   { id: 3, label: "Sales" },
 ];
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 const listBoxOptions = [
   { id: 1, label: "Howell Hand", unavailable: false },
   { id: 2, label: "Hope Howe", unavailable: false },

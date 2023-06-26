@@ -48,7 +48,9 @@ onMounted(() => {
   //   );
   getStudentLists();
 });
-
+definePageMeta({
+  middleware: 'auth-check'
+})
 const studentTasks = reactive({
   tasksList: [{ title: "abc" }],
 });

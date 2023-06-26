@@ -20,20 +20,16 @@ import CardBoxClient from "@/components/Cards/CardBoxClient.vue";
 import CardBoxTransaction from "@/components/Cards/CardBoxTransaction.vue";
 import NotificationBar from "@/components/NotificationBars/NotificationBar.vue";
 import TableCardClients from "@/components/Tables/TableCardClients.vue";
-import { useAuthStore } from "@/stores/authStore";
-import { useRouter } from "vue-router";
-const router = useRouter();
-const AuthStore = useAuthStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 const chartData = ref(null);
 
 const fillChartData = () => {
   chartData.value = chartConfig.sampleChartData();
 };
 onMounted(() => {
-  if (!AuthStore.user) {
-    router.push('/')
-  }
   fillChartData();
 });
 const mainStore = useMainStore();

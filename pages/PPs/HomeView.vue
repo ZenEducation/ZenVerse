@@ -39,6 +39,9 @@ const mainStore = useMainStore();
 
 const snackBarStore = useSnackBarStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 snackBarStore.pushMessage("Welcome back. This is demo", "contrast");
 
 const userSwitchVal = ref(true);

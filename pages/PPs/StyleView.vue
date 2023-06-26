@@ -14,6 +14,9 @@ const setStyle = (style) => {
   styleStore.setStyle(style);
   styleStore.setDarkMode(false);
 };
+definePageMeta({
+  middleware: 'auth-check'
+})
 
 const styles = {
   white: "white",

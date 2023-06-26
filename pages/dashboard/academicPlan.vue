@@ -2,30 +2,36 @@
 <template>
   <NuxtLayout name="zen">
     <div
-      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray  shadow-md sm:rounded-lg sm:m-10 bg-gray-50  dark:text-slate-100 "
+      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:m-10 bg-gray-50 dark:text-slate-100"
     >
       <table
-        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg  text-gray-500 dark:text-gray-400 dark:bg-slate-800"
+        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800"
       >
-        <thead class="sm:table-header-group bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+        <thead
+          class="sm:table-header-group bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+        >
           <tr
-            v-for="row in studentTasks.data"
             class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
           >
-            <th v-for="(value, key) in row" class="p-3 text-center ">
-              {{ key }}
+            <th
+              v-for="(value, key) in tableHeadings"
+              class="p-3 text-center"
+              :key="key"
+            >
+              {{ value }}
             </th>
           </tr>
-
         </thead>
         <tbody class="flex-1 lg:flex-none">
           <tr
-            v-for="row in studentTasks.data"
+            v-for="(row, index) in studentTasks.data"
             class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+            :key="index"
           >
             <td
-              v-for="colm in row"
+              v-for="(colm, id) in row"
               class="border-grey-light dark:border-gray-300 border p-3 min-w-20"
+              :key="id"
             >
               <div
                 v-if="typeof colm == 'string'"
@@ -33,23 +39,57 @@
               >
                 {{ colm }}
               </div>
-              <div class="grid" style="grid-template-columns: auto auto" v-else>
-                <div class="flex items-center justify-center">
-                  <a :href="colm.link">
-                    <BaseIcon :path="mdiLink" class="cursor-pointer" w="w-12" />
-                  </a>
-                </div>
-                <div class="flex items-center justify-center">
+              <div class="" v-else>
+                <!-- teaching status  -->
+                <div class="" v-if="colm.type == 'teachingStatus'">
                   <select
                     v-model="colm.status"
                     id="underline_select"
-                    class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                    class="w-full py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
+                    :class="colm.status"
                   >
-                    <option value="not started">Not Started</option>
-                    <option value="on it">On It</option>
-                    <option value="done">Done</option>
-                    <option value="revising">Revising</option>
+                    <option value="Unassigned" class="text-red-500 Unassigned">
+                      Unassigned
+                    </option>
+                    <option value="In Progress" class="redText Progress">
+                      In Progress
+                    </option>
+                    <option value="Completed" class="blueText Completed">
+                      Completed
+                    </option>
                   </select>
+                </div>
+
+                <!-- Module drop down  -->
+                <div class="flex items-center justify-center" v-else>
+                  <select
+                    v-model="colm.status"
+                    id="underline_select"
+                    class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                    :class="colm.status"
+                  >
+                    <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                    <option value="Completed" class="Completed">Completed</option>
+                    <option value="on it" class="on">On It</option>
+                    <option
+                      value="Assigned-Not Started"
+                      class="Assigned"
+                    >
+                      Assigned - Not Started
+                    </option>
+                    <option value="Unassigned" class="Unassigned">Unassigned</option>
+                  </select>
+                  <div class=" ">
+                    <BaseButton
+                      label="Open"
+                      type="button"
+                      color=""
+                      class="uppercase px-0 py-0"
+                      :style="[]"
+                      small
+                      @click="openPopupItem(colm)"
+                    />
+                  </div>
                 </div>
               </div>
             </td>
@@ -57,546 +97,517 @@
         </tbody>
       </table>
     </div>
+    <ModuleOpenPopup
+      class="absolute openPopup"
+      @close="closePopup"
+      v-if="openPopup"
+      :value="currentpopupValue"
+    />
   </NuxtLayout>
 </template>
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import {
-  mdiLink,
-} from "@mdi/js";
+import BaseButton from "@/components/Buttons/BaseButton.vue";
+import ModuleOpenPopup from "@/components/Dashboard/ModuleOpenPopup.vue";
+import { mdiLink } from "@mdi/js";
+
+const openPopup = ref(false);
+const currentpopupValue = ref(null);
+const openPopupItem = (item) => {
+  openPopup.value = true;
+  currentpopupValue.value = item;
+  console.log(item);
+};
+const closePopup = () => {
+  openPopup.value = false;
+
+};
+
+const tableHeadings = [
+  "Chapter",
+  "Teaching Status",
+  "module 1",
+  "module 2",
+  "module 3",
+  "module 4",
+  "module 5",
+  "module 6",
+  "module 7",
+  "module 8",
+  "module 9",
+  "module 10",
+  "module 11",
+  "module 12",
+  "module 13",
+  "module 14",
+];
 
 const studentTasks = reactive({
   data: [
     {
       Chapter: "kinematics",
-      "Teaching Status": "done",
+      teachingStatus: {
+        status: "Unassigned",
+        type: "teachingStatus",
+      },
       module1: {
+        id: 1,
         link: "https://www.google.com",
-        status: "done",
+        status: "Unassigned",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
         status: "on it",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module4: {
+        id: 4,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Unassigned",
       },
       module5: {
+        id: 5,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module6: {
+        id: 6,
         link: "https://www.google.com",
         status: "on it",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Unassigned",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Assigned-Not Started",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
         status: "on it",
       },
-    },    {
+    },
+    {
       Chapter: "NLM",
-      "Teaching Status": "done",
+      teachingStatus: {
+        status: "In Progress",
+        type: "teachingStatus",
+      },
       module1: {
+        id: 1,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
         status: "on it",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module4: {
+        id: 4,
         link: "https://www.google.com",
         status: "on it",
       },
       module5: {
+        id: 5,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module6: {
+        id: 6,
         link: "https://www.google.com",
         status: "on it",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Assigned-Not Started",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
         status: "on it",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Unassigned",
       },
-    },    {
-      Chapter: "Work Power",
-      "Teaching Status": "done",
+    },
+    {
+      Chapter: "Work Power ",
+      teachingStatus: {
+        status: "Completed",
+        type: "teachingStatus",
+      },
       module1: {
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned - Not Started",
+      },
+      module1: {
+        id: 1,
+        link: "https://www.google.com",
+        status: "Completed",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
         status: "on it",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module4: {
+        id: 4,
         link: "https://www.google.com",
         status: "on it",
       },
       module5: {
+        id: 5,
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned-Not Started",
       },
       module6: {
+        id: 6,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Unassigned",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Unassigned",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
         status: "on it",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned-Not Started",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Revising",
       },
-    },    {
-      Chapter: "Rotation",
-      "Teaching Status": "done",
-      module1: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module2: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module4: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module6: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module8: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module10: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module12: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module14: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-    },    {
+    },
+    {
       Chapter: "kinematics",
-      "Teaching Status": "done",
+      teachingStatus: {
+        status: "Unassigned",
+        type: "teachingStatus",
+      },
       module1: {
+        id: 1,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
         status: "on it",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module4: {
+        id: 4,
+        link: "https://www.google.com",
+        status: "Unassigned",
+      },
+      module5: {
+        id: 5,
         link: "https://www.google.com",
         status: "on it",
       },
-      module5: {
-        link: "https://www.google.com",
-        status: "done",
-      },
       module6: {
+        id: 6,
         link: "https://www.google.com",
         status: "on it",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned-Not Started",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
         status: "on it",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Completed",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned-Not Started",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
         status: "on it",
       },
-    },    {
+    },
+    {
       Chapter: "kinematics",
-      "Teaching Status": "done",
+      teachingStatus: {
+        status: "In Progress",
+        type: "teachingStatus",
+      },
       module1: {
+        id: 1,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Revising",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module4: {
+        id: 4,
         link: "https://www.google.com",
         status: "on it",
       },
       module5: {
+        id: 5,
         link: "https://www.google.com",
-        status: "done",
+        status: "on it",
       },
       module6: {
+        id: 6,
         link: "https://www.google.com",
         status: "on it",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "on it",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
         status: "on it",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
         status: "on it",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
-        status: "on it",
+        status: "Revising",
       },
-    },    {
+    },
+    {
       Chapter: "kinematics",
-      "Teaching Status": "done",
+      teachingStatus: {
+        status: "Completed",
+        type: "teachingStatus",
+      },
       module1: {
+        id: 1,
         link: "https://www.google.com",
-        status: "done",
+        status: "Assigned-Not Started",
       },
       module2: {
+        id: 2,
         link: "https://www.google.com",
         status: "on it",
       },
       module3: {
+        id: 3,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module4: {
+        id: 4,
         link: "https://www.google.com",
         status: "on it",
       },
       module5: {
+        id: 5,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module6: {
+        id: 6,
         link: "https://www.google.com",
         status: "on it",
       },
       module7: {
+        id: 7,
         link: "https://www.google.com",
-        status: "done",
+        status: "Revising",
       },
       module8: {
+        id: 8,
         link: "https://www.google.com",
         status: "on it",
       },
       module9: {
+        id: 9,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module10: {
+        id: 10,
         link: "https://www.google.com",
         status: "on it",
       },
       module11: {
+        id: 11,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module12: {
+        id: 12,
         link: "https://www.google.com",
         status: "on it",
       },
       module13: {
+        id: 13,
         link: "https://www.google.com",
-        status: "done",
+        status: "Completed",
       },
       module14: {
+        id: 14,
         link: "https://www.google.com",
-        status: "on it",
-      },
-    },    {
-      Chapter: "kinematics",
-      "Teaching Status": "done",
-      module1: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module2: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module4: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module6: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module8: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module10: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module12: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module14: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-    },    {
-      Chapter: "kinematics",
-      "Teaching Status": "done",
-      module1: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module2: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module4: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module6: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module8: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module10: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module12: {
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        link: "https://www.google.com",
-        status: "done",
-      },
-      module14: {
-        link: "https://www.google.com",
-        status: "on it",
+        status: "Revising",
       },
     },
   ],
@@ -659,4 +670,50 @@ th:not(:last-child) {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+/* .teachingDropdown option:first-child{
+  color: green;
+} */
+
+.Completed {
+  color: #41bb41 !important;
+  background: transparent !important;
+  padding: 0.5rem !important;
+  cursor: pointer;
+}
+
+.Progress,.on{
+  color: #f99a33;
+  background: transparent !important;
+  padding: 0.5rem !important;
+  cursor: pointer;
+}
+
+.Unassigned {
+  color: #EC6AB8;
+  background: transparent !important;
+  padding: 0.5rem !important;
+  cursor: pointer;
+}
+
+.openPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+
+
+/* module  */
+.Revising{
+  color: #6d81ff;
+  background: transparent !important;
+  padding: 0.5rem !important;
+  cursor: pointer;
+}
+.Assigned{
+  color: #EC6AB8;
+  background: transparent !important;
+  padding: 0.5rem !important;
+  cursor: pointer;
+}
 </style>

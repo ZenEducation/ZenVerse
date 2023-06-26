@@ -8,7 +8,11 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  text:{
+  text: {
+    type: String,
+    default: "",
+  },
+  styleP: {
     type: String,
     default: "",
   },
@@ -34,11 +38,10 @@ const toolbarOptions = [
   ["clean"],
 ];
 
-
-const emit = defineEmits(["update:modelValue","update:text"]);
+const emit = defineEmits(["update:modelValue", "update:text"]);
 
 const data = ref("");
-
+const prevdata = ref("");
 
 watchEffect(() => {
   data.value = props.modelValue;
@@ -46,12 +49,12 @@ watchEffect(() => {
 
 watchEffect(() => {
   emit("update:modelValue", data.value);
-  emit("update:text" , quillEditorRef.value.getText());
 });
+watch(data.value,()=>{
+  emit("update:text" , quillEditorRef.value.getText());
+})
 
 console.log(props.modelValue, " : model");
-
-
 </script>
 
 <template>
@@ -63,6 +66,7 @@ console.log(props.modelValue, " : model");
       content-type="html"
       v-model:content="data"
       ref="quillEditorRef"
+      :style="props.styleP"
     />
   </div>
 </template>

@@ -109,7 +109,7 @@
             <PremFormField label="Your Answer" class="max-w-sm">
               <PremFormControl
                 type="number"
-                placeholder="12.34"
+                placeholder="0.00"
                 v-model="response[current.sectionIndex][current.questionIndex]"
               />
             </PremFormField>
@@ -710,17 +710,21 @@ const changeSection = (toSection) => {
 };
 
 const clearResp = () => {
-  response.value[current.value.sectionIndex][current.value.questionIndex] =
+  if(typeof(response.value[current.value.sectionIndex][current.value.questionIndex]) === 'object'){
+    response.value[current.value.sectionIndex][current.value.questionIndex] =[];
+  }else{
+    response.value[current.value.sectionIndex][current.value.questionIndex] =
     null;
+  }
 };
 
-var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
 const submitTest = () => {
   isModalSubmitActive.value = false;
   window.close();
-  var newWindow = window.open('/examportal/learner/examResult');
+  let newWindow = window.open('/examportal/learner/examResult');
 };
 
 

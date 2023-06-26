@@ -82,6 +82,15 @@
             class="border max-w-md my-2 p-2"
           >
             <input
+            v-if="currentQuestion.multipleChoice"
+              type="checkbox"
+              name="same name"
+              id=""
+              :value="index"
+              v-model="response[current.sectionIndex][current.questionIndex]"
+            />
+            <input
+            v-else
               type="radio"
               name=""
               id=""
@@ -272,14 +281,16 @@ const toggleSidebar = ()=>{
 const findstyle = (section, question) => {
   if (
     (response.value[section][question]  ||
-      response.value[section][question] === 0 ) &&
+    response.value[section][question] === 0 ) &&
+    !( typeof(response.value[section][question]) === 'object' && response.value[section][question].length == 0 ) &&
     MarkedForReview.value[section][question]
   ) {
     return ["bg-green-400",true];
   }
   if (
-    response.value[section][question] ||
-    response.value[section][question] === 0
+    (response.value[section][question] ||
+    response.value[section][question] === 0) &&
+    !( typeof(response.value[section][question]) === 'object' && response.value[section][question].length == 0 )
   ) {
     return ["bg-green-400",false];
   }
@@ -354,7 +365,7 @@ const test = {
           title: "Question Title",
           titleHtml: "Question Title",
           type: "MCQ",
-          multipleChoice: true,
+          multipleChoice: false,
           partialMarking: true,
           Explanation: "this is sample Explanation",
           options: [
@@ -660,10 +671,15 @@ const response = ref([]);
 const MarkedForReview = ref([]);
 const viewed = ref([]);
 
-test.sections.forEach((element) => {
+test.sections.forEach((element,i) => {
   response.value.push([]);
   MarkedForReview.value.push([]);
   viewed.value.push([]);
+  element.questions.forEach((que,j) => {
+    if(que?.multipleChoice){
+      response.value[i][j] = []
+    }
+  });
 });
 
 const current = ref({
@@ -698,10 +714,13 @@ const clearResp = () => {
     null;
 };
 
+var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
 const submitTest = () => {
   isModalSubmitActive.value = false;
   window.close();
-  window.open('/examportal/learner/examResult')
+  var newWindow = window.open('/examportal/learner/examResult');
 };
 
 

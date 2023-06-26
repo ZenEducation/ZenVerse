@@ -10,11 +10,12 @@
 <script setup>
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 const Instruction = '<p>this is instruction</p>'
+var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
 const start = ()=>{
     window.close();
-    window.open('/examportal/learner/exam')
-    
-
+    var newWindow = window.open('/examportal/learner/exam', '_blank', 'width=' + width + ',height=' + height + ',fullscreen=yes');
 }
 </script>
 

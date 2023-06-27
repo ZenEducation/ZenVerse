@@ -1,8 +1,24 @@
 <!-- component -->
 <template>
   <NuxtLayout name="zen">
+
+    <div class="flex items-center  relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+      <div class="">
+        Filter by Status :
+      </div> 
+      <div class="ml-2">
+        <PremFormControl help=""
+              placeholder="None"
+              type="list"
+              :options="filterItems"
+              v-model="filterValue"
+              @change="filterTable"
+          />
+      </div> 
+   
+    </div>
     <div
-      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:m-10 bg-gray-50 dark:text-slate-100"
+      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 "
     >
       <table
         class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800"
@@ -110,6 +126,9 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import ModuleOpenPopup from "@/components/Dashboard/ModuleOpenPopup.vue";
 import { mdiLink } from "@mdi/js";
+import PremFormControl from "@/components/Forms/FormControl.vue";
+import PremFormField from "@/components/Forms/FormField.vue";
+
 
 const openPopup = ref(false);
 const currentpopupValue = ref(null);
@@ -619,6 +638,34 @@ function getColSpan(item) {
     return Object.keys(item).length;
   }
 }
+const filterValue = ref("All")
+
+const filterItems = [
+  "All",
+  "Completed",
+  "Revising",
+  "on it",
+  "Assigned-Not Started",
+  "Unassigned",
+];
+
+
+
+
+
+
+const filterTable = ()=>{
+
+   const filterArray = studentTasks.data
+console.log(filterArray)
+  // studentTasks.value= studentTasks.value.filter((item)=>{
+  //   item.status=filterValue.value
+  //   return item
+  // })
+}
+
+
+
 </script>
 <style scoped>
 html,

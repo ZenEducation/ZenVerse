@@ -8,7 +8,7 @@
     >
     <div class="p-2 space-y-3">
       <div class="pl-1 space-y-1">
-        <p>Background</p>
+        <div>Background</div>
         <!-- <label for="bg-color">Background</label>
         <br />
         <input type="color" :value="fabricStore.background" id="bg-color" /> -->
@@ -19,9 +19,10 @@
         ></div>
         <Transition name="slide-fade">
           <div class="grid grid-rows-9" v-if="showColorPanel">
-            <div class="flex" v-for="shade in fabricStore.alpha">
+            <div class="flex" v-for="(shade,idx) in fabricStore.alpha" :key="idx">
               <div
-                v-for="color in fabricStore.vividColours"
+                v-for="(color,idex) in fabricStore.vividColours"
+                :key="idex"
                 class="h-6 w-6 hover:scale-125 hover:cursor-pointer"
                 :style="`background-color:${color + shade}`"
                 @click="selectColor(color + shade)"

@@ -83,14 +83,21 @@ export function selectHighlighter() {
 
 export function selectEraser() {
     // console.log('Eraser tool selected');
-    canvas = fabricStore.canvas;
-
+    // canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
+    // canvas = fabricStore.canvas;
+    // canvas.isDrawingMode = true;
+    // fabricStore.currentDrawingBrush = canvas.freeDrawingBrush;
+    // canvas.freeDrawingBrush.width = fabricStore.eraser.width;
+    // fabricStore.toolSettings = ((fabricStore.toolSettings && fabricStore.selectedTool == 'eraser') ? false : true)
+    // fabricStore.selectedTool = 'eraser'
+    // canvas.freeDrawingBrush.inverted = true;
+    canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
     canvas.isDrawingMode = true;
-    canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
     fabricStore.currentDrawingBrush = canvas.freeDrawingBrush;
+    canvas.freeDrawingBrush.color = 'rgba(255, 255, 255, 1)'; // Set the color to white or transparent
     canvas.freeDrawingBrush.width = fabricStore.eraser.width;
-    fabricStore.toolSettings = ((fabricStore.toolSettings && fabricStore.selectedTool == 'eraser') ? false : true)
-    fabricStore.selectedTool = 'eraser'
+    fabricStore.toolSettings = ((fabricStore.toolSettings && fabricStore.selectedTool == 'eraser') ? false : true);
+    fabricStore.selectedTool = 'eraser';
 }
 
 export function selectCursor() {

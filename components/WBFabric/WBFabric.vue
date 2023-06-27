@@ -1,8 +1,8 @@
 <template>
-  <div id="main">
+  <div id="main" >
     <!-- <DragToolbar v-if="fabricStore.drawingMode" /> -->
-    <canvas id="canvas-fabric" ref="fabricJS"></canvas>
-    <div id="panels-container" class="flex flex-col gap-5">
+    <canvas id="canvas-fabric" ref="fabricJS" class="canvas" width="1920"></canvas>
+    <div id="panels-container" class="flex flex-col gap-5 ">
       <div v-if="fabricStore.showMousePanel">
         <historyPanel />
       </div>
@@ -16,16 +16,21 @@ import applySettings from "./utils/customSettings";
 // import DragToolbar from "./tools/drawing/DragToolbar.vue";
 import { useWBFabric } from "@/stores/wbFabric";
 import HistoryPanel from "./panel/HistoryPanel";
-
+import { ref, onMounted } from 'vue'
 const fabricJS = ref(null);
 const fabricStore = useWBFabric();
 
 onMounted(() => {
   fabricStore.canvas = new fabric.Canvas(fabricJS.value.id);
-
   // To apply custom settings on canvas
   applySettings(fabricStore.canvas);
 });
+  
+
+
+
+
+
 </script>
 
 <style scoped>
@@ -40,5 +45,9 @@ body {
   position: fixed;
   width: 100vw;
   height: 100vh;
+}
+.canvas {
+  width: 100%;
+  height: 100%;
 }
 </style>

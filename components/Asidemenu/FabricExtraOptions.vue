@@ -13,7 +13,7 @@
     <div
       class="mb-10 flex flex-col space-y-2 items-center w-[5rem] z-50 relative inset-x-0"
     >
-      <button @click="undo">
+      <button @click="undo" class="">
         <SvgIcon type="mdi" :path="mdiArrowULeftTop" />
       </button>
       <button @click="redo">

@@ -1,10 +1,10 @@
 <template>
   <div id="main">
     <!-- <DragToolbar v-if="fabricStore.drawingMode" /> -->
-    <canvas id="canvas-fabric" ref="fabricJS"></canvas>
+    <canvas class="canvas-board" id="canvas-fabric" ref="fabricJS"></canvas>
     <div id="panels-container" class="flex flex-col gap-5">
       <div v-if="fabricStore.showMousePanel">
-        <historyPanel />
+        <HistoryPanel />
       </div>
     </div>
   </div>
@@ -41,4 +41,9 @@ body {
   width: 100vw;
   height: 100vh;
 }
+.canvas-board{
+  width: 100vw;
+  height: 100vh;
+}
+
 </style>

@@ -124,7 +124,7 @@
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import ModuleOpenPopup from "@/components/Dashboard/ModuleOpenPopup.vue";
+import ModuleOpenPopup from "~~/components/AcademicsAndKCRs/ModuleOpenPopup.vue";
 import { mdiLink } from "@mdi/js";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import PremFormField from "@/components/Forms/FormField.vue";

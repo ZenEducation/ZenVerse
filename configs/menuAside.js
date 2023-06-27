@@ -15,6 +15,7 @@ import {
   mdiBallot,
   mdiViewQuilt,
   mdiMessage,
+  mdiAccountCheck,
   mdiFastForwardOutline,
   mdiBook,
 } from "@mdi/js";
@@ -84,6 +85,11 @@ export default [
     to: "/auth/register",
     label: "Register",
     icon: mdiSquareEditOutline,
+  },
+  {
+    to: "/approval/approval",
+    label: "approval",
+    icon: mdiAccountCheck,
   },
   {
     // Key should be unique for each submenus object

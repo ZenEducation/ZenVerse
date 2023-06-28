@@ -58,66 +58,51 @@ export default [
     label: "Pricing layout",
     icon: mdiBarcode,
   },
-  {
-    label: "Dropdown",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Dropdown item Uno",
-      },
-      {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
+  // {
+  //   label: "Dropdown",
+  //   icon: mdiFormDropdown,
+  //   menu: [
+  //     {
+  //       label: "Dropdown item Uno",
+  //     },
+  //     {
+  //       label: "Dropdown item Dos",
+  //     },
+  //   ],
+  // },
 
   {
-    label: "Career",
+    label: "Recruitment Portal",
     icon: mdiFormDropdown,
     menu: [
       {
-        label: "All jobs",
-        to:'/careers/AllJobs'
+        "label": "All jobs",
+        "to": "/RecruitmentPortal/AllJobs"
       },
       {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "All Departments",
-        to:'/careers/allDepartments'
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Candidate Detail",
-        to:'/careers/candidateDetail'
+        "label": "Create Job",
+        "to": "/RecruitmentPortal/CreateJob"
       },
       {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Job Apply",
-        to:'/careers/jobApply'
+        "label": "Job Apply",
+        "to": "/RecruitmentPortal/jobApply"
       },
       {
-        label: "Dropdown item Dos",
+        "label": "Job Listing",
+        "to": "/RecruitmentPortal/allDepartements"
       },
+      {
+        "label": "All Departments",
+        "to": "/RecruitmentPortal/allDepartements"
+      },
+      {
+        "label": "Create Department",
+        "to": "/RecruitmentPortal/depCreationPage"
+      },
+      {
+        "label": "Job Candidates",
+        "to": "/RecruitmentPortal/job-candidate-Page"
+      }
     ],
   },
   {

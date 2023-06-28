@@ -10,8 +10,7 @@ import {
 } from "@mdi/js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import OverlayLayer from "@/components/WBFabric/AsideMenu/OverlayLayer.vue";
-import PremAsideMenuLayer from "@/components/WBFabric/Asidemenu/AsideMenuLayer.vue";
-import PremAsideMenuItem from "@/components/WBFabric/Asidemenu/AsideMenuItem.vue";
+// import PremAsideMenuLayer from "@/components/WBFabric/Asidemenu/AsideMenuLayer.vue";
 
 defineProps({
   menu: {
@@ -97,61 +96,35 @@ const expandCollapseItem = computed(() => ({
 </script>
 
 <template>
-  <PremAsideMenuLayer
-    :menu="menu"
-    :class="[
-      layoutStore.isAsideMobileExpanded ? 'left-0' : '-left-60 lg:left-0',
-      isPrimaryMenuCompact ? 'lg:w-[5.5rem]' : 'lg-w-64',
-      { 'lg:hidden xl:flex': !layoutStore.isAsideLgActive },
-    ]"
-    :is-compact="isPrimaryMenuCompact"
-    :z-index="secondaryMenuItem ? 'z-40 md:z-50' : 'z-50'"
-    :active-secondary-menu-key="secondaryMenuItem?.key"
-    @menu-click="menuClickPrimaryMenu"
-  >
+  <PremAsideMenuLayer :menu="menu" :class="[
+    layoutStore.isAsideMobileExpanded ? 'left-0' : '-left-60 lg:left-0',
+    isPrimaryMenuCompact ? 'lg:w-[5.5rem]' : 'lg-w-64',
+    { 'lg:hidden xl:flex': !layoutStore.isAsideLgActive },
+  ]" :is-compact="isPrimaryMenuCompact" :z-index="secondaryMenuItem ? 'z-40 md:z-50' : 'z-50'"
+    :active-secondary-menu-key="secondaryMenuItem?.key" @menu-click="menuClickPrimaryMenu">
     <div class="flex-1 px-3 flex justify-center">
       <b class="font-black">PE One</b>
     </div>
 
     <template #footer>
       <ul class="hidden lg:block">
-        <PremAsideMenuItem
-          :item="expandCollapseItem"
-          class="font-black dark:bg-slate-900"
-          :class="styleStore.asideBrandStyle"
-          :is-compact="isPrimaryMenuCompact"
-          @menu-click="isPrimaryMenuCompact = !isPrimaryMenuCompact"
-        />
+        <PremAsideMenuItem :item="expandCollapseItem" class="font-black dark:bg-slate-900"
+          :class="styleStore.asideBrandStyle" :is-compact="isPrimaryMenuCompact"
+          @menu-click="isPrimaryMenuCompact = !isPrimaryMenuCompact" />
       </ul>
     </template>
   </PremAsideMenuLayer>
 
-  <PremAsideMenuLayer
-    v-if="secondaryMenuItem"
-    :menu="secondaryMenuItem.menuSecondary"
+  <PremAsideMenuLayer v-if="secondaryMenuItem" :menu="secondaryMenuItem.menuSecondary"
     :class="[isPrimaryMenuCompact ? 'lg:left-[5.5rem]' : 'md:left-60']"
     class="right-0 md:right-auto animate-fade-in-right-fast lg:animate-fade-in-left-fast"
-    @menu-click="menuClickSecondaryMenu"
-  >
-    <BaseIcon
-      v-if="secondaryMenuItem.icon"
-      :path="secondaryMenuItem.icon"
-      w="w-16"
-    />
+    @menu-click="menuClickSecondaryMenu">
+    <BaseIcon v-if="secondaryMenuItem.icon" :path="secondaryMenuItem.icon" w="w-16" />
     <div class="flex-1">
       {{ secondaryMenuItem.label }}
     </div>
-    <BaseIcon
-      :path="mdiClose"
-      class="cursor-pointer"
-      w="w-12"
-      @click="closeSecondaryMenu"
-    />
+    <BaseIcon :path="mdiClose" class="cursor-pointer" w="w-12" @click="closeSecondaryMenu" />
   </PremAsideMenuLayer>
 
-  <OverlayLayer
-    :type="overlayLayerDisplayType"
-    z-index="z-40"
-    @overlay-click="overlayClick"
-  />
+  <OverlayLayer :type="overlayLayerDisplayType" z-index="z-40" @overlay-click="overlayClick" />
 </template>

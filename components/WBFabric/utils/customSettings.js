@@ -15,7 +15,12 @@ async function setup() {
 }
 
 function _setCanvasProperties(canvas) {
-    canvas.loadFromJSON(models[1].canvas)
+    if(models.length>0) {
+        canvas.loadFromJSON(models[1].canvas)
+        console.log(canvas.loadFromJSON(models[1].canvas));
+    }
+
+
 
     // canvas.setBackgroundColor(
     //     "rgba(255, 255, 255)",
@@ -29,7 +34,7 @@ function _setCanvasProperties(canvas) {
     const par = document.getElementById("pagetop-container");
     canvas.setDimensions({ width: par.offsetWidth, height: par.offsetHeight });
     canvas.hoverCursor = 'pointer';
-    // fabricStore.canvas = canvas;
+    fabricStore.canvas = canvas;
 }
 function _undoredo(canvas){
     // const canvas = fabricStore.canvas;

@@ -3,7 +3,9 @@
     <canvas id="canvas-id" resize class="mb-10"></canvas>
     <!-- <canvas id="canvas-fabric" ref="fabricJS" class=""></canvas> -->
     <div id="panels-container" class="flex flex-col gap-5">
-      <mainPanel /> <historyPanel />
+      <mainPanel />
+
+       <historyPanel />
     </div>
   </div>
 </template>

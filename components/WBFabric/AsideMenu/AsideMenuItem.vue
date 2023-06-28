@@ -106,7 +106,7 @@ const updateMarkPosition = computed(() => {
 </script>
 
 <template>
-  <li>
+  <li class="">
     <component
       :is="item.to ? RouterLink : 'a'"
       v-slot="vSlot"

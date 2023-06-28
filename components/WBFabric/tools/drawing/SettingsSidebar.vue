@@ -28,7 +28,8 @@
         <br />
         <div class="w-[14rem] grid grid-cols-4 gap-4">
           <div
-            v-for="color in fabricStore.vividColours"
+            v-for="(color,idx) in fabricStore.vividColours"
+            :key="idx"
             class="h-10 w-10 rounded-full hover:scale-125 hover:cursor-pointer"
             :style="`background-color:${color}`"
             @click="changePencilColor(color)"
@@ -43,9 +44,10 @@
         <br />
         <Transition name="slide-fade">
           <div class="grid grid-rows-9" v-if="showPencilColorPanel">
-            <div class="flex" v-for="shade in fabricStore.alpha">
+            <div class="flex" v-for="(shade,idx) in fabricStore.alpha" :key="idx">
               <div
-                v-for="color in fabricStore.vividColours"
+                v-for="(color,index) in fabricStore.vividColours"
+                :key="index"
                 class="h-6 w-6 hover:scale-125 hover:cursor-pointer"
                 :style="`background-color:${color + shade}`"
                 @click="selectColor(color + shade, 'pencil')"
@@ -104,7 +106,8 @@
         <br />
         <div class="w-[14rem] grid grid-cols-4 gap-4">
           <div
-            v-for="color in fabricStore.vividColours"
+            v-for="(color,idx) in fabricStore.vividColours"
+            :key="idx"
             class="h-10 w-10 rounded-full hover:scale-125 hover:cursor-pointer"
             :style="`background-color:${color}`"
             @click="changeHighlighterColor(color)"
@@ -119,9 +122,10 @@
         <br />
         <Transition name="slide-fade">
           <div class="grid grid-rows-9" v-if="showHLColorPanel">
-            <div class="flex" v-for="shade in fabricStore.alpha">
+            <div class="flex" v-for="(shade,index) in fabricStore.alpha" :key="index">
               <div
-                v-for="color in fabricStore.vividColours"
+                v-for="(color,idx) in fabricStore.vividColours"
+                :key="idx"
                 class="h-6 w-6 hover:scale-125 hover:cursor-pointer"
                 :style="`background-color:${color + shade}`"
                 @click="selectColor(color + shade, 'highlighter')"

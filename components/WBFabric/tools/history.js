@@ -7,6 +7,7 @@ class History {
     this.history = [];
   }
   add() {
+    console.log("added dwdwdw")
     const canvas = fabricStore.canvas;
     this.canvas=canvas;
     if (this.currentStateIndex < this.history.length - 1) {
@@ -22,7 +23,9 @@ class History {
     this.currentStateIndex = this.history.length - 1;
   }
   undo() {
+    console.log("undoing",this.currentStateIndex )
     if (this.currentStateIndex > 0) {
+  
       this.canvas.off('object:added');
       this.currentStateIndex--;
       // this.canvas.clear();

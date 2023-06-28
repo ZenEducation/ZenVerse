@@ -2,7 +2,7 @@
   <div
     class="fixed popupContainer text-center h-full w-full flex justify-center items-center"
   >
-    <div class="w-5/12 h-fit bg-white dark:bg-slate-900 text-left px-5">
+    <div class="w-12/12 sm:w-5/12  h-fit bg-white dark:bg-slate-900 text-left px-5">
       <div class="text-right pt-4">
         <BaseIcon
           :path="mdiCloseThick"

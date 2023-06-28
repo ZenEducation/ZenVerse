@@ -18,14 +18,12 @@
    
     </div>
     <div
-      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 "
+      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 overflow-x-auto"
     >
       <table
-        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800"
+        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800 table-auto overflow-x-auto"
       >
-        <thead
-          class="sm:table-header-group bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400"
-        >
+       
           <tr
             class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
           >
@@ -37,8 +35,8 @@
               {{ value }}
             </th>
           </tr>
-        </thead>
-        <tbody class="flex-1 lg:flex-none">
+    
+ 
           <tr
             v-for="(row, index) in studentTasks.data"
             class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
@@ -46,22 +44,22 @@
           >
             <td
               v-for="(colm, id) in row"
-              class="border-grey-light dark:border-gray-300 border p-3 min-w-20"
+              class="border-grey-light dark:border-gray-300 border  "
               :key="id"
             >
               <div
                 v-if="typeof colm == 'string'"
-                class="flex items-center justify-center"
+                class="flex items-center justify-center "
               >
                 {{ colm }}
               </div>
-              <div class="" v-else>
+              <div class=" " v-else>
                 <!-- teaching status  -->
                 <div class="" v-if="colm.type == 'teachingStatus'">
                   <select
                     v-model="colm.status"
                     id="underline_select"
-                    class="w-full py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
+                    class="w-full pb-2.5 px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
                     :class="colm.status"
                   >
                     <option value="Unassigned" class="text-red-500 Unassigned">
@@ -77,11 +75,12 @@
                 </div>
 
                 <!-- Module drop down  -->
-                <div class="flex items-center justify-center" v-else>
+                <div class=" " v-else>
+                  <div  v-if="colm.status==filterValue" class="flex items-center justify-center">
                   <select
                     v-model="colm.status"
                     id="underline_select"
-                    class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                    class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
                     :class="colm.status"
                   >
                     <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
@@ -95,22 +94,54 @@
                     </option>
                     <option value="Unassigned" class="Unassigned">Unassigned</option>
                   </select>
-                  <div class=" ">
+                  <div class=" pl-1">
                     <BaseButton
                       label="Open"
                       type="button"
                       color=""
-                      class="uppercase px-0 py-0"
+                      class="uppercase px-0 "
                       :style="[]"
                       small
                       @click="openPopupItem(colm)"
                     />
                   </div>
                 </div>
+                <div  v-if="filterValue=='All'" class="flex items-center justify-center">
+                  <select
+                    v-model="colm.status"
+                    id="underline_select"
+                    class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                    :class="colm.status"
+                  >
+                    <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                    <option value="Completed" class="Completed">Completed</option>
+                    <option value="on it" class="on">On It</option>
+                    <option
+                      value="Assigned-Not Started"
+                      class="Assigned"
+                    >
+                      Assigned - Not Started
+                    </option>
+                    <option value="Unassigned" class="Unassigned">Unassigned</option>
+                  </select>
+                  <div class=" pl-1">
+                    <BaseButton
+                      label="Open"
+                      type="button"
+                      color=""
+                      class="uppercase px-0 "
+                      :style="[]"
+                      small
+                      @click="openPopupItem(colm)"
+                    />
+                  </div>
+                </div>
+              
+              </div>
               </div>
             </td>
           </tr>
-        </tbody>
+
       </table>
     </div>
     <ModuleOpenPopup
@@ -141,6 +172,29 @@ const closePopup = () => {
   openPopup.value = false;
 
 };
+
+
+
+
+// table sample data 
+
+const sampleData = reactive(
+  {
+    data:[
+
+    ]
+  }
+)
+
+
+
+
+
+
+
+
+
+
 
 const tableHeadings = [
   "Chapter",

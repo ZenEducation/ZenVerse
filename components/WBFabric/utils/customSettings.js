@@ -186,9 +186,9 @@ export default async function (canvas) {
     // Issue found when importing pdfs
     _workaround(canvas);
 
-    // _addPolygon(canvas);
-    // _addRectangle(canvas);
-    // _addCircle(canvas);
+    _addPolygon(canvas);
+    _addRectangle(canvas);
+    _addCircle(canvas);
 
     // Adding custom controls
     customControls._deleteControl()

@@ -112,7 +112,7 @@ const checked = (isChecked, client) => {
     </thead>
     <tbody>
       <tr
-        v-for="client in itemsPaginated"
+        v-for="(client, index) in itemsPaginated"
         :key="client.id"
         class="border-b-0 lg:w-6 before:hidden"
       >
@@ -123,7 +123,10 @@ const checked = (isChecked, client) => {
           {{ client.title }}
         </td>
 
-        <td data-label="Submission">
+        <td v-if = "index === 1" data-label="Submission">
+          <img :src="client.avatar" alt="Avatar" width="150" height="150"/>
+        </td>
+        <td v-else data-label="Submission">
           {{ client.sub }}
         </td>
 

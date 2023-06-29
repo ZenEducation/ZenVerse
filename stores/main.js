@@ -72,7 +72,7 @@ const state = () => ({
     {
       id:1214, 
       title: "Diwali Offer", 
-      sub:" ",
+      avatar:'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
       type: "Graphics", 
       category: "NEET Coaching", 
       status: "Corrections Needed", 

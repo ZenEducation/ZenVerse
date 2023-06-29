@@ -7,15 +7,9 @@
       <!-- candidate card section -->
       <section class="relative md:py-5 py-10 bg-gray-50 dark:bg-slate-800">
         <div class="container mx-auto">
-          <div
-            class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[30px] px-3 md:px-10"
-          >
+          <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[30px] px-3 md:px-10">
             <!-- cards -->
-            <CardCandidate
-              v-for="(item, idx) in candidate"
-              :key="idx"
-              :item="item"
-            />
+            <CardCandidate v-for="(item, idx) in candidateData" :key="idx" :item="item" />
           </div>
         </div>
       </section>
@@ -29,13 +23,8 @@
           </div>
           <!--  content  -->
           <div class="lg:col-span-7 md:col-span-6">
-            <span
-              class="bg-indigo-600/5 text-indigo-600 text-xs font-bold px-2.5 py-0.5 rounded h-5"
-              >Mobile Apps</span
-            >
-            <h4
-              class="md:text-3xl text-2xl lg:leading-normal leading-normal font-medium my-4"
-            >
+            <span class="bg-indigo-600/5 text-indigo-600 text-xs font-bold px-2.5 py-0.5 rounded h-5">Mobile Apps</span>
+            <h4 class="md:text-3xl text-2xl lg:leading-normal leading-normal font-medium my-4">
               Available for your <br />
               Smartphones
             </h4>
@@ -45,46 +34,23 @@
               companies worldwide.
             </p>
             <div class="my-5">
-              <a href=""
-                ><img
-                  src="@/images/app/app.png"
-                  class="m-1 inline-block"
-                  alt=""
-              /></a>
+              <a href=""><img src="@/images/app/app.png" class="m-1 inline-block" alt="" /></a>
 
-              <a href=""
-                ><img
-                  src="@/images/app/playstore.png"
-                  class="m-1 inline-block"
-                  alt=""
-              /></a>
+              <a href=""><img src="@/images/app/playstore.png" class="m-1 inline-block" alt="" /></a>
             </div>
 
             <div class="inline-block">
-              <div
-                class="pt-4 flex items-center border-t border-gray-100 dark:border-gray-700"
-              >
-                <BaseIcon
-                  :path="mdiCellphone"
-                  class="uil uil-map-marker text-indigo-600 mr-2"
-                  size="45"
-                  h="45"
-                  w="45"
-                />
+              <div class="pt-4 flex items-center border-t border-gray-100 dark:border-gray-700">
+                <BaseIcon :path="mdiCellphone" class="uil uil-map-marker text-indigo-600 mr-2" size="45" h="45" w="45" />
                 <div class="content">
                   <h6 class="mb-0 text-base font-medium">
                     Install app now on your cellphones
                   </h6>
-                  <a
-                    href=""
-                    class="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out flex items-center mt-1"
-                  >
+                  <a href=""
+                    class="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out flex items-center mt-1">
                     <span>Learn More</span>
-                    <BaseIcon
-                      :path="mdiChevronRight"
-                      class="uil uil-map-marker text-indigo-600 ltr:mr-1 rtl:ml-1"
-                      size="20"
-                    />
+                    <BaseIcon :path="mdiChevronRight" class="uil uil-map-marker text-indigo-600 ltr:mr-1 rtl:ml-1"
+                      size="20" />
                   </a>
                 </div>
               </div>
@@ -96,17 +62,16 @@
     </NuxtLayout>
   </div>
 </template>
-
 <script setup>
-// import section
+// Import section
 import HeroBackground from "~~/components/RecuitmentPortal/JobCandidiatePage/HeroBackground.vue";
 import CardCandidate from "~~/components/RecuitmentPortal/JobCandidiatePage/CardCandidate.vue";
 import { mdiChevronRight, mdiCellphone } from "@mdi/js";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import candidateData from "../../dummyData/jobCandidiatePage/jobCandidateData.json";
-const candidate = candidateData.values;
+import { ref, onMounted } from "vue";
+
 const title = "Company List";
-// breadcrumb links
+const candidateData = ref([]);
 const links = [
   {
     name: "Techwind",
@@ -121,12 +86,57 @@ const links = [
     link: "",
   },
 ];
+
+// Fetch candidate data from the API
+const fetchData = async () => {
+  try {
+    const response = await fetch(
+      "https://aljw4fgbzrgkjkntp2yvc2dzgm.appsync-api.ap-south-1.amazonaws.com/graphql",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "da2-abaq7ccxdnf6vb7w4tux65kg5q",
+        },
+        body: JSON.stringify({
+          query: `
+            query ListAllApplicants {
+              listApplicants {
+                items {
+                  applicantId
+                  name
+                  email
+                  mobile
+                  cover
+                  resumeUri
+                  createdAt
+                  monthlyRate
+                  skills
+                  country
+                }
+              }
+            }
+          `,
+        }),
+      }
+    );
+
+    const { data } = await response.json();
+    candidateData.value = data.listApplicants.items;
+    console.log(candidateData.value); // Display the retrieved applicant data in the console
+  } catch (error) {
+    console.error("GraphQL query error:", error);
+  }
+};
+
+onMounted(fetchData);
 </script>
 
 <style scoped>
 * {
   box-sizing: border-box;
 }
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

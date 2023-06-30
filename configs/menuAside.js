@@ -87,7 +87,7 @@ export default [
     icon: mdiSquareEditOutline,
   },
   {
-    to: "/approval/approval",
+    to: "/CMS/approval",
     label: "approval",
     icon: mdiAccountCheck,
   },

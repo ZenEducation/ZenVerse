@@ -16,27 +16,27 @@
             <FormControl placeholder="Search (ctrl+k)" ctrl-k-focus transparent borderless v-model="searchQuery" />
           </NavBarItemPlain>
         </NavBar>
-        <!-- The Premium Aside Menu -->
+
         <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
 
-        <div class="approval-page">
-     <div class="header">
-        <div class="header-content">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNACCdEsX-Kr8ph3knqv14gsaeGYop-uiO4g&usqp=CAU" alt="Header Image" style="width: 70px; height: auto;">
-          <h1 :class="{'dark-mode-title': styleStore.darkMode}">{{ title }}</h1>
-        </div>
-        <hr style="height: 4.5px; border: none; margin: 0; background-color: grey;">
-      </div>
+<div class="approval-page">
+  <div class="header">
+    <div class="header-content">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNACCdEsX-Kr8ph3knqv14gsaeGYop-uiO4g&usqp=CAU" alt="Header Image" style="width: 70px; height: auto;">
+      <h1 :class="{'dark-mode-title': styleStore.darkMode}">{{ title }}</h1>
     </div>
-
-      <div class="search-filter">
-    <input
-      type="text"
-      v-model="searchQuery"
-      placeholder="Search by Approvee name, Title, or ID"
-    />
-    <button @click="resetFilters">Reset</button>
+    <hr style="height: 4.5px; border: none; margin: 0; background-color: grey;">
   </div>
+</div>
+
+    <div class="search-filter">
+          <input
+            type="text"
+            v-model="searchQuery"
+            placeholder="Search by Approvee name, Title, or ID"
+          />
+          <button @click="resetFilters">Reset</button>
+        </div>
 
      <div class="table-container">
           <table class="data-table">
@@ -57,7 +57,10 @@
               <tr v-for="row in filteredRows" :key="row.id">
                 <td>{{ row.id }}</td>
                <td>{{ row.title }}</td>
-               <td>{{ row.submission }}</td>
+               <div class="submission-cell">
+                        <a :href="row.submission" target="_blank">{{ row.submission }}</a>
+                   <img v-if="row.submissionImage" :src="row.submissionImage" style="display: block; margin: 0 35px; width: 130px; height: auto;" />
+                    </div>
                 <td>{{ row.type }}</td>
                <td>{{ row.category }}</td>
                <td> <div class="approvee-avatar">
@@ -77,6 +80,9 @@
             </tbody>
           </table>
         </div>
+        <div class="pagination">
+      <span>Page 1 of 1</span>
+    </div>
 
         <!-- FooterBar -->
         <FooterBar>
@@ -120,14 +126,14 @@ const rows = [
         },
         {
           id: 1214,
-          title: 'Diwali Offer',
-          submission: 'https://ww.facebook.com',
-          type: 'Graphic',
-          category: 'Neet Coaching',
-          approvee: 'Ram',
-          status: 'Editor Submission Pending',
-          submittedOn: 'Dec 1, 2021',
-          avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+       title: 'Diwali Offer',
+       submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
+        type: 'Graphic',
+        category: 'Neet Coaching',
+       approvee: 'Ram',
+       status: 'Editor Submission Pending',
+      submittedOn: 'Dec 1, 2021',
+       avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
         },
         {
          id: 1215,
@@ -149,6 +155,17 @@ const rows = [
       approvee: 'Ross',
       status: 'Initial submission Pending',
       submittedOn: 'May 4, 2021',
+      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+   },
+   {
+       id: 1217,
+       title: 'Web Dev Course',
+       submission: 'www.pankajkumarseo.com',
+       type: 'Online',
+       category: 'Coursera',
+      approvee: 'Shub',
+      status: 'Not verified',
+      submittedOn: 'May 19, 2021',
       avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
 ];
@@ -239,13 +256,13 @@ const title = computed(() => {
   align-items: center;
 }
 .header-content {
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   color: #000; 
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 .approval-page {
-  padding: 15px;
+  padding: 10px;
   color:black;
 }
 
@@ -254,7 +271,7 @@ const title = computed(() => {
 }
 
 .header {
-  padding: 15px;
+  padding: 10px;
   color:black;
   font: 1em sans-serif;
   font-size: 35px;
@@ -263,9 +280,9 @@ const title = computed(() => {
 .search-filter {
   display: flex;
   align-items: center;
-  gap: 660px;
+  gap: 860px;
   padding-left: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .table-container {
@@ -347,6 +364,17 @@ input[type='text'] {
   width: 24px; /* Adjust the size as needed */
   height: 24px;
   border-radius: 50%;
+}
+.pagination {
+  display: flex;
+  margin-right: 30px;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: black;
 }
 </style>
 

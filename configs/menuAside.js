@@ -17,6 +17,7 @@ import {
   mdiMessage,
   mdiFastForwardOutline,
   mdiBook,
+  mdiAbTesting
 } from "@mdi/js";
 
 export default [
@@ -157,4 +158,9 @@ export default [
     label: "About",
     icon: mdiHelpCircle,
   },
+  {
+    to: "/examPortal/tests",
+    label: "Tests",
+    icon: mdiAbTesting,
+  }
 ];

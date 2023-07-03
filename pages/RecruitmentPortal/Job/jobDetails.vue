@@ -456,7 +456,7 @@ import HeroBackground from "~~/components/RecuitmentPortal/JobCandidiatePage/Her
 import CardCandidate from "~~/components/RecuitmentPortal/JobCandidiatePage/CardCandidate.vue";
 import { mdiChevronRight, mdiCellphone, mdiArrowRight } from "@mdi/js";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import candidateData from "../../dummyData/jobCandidiatePage/jobCandidateData.json";
+import candidateData from "../../../dummyData/jobCandidiatePage/jobCandidateData.json";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 const candidate = candidateData.values;
 const title = "Senior Web Developer";

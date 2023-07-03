@@ -54,7 +54,7 @@
         </div>
   
 
-     <div class="table-container">
+    <div class="table-container mobileView">
           <table class="data-table">
             <thead>
               <tr>
@@ -71,26 +71,26 @@
             </thead>
             <tbody>
               <tr v-for="row in filteredRows" :key="row.id">
-                <td>{{ row.id }}</td>
-               <td>{{ row.title }}</td>
-               <td>
-              <a :href="row.submission" target="_blank">{{ row.submission }}</a>
+                <td data-label="Id">{{ row.id }}</td>
+               <td data-label="Title">{{ row.title }}</td>
+               <td data-label="Submission">
+              <a :href="row.submission" target="_blank" data-label="Submission">Link</a>
               <img v-if="row.submissionImage" :src="row.submissionImage" style="display: block; margin: 0 35px; width: 130px; height: auto;" />
                 </td>
-                <td>{{ row.type }}</td>
-               <td>{{ row.category }}</td>
-               <td> <div class="approvee-avatar">
+                <td data-label="Type">{{ row.type }}</td>
+               <td data-label="Category">{{ row.category }}</td>
+               <td data-label="Approvee"> <div class="approvee-avatar">
               <img :src="row.avatar" alt="Approvee Avatar" />
             <span>{{ row.approvee }}</span>
               </div></td>
-                <td>{{ row.status }}</td>
-                 <td>{{ row.submittedOn }}</td>
+                <td data-label="Status">{{ row.status }}</td>
+                 <td data-label="Submission Date">{{ row.submittedOn }}</td>
                   <td>
                   <button class="small-button transparent-button" @click="view(row)">
-                       <span class="mdi mdi-eye"></span> View</button>
+                       <span class="mdi mdi-eye"></span> </button>
                        <button class="small-button transparent-button with-border" @click="approve(row)"> Approve</button>
                        <button class="small-button transparent-button" @click="edit(row)">
-                       <span class="mdi mdi-pencil"></span> Edit </button>
+                       <span class="mdi mdi-pencil"></span> </button>
                 </td>
               </tr>
             </tbody>
@@ -99,6 +99,7 @@
         <div class="pagination">
       <span>Page 1 of 1</span>
     </div>
+
 
         <!-- FooterBar -->
         <FooterBar>
@@ -154,7 +155,7 @@ const rows = [
         {
          id: 1215,
          title: 'Winter Batch',
-         submission: 'https://www.google.com',
+         submission: 'https://www.aakash.ac.in/',
          type: 'Text',
          category: 'Neet Coaching ',
         approvee: 'Sid',
@@ -165,7 +166,7 @@ const rows = [
         {
        id: 1216,
        title: 'New Course',
-       submission: 'https://www.makemytrip.com',
+       submission: 'https://www.aakash.ac.in/',
        type: 'ACC',
        category: 'Jee coachin',
       approvee: 'Ross',
@@ -176,7 +177,7 @@ const rows = [
    {
        id: 1217,
        title: 'Web Dev Course',
-       submission: 'www.pankajkumarseo.com',
+       submission: 'https://www.aakash.ac.in/',
        type: 'Online',
        category: 'Coursera',
       approvee: 'Shub',
@@ -195,8 +196,14 @@ const filteredRows = computed(() => {
   if (!query) {
     return rows;
   } else {
-    return rows.filter((row) =>
-      row[filterBy.value].toLowerCase().includes(query)
+    return rows.filter(
+      (row) =>
+        row.approvee.toLowerCase().includes(query) ||
+        row.title.toLowerCase().includes(query) ||
+        row.id.toString().includes(query) ||
+        row.type.toLowerCase().includes(query) ||
+        row.status.toLowerCase().includes(query) ||
+        row.category.toLowerCase().includes(query)
     );
   }
 });
@@ -372,8 +379,6 @@ const title = computed(() => {
 
 .table-container {
   width: 100%;
-  margin-left: 15px; /* Add left margin */
-  margin-right: 15px; /* Add right margin */
   overflow-x: auto; /* Enable horizontal scrolling on small screens */
 }
 
@@ -456,17 +461,11 @@ input[type='text'] {
   align-items: center;
   gap: 8px;
 }
-
+.mobileView{
+  padding: 1rem;
+  width: 99%;
+}
+.mobileView tr{
+  padding:.3rem;
+}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -11,6 +11,15 @@
         >
           {{ title }}
         </h3>
+        <div class="text-white  mt-1 z-10 flex align-center justify-center" v-if="location"> 
+          <div class="">   <BaseIcon
+                        :path="mdiMapMarkerOutline"
+                        class="uil uil-map-marker mr-1"
+                        size="20"
+                      /> </div>
+       
+                      <div class=""> <span class="text-gray-500">{{ location }} </span>- {{ degegnation }} </div>
+                      </div>
       </div>
       <!--end grid-->
     </div>
@@ -74,7 +83,8 @@ import { defineProps } from "vue";
 import { mdiAccount, mdiAsterisk } from "@mdi/js";
 import { computed } from "vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import { mdiBookmarkOutline, mdiMapMarker, mdiChevronRight } from "@mdi/js";
+
+import { mdiBookmarkOutline, mdiMapMarker, mdiChevronRight,mdiMapMarkerOutline } from "@mdi/js";
 // props
 const props = defineProps({
   title: {
@@ -85,6 +95,13 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  location:{
+    type: String
+  },
+  degegnation:{
+    type: String
+
+  }
 });
 
 // previous links

@@ -1,6 +1,6 @@
 <script setup>
 import { useStyleStore } from "@/stores/style.js";
-import PremAsideMenuList from "@/components/WBFabric/AsideMenu/AsideMenuList.vue";
+import PremAsideMenuList from "./AsideMenuList.vue";
 
 defineProps({
   menu: {

@@ -540,8 +540,11 @@ const handlepdfFiles = (event) => {
         <div class="footer_text mb-6 last:mb-0" v-else-if="audio">
           You can upload files with the extensions: aac, mp2, mp3, mpga, ogg, wav, m4a
         </div>
+        <div class="footer_text mb-6 last:mb-0" v-else-if="xlsx">
+          You can upload files with the extensions: xlsx
+        </div>
         <div class="footer_text mb-6 last:mb-0" v-else-if="pdffile">
-          You can upload files with the extension: pdf
+          You can upload files with the extension: pdf, xlsx
           <div>
            There is a file size limit of 25mb</div>
         </div>

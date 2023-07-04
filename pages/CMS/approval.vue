@@ -1,3 +1,4 @@
+
 <template>
   <div>
 <div :class="{ dark: styleStore.darkMode, 'overflow-hidden lg:overflow-visible': layoutStore.isAsideMobileExpanded }">
@@ -38,18 +39,18 @@
             v-model="searchQuery"
             placeholder=" Search by Approvee name, Title, ID, Type, or Category "
           />
-          <div>
-            <label for="filterBy">Filter by Approvee:</label>
-            <select id="filterBy" v-model="filterBy">
-              <option value="id">ID</option>
-              <option value="title">Title</option>
-              <option value="type">Type</option>
-              <option value="category">Category</option>
-              <option value="approvee">Approvee</option>
-              <option value="status">Status</option>
-              <option value="submittedOn">Submitted On</option>
-            </select>
-          </div>
+         <div>
+      <label for="filterBy">Filter by Approvee:</label>
+      <select id="filterBy" v-model="filterBy">
+        <option value="id">ID</option>
+        <option value="title">Title</option>
+        <option value="type">Type</option>
+        <option value="category">Category</option>
+        <option value="approvee">Approvee</option>
+        <option value="status">Status</option>
+        <option value="submittedOn">Submitted On</option>
+      </select>
+    </div>
           <button class="reset-button" @click="resetFilters">Reset</button>
         </div>
   

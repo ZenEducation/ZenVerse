@@ -98,8 +98,11 @@
           </table>
         </div>
         <div class="pagination">
-      <span>Page 1 of 1</span>
-    </div>
+          <button :disabled="currentPage === 1" class="pagination-button" @click="currentPage--">Previous</button>
+     <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button :disabled="currentPage === totalPages" class="pagination-button" @click="currentPage++">Next</button>
+
+   </div>
 
 
         <!-- FooterBar -->
@@ -113,7 +116,7 @@
 
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
 import { useRouter } from "vue-router";
 import menuAside from "@/configs/menuAside.js";
@@ -131,7 +134,7 @@ import { useAuthStore } from "@/stores/authStore";
 import '@mdi/font/css/materialdesignicons.min.css';
 
 const rows = [
-{
+        {
          id: 1213,
           title: 'Summer Batch',
           submission: 'https://www.iitiansgravity.com/',
@@ -173,7 +176,7 @@ const rows = [
       approvee: 'Ross',
       status: 'Initial submission Pending',
       submittedOn: 'May 4, 2021',
-      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+      avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
    },
    {
        id: 1217,
@@ -186,7 +189,55 @@ const rows = [
       submittedOn: 'May 19, 2021',
       avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
+   {
+       id: 1218,
+       title: 'New Course',
+       submission: 'https://www.aakash.ac.in/',
+       type: 'ACC',
+       category: 'Jee coachin',
+      approvee: 'Ross',
+      status: 'Initial submission Pending',
+      submittedOn: 'May 4, 2021',
+      avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+   },
+   {
+       id: 1219,
+       title: 'Web Dev Course',
+       submission: 'https://www.aakash.ac.in/',
+       type: 'Online',
+       category: 'Coursera',
+      approvee: 'Shub',
+      status: 'Not verified',
+      submittedOn: 'May 19, 2021',
+      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+   },
+     {
+      id: 1220,
+       title: 'Diwali Offer',
+       submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
+        type: 'Graphic',
+        category: 'Neet Coaching',
+       approvee: 'Ram',
+       status: 'Editor Submission Pending',
+      submittedOn: 'Dec 1, 2021',
+       avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+        },
+   {
+       id: 1221,
+       title: 'Web Dev Course',
+       submission: 'https://www.aakash.ac.in/',
+       type: 'Online',
+       category: 'Coursera',
+      approvee: 'Shub',
+      status: 'Not verified',
+      submittedOn: 'May 19, 2021',
+      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+   },
 ];
+
+const perPage = 5; 
+
+const currentPage = ref(1);
 
 const searchQuery = ref("");
 
@@ -194,10 +245,10 @@ const filterBy = ref("id");
 
 const filteredRows = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
-  if (!query) {
-    return rows;
-  } else {
-    return rows.filter(
+  let filtered = rows;
+  
+  if (query) {
+    filtered = filtered.filter(
       (row) =>
         row.approvee.toLowerCase().includes(query) ||
         row.title.toLowerCase().includes(query) ||
@@ -207,12 +258,38 @@ const filteredRows = computed(() => {
         row.category.toLowerCase().includes(query)
     );
   }
+
+  const start = (currentPage.value - 1) * perPage;
+  const end = start + perPage;
+  return filtered.slice(start, end);
 });
+
+const totalPages = computed(() => {
+  const query = searchQuery.value.toLowerCase().trim();
+  let filtered = rows;
+  
+  if (query) {
+    filtered = filtered.filter(
+      (row) =>
+        row.approvee.toLowerCase().includes(query) ||
+        row.title.toLowerCase().includes(query) ||
+        row.id.toString().includes(query) ||
+        row.type.toLowerCase().includes(query) ||
+        row.status.toLowerCase().includes(query) ||
+        row.category.toLowerCase().includes(query)
+    );
+  }
+  
+  return Math.ceil(filtered.length / perPage);
+});
+
 
 const resetFilters = () => {
   searchQuery.value = "";
   filterBy.value = "id";
+  currentPage.value = 1;
 };
+
 
 useMainStore().setUser({
   name: "Zenith Physics",
@@ -305,7 +382,7 @@ const title = computed(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 300px;
+  gap: 220px;
   padding: 10px 20px;
   margin-bottom: 20px;
   margin-left: 20px; /* Add left margin */
@@ -469,4 +546,8 @@ input[type='text'] {
 .mobileView tr{
   padding:.3rem;
 }
+.pagination-button {
+  padding: 0 10px;
+}
+
 </style>

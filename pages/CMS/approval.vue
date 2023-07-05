@@ -342,7 +342,7 @@ const goToPage = (page) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 300px;
+  gap: 220px;
   padding: 10px 20px;
   margin-bottom: 20px;
   margin-left: 20px; /* Add left margin */
@@ -363,7 +363,7 @@ const goToPage = (page) => {
 }
 
 .search-filter select {
-  padding: 8px;
+  padding: 10px;
   border: 1px solid grey;
   border-radius: 4px;
   font-size: 14px;

@@ -56,7 +56,7 @@
   
 
     <div class="table-container mobileView">
-          <table class="data-table">
+      <table class="data-table">
             <thead>
               <tr>
                 <th><b>ID</b></th>
@@ -71,7 +71,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="row in filteredRows" :key="row.id">
+              <tr v-for="row in paginatedRows" :key="row.id">
                 <td data-label="Id">{{ row.id }}</td>
                <td data-label="Title">{{ row.title }}</td>
                <td data-label="Submission">
@@ -96,14 +96,20 @@
               </tr>
             </tbody>
           </table>
-        </div>
-        <div class="pagination">
-          <button :disabled="currentPage === 1" class="pagination-button" @click="currentPage--">Previous</button>
-     <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button :disabled="currentPage === totalPages" class="pagination-button" @click="currentPage++">Next</button>
 
-   </div>
+          <div class="pagination">
+  <button
+    v-for="page in totalPages"
+    :key="page"
+    :class="{ active: currentPage === page }"
+    @click="goToPage(page)"
+    class="pagination-button"
+  >
+    {{ page }}
+     </button>
+     </div>
 
+  </div>
 
         <!-- FooterBar -->
         <FooterBar>
@@ -116,7 +122,7 @@
 
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
 import { useRouter } from "vue-router";
 import menuAside from "@/configs/menuAside.js";
@@ -135,120 +141,88 @@ import '@mdi/font/css/materialdesignicons.min.css';
 
 const rows = [
         {
-         id: 1213,
-          title: 'Summer Batch',
-          submission: 'https://www.iitiansgravity.com/',
-          type: 'Video',
-          category: 'Jee Coaching',
-          approvee: ' Sam',
-          status: 'Initial approval Pending',
-          submittedOn: 'Mar 3 ,2021',
-          avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
+         id: 1213,title: 'Summer Batch',submission: 'https://www.iitiansgravity.com/', type: 'Video',
+          category: 'Jee Coaching', approvee: ' Sam',status: 'Initial approval Pending', 
+          submittedOn: 'Mar 3 ,2021',avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
         },
         {
-          id: 1214,
-       title: 'Diwali Offer',
-       submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-       approvee: 'Ram',
-       status: 'Editor Submission Pending',
-      submittedOn: 'Dec 1, 2021',
-       avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+          id: 1214, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
         },
         {
-         id: 1215,
-         title: 'Winter Batch',
-         submission: 'https://www.aakash.ac.in/',
-         type: 'Text',
-         category: 'Neet Coaching ',
-        approvee: 'Sid',
-        status: 'Final Approval Pending',
-        submittedOn: 'May 18, 2021',
-        avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+         id: 1215, title: 'Winter Batch',submission: 'https://www.aakash.ac.in/',
+         type: 'Text', category: 'Neet Coaching ', approvee: 'Sid', status: 'Final Approval Pending',
+         submittedOn: 'May 18, 2021',avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
         },
         {
-       id: 1216,
-       title: 'New Course',
-       submission: 'https://www.aakash.ac.in/',
-       type: 'ACC',
-       category: 'Jee coachin',
-      approvee: 'Ross',
-      status: 'Initial submission Pending',
-      submittedOn: 'May 4, 2021',
-      avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+       id: 1216,title: 'New Course',submission: 'https://www.aakash.ac.in/',
+       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
+      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
    {
-       id: 1217,
-       title: 'Web Dev Course',
-       submission: 'https://www.aakash.ac.in/',
-       type: 'Online',
-       category: 'Coursera',
-      approvee: 'Shub',
-      status: 'Not verified',
-      submittedOn: 'May 19, 2021',
-      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+       id: 1217,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
+       category: 'Coursera',approvee: 'Shub', status: 'Not verified',submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
    {
-       id: 1218,
-       title: 'New Course',
-       submission: 'https://www.aakash.ac.in/',
-       type: 'ACC',
-       category: 'Jee coachin',
-      approvee: 'Ross',
-      status: 'Initial submission Pending',
-      submittedOn: 'May 4, 2021',
-      avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+       id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
+       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
+      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
    {
-       id: 1219,
-       title: 'Web Dev Course',
-       submission: 'https://www.aakash.ac.in/',
-       type: 'Online',
-       category: 'Coursera',
-      approvee: 'Shub',
-      status: 'Not verified',
-      submittedOn: 'May 19, 2021',
-      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+       id: 1219,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
+       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
+      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
-     {
-      id: 1220,
-       title: 'Diwali Offer',
-       submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-       approvee: 'Ram',
-       status: 'Editor Submission Pending',
-      submittedOn: 'Dec 1, 2021',
-       avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+   {
+       id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
+       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
+      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+   },
+   {
+          id: 1221, title: 'Diwali Offer', type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',
+          status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
         },
    {
-       id: 1221,
-       title: 'Web Dev Course',
-       submission: 'https://www.aakash.ac.in/',
-       type: 'Online',
-       category: 'Coursera',
-      approvee: 'Shub',
-      status: 'Not verified',
-      submittedOn: 'May 19, 2021',
-      avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+       id: 1222,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
+       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
+      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
    },
+
+   {
+       id: 1223,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
+       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
+      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+   },
+   {
+          id: 1224, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+        },
+    {
+         id: 1225,title: 'Summer Batch',submission: 'https://www.iitiansgravity.com/', type: 'Video',
+          category: 'Jee Coaching', approvee: ' Sam',status: 'Initial approval Pending', 
+          submittedOn: 'Mar 3 ,2021',avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
+        },
+        {
+          id: 1226, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
+        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+        },
+  
 ];
 
-const perPage = 5; 
-
-const currentPage = ref(1);
-
 const searchQuery = ref("");
-
 const filterBy = ref("id");
 
 const filteredRows = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
-  let filtered = rows;
-  
-  if (query) {
-    filtered = filtered.filter(
+  if (!query) {
+    return rows;
+  } else {
+    return rows.filter(
       (row) =>
         row.approvee.toLowerCase().includes(query) ||
         row.title.toLowerCase().includes(query) ||
@@ -258,38 +232,12 @@ const filteredRows = computed(() => {
         row.category.toLowerCase().includes(query)
     );
   }
-
-  const start = (currentPage.value - 1) * perPage;
-  const end = start + perPage;
-  return filtered.slice(start, end);
 });
-
-const totalPages = computed(() => {
-  const query = searchQuery.value.toLowerCase().trim();
-  let filtered = rows;
-  
-  if (query) {
-    filtered = filtered.filter(
-      (row) =>
-        row.approvee.toLowerCase().includes(query) ||
-        row.title.toLowerCase().includes(query) ||
-        row.id.toString().includes(query) ||
-        row.type.toLowerCase().includes(query) ||
-        row.status.toLowerCase().includes(query) ||
-        row.category.toLowerCase().includes(query)
-    );
-  }
-  
-  return Math.ceil(filtered.length / perPage);
-});
-
 
 const resetFilters = () => {
   searchQuery.value = "";
   filterBy.value = "id";
-  currentPage.value = 1;
 };
-
 
 useMainStore().setUser({
   name: "Zenith Physics",
@@ -344,7 +292,19 @@ const title = computed(() => {
   return styleStore.darkMode ? 'Approvals ' : 'Approvals';
 });
 
+const currentPage = ref(1);  
+const itemsPerPage = 4;   
 
+const startIndex = computed(() => (currentPage.value - 1) * itemsPerPage);
+
+const endIndex = computed(() => startIndex.value + itemsPerPage);
+
+const paginatedRows = computed(() => filteredRows.value.slice(startIndex.value, endIndex.value));
+
+const totalPages = computed(() => Math.ceil(filteredRows.value.length / itemsPerPage));
+const goToPage = (page) => {
+  currentPage.value = page;
+};
 
 </script>
 
@@ -382,7 +342,7 @@ const title = computed(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 220px;
+  gap: 300px;
   padding: 10px 20px;
   margin-bottom: 20px;
   margin-left: 20px; /* Add left margin */
@@ -524,14 +484,30 @@ input[type='text'] {
 
 .pagination {
   display: flex;
-  margin-right: 30px;
-  justify-content: right;
-  margin-top: 20px;
+  justify-content: center;
+  margin-top: 25px;
+  gap: 25px;
 }
 
-.pagination span {
-  font-size: 14px;
-  color: black;
+.pagination-button {
+  padding: 7px 12px;
+  margin: 0 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-button.active {
+  background-color: black;
+  color: #fff;
+}
+
+.pagination-button:hover {
+  border: 1px solid #333;
+  padding: 6px 11px;
 }
 
 .submission-text {
@@ -545,9 +521,6 @@ input[type='text'] {
 }
 .mobileView tr{
   padding:.3rem;
-}
-.pagination-button {
-  padding: 0 10px;
 }
 
 </style>

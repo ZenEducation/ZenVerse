@@ -52,6 +52,7 @@
     "vue-3-slider-component": "^0.1.0",
     "vue-advanced-chat": "^2.0.6",
     "vue-cesium": "^3.2.0",
-    "vue-grid-layout": "^2.4.0"
+    "vue-grid-layout": "^2.4.0",
+    "vue-pagination-2": "^3.1.0"
   }
 }

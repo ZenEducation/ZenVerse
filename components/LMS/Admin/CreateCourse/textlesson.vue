@@ -1,5 +1,7 @@
 <script setup>
     import { ref, watchEffect } from "vue";
+import { createCourse } from "~~/stores/createCourse";
+
     import SectionMain from "@/components/Sections/SectionMain.vue";
     import CardBox from "@/components/Cards/CardBox.vue";
     import BaseDivider from "@/components/NavBar/BaseDivider.vue";
@@ -12,6 +14,7 @@
     import { QuillEditor } from "@vueup/vue-quill";
     import '@vueup/vue-quill/dist/vue-quill.snow.css';
     import { mdiTrashCan } from "@mdi/js";
+    const courseStore = createCourse();
 
     const draftOption = {
         one: "Draft"
@@ -47,14 +50,22 @@
         }
     })
     
+const saveData = ()=>{
+    const data = {
+        id:1,
+        name:titleText.value,
+        icon:"mdiText",
+        type:"Text"
+    }
+  courseStore.addLessonsOnChapters(data)
 
+}
 
 </script>
 
 <template>
     <div>
-        <NuxtLayout name="zen">
-            <SectionMain>
+       
                 <SectionTitleLineWithButton
                     main
                 >
@@ -67,16 +78,18 @@
                         <svg style="transform: translateY(-30%); margin-right: 25px; " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"/></svg>
                         <BaseButton 
                             type="submit" 
-                            color="danger" 
-                            :icon="mdiTrashCan" 
+                            color="info" 
+                           
                             label="DISCARD CHANGES"
-                            rounded-full 
+                            
                             outline/>
                         <BaseButton 
                             type="submit" 
-                            color="contrast" 
+                            color="info" 
                             label="SAVE"
-                            rounded-full/> 
+                           @click="saveData()"
+                            
+                            /> 
                     </BaseButtons>
                 </SectionTitleLineWithButton>
                 <div class="gird gird-cols-1 gap-6 mb-6 xl:grid-cols-4">
@@ -99,7 +112,6 @@
                         <BaseDivider/>
                     </CardBox>
                 </div>
-            </SectionMain>
-        </NuxtLayout>
+        
     </div>
 </template>

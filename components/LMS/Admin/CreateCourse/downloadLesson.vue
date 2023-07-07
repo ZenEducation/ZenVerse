@@ -20,6 +20,8 @@ import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
 import QuilEditor from "@/components/LMS/QuilEditor.vue";
+import { createCourse } from "~~/stores/createCourse";
+const courseStore = createCourse();
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -37,12 +39,22 @@ const header = computed(() => {
 
 const inputValue = ref("");
 const contentValue = ref("")
+
+const saveData = ()=>{
+    const data = {
+        id:1,
+        name:inputValue.value,
+        icon:"mdiDownload",
+        type:"Download"
+    }
+  courseStore.addLessonsOnChapters(data)
+
+}
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -50,16 +62,18 @@ const contentValue = ref("")
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+         
+           color="info"
+         
+            outline
+            class="mr-1"
           />
           <BaseButton
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+           
+            color="info"
+             class="ml-1"
+           @click="saveData"
           />
         </SeclectionMultipleButton>
 
@@ -96,7 +110,6 @@ const contentValue = ref("")
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+   
   </div>
 </template>

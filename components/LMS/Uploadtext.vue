@@ -2,7 +2,7 @@
 import { computed, useSlots } from "vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-
+const emit = defineEmits(['uploadData'])
 import { mdiAccount } from "@mdi/js";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
          defineProps({
@@ -109,6 +109,7 @@ const handleFileUpload = (event) => {
 
       console.log("Bulk importer", file.name);
       fileName.value.push(file.name);
+      emit('uploadData',file.name)
       listDisplay.value = true;
     }
   }
@@ -129,6 +130,7 @@ const handleDrop = (event) => {
       console.log(file.name);
       fileName.value.push(file.name);
       listDisplay.value = true;
+      emit('uploadData',file.name)
     } else {
       console.log(`Invalid file type: ${file.type}`);
     }
@@ -164,6 +166,7 @@ const handleDropFiles = (event) => {
     ) {
       console.log(file.name);
       downloadFile.value.push(file.name);
+      emit('uploadData',file.name)
       downloadlist.value = true;
     } else {
       console.log(`Invalid file type: ${file.type}`);
@@ -183,6 +186,7 @@ const handleFilesvg = (event) => {
     return;
   }
   downloadFile.value.push(file.name);
+  emit('uploadData',file.name)
   downloadlist.value = true;
   console.log(`Selected file: ${file.name}`);
 };
@@ -206,6 +210,7 @@ const handleFileDownload = (event) => {
   } else {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
+    emit('uploadData',file.name)
   downloadlist.value = true;
   }
   console.log("test",fileInput.files[0].name);
@@ -224,6 +229,7 @@ const handleDropVideo = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
+      emit('uploadData',file.name)
      downloadlist.value = true;
     } else {
       console.log(`Invalid file type: ${files.type}`);
@@ -253,6 +259,7 @@ const handleAudio = (event) => {
   if (extension === "audio") {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
+    emit('uploadData',file.name)
   downloadlist.value = true;
     
   } else {
@@ -272,6 +279,7 @@ const handleaudioFiles = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
+      emit('uploadData',file.name)
      downloadlist.value = true;
     } else {
       console.log(`Invalid file type: ${files.type}`);
@@ -299,6 +307,7 @@ const  handlepdf  = (event) => {
   }  else {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
+    emit('uploadData',file.name)
   downloadlist.value = true;
   }
   console.log("test",fileInput.files[0].name);
@@ -316,6 +325,7 @@ const handlepdfFiles = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
+      emit('uploadData',file.name)
      downloadlist.value = true;
     } else {
       alert(`Invalid file type`)

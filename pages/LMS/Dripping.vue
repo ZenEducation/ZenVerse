@@ -31,7 +31,7 @@ const specificDate = ref();
 const chapterList = ref([
   {
     chapterId: 1,
-    title: "chapter 1",
+    title: "Chapter 1",
     lessonList: [
       { id: 1, label: "Demo", date: "", days: 6 },
       { id: 2, label: "Video lesson", date: "", days: 8 },
@@ -39,22 +39,27 @@ const chapterList = ref([
   },
   {
     chapterId: 2,
-    title: "chapter 2",
+    title: "Chapter 2",
     lessonList: [
       { id: 3, label: "Audio lesson", date: "", days: 9 },
       { id: 4, label: "PDF lesson", date: "", days: 12 },
     ],
   },
 ]);
+
+const props = defineProps({
+  driptype: {
+    type: String,
+    default: null,
+  },
+})
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
-        <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
-          <CardBox
-            class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
+        <div class="grid grid-cols-1 xl:grid-cols-1 lg:ml-6"> 
+          <CardBox v-if="driptype=='Drip type'"
+            class="mb-6 lg:mb-0 lg:col-span-1 xl:col-span-3"
             is-form
             @submit.prevent="submit"
           >
@@ -113,13 +118,14 @@ const chapterList = ref([
             </template>
 
           </CardBox>
-
+          
+          <div v-for="chapter in chapterList">
+          <template v-if="chapter.title === props.driptype">
           <CardBox
           class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
           is-form
           @submit.prevent="submit"
           v-if="isDrip"
-          v-for="chapter in chapterList"
         >
           <CardBoxComponentTitle :title="chapter.title" class="mb-12" />
 
@@ -174,10 +180,9 @@ const chapterList = ref([
               </div>
               <BaseDivider />
             </template>
-
         </CardBox>
+        </template>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+        </div>
   </div>
 </template>

@@ -7,6 +7,7 @@ const state = () => ({
   userName: null,
   userEmail: null,
   userAvatar: null,
+  subOptions: null,
 
   /* Field focus with ctrl+k (to register only once) */
   isFieldFocusRegistered: false,
@@ -87,7 +88,28 @@ const state = () => ({
       name: "Course Welcome Email"
     }
   ],
+  pricingOptions: [
+    {
+    name: "Primary pricing"
+    },
+    {
+        name: "Set additional pricing"
+    }
+],
+dripOptions : [
+    {
+        name: "Drip type"
+    },
+    {
+        name: "Chapter 1"
+    }, 
+    {
+        name: "Chapter 2"
+    }
+],
   selectedItem: "Curriculum",
+// });
+
     /* User */
     userName: null,
     userEmail: null,

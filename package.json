@@ -13,14 +13,14 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@nuxt/postcss8": "^1.1.3",
     "@nuxtjs/fontawesome": "^1.1.2",
-    "@nuxtjs/tailwindcss": "^5.3.3",
+    "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia/nuxt": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@types/chart.js": "^2.9.37",
     "@vueuse/core": "^9.9.0",
-    "@vueuse/nuxt": "^9.9.0",
+    "@vueuse/nuxt": "^9.1.1",
     "autoprefixer": "^10.4.11",
-    "nuxt": "^3.3.1",
+    "nuxt": "^3.6.2",
     "postcss": "^8.4.16",
     "sass": "^1.57.0",
     "tailwind-scrollbar": "^2.0.1",
@@ -59,7 +59,7 @@
     "readable-stream": "^4.2.0",
     "rollup": "^2.79.1",
     "uuid4": "^2.0.3",
-    "video.js": "^8.3.0",
+    "video.js": "^7.10.2",
     "vue": "^3.2.47",
     "vue-3-slider-component": "^0.1.0",
     "vue-advanced-chat": "^2.0.6",
@@ -68,6 +68,5 @@
     "vue-quill-editor": "^3.0.6",
     "vue3-pdf-app": "^1.0.3",
     "vuedraggable": "^4.1.0"
-
   }
 }

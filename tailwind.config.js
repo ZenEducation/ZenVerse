@@ -17,6 +17,7 @@ module.exports = {
       light: "light",
       gray: "gray",
     },
+
     extend: {
       zIndex: {
         "-1": "-1",

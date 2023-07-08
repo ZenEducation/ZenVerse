@@ -1,9 +1,9 @@
 
 <template>
   <div>
-<div :class="{ dark: styleStore.darkMode, 'overflow-hidden lg:overflow-visible': layoutStore.isAsideMobileExpanded }">
-  <div :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': layoutStore.isAsideMobileExpanded }]"
-    class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100">
+    <div :class="{ dark: styleStore.darkMode, 'overflow-hidden lg:overflow-visible': layoutStore.isAsideMobileExpanded }">
+      <div :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': layoutStore.isAsideMobileExpanded }]"
+        class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100">
         <!-- The Navbar -->
         <NavBar :menu="menuNavBar" :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': layoutStore.isAsideMobileExpanded }]"
           @menu-click="menuClick">
@@ -20,43 +20,42 @@
         </NavBar>
 
         <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
- <div class="mobile-view">
-     
-    </div>
+        <div class="mobile-view">
+
+        </div>
         <div class="approval-page">
           <div class="header">
             <div class="header-content">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNACCdEsX-Kr8ph3knqv14gsaeGYop-uiO4g&usqp=CAU" alt="Header Image" style="width: 70px; height: auto;">
-              <h1 :class="{'dark-mode-title': styleStore.darkMode}">{{ title }}</h1>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNACCdEsX-Kr8ph3knqv14gsaeGYop-uiO4g&usqp=CAU"
+                alt="Header Image" style="width: 70px; height: auto;">
+              <h1 :class="{ 'dark-mode-title': styleStore.darkMode }">{{ title }}</h1>
             </div>
             <hr style="height: 4.5px; border: none; margin: 0; background-color: grey;">
           </div>
         </div>
 
         <div class="search-filter">
-          <input
-            type="text"
-            v-model="searchQuery"
-            placeholder=" Search by Approvee name, Title, ID, Type, or Category "
-          />
-         <div>
-      <label for="filterBy">Filter by Approvee:</label>
-      <select id="filterBy" v-model="filterBy">
-        <option value="id">ID</option>
-        <option value="title">Title</option>
-        <option value="type">Type</option>
-        <option value="category">Category</option>
-        <option value="approvee">Approvee</option>
-        <option value="status">Status</option>
-        <option value="submittedOn">Submitted On</option>
-      </select>
-    </div>
+          <input type="text" v-model="searchQuery"
+            placeholder=" Search by Approvee name, Title, ID, Type, or Category " />
+          <div>
+            <label for="filterBy">Filter by Approvee:</label>
+            <select id="filterBy" v-model="filterBy">
+              <option value="id">ID</option>
+              <option value="title">Title</option>
+              <option value="type">Type</option>
+              <option value="category">Category</option>
+              <option value="approvee">Approvee</option>
+              <option value="status">Status</option>
+              <option value="submittedOn">Submitted On</option>
+            </select>
+          </div>
           <button class="reset-button" @click="resetFilters">Reset</button>
         </div>
-  
 
-    <div class="table-container mobileView">
-      <table class="data-table">
+
+        <div class="table-container mobileView">
+          <table class="data-table">
             <thead>
               <tr>
                 <th><b>ID</b></th>
@@ -73,43 +72,41 @@
             <tbody>
               <tr v-for="row in paginatedRows" :key="row.id">
                 <td data-label="Id">{{ row.id }}</td>
-               <td data-label="Title">{{ row.title }}</td>
-               <td data-label="Submission">
-              <a :href="row.submission" target="_blank" data-label="Submission">Link</a>
-              <img v-if="row.submissionImage" :src="row.submissionImage" style="display: block; margin: 0 35px; width: 130px; height: auto;" />
+                <td data-label="Title">{{ row.title }}</td>
+                <td data-label="Submission">
+                  <a :href="row.submission" target="_blank" data-label="Submission">Link</a>
+                  <img v-if="row.submissionImage" :src="row.submissionImage"
+                    style="display: block; margin: 0 35px; width: 130px; height: auto;" />
                 </td>
                 <td data-label="Type">{{ row.type }}</td>
-               <td data-label="Category">{{ row.category }}</td>
-               <td data-label="Approvee"> <div class="approvee-avatar">
-              <img :src="row.avatar" alt="Approvee Avatar" />
-            <span>{{ row.approvee }}</span>
-              </div></td>
+                <td data-label="Category">{{ row.category }}</td>
+                <td data-label="Approvee">
+                  <div class="approvee-avatar">
+                    <img :src="row.avatar" alt="Approvee Avatar" />
+                    <span>{{ row.approvee }}</span>
+                  </div>
+                </td>
                 <td data-label="Status">{{ row.status }}</td>
-                 <td data-label="Submission Date">{{ row.submittedOn }}</td>
-                  <td>
+                <td data-label="Submission Date">{{ row.submittedOn }}</td>
+                <td>
                   <button class="small-button transparent-button" @click="view(row)">
-                       <span class="mdi mdi-eye"></span> </button>
-                       <button class="small-button transparent-button with-border" @click="approve(row)"> Approve</button>
-                       <button class="small-button transparent-button" @click="edit(row)">
-                       <span class="mdi mdi-pencil"></span> </button>
+                    <span class="mdi mdi-eye"></span> </button>
+                  <button class="small-button transparent-button with-border" @click="approve(row)"> Approve</button>
+                  <button class="small-button transparent-button" @click="edit(row)">
+                    <span class="mdi mdi-pencil"></span> </button>
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="pagination">
-  <button
-    v-for="page in totalPages"
-    :key="page"
-    :class="{ active: currentPage === page }"
-    @click="goToPage(page)"
-    class="pagination-button"
-  >
-    {{ page }}
-     </button>
-     </div>
+            <button v-for="page in totalPages" :key="page" :class="{ active: currentPage === page }"
+              @click="goToPage(page)" class="pagination-button">
+              {{ page }}
+            </button>
+          </div>
 
-  </div>
+        </div>
 
         <!-- FooterBar -->
         <FooterBar>
@@ -140,78 +137,78 @@ import { useAuthStore } from "@/stores/authStore";
 import '@mdi/font/css/materialdesignicons.min.css';
 
 const rows = [
-        {
-         id: 1213,title: 'Summer Batch',submission: 'https://www.iitiansgravity.com/', type: 'Video',
-          category: 'Jee Coaching', approvee: ' Sam',status: 'Initial approval Pending', 
-          submittedOn: 'Mar 3 ,2021',avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
-        },
-        {
-          id: 1214, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-        },
-        {
-         id: 1215, title: 'Winter Batch',submission: 'https://www.aakash.ac.in/',
-         type: 'Text', category: 'Neet Coaching ', approvee: 'Sid', status: 'Final Approval Pending',
-         submittedOn: 'May 18, 2021',avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
-        },
-        {
-       id: 1216,title: 'New Course',submission: 'https://www.aakash.ac.in/',
-       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
-      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-       id: 1217,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
-       category: 'Coursera',approvee: 'Shub', status: 'Not verified',submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-       id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
-      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-       id: 1219,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
-       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
-      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-       id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-       type: 'ACC',category: 'Jee coachin',approvee: 'Ross',status: 'Initial submission Pending',
-      submittedOn: 'May 4, 2021',avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-          id: 1221, title: 'Diwali Offer', type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',
-          status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-        },
-   {
-       id: 1222,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
-       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
-      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
+  {
+    id: 1213, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
+    category: 'Jee Coaching', approvee: ' Sam', status: 'Initial approval Pending',
+    submittedOn: 'Mar 3 ,2021', avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
+  },
+  {
+    id: 1214, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+    type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+    submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1215, title: 'Winter Batch', submission: 'https://www.aakash.ac.in/',
+    type: 'Text', category: 'Neet Coaching ', approvee: 'Sid', status: 'Final Approval Pending',
+    submittedOn: 'May 18, 2021', avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+  },
+  {
+    id: 1216, title: 'New Course', submission: 'https://www.aakash.ac.in/',
+    type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+    submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1217, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
+    category: 'Coursera', approvee: 'Shub', status: 'Not verified', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+    submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
+    type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+    submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1219, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
+    category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+    submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
+    type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+    submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1221, title: 'Diwali Offer', type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram',
+    status: 'Editor Submission Pending',
+    submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1222, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
+    category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+    submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
 
-   {
-       id: 1223,title: 'Web Dev Course',submission: 'https://www.aakash.ac.in/', type: 'Online',
-       category: 'Coursera',approvee: 'Shub', status: 'Not verified',
-      submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-   },
-   {
-          id: 1224, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-        },
-    {
-         id: 1225,title: 'Summer Batch',submission: 'https://www.iitiansgravity.com/', type: 'Video',
-          category: 'Jee Coaching', approvee: ' Sam',status: 'Initial approval Pending', 
-          submittedOn: 'Mar 3 ,2021',avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
-        },
-        {
-          id: 1226, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
-        type: 'Graphic',category: 'Neet Coaching',approvee: 'Ram',status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-        },
-  
+  {
+    id: 1223, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
+    category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+    submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1224, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+    type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+    submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+  {
+    id: 1225, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
+    category: 'Jee Coaching', approvee: ' Sam', status: 'Initial approval Pending',
+    submittedOn: 'Mar 3 ,2021', avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
+  },
+  {
+    id: 1226, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
+    type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+    submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+  },
+
 ];
 
 const searchQuery = ref("");
@@ -292,8 +289,8 @@ const title = computed(() => {
   return styleStore.darkMode ? 'Approvals ' : 'Approvals';
 });
 
-const currentPage = ref(1);  
-const itemsPerPage = 4;   
+const currentPage = ref(1);
+const itemsPerPage = 4;
 
 const startIndex = computed(() => (currentPage.value - 1) * itemsPerPage);
 
@@ -309,7 +306,6 @@ const goToPage = (page) => {
 </script>
 
 <style>
-
 .header-content {
   display: flex;
   align-items: center;
@@ -327,7 +323,8 @@ const goToPage = (page) => {
 }
 
 .darkMode .header-title {
-  color: #fff; /* Text color for dark mode */
+  color: #fff;
+  /* Text color for dark mode */
 }
 
 .header {
@@ -345,8 +342,10 @@ const goToPage = (page) => {
   gap: 220px;
   padding: 10px 20px;
   margin-bottom: 20px;
-  margin-left: 20px; /* Add left margin */
-  margin-right: 20px; /* Add right margin */
+  margin-left: 20px;
+  /* Add left margin */
+  margin-right: 20px;
+  /* Add right margin */
 }
 
 .search-filter input[type='text'] {
@@ -417,7 +416,8 @@ const goToPage = (page) => {
 
 .table-container {
   width: 100%;
-  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  overflow-x: auto;
+  /* Enable horizontal scrolling on small screens */
 }
 
 .table-container th,
@@ -461,23 +461,27 @@ input[type='text'] {
   padding: 12px;
   border: 1px solid grey;
   border-radius: 40px;
-  width: 100%; /* Adjust the width value to your preference */
+  width: 100%;
+  /* Adjust the width value to your preference */
   font-size: 16px;
 }
 
 .dark-mode-title {
-  color: #fff; /* Text color for dark mode */
+  color: #fff;
+  /* Text color for dark mode */
 }
 
 .approvee-avatar {
   display: flex;
   align-items: center;
   gap: 8px;
-  justify-content: center; /* Center the approvee images */
+  justify-content: center;
+  /* Center the approvee images */
 }
 
 .approvee-avatar img {
-  width: 24px; /* Adjust the size as needed */
+  width: 24px;
+  /* Adjust the size as needed */
   height: 24px;
   border-radius: 50%;
 }
@@ -515,12 +519,13 @@ input[type='text'] {
   align-items: center;
   gap: 8px;
 }
-.mobileView{
+
+.mobileView {
   padding: 1rem;
   width: 99%;
 }
-.mobileView tr{
-  padding:.3rem;
-}
 
+.mobileView tr {
+  padding: .3rem;
+}
 </style>

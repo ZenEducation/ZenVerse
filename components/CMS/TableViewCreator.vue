@@ -76,22 +76,14 @@ const checked = (isChecked, client) => {
     <p>This is sample modal</p>
   </CardBoxModal>
 
-  <CardBoxModal
-    v-model="isModalDangerActive"
-    title="Please confirm"
-    button="danger"
-    has-cancel
-  >
+  <CardBoxModal v-model="isModalDangerActive" title="Please confirm" button="danger" has-cancel>
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
 
   <div v-if="checkedRows.length" class="p-3 bg-gray-100/50 dark:bg-slate-800">
-    <span
-      v-for="checkedRow in checkedRows"
-      :key="checkedRow.id"
-      class="inline-block px-2 py-1 rounded-sm mr-2 text-sm bg-gray-100 dark:bg-slate-700"
-    >
+    <span v-for="checkedRow in checkedRows" :key="checkedRow.id"
+      class="inline-block px-2 py-1 rounded-sm mr-2 text-sm bg-gray-100 dark:bg-slate-700">
       {{ checkedRow.name }}
     </span>
   </div>
@@ -107,15 +99,11 @@ const checked = (isChecked, client) => {
         <th>Status</th>
         <th>Submitted On</th>
         <th>Actions</th>
-        
+
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="(client, index) in itemsPaginated"
-        :key="client.id"
-        class="border-b-0 lg:w-6 before:hidden"
-      >
+      <tr v-for="(client, index) in itemsPaginated" :key="client.id" class="border-b-0 lg:w-6 before:hidden">
         <td data-label="Client ID" class="border-b-0 lg:w-6 before:hidden">
           {{ client.id }}
         </td>
@@ -123,8 +111,8 @@ const checked = (isChecked, client) => {
           {{ client.title }}
         </td>
 
-        <td v-if = "index === 1" data-label="Submission">
-          <img :src="client.avatar" alt="Avatar" width="150" height="150"/>
+        <td v-if="index === 1" data-label="Submission">
+          <img :src="client.avatar" alt="Avatar" width="150" height="150" />
         </td>
         <td v-else data-label="Submission">
           {{ client.sub }}
@@ -134,32 +122,18 @@ const checked = (isChecked, client) => {
           {{ client.type }}
         </td>
         <td data-label="Category">
-          {{ client.category     }}
+          {{ client.category }}
         </td>
         <td data-label="Status">
-            {{ client.status }}
+          {{ client.status }}
         </td>
         <td data-label="Submitted" class="lg:w-1 whitespace-nowrap">
-          <small
-            class="text-gray-500 dark:text-slate-400"
-            :title="client.submitted"
-            >{{ client.submitted }}</small
-          >
+          <small class="text-gray-500 dark:text-slate-400" :title="client.submitted">{{ client.submitted }}</small>
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton
-              color="info"
-              :icon="mdiEye"
-              small
-              @click="isModalActive = true"
-            />
-            <BaseButton
-              color="info"
-              :icon="mdiPen"
-              small
-              @click="isModalDangerActive = true"
-            />
+            <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
+            <BaseButton color="info" :icon="mdiPen" small @click="isModalDangerActive = true" />
           </BaseButtons>
         </td>
       </tr>
@@ -168,15 +142,8 @@ const checked = (isChecked, client) => {
   <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
     <BaseLevel>
       <BaseButtons>
-        <BaseButton
-          v-for="page in pagesList"
-          :key="page"
-          :active="page === currentPage"
-          :label="page + 1"
-          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
-          small
-          @click="currentPage = page"
-        />
+        <BaseButton v-for="page in pagesList" :key="page" :active="page === currentPage" :label="page + 1"
+          :color="page === currentPage ? 'lightDark' : 'whiteDark'" small @click="currentPage = page" />
       </BaseButtons>
       <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
     </BaseLevel>

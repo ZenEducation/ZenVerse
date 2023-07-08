@@ -301,7 +301,7 @@
         <Download />
       </div>
       <div class="" v-if="courseStore.section == 'Presentation'">
-        Presentation
+        <PptLesson />
       </div>
       <div class="" v-if="courseStore.section == 'Multimedia'">Multimedia</div>
       <div class="" v-if="courseStore.section == 'Live'">Live</div>
@@ -364,6 +364,7 @@ import AudioFile from "~/components/LMS/Admin/CreateCourse/audioLesson.vue";
 import PdfFiles from "~/components/LMS/Admin/CreateCourse/pdfLesson.vue";
 import Textfile from "~/components/LMS/Admin/CreateCourse/textlesson.vue";
 import Download from "~/components/LMS/Admin/CreateCourse/downloadLesson.vue";
+import PptLesson from "~/components/LMS/Admin/CreateCourse/PptLesson.vue";
 import Survey from "~/components/LMS/Admin/CreateCourse/surveyLesson.vue";
 import QuizLesson from "~/components/LMS/Admin/CreateCourse/addquiz.vue";
 

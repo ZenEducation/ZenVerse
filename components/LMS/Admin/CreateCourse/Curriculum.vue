@@ -37,7 +37,7 @@
 
           
            
-              <div class="mt-4" v-if=" isDivVisible && currentChapter.id==index+1">
+              <div class="mt-4" v-if="isDivVisible && currentChapter.id==index+1">
               <!-- lessons list  -->
               <div class="mx-2 px-1 shadow border border-1 rounded my-2" 
               v-for="(data,index) in item.lessons" :key="index"
@@ -301,7 +301,8 @@
         <Download />
       </div>
       <div class="" v-if="courseStore.section == 'Presentation'">
-        Presentation
+
+        <pptLesson />
       </div>
       <div class="" v-if="courseStore.section == 'Multimedia'">Multimedia</div>
       <div class="" v-if="courseStore.section == 'Live'">Live</div>
@@ -366,7 +367,7 @@ import Textfile from "~/components/LMS/Admin/CreateCourse/textlesson.vue";
 import Download from "~/components/LMS/Admin/CreateCourse/downloadLesson.vue";
 import Survey from "~/components/LMS/Admin/CreateCourse/surveyLesson.vue";
 import QuizLesson from "~/components/LMS/Admin/CreateCourse/addquiz.vue";
-
+import pptLesson from "~/components/LMS/Admin/CreateCourse/pptLesson.vue";
 // const , functions
 const courseStore = createCourse();
 const chapterName = ref("Untitled Chapter");

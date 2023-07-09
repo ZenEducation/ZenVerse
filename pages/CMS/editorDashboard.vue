@@ -1,21 +1,28 @@
 <script setup>
-import { ref, toRef, reactive, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue"
 import CardBox from "@/components/Cards/CardBox.vue";
 import { mdiChartTimelineVariant, mdiMagnify } from "@mdi/js";
-import TableViewCreator from "@/components/CMS/TableViewCreator.vue";
 import PremFormField from "~~/components/Forms/FormField.vue";
 import PremFormControl from "~~/components/Forms/FormControl.vue";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
-import { useMainStore } from "@/stores/main";
 import { mdiEye, mdiPen } from "@mdi/js";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 
 
+
 const searchquery = ref('');
+const statusFilter = ref('')
+const categoryFilter = ref('');
+const typeFilter = ref('')
+
+// const startDate = ref('');
+// const endDate = ref('');
+
+
 const items = reactive([
     {
         id: 1213, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
@@ -34,7 +41,7 @@ const items = reactive([
     },
     {
         id: 1216, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee coachin', status: 'Initial submission Pending',
+        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
         submittedOn: 'May 4, 2021',
     },
     {
@@ -44,7 +51,7 @@ const items = reactive([
     },
     {
         id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee coachin', status: 'Initial submission Pending',
+        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
         submittedOn: 'May 4, 2021',
     },
     {
@@ -54,7 +61,7 @@ const items = reactive([
     },
     {
         id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee coachin', status: 'Initial submission Pending',
+        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
         submittedOn: 'May 4, 2021',
     },
     {
@@ -90,9 +97,8 @@ const items = reactive([
     },
 
 ])
-const mainStore = useMainStore();
 
-// const items = computed(() => mainStore.created);
+
 
 
 const isModalActive = ref(false);
@@ -105,28 +111,123 @@ const currentPage = ref(0);
 
 const checkedRows = ref([]);
 
+const isStatusDropdownOpen = ref(false);
+const isCategoryDropdownOpen = ref(false);
+const isTypeDropdownOpen = ref(false);
+const isDateInputOpen = ref(false);
+
+const toggleStatusDropdown = () => {
+    isStatusDropdownOpen.value = !isStatusDropdownOpen.value;
+    isCategoryDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
+    isDateInputOpen.value = false;
+    categoryFilter.value = ""
+    typeFilter.value = ""
+};
+
+const toggleCategoryDropdown = () => {
+    isCategoryDropdownOpen.value = !isCategoryDropdownOpen.value;
+    isStatusDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
+    isDateInputOpen.value = false;
+    statusFilter.value = "";
+    typeFilter.value = ""
+};
+
+const toggleTypeDropdown = () => {
+    isTypeDropdownOpen.value = !isTypeDropdownOpen.value;
+    isStatusDropdownOpen.value = false;
+    isCategoryDropdownOpen.value = false;
+    isDateInputOpen.value = false;
+    statusFilter.value = ""
+    categoryFilter.value = ""
+};
+
+const toggleDateInput = () => {
+    isDateInputOpen.value = !isDateInputOpen.value;
+    isStatusDropdownOpen.value = false;
+    isCategoryDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
+};
+
+
 
 
 const itemsPaginated = computed(() => {
     const trimmedSearchQuery = searchquery.value.trim().toLowerCase();
+    const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
+    const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
+    const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+
 
     if (trimmedSearchQuery.length > 0) {
-        return items.filter(
-            item =>
-                item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
-        )
+        return items
+            .filter(
+                (item) =>
+                (item.id.toString().includes(trimmedSearchQuery) ||
+                    item.title.toLowerCase().includes(trimmedSearchQuery))
+            )
             .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
     }
 
+    if (trimmedStatusFilter.length > 0) {
+        return items
+            .filter((item) => item.status.toLowerCase().includes(trimmedStatusFilter))
+            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+    }
+    if (trimmedCategoryFilter.length > 0) {
+        return items
+            .filter((item) => item.category.toLowerCase().includes(trimmedCategoryFilter))
+            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+    }
+    if (trimmedTypeFilter.length > 0) {
+        return items
+            .filter((item) => item.type.toLowerCase().includes(trimmedTypeFilter))
+            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+    }
+
+
+
     return items.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
 });
+
+
 watch(searchquery, () => {
-    currentPage.value = 0; // Reset the current page to the first page
+    currentPage.value = 0;
 });
 
 
-const numPages = computed(() => Math.ceil(items.length / perPage.value));
+
+const numPages = computed(() => {
+    const filteredItems = items.filter((item) => {
+        const trimmedSearchQuery = searchquery.value.trim().toLowerCase();
+        const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
+        const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
+        const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+
+        const matchesSearchQuery =
+            trimmedSearchQuery.length === 0 ||
+            item.id.toString().includes(trimmedSearchQuery) ||
+            item.title.toLowerCase().includes(trimmedSearchQuery);
+
+        const matchesStatusFilter =
+            trimmedStatusFilter.length === 0 ||
+            item.status.toLowerCase().includes(trimmedStatusFilter);
+
+        const matchesCategoryFilter =
+            trimmedCategoryFilter.length === 0 ||
+            item.status.toLowerCase().includes(trimmedCategoryFilter);
+
+        const matchesTypeFilter =
+            trimmedTypeFilter.length === 0 ||
+            item.status.toLowerCase().includes(trimmedTypeFilter);
+
+
+        return matchesSearchQuery && matchesStatusFilter && matchesCategoryFilter && matchesTypeFilter;
+    });
+
+    return Math.ceil(filteredItems.length / perPage.value);
+});
 
 const currentPageHuman = computed(() => currentPage.value + 1);
 
@@ -165,10 +266,14 @@ const checked = (isChecked, client) => {
 
 const clearResult = () => {
     searchquery.value = ""
+    statusFilter.value = ""
+    categoryFilter.value = ""
+    typeFilter.value = ""
+    isDateInputOpen.value = false;
+    isStatusDropdownOpen.value = false;
+    isCategoryDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
 }
-
-
-
 </script>
 
 <template>
@@ -185,12 +290,66 @@ const clearResult = () => {
                         <PremFormControl v-model="searchquery" :icon="mdiMagnify" placeholder="Search by Title or ID" />
                     </PremFormField>
                     <PremFormField label="Filter By:" horizontal>
+
                         <BaseButtons>
-                            <BaseButton color="info" label="Status" outline small />
-                            <BaseButton label="Category" color="info" outline small />
-                            <BaseButton label="Type" color="info" outline small />
-                            <BaseButton label="Submitted On" color="info" outline small />
+                            <BaseButton label="Status" color="info" class="   text-white font-bold py-2 px-4 rounded "
+                                outline small @click="toggleStatusDropdown" :active="isStatusDropdownOpen" />
+                            <BaseButton label="Category" color="info" class="   text-white font-bold py-2 px-4 rounded "
+                                outline small @click="toggleCategoryDropdown" :active="isCategoryDropdownOpen" />
+                            <BaseButton label="Type" color="info" class="   text-white font-bold py-2 px-4 rounded " outline
+                                small @click="toggleTypeDropdown" :active="isTypeDropdownOpen" />
+                            <BaseButton label="Submitted On" color="info" class="   text-white font-bold py-2 px-4 rounded "
+                                outline small @click="toggleDateInput" :active="isDateInputOpen" />
                         </BaseButtons>
+
+                        <!-- Status Dropdown -->
+                        <div v-if="isStatusDropdownOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
+                            <select name="status" id="status" v-model="statusFilter" class="w-1/2">
+                                <option value=""> Select Status </option>
+                                <option value="initial submission pending">Initial Submission Pending</option>
+                                <option value="initial approval pending">Initial Approval Pending</option>
+                                <option value="editor submission pending">Editor Submission Pending</option>
+                                <option value="final approval pending">Final Approval Pending</option>
+                                <option value="not verified">Not Verified</option>
+                            </select>
+                        </div>
+
+                        <!-- Category Dropdown -->
+                        <div v-if="isCategoryDropdownOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
+                            <select name="status" id="status" v-model="categoryFilter" class="w-1/2">
+                                <option value=""> Select Category </option>
+                                <option value="jee coaching">JEE Coaching</option>
+                                <option value="neet coaching">Neet Coaching</option>
+                                <option value="coursera">Coursera</option>
+
+                            </select>
+                        </div>
+
+                        <!-- Type Dropdown -->
+                        <div v-if="isTypeDropdownOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
+                            <select name="status" id="status" v-model="typeFilter" class="w-1/2">
+                                <option value=""> Select Type </option>
+                                <option value="video">Video</option>
+                                <option value="graphic">Graphic</option>
+                                <option value="text">Text</option>
+                                <option value="acc">ACC</option>
+                                <option value="online">Online</option>
+
+                            </select>
+                        </div>
+
+                        <!-- Submitted On Date Input -->
+                        <div v-if="isDateInputOpen" class="mt-2">
+                            <!-- <label for="start-date">Start Date:</label>
+                            <input type="date" id="start-date" v-model="startDate" @change="applyDateFilter" />
+
+                            <label for="end-date">End Date:</label>
+                            <input type="date" id="end-date" v-model="endDate" @change="applyDateFilter" /> -->
+
+                        </div>
+
+
+
                         <div style="align-items: right; text-align: right; text-decoration: underline;"><button
                                 @click="clearResult">Reset Filters</button></div>
                     </PremFormField>
@@ -238,11 +397,15 @@ const clearResult = () => {
                                     {{ client.title }}
                                 </td>
 
-                                <td v-if="index === 1" data-label="Submission">
-                                    <img :src="client.avatar" alt="Avatar" width="150" height="150" />
+
+
+                                <td v-if="client.submissionImage" data-label="submission">
+                                    <img :src="client.submissionImage" alt="Avatar" width="150" height="150" />
+
                                 </td>
                                 <td v-else data-label="Submission">
-                                    {{ client.submission ?? client.submissionImage }}
+
+                                    {{ client.submission }}
                                 </td>
 
                                 <td data-label="Type">

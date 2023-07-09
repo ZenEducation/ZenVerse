@@ -17,7 +17,14 @@ import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 const searchquery = ref('');
 const statusFilter = ref('')
 const categoryFilter = ref('');
-const typeFilter = ref('')
+const typeFilter = ref('');
+const dateFilter = ref('');
+
+const onDate = ref('');
+const beforeDate = ref('');
+const afterDate = ref('');
+const startDate = ref('');
+const endDate = ref('');
 
 // const startDate = ref('');
 // const endDate = ref('');
@@ -123,6 +130,7 @@ const toggleStatusDropdown = () => {
     isDateInputOpen.value = false;
     categoryFilter.value = ""
     typeFilter.value = ""
+    dateFilter.value = ""
 };
 
 const toggleCategoryDropdown = () => {
@@ -131,7 +139,8 @@ const toggleCategoryDropdown = () => {
     isTypeDropdownOpen.value = false;
     isDateInputOpen.value = false;
     statusFilter.value = "";
-    typeFilter.value = ""
+    typeFilter.value = "";
+    dateFilter.value = ""
 };
 
 const toggleTypeDropdown = () => {
@@ -141,6 +150,7 @@ const toggleTypeDropdown = () => {
     isDateInputOpen.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
+    dateFilter.value = ""
 };
 
 const toggleDateInput = () => {
@@ -148,48 +158,85 @@ const toggleDateInput = () => {
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
+    statusFilter.value = ""
+    categoryFilter.value = ""
+    typeFilter.value = ""
+
+
 };
 
 
 
-
+// filter function
+// filter for search, status, Category, Type and Date
 const itemsPaginated = computed(() => {
     const trimmedSearchQuery = searchquery.value.trim().toLowerCase();
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+    const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
+    let filteredItems = items;
 
+    // Apply search query filter
     if (trimmedSearchQuery.length > 0) {
-        return items
-            .filter(
-                (item) =>
-                (item.id.toString().includes(trimmedSearchQuery) ||
-                    item.title.toLowerCase().includes(trimmedSearchQuery))
-            )
-            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+        filteredItems = filteredItems.filter(
+            (item) =>
+                item.id.toString().includes(trimmedSearchQuery) ||
+                item.title.toLowerCase().includes(trimmedSearchQuery)
+        );
     }
 
+    // Apply status filter
     if (trimmedStatusFilter.length > 0) {
-        return items
-            .filter((item) => item.status.toLowerCase().includes(trimmedStatusFilter))
-            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+        filteredItems = filteredItems.filter((item) =>
+            item.status.toLowerCase().includes(trimmedStatusFilter)
+        );
     }
+
+    // Apply category filter
     if (trimmedCategoryFilter.length > 0) {
-        return items
-            .filter((item) => item.category.toLowerCase().includes(trimmedCategoryFilter))
-            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+        filteredItems = filteredItems.filter((item) =>
+            item.category.toLowerCase().includes(trimmedCategoryFilter)
+        );
     }
+
+    // Apply type filter
     if (trimmedTypeFilter.length > 0) {
-        return items
-            .filter((item) => item.type.toLowerCase().includes(trimmedTypeFilter))
-            .slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+        filteredItems = filteredItems.filter((item) =>
+            item.type.toLowerCase().includes(trimmedTypeFilter)
+        );
     }
 
+    // Apply date filter
+    if (trimmedDateFilter === "on") {
+        filteredItems = filteredItems.filter(
+            (item) =>
+                new Date(item.submittedOn).toDateString() === new Date(onDate.value).toDateString()
+        );
+    } else if (trimmedDateFilter === "before") {
+        filteredItems = filteredItems.filter(
+            (item) => new Date(item.submittedOn) < new Date(beforeDate.value)
+        );
+    } else if (trimmedDateFilter === "after") {
+        filteredItems = filteredItems.filter(
+            (item) => new Date(item.submittedOn) > new Date(afterDate.value)
+        );
+    } else if (trimmedDateFilter === "between") {
+        filteredItems = filteredItems.filter(
+            (item) =>
+                new Date(item.submittedOn) >= new Date(startDate.value) &&
+                new Date(item.submittedOn) <= new Date(endDate.value)
+        );
+    }
 
-
-    return items.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1));
+    // Apply pagination
+    const start = perPage.value * currentPage.value;
+    const end = perPage.value * (currentPage.value + 1);
+    return filteredItems.slice(start, end);
 });
+
+
 
 
 watch(searchquery, () => {
@@ -198,36 +245,72 @@ watch(searchquery, () => {
 
 
 
+//Pagination Function
+//for pages in pagination based on data max 4 data will show per page
 const numPages = computed(() => {
-    const filteredItems = items.filter((item) => {
-        const trimmedSearchQuery = searchquery.value.trim().toLowerCase();
-        const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
-        const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
-        const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+    const trimmedSearchQuery = searchquery.value.trim().toLowerCase();
+    const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
+    const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
+    const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+    const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
-        const matchesSearchQuery =
-            trimmedSearchQuery.length === 0 ||
-            item.id.toString().includes(trimmedSearchQuery) ||
-            item.title.toLowerCase().includes(trimmedSearchQuery);
+    let filteredItems = items;
 
-        const matchesStatusFilter =
-            trimmedStatusFilter.length === 0 ||
-            item.status.toLowerCase().includes(trimmedStatusFilter);
+    // Apply search query filter
+    if (trimmedSearchQuery.length > 0) {
+        filteredItems = filteredItems.filter(
+            (item) =>
+                item.id.toString().includes(trimmedSearchQuery) ||
+                item.title.toLowerCase().includes(trimmedSearchQuery)
+        );
+    }
 
-        const matchesCategoryFilter =
-            trimmedCategoryFilter.length === 0 ||
-            item.status.toLowerCase().includes(trimmedCategoryFilter);
+    // Apply status filter
+    if (trimmedStatusFilter.length > 0) {
+        filteredItems = filteredItems.filter((item) =>
+            item.status.toLowerCase().includes(trimmedStatusFilter)
+        );
+    }
 
-        const matchesTypeFilter =
-            trimmedTypeFilter.length === 0 ||
-            item.status.toLowerCase().includes(trimmedTypeFilter);
+    // Apply category filter
+    if (trimmedCategoryFilter.length > 0) {
+        filteredItems = filteredItems.filter((item) =>
+            item.category.toLowerCase().includes(trimmedCategoryFilter)
+        );
+    }
 
+    // Apply type filter
+    if (trimmedTypeFilter.length > 0) {
+        filteredItems = filteredItems.filter((item) =>
+            item.type.toLowerCase().includes(trimmedTypeFilter)
+        );
+    }
 
-        return matchesSearchQuery && matchesStatusFilter && matchesCategoryFilter && matchesTypeFilter;
-    });
+    // Apply date filter
+    if (trimmedDateFilter === "on") {
+        filteredItems = filteredItems.filter(
+            (item) =>
+                new Date(item.submittedOn).toDateString() === new Date(onDate.value).toDateString()
+        );
+    } else if (trimmedDateFilter === "before") {
+        filteredItems = filteredItems.filter(
+            (item) => new Date(item.submittedOn) < new Date(beforeDate.value)
+        );
+    } else if (trimmedDateFilter === "after") {
+        filteredItems = filteredItems.filter(
+            (item) => new Date(item.submittedOn) > new Date(afterDate.value)
+        );
+    } else if (trimmedDateFilter === "between") {
+        filteredItems = filteredItems.filter(
+            (item) =>
+                new Date(item.submittedOn) >= new Date(startDate.value) &&
+                new Date(item.submittedOn) <= new Date(endDate.value)
+        );
+    }
 
     return Math.ceil(filteredItems.length / perPage.value);
 });
+
 
 const currentPageHuman = computed(() => currentPage.value + 1);
 
@@ -339,12 +422,27 @@ const clearResult = () => {
                         </div>
 
                         <!-- Submitted On Date Input -->
-                        <div v-if="isDateInputOpen" class="mt-2">
-                            <!-- <label for="start-date">Start Date:</label>
-                            <input type="date" id="start-date" v-model="startDate" @change="applyDateFilter" />
+                        <div v-if="isDateInputOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
+                            <div>
+                                <select name="status" id="status" v-model="dateFilter" class="w-1/2 ">
+                                    <option value=""> Select Date Filter </option>
 
-                            <label for="end-date">End Date:</label>
-                            <input type="date" id="end-date" v-model="endDate" @change="applyDateFilter" /> -->
+                                    <option value="on">On</option>
+                                    <option value="before">Before</option>
+                                    <option value="after">After</option>
+                                    <option value="between">Between</option>
+
+                                </select>
+                            </div>
+
+                            <div class="block">
+                                <input v-if="dateFilter == 'on'" type="date" name="" id="" v-model="onDate">
+                                <input v-if="dateFilter == 'before'" type="date" name="" id="" v-model="beforeDate">
+                                <input v-if="dateFilter == 'after'" type="date" name="" id="" v-model="afterDate">
+                                <input v-if="dateFilter == 'between'" type="date" name="" id="" v-model="startDate">
+                                <p v-if="dateFilter == 'between'">To</p>
+                                <input v-if="dateFilter == 'between'" type="date" name="" id="" v-model="endDate">
+                            </div>
 
                         </div>
 

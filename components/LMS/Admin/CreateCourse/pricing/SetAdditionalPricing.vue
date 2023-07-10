@@ -333,17 +333,17 @@
  <!-- one Time Payment    -->
 
  <div class="model bg-black-500 flex justify-center items-center" v-if="modelShowOneTime" >
- <div class="mt-5  bg-slate-900 h-fit px-5 py-5" >
+ <div class="mt-5 bg-gray-100  dark:bg-slate-900 h-fit px-5 py-5 rounded-sm" >
    <div class="text-xl mb-3">Update - One Time Payment</div>
       <div class="">Price</div>
-      <div class="w-4/12 flex items-center mt-3">
+      <div class="w-6/12 flex items-center mt-3">
         <div class="my-auto px-3 h-full">$</div>
         <PremFormControl
           type="number"
           placeholder=""
           expanded
           last-addon
-          class="w-40 ml-1"
+          class=" ml-1"
           v-model="amountUpdate"
         />
       </div>
@@ -387,7 +387,7 @@
   </div>
 <!-- update subscription  -->
   <div class="model bg-black-500 flex justify-center items-center" v-if="modelShowSubscription" >
- <div class="mt-5  bg-slate-900 h-fit px-5 py-5" >
+ <div class="mt-5 bg-gray-100 dark:bg-slate-900 h-fit px-5 py-5 rounded-sm " >
    <div class="text-xl mb-3">Update - Subscription / Membership</div>
    <div class="flex">
         <div class="">
@@ -427,7 +427,7 @@
         </div>
       </div>
 
-      <div class="mt-5 bg-gray-200 dark:bg-slate-900 p-3 mb-3">
+      <div class="mt-5 bg-gray-200 dark:bg-slate-800 p-3 mb-3 rounded-sm">
         <div class="flex">
           <div class="">
             <FormCheckRadioGroup
@@ -515,7 +515,7 @@
 
   <!-- monthly updated  -->
   <div class="model bg-black-500 flex justify-center items-center" v-if="modelShowMonths" >
- <div class="mt-5  bg-slate-900 h-fit px-5 py-5" >
+ <div class="mt-5 bg-gray-100 dark:bg-slate-900 h-fit px-5 py-5" >
    <div class="text-xl mb-3">Update - One Time Payment</div>
    <div class="flex">
         <div class="">
@@ -550,7 +550,7 @@
         </div>
       </div>
 
-      <div class="mt-5 bg-gray-200 dark:bg-slate-900 p-3 mb-3">
+      <div class="mt-5 bg-gray-200 dark:bg-slate-800 p-3 mb-3">
         <div class="flex">
         
           <div class="pl-3">

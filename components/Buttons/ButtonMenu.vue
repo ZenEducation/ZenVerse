@@ -52,12 +52,13 @@ const props = defineProps({
   disabled: Boolean,
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue",'selected']);
 
 computed({
   get: () => props.modelValue,
   set: (value) => {
     emit("update:modelValue", value);
+    console.log(value)
   },
 });
 
@@ -109,6 +110,7 @@ const iconRightComputed = computed(() =>
             v-for="option in optionsGroup"
             :key="option.id"
             v-slot="{ active }"
+            @click="emit('selected', option)"
           >
             <button
               :class="{ 'bg-gray-100 dark:bg-slate-700': active }"

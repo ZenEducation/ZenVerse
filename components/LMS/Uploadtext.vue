@@ -109,8 +109,9 @@ const handleFileUpload = (event) => {
 
       console.log("Bulk importer", file.name);
       fileName.value.push(file.name);
-      emit('uploadData',file.name)
+    
       listDisplay.value = true;
+      emit('uploadData',file.name)
     }
   }
 };
@@ -166,8 +167,9 @@ const handleDropFiles = (event) => {
     ) {
       console.log(file.name);
       downloadFile.value.push(file.name);
-      emit('uploadData',file.name)
+      
       downloadlist.value = true;
+      emit('uploadData',file.name)
     } else {
       console.log(`Invalid file type: ${file.type}`);
     }
@@ -186,9 +188,10 @@ const handleFilesvg = (event) => {
     return;
   }
   downloadFile.value.push(file.name);
-  emit('uploadData',file.name)
+
   downloadlist.value = true;
   console.log(`Selected file: ${file.name}`);
+  emit('uploadData',file.name)
 };
 
 const deleteHandlerDownload = (i) => {
@@ -210,8 +213,9 @@ const handleFileDownload = (event) => {
   } else {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
-    emit('uploadData',file.name)
   downloadlist.value = true;
+  emit('uploadData',file.name)
+
   }
   console.log("test",fileInput.files[0].name);
 }
@@ -229,8 +233,9 @@ const handleDropVideo = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
-      emit('uploadData',file.name)
+     
      downloadlist.value = true;
+     emit('uploadData',file.name)
     } else {
       console.log(`Invalid file type: ${files.type}`);
     }
@@ -259,8 +264,9 @@ const handleAudio = (event) => {
   if (extension === "audio") {
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
-    emit('uploadData',file.name)
+
   downloadlist.value = true;
+  emit('uploadData',file.name)
     
   } else {
     alert("File format is invaild file");
@@ -279,8 +285,8 @@ const handleaudioFiles = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
-      emit('uploadData',file.name)
      downloadlist.value = true;
+     emit('uploadData',file.name)
     } else {
       console.log(`Invalid file type: ${files.type}`);
     }
@@ -290,27 +296,31 @@ const handleaudioFiles = (event) => {
 
 //pdf
 
-const  handlepdf  = (event) => {
+const handlepdf =(event) => {
+
   const fileInput = event.target;
   const acceptedTypes = fileInput.accept.split(",");
-  console.log("audiofiles",acceptedTypes)
+  // console.log("audiofiles",acceptedTypes)
   const extension =  '.'+fileInput.files[0].type.split("/")[1];
-  console.log(fileInput.files[0].type)
+  // console.log(fileInput.files[0].type)
   const validFileType = acceptedTypes.includes(extension);
   const fileSizeInMB = fileInput.files[0].size / (1024 * 1024);
- console.log(validFileType)
+//  console.log(validFileType)
   if (!validFileType) {
     alert("File format is invaild file");
   }
   else if (fileSizeInMB > 25) {
     alert("File size must be 25 MB or less");
   }  else {
+
+    console.log("Working")
+      downloadlist.value = true;
     fileInput.setCustomValidity("");
     lessonFile.value= fileInput.files[0].name;
     emit('uploadData',file.name)
-  downloadlist.value = true;
+  
   }
-  console.log("test",fileInput.files[0].name);
+  // console.log("test",fileInput.files[0].name);
 }
   
 const handlepdfFiles = (event) => {
@@ -325,8 +335,9 @@ const handlepdfFiles = (event) => {
       // handle the file as needed (e.g. upload to server, display in UI, etc.)
       console.log(files);
       lessonFile.value= file.name;
+      downloadlist.value = true;
       emit('uploadData',file.name)
-     downloadlist.value = true;
+
     } else {
       alert(`Invalid file type`)
       console.log(`Invalid file type`);
@@ -559,11 +570,14 @@ const handlepdfFiles = (event) => {
            There is a file size limit of 25mb</div>
         </div>
       </div>
+    
+  
       <div class="listing_cover_downlaod" v-if="downloadlist">
+     
         <div
-          v-if = download
+          v-if=download
           :key="index"
-          class="mb-6 flex items-center listing"
+          class="mb-6 flex items-center listing dark:bg-slate-800 px-2"
         >
           <IconRounded
             v-if="icon && main"
@@ -639,7 +653,7 @@ const handlepdfFiles = (event) => {
         <div
           v-if = pdffile
           :key="index"
-          class="mb-6 flex items-center listing"
+          class="mb-6 flex items-center listing dark:bg-slate-800 px-2"
         >
           <IconRounded
             v-if="icon && main"

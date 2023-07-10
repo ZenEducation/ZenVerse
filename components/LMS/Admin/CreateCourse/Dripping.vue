@@ -56,7 +56,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div>
+  <div class="">
+  
         <div class="grid grid-cols-1 xl:grid-cols-1 lg:ml-6"> 
           <CardBox v-if="driptype=='Drip type'"
             class="mb-6 lg:mb-0 lg:col-span-1 xl:col-span-3"
@@ -94,7 +95,7 @@ const props = defineProps({
               ><br />
 
               <div>
-                <template v-for="i in dripOptions">
+                <template v-for="(i,idx) in dripOptions" :key="idx">
                   <input type="radio" v-model="dripSelected" :value="i.label" />
                   {{ i.label }}
                   <br />
@@ -119,7 +120,7 @@ const props = defineProps({
 
           </CardBox>
           
-          <div v-for="chapter in chapterList">
+          <div v-for="(chapter,idx) in chapterList" :key="idx">
           <template v-if="chapter.title === props.driptype">
           <CardBox
           class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
@@ -131,10 +132,12 @@ const props = defineProps({
 
 
             <BaseDivider />
+            <div class="" v-if="dripSelected !== 'On Specific Date'">
             <template
-              v-if="dripSelected !== 'On Specific Date'"
-              v-for="i in chapter.lessonList"
-            >
+              
+              v-for="(i,idx) in chapter.lessonList"
+             :key="idx"
+              >
               <b
                 ><h4>{{ i.label }}</h4></b
               >
@@ -153,11 +156,12 @@ const props = defineProps({
               </div>
               <BaseDivider />
             </template>
-
+          </div>
+          <div class=""   v-if="dripSelected === 'On Specific Date'">
             <template
-              v-if="dripSelected === 'On Specific Date'"
-              v-for="i in chapter.lessonList"
-              key="i"
+            
+              v-for="(i,idx) in chapter.lessonList"
+              :key="idx"
             >
               <b
                 ><h4>{{ i.label }}</h4></b
@@ -180,6 +184,7 @@ const props = defineProps({
               </div>
               <BaseDivider />
             </template>
+          </div>
         </CardBox>
         </template>
         </div>

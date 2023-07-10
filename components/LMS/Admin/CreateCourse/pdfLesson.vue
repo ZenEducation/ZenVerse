@@ -102,7 +102,7 @@ const exportpdf = () => {
                 pdffile
                 :icon="mdiDragVertical"
                 :iconRight="mdiTrashCanOutline"
-                dragText="Drag & drop PDF file here"
+                dragText="Drag & drop PDF file here "
                 footer="footerText"
                 :icon-left="mdiAccount"
                 help="Upload a pdf file"

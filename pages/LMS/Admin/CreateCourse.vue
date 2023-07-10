@@ -33,9 +33,9 @@ import { createCourse } from "~~/stores/createCourse";
 
 // components
 import Curriculum from "@/components/LMS/Admin/CreateCourse/Curriculum.vue";
-import BulkImporter from "@/components/LMS/Admin/CreateCourse/BulkImporter.vue";
+import BulkImporter from "~/components/LMS/Admin/CreateCourse/BulkImporter.vue";
 import Settings from "@/components/LMS/Admin/CreateCourse/Settings.vue";
-import Drip from "@/components/LMS/Admin/CreateCourse/Drip.vue";
+import Drip from "@/components/LMS/Admin/CreateCourse/Dripping.vue";
 import Pricing from "@/components/LMS/Admin/CreateCourse/Pricing.vue";
 import Publish from "@/components/LMS/Admin/CreateCourse/Publish.vue";
 
@@ -307,7 +307,7 @@ const previewMenu = {
           <Curriculum v-if="layoutStore.currAsideMenu === 'Curriculum'" />
           <BulkImporter v-if="layoutStore.currAsideMenu === 'Bulk importer'" />
           <Settings v-if="layoutStore.currAsideMenu === 'Settings'" />
-          <Drip v-if="layoutStore.currAsideMenu === 'Drip'" />
+          <Drip v-if="layoutStore.currAsideMenu === 'Drip'"  driptype="Drip type" />
           <Pricing v-if="layoutStore.currAsideMenu === 'Pricing'" />
           <Publish v-if="layoutStore.currAsideMenu === 'Publish'" />
         </div>

@@ -43,13 +43,14 @@ showAddChapterNameSection(){
 
     // delete chapter 
    deleteChapter(item){
+    console.log(item)
     this.allChapters.splice(item, 1)
    },
 
    // selected chapter 
    selectedChapter(item){
     this.currentChapter = item
-    console.log(item)
+    // console.log(item)
    },
     // show lesson types 
     showLessonType(){
@@ -83,12 +84,28 @@ showAddChapterNameSection(){
         }
         return item 
       })
-      console.log(this.allChapters)
+   
     },
 
     
+// delete lessons 
 
-
+deleteLessons(chapter,lesson){
+this.allChapters.map((chap)=>{
+  if(chap.id==chapter.id){
+    chap.lessons.map((lsn,idx)=>{
+      if(lsn.id==lesson.id){
+        chap.lessons.splice(idx, 1)
+      }
+      return lsn
+    })
+    
+   
+ 
+  }
+  return chap
+})
+}
 
 };
 

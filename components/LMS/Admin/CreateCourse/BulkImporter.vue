@@ -1,5 +1,6 @@
 <template>
   <div class="grid grid-cols-1 gap-1 mb-6 xl:grid-cols-6">
+  
     <!-- left section  -->
     <CardBox
       class="lg:col-span-3 xl:col-span-2 overflow-y-auto"
@@ -56,7 +57,9 @@
                     <div
                       class="flex aligns-center text-sm text-gray-500 mt-1"
                     >
-                      <BaseIcon :path="iconType(data.type)" :size="22" />
+                      <BaseIcon :path="iconType(data.type)" :size="22"
+                     
+                      />
                       <div class="text-sm text-gray-500 ml-1 my-auto">{{ data.type }}  </div>
                     </div>
                   </div>
@@ -134,7 +137,7 @@
       @submit.prevent="submit"
     >
 
-
+ 
      
       <div
             v-for="(item, index) in chapters"
@@ -204,7 +207,7 @@
                     </div>
                   
                   </div>
-                  <BaseIcon :path="mdiDeleteOutline" :size="22" class="my-auto ml-2" />
+                  <BaseIcon :path="mdiDeleteOutline" :size="22"  @click="deleteLessons(item,data)" class="my-auto ml-2" />
 
                 </div>
               </div>
@@ -323,10 +326,9 @@ const currentChapterItem =(item)=>{
 }
 
 const getFile = (data) =>{
- console.log(data)
 
  const item={
-    id: 1,
+    id:(Math.random()*1000).toFixed(0),
     name:data,
    
   }
@@ -434,16 +436,17 @@ const showAddLessonField = (index,item) => {
 
 // delete chapter
 const deleteChaptrerName = (index) => {
-  window.confirm("Are you sure, you want to delete?");
-  if (editedChapterIndex.value !== -1) {
+ const confirm= window.confirm("Are you sure, you want to delete?");
+ if(confirm==false){
+  return false;
+ }
     // chapters.splice(editedChapterIndex.value, 1);
     courseStore.deleteChapter(index)
-    courseStore.showChapterAddItem("first")
     editedChapterIndex.value = -1;
     isUntitleFieldVisible.value = false;
     chapterName.value = "Untitled Chapter";
 
-  }
+
   if (chapters.length === 0) {
     isDivVisible.value = false;
     isUntitleFieldVisible.value = false;
@@ -453,6 +456,13 @@ const deleteChaptrerName = (index) => {
   }
   chapters.filter((item) => item != chapterName.value);
 };
+
+
+
+
+
+
+
 
 const updateChapterName = (item) => {
   console.log("Update")
@@ -475,6 +485,24 @@ const choseLessonsType = (chapter) => {
   courseStore.showLessonType();
   courseStore.selectedChapter(chapter)
 };
+
+
+
+
+// delete lessons
+
+const deleteLessons = (chapter,lesson) => {
+  const confirm= window.confirm("Are you sure, you want to delete?");
+ if(confirm==false){
+  return false;
+ }
+  courseStore.deleteLessons(chapter,lesson)
+}
+
+
+
+
+
 
 
 

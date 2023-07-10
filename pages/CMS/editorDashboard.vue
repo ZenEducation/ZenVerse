@@ -26,8 +26,6 @@ const afterDate = ref('');
 const startDate = ref('');
 const endDate = ref('');
 
-// const startDate = ref('');
-// const endDate = ref('');
 
 
 const items = reactive([
@@ -352,10 +350,16 @@ const clearResult = () => {
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
+    dateFilter.value = ""
     isDateInputOpen.value = false;
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
+    onDate.value = ""
+    beforeDate.value = ""
+    afterDate.value = ""
+    startDate.value = ""
+    endDate.value = ""
 }
 </script>
 

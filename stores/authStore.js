@@ -32,40 +32,41 @@ export const actions = {
     });
     return user;
   },
-
+  
   async confirmRegistration({ email, code }) {
     return await Auth.confirmSignUp(email, code);
   },
-
+  
   async resendConfirmationCode({ email }) {
     await Auth.resendSignUp(email);
   },
-
+  
   async login({ email, password }) {
     const userfromAmplify = await Auth.signIn(email, password);
     console.log(userfromAmplify.signInUserSession.accessToken.jwtToken)
     localStorage.setItem(
       "authToken",
       userfromAmplify.signInUserSession.accessToken.jwtToken
-    );
-    this.user = userfromAmplify;
-    this.isAuthenticated = true;
-    return this.user;
-  },
-
-  async logout() {
-    await Auth.signOut();
-    if (this.isAuthenticated === true) {
-      this.isAuthenticated = false;
-    }
-    localStorage.removeItem("authToken");
-    this.user = null;
-    if (!this.user) {
-      console.log("User successfully logged out");
-    }
-  },
-
-  async forgetPassword({ email }) {
+      );
+      this.user = userfromAmplify;
+      this.isAuthenticated = true;
+      return this.user;
+    },
+    
+    async logout() {
+      await Auth.signOut();
+      if (this.isAuthenticated === true) {
+        this.isAuthenticated = false;
+      }
+      localStorage.removeItem("authToken");
+      navigateTo("/");
+      this.user = null;
+      if (!this.user) {
+        console.log("User successfully logged out");
+      }
+    },
+    
+    async forgetPassword({ email }) {
     const forgetInfo = await Auth.forgotPassword(email)
       .then((data) => {
         return data;

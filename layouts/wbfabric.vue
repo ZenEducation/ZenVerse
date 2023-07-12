@@ -71,7 +71,7 @@ const menuClick = (event, item) => {
   if (item.isLogout) {
     AuthStore.logout();
     // console.log("Clicked On Logout");
-    router.push("/auth/login");
+    // router.push("/auth/login");
   }
 
   switch (item.id) {

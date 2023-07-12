@@ -11,7 +11,13 @@ import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { useAuthStore } from "@/stores/authStore";
-
+import { Auth } from 'aws-amplify'
+const getSession = () => {
+    Auth.currentSession().then(() => navigateTo('/dashboard'))
+}
+onMounted(() => {
+    getSession()
+})
 const form = reactive({
   email: "",
   password: "",
@@ -70,6 +76,12 @@ const submit = async () => {
               <BaseButton to="/register" color="info" outline label="Register" />
             </BaseButtons>
           </template>
+          <BaseButtons mb="-mb-10">
+            <BaseButton @click="() => Auth.federatedSignIn({ provider: 'Google' })" color="info" outline
+              label="Login with Google" />
+            <BaseButton @click="() => Auth.federatedSignIn({ provider: 'Facebook' })" color="info" outline
+              label="Login with Facebook" />
+          </BaseButtons>
         </CardBox>
       </SectionFullScreen>
     </NuxtLayout>

@@ -19,7 +19,6 @@ const statusFilter = ref('')
 const categoryFilter = ref('');
 const typeFilter = ref('');
 const dateFilter = ref('');
-const approveFilter = ref('');
 
 const onDate = ref('');
 const beforeDate = ref('');
@@ -120,18 +119,15 @@ const checkedRows = ref([]);
 const isStatusDropdownOpen = ref(false);
 const isCategoryDropdownOpen = ref(false);
 const isTypeDropdownOpen = ref(false);
-const isApproveSearch = ref(false);
 const isDateInputOpen = ref(false);
 
 const toggleStatusDropdown = () => {
     isStatusDropdownOpen.value = !isStatusDropdownOpen.value;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isApproveSearch.value = false;
     isDateInputOpen.value = false;
     categoryFilter.value = ""
     typeFilter.value = ""
-    approveFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -139,35 +135,19 @@ const toggleCategoryDropdown = () => {
     isCategoryDropdownOpen.value = !isCategoryDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isApproveSearch.value = false;
     isDateInputOpen.value = false;
     statusFilter.value = "";
     typeFilter.value = "";
-    approveFilter.value = "",
-        dateFilter.value = ""
+    dateFilter.value = ""
 };
 
 const toggleTypeDropdown = () => {
     isTypeDropdownOpen.value = !isTypeDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
-    isApproveSearch.value = false
     isDateInputOpen.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
-    approveFilter.value = ""
-    dateFilter.value = ""
-};
-
-const toggleApproveSearch = () => {
-    isApproveSearch.value = !isApproveSearch.value;
-    isStatusDropdownOpen.value = false;
-    isCategoryDropdownOpen.value = false;
-    isTypeDropdownOpen.value = false;
-    isDateInputOpen.value = false;
-    statusFilter.value = ""
-    categoryFilter.value = ""
-    typeFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -176,11 +156,10 @@ const toggleDateInput = () => {
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isApproveSearch.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
-    approveFilter.value = ""
+
 
 
 };
@@ -194,7 +173,6 @@ const itemsPaginated = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
-    const trimmedApproveFilter = approveFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
     let filteredItems = items;
@@ -204,7 +182,8 @@ const itemsPaginated = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.approvee.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -226,13 +205,6 @@ const itemsPaginated = computed(() => {
     if (trimmedTypeFilter.length > 0) {
         filteredItems = filteredItems.filter((item) =>
             item.type.toLowerCase().includes(trimmedTypeFilter)
-        );
-    }
-
-    // Apply Approval Filter
-    if (trimmedApproveFilter.length > 0) {
-        filteredItems = filteredItems.filter((item) =>
-            item.approvee.toLowerCase().includes(trimmedApproveFilter)
         );
     }
 
@@ -280,7 +252,6 @@ const numPages = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
-    const trimmedApproveFilter = approveFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
     let filteredItems = items;
@@ -290,7 +261,8 @@ const numPages = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.approvee.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -315,12 +287,6 @@ const numPages = computed(() => {
         );
     }
 
-    // Apply Approval Filter
-    if (trimmedApproveFilter.length > 0) {
-        filteredItems = filteredItems.filter((item) =>
-            item.approvee.toLowerCase().includes(trimmedApproveFilter)
-        );
-    }
 
     // Apply date filter
     if (trimmedDateFilter === "on") {
@@ -388,13 +354,11 @@ const clearResult = () => {
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
-    approveFilter.value = ""
     dateFilter.value = ""
     isDateInputOpen.value = false;
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isApproveSearch.value = false;
     onDate.value = ""
     beforeDate.value = ""
     afterDate.value = ""
@@ -414,19 +378,21 @@ const clearResult = () => {
                 </SectionTitleLineWithButton>
                 <CardBox class="mb-6 g:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
                     <PremFormField horizontal>
-                        <PremFormControl v-model="searchquery" :icon="mdiMagnify" placeholder="Search by Title or ID" />
+                        <PremFormControl v-model="searchquery" :icon="mdiMagnify"
+                            placeholder="Search by Title or ID or Approver Name" />
                     </PremFormField>
                     <PremFormField label="Filter By:" horizontal>
 
                         <BaseButtons>
                             <BaseButton label="Status" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleStatusDropdown" :active="isStatusDropdownOpen" />
+
                             <BaseButton label="Category" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleCategoryDropdown" :active="isCategoryDropdownOpen" />
+
                             <BaseButton label="Type" color="info" class="   text-white font-bold py-2 px-4 rounded " outline
                                 small @click="toggleTypeDropdown" :active="isTypeDropdownOpen" />
-                            <BaseButton label="Approver" color="info" class="   text-white font-bold py-2 px-4 rounded "
-                                outline small @click="toggleApproveSearch" :active="isApproveSearch" />
+
                             <BaseButton label="Submitted On" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleDateInput" :active="isDateInputOpen" />
                         </BaseButtons>
@@ -467,11 +433,7 @@ const clearResult = () => {
                             </select>
                         </div>
 
-                        <!-- Approve Input -->
-                        <div v-if="isApproveSearch" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
-                            <input type="text" name="approve" id="approve" placeholder="Enter Approver Name" class="w-1/2"
-                                v-model="approveFilter">
-                        </div>
+
 
                         <!-- Submitted On Date Input -->
                         <div v-if="isDateInputOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
@@ -581,6 +543,7 @@ const clearResult = () => {
                                 <td class="before:hidden lg:w-1 whitespace-nowrap">
                                     <BaseButtons type="justify-start lg:justify-end" no-wrap>
                                         <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
+                                        <BaseButton color="success" outline small label="Approve" />
                                         <BaseButton color="info" :icon="mdiPen" small @click="isModalDangerActive = true" />
                                     </BaseButtons>
                                 </td>

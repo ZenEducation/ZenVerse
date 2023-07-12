@@ -19,7 +19,6 @@ const statusFilter = ref('')
 const categoryFilter = ref('');
 const typeFilter = ref('');
 const dateFilter = ref('');
-const assignedToFilter = ref('');
 const publishedFilter = ref('');
 
 const onDate = ref('');
@@ -191,7 +190,6 @@ const checkedRows = ref([]);
 const isStatusDropdownOpen = ref(false);
 const isCategoryDropdownOpen = ref(false);
 const isTypeDropdownOpen = ref(false);
-const isAssignedSearch = ref(false);
 const isPublishedDropdown = ref(false)
 const isDateInputOpen = ref(false);
 
@@ -199,12 +197,10 @@ const toggleStatusDropdown = () => {
     isStatusDropdownOpen.value = !isStatusDropdownOpen.value;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isAssignedSearch.value = false;
     isPublishedDropdown.value = false;
     isDateInputOpen.value = false;
     categoryFilter.value = ""
     typeFilter.value = ""
-    assignedToFilter.value = ""
     publishedFilter.value = ""
     dateFilter.value = ""
 };
@@ -213,12 +209,10 @@ const toggleCategoryDropdown = () => {
     isCategoryDropdownOpen.value = !isCategoryDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isAssignedSearch.value = false;
     isPublishedDropdown.value = false;
     isDateInputOpen.value = false;
     statusFilter.value = "";
     typeFilter.value = "";
-    assignedToFilter.value = ""
     publishedFilter.value = ""
     dateFilter.value = ""
 };
@@ -227,41 +221,25 @@ const toggleTypeDropdown = () => {
     isTypeDropdownOpen.value = !isTypeDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
-    isAssignedSearch.value = false
     isPublishedDropdown.value = false
     isDateInputOpen.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
-    assignedToFilter.value = ""
     publishedFilter.value = ""
     dateFilter.value = ""
 };
 
-const toggleAssignedSearch = () => {
-    isAssignedSearch.value = !isAssignedSearch.value;
-    isStatusDropdownOpen.value = false;
-    isCategoryDropdownOpen.value = false;
-    isTypeDropdownOpen.value = false;
-    isPublishedDropdown.value = false;
-    isDateInputOpen.value = false;
-    statusFilter.value = ""
-    categoryFilter.value = ""
-    typeFilter.value = ""
-    publishedFilter.value = ""
-    dateFilter.value = ""
-};
+
 
 const togglePublishedInput = () => {
     isPublishedDropdown.value = !isPublishedDropdown.value
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isAssignedSearch.value = false;
     isDateInputOpen.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
-    assignedToFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -270,12 +248,10 @@ const toggleDateInput = () => {
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isAssignedSearch.value = false;
     isPublishedDropdown.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
-    assignedToFilter.value = ""
     publishedFilter.value = ""
 
 
@@ -290,7 +266,6 @@ const itemsPaginated = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
-    const trimmedAssignedToFilter = assignedToFilter.value.trim().toLowerCase();
     const trimmedPublishedFilter = publishedFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
@@ -301,7 +276,8 @@ const itemsPaginated = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().startsWith(trimmedSearchQuery) ||
-                item.title.toLowerCase().startsWith(trimmedSearchQuery)
+                item.title.toLowerCase().startsWith(trimmedSearchQuery) ||
+                item.assigned_to.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -323,13 +299,6 @@ const itemsPaginated = computed(() => {
     if (trimmedTypeFilter.length > 0) {
         filteredItems = filteredItems.filter((item) =>
             item.type.toLowerCase().includes(trimmedTypeFilter)
-        );
-    }
-
-    // Apply Approval Filter
-    if (trimmedAssignedToFilter.length > 0) {
-        filteredItems = filteredItems.filter((item) =>
-            item.assigned_to.toLowerCase().startsWith(trimmedAssignedToFilter)
         );
     }
 
@@ -384,7 +353,6 @@ const numPages = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
-    const trimmedAssignedToFilter = assignedToFilter.value.trim().toLowerCase();
     const trimmedPublishedFilter = publishedFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
@@ -395,7 +363,8 @@ const numPages = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.assigned_to.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -417,13 +386,6 @@ const numPages = computed(() => {
     if (trimmedTypeFilter.length > 0) {
         filteredItems = filteredItems.filter((item) =>
             item.type.toLowerCase().includes(trimmedTypeFilter)
-        );
-    }
-
-    // Apply Assigned Filter
-    if (trimmedAssignedToFilter.length > 0) {
-        filteredItems = filteredItems.filter((item) =>
-            item.assigned_to.toLowerCase().includes(trimmedAssignedToFilter)
         );
     }
 
@@ -500,7 +462,6 @@ const clearResult = () => {
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
-    assignedToFilter.value = ""
     publishedFilter.value = ""
     dateFilter.value = ""
     onDate.value = ""
@@ -511,7 +472,6 @@ const clearResult = () => {
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
-    isAssignedSearch.value = false;
     isPublishedDropdown.value = false;
     isDateInputOpen.value = false;
 }
@@ -528,7 +488,8 @@ const clearResult = () => {
                 </SectionTitleLineWithButton>
                 <CardBox class="mb-6 g:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
                     <PremFormField horizontal>
-                        <PremFormControl v-model="searchquery" :icon="mdiMagnify" placeholder="Search by Title or ID" />
+                        <PremFormControl v-model="searchquery" :icon="mdiMagnify"
+                            placeholder="Search by Title or ID or Assigned Name" />
                     </PremFormField>
                     <PremFormField label="Filter By:" horizontal>
 
@@ -541,9 +502,6 @@ const clearResult = () => {
 
                             <BaseButton label="Type" color="info" class="   text-white font-bold py-2 px-4 rounded " outline
                                 small @click="toggleTypeDropdown" :active="isTypeDropdownOpen" />
-
-                            <BaseButton label="Assigned To" color="info" class="   text-white font-bold py-2 px-4 rounded "
-                                outline small @click="toggleAssignedSearch" :active="isAssignedSearch" />
 
                             <BaseButton label="Published" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="togglePublishedInput" :active="isPublishedDropdown" />
@@ -586,12 +544,6 @@ const clearResult = () => {
                                 <option value="online">Online</option>
 
                             </select>
-                        </div>
-
-                        <!-- Approve Input -->
-                        <div v-if="isAssignedSearch" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
-                            <input type="text" name="approve" id="approve" placeholder="Enter Approver Name" class="w-1/2"
-                                v-model="assignedToFilter">
                         </div>
 
                         <!-- Published Dropdown -->

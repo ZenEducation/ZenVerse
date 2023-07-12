@@ -10,7 +10,7 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import ArticlesList from "@/components/helpKnowledgeAndDocs/ArticlesList.vue";
+import ArticlesList from "@/components/HelpKnowledgeAndDocs/ArticlesList.vue";
 import { sampleArticlesByCategory } from "@/configs/helpKnowledgeAndDocs/sampleArticles.js";
 const articles = ref(sampleArticlesByCategory);
 </script>

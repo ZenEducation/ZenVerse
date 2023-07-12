@@ -10,5 +10,5 @@
 
 <script setup>
 import SectionMain from "@/components/Sections/SectionMain.vue";
-import NewCategoryForm from "@/components/helpKnowledgeAndDocs/NewCategoryForm.vue";
+import NewCategoryForm from "@/components/HelpKnowledgeAndDocs/NewCategoryForm.vue";
 </script>

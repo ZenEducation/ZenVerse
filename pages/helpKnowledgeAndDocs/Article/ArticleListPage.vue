@@ -77,8 +77,8 @@ import BaseButton from '@/components/Buttons/BaseButton.vue';
 import BaseButtons from '@/components/Buttons/BaseButtons.vue';
 import CardBox from "@/components/Cards/CardBox.vue";
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
-import CategoriesTable from "@/components/helpKnowledgeAndDocs/CategoriesTable.vue";
-import ArticlesTab from "@/components/helpKnowledgeAndDocs/ArticlesTab.vue"
+import CategoriesTable from "@/components/HelpKnowledgeAndDocs/CategoriesTable.vue";
+import ArticlesTab from "@/components/HelpKnowledgeAndDocs/ArticlesTab.vue"
 </script>
 
 <script>

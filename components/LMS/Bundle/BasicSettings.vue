@@ -7,7 +7,7 @@ import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
 
-import image from '@/assets/img/bundleImage.png'
+import image from '@/assets/img/bundleimage.png'
 
 const profileInput = ref(null);
     const profilePreview = ref(image);

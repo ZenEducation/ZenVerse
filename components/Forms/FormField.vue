@@ -15,9 +15,9 @@ defineProps({
     type: String,
     default: null,
   },
-  route : {
+  route: {
     type: Object,
-    default: null 
+    default: null
   }
 });
 
@@ -27,20 +27,20 @@ const wrapperClass = computed(() => {
   const base = [];
   const slotsLength = slots.default().length;
 
-  if (slotsLength > 1) {
-    base.push("grid grid-cols-1 gap-3");
-  }
+  // if (slotsLength > 1) {
+  //   base.push("grid grid-cols-1 gap-3");
+  // }
 
-  if (slotsLength === 2) {
-    base.push("md:grid-cols-2");
-  }
+  // if (slotsLength === 2) {
+  //   base.push("md:grid-cols-2");
+  // }
 
   return base;
 });
 </script>
 
 <template>
-  <div class="mb-6 last:mb-0">
+  <div class="last:mb-0">
     <label v-if="label" :for="labelFor" class="block font-bold mb-2">{{
       label
     }}</label>
@@ -50,7 +50,7 @@ const wrapperClass = computed(() => {
     <div v-if="help" class="text-xs text-gray-500 dark:text-slate-400 mt-1">
       {{ help }}
     </div>
-    <NuxtLink class="underline text-blue-700 text-xs"  :to="route.to"  v-if="route">
+    <NuxtLink class="underline text-blue-700 text-xs" :to="route.to" v-if="route">
       {{ route.title }}
     </NuxtLink>
   </div>

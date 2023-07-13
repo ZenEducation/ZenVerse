@@ -8,7 +8,7 @@ import { onMounted,computed } from 'vue';
 // import pdfMake from "pdfmake/build/pdfmake";
 import {pdfViewerStore} from "~/stores/lmsLearnerDisplay.js"
 const allPdfData = pdfViewerStore()
-import pdfView from "../../components/LMS/PdfView.vue"
+import pdfView from "../../components/LMS/PdfView1.vue"
 import audioView from "../../components/LMS/AudioView.vue"
 import videoView from "../../components/LMS/VideoView.vue"
 import RichTextView from "../../components/LMS/RichTextView.vue"

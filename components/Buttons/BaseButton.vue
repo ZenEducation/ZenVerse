@@ -35,7 +35,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "white",
+    default: "",
   },
   as: {
     type: String,
@@ -86,7 +86,7 @@ const componentClass = computed(() => {
     "transition-colors",
     "focus:ring",
     "duration-150",
-    "border",
+
     props.disabled ? "cursor-not-allowed" : "cursor-pointer",
     props.roundedFull ? "rounded-full" : "rounded",
     getButtonColor(props.color, props.outline, !props.disabled, props.active),

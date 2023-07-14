@@ -48,7 +48,7 @@
 <script setup>
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
-import image from '@/assets/img/bundleImage.png'
+import image from '@/assets/img/BundleImage.png'
 import { mdiDotsGrid, mdiDotsVertical } from "@mdi/js";
 
 const list = ref([

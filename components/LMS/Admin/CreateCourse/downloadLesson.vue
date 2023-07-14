@@ -8,7 +8,7 @@ import {
   mdiDragVertical,
   mdiTrashCanOutline,
 } from "@mdi/js";
- 
+
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
@@ -19,6 +19,9 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
+import QuilEditor from "@/components/LMS/QuilEditor.vue";
+import { createCourse } from "~~/stores/createCourse";
+const courseStore = createCourse();
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -30,18 +33,28 @@ const header = computed(() => {
   if (inputValue.value) {
     return `${inputValue.value}`;
   } else {
-    return "New Video Lesson";
+    return "New Downloadable Lesson";
   }
 });
 
 const inputValue = ref("");
+const contentValue = ref("")
 
+const saveData = ()=>{
+    const data = {
+        id:1,
+        name:inputValue.value,
+        icon:"mdiDownload",
+        type:"Download"
+    }
+  courseStore.addLessonsOnChapters(data)
+
+}
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -49,16 +62,18 @@ const inputValue = ref("");
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+         
+           color="info"
+         
+            outline
+            class="mr-1"
           />
           <BaseButton
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+           
+            color="info"
+             class="ml-1"
+           @click="saveData"
           />
         </SeclectionMultipleButton>
 
@@ -76,26 +91,18 @@ const inputValue = ref("");
                 help="Title"
               />
             </PremFormField>
-            <PremFormField label="Text description" horizontal>
-              <FormUploadFiles
-                
-                :icon-left="mdiAccount"
-                help="Text"
-              />
+            <PremFormField label="Content" horizontal>
+              <QuilEditor/>
             </PremFormField>
 
-
-            <PremFormField label="Videos from your library" horizontal>
-              <FormUploadFiles :options="selectFieldOptions" />
-            </PremFormField>
-            <PremFormField label="Upload a video file" horizontal>
+            <PremFormField label="Upload a file" horizontal>
               <Uploadtext
-              download
-              downloadlist
+                downloadlist
+                video
                 :icon="mdiDragVertical"
                 :iconRight="mdiTrashCanOutline"
-                dragText = "Drag & Drop Video files here"
-                footer = "footerText"
+                dragText="Drag & Drop files here"
+                footer="footerText"
                 :icon-left="mdiAccount"
                 help="Upload a video file"
                 placeholder="Upload a video file"
@@ -103,7 +110,6 @@ const inputValue = ref("");
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+   
   </div>
 </template>

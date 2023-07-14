@@ -1,5 +1,6 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { createCourse } from "~~/stores/createCourse";
+import { ref, reactive,computed } from "vue";
 import {
   mdiBallot,
   mdiAccount,
@@ -7,6 +8,7 @@ import {
   mdiFileUploadOutline,
   mdiDragVertical,
   mdiTrashCanOutline,
+  mdiFilePdfBox
 } from "@mdi/js";
 
 import SectionMain from "@/components/Sections/SectionMain.vue";
@@ -19,7 +21,13 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
-import QuilEditor from "@/components/LMS/QuilEditor.vue";
+const inputValue = ref("");
+const contentValue = ref("")
+const courseStore = createCourse();
+const currentChapter = computed(()=>{
+    return courseStore.currentChapterItem
+})
+const allChaptersData = reactive(courseStore.allChapters)
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -31,18 +39,27 @@ const header = computed(() => {
   if (inputValue.value) {
     return `${inputValue.value}`;
   } else {
-    return "New Downloadable Lesson";
+    return "New PPT Lesson";
   }
 });
+const exportppt = () => {
+  console.log('test')
+  const item={
+    id: 1,
+    name:inputValue.value,
+    icon:"mdiPresentationPlay",
+    type:"Presentation"
+  }
+  courseStore.addLessonsOnChapters(item)
+}
 
-const inputValue = ref("");
-const contentValue = ref("")
+
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -50,16 +67,17 @@ const contentValue = ref("")
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+            class="mr-1"
+            color="info"
+            outline
+          
           />
           <BaseButton
+          @click = "exportppt()"
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+            color="info"
+            class="ml-1"
+         
           />
         </SeclectionMultipleButton>
 
@@ -77,26 +95,22 @@ const contentValue = ref("")
                 help="Title"
               />
             </PremFormField>
-            <PremFormField label="Content" horizontal>
-              <QuilEditor/>
-            </PremFormField>
-
+           
             <PremFormField label="Upload a file" horizontal>
               <Uploadtext
                 downloadlist
-                video
+                pdffile
                 :icon="mdiDragVertical"
                 :iconRight="mdiTrashCanOutline"
-                dragText="Drag & Drop files here"
+                dragText="Drag & drop PPT file here"
                 footer="footerText"
                 :icon-left="mdiAccount"
-                help="Upload a video file"
-                placeholder="Upload a video file"
+                help="Upload a ppt file"
+                placeholder="Upload a ppt file"
               />
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+
   </div>
 </template>

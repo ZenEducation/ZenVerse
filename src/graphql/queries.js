@@ -1,50 +1,81 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getArticle = /* GraphQL */ `
-  query GetArticle($id: ID!) {
-    getArticle(id: $id) {
+export const getCategory = /* GraphQL */ `
+  query GetCategory($id: ID!) {
+    getCategory(id: $id) {
       id
-      slug
-      title
-      content
-      status
-      visibility
-      category
+      name
+      description
       language
-      metaDescription
-      imageUrl
-      likes
-      dislikes
-      updatedAt
+      level
+      slug
       createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
     }
   }
 `;
-export const listArticles = /* GraphQL */ `
-  query ListArticles(
-    $filter: ModelArticleFilterInput
+export const listCategories = /* GraphQL */ `
+  query ListCategories(
+    $filter: ModelCategoryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listArticles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        slug
-        title
-        content
-        status
-        visibility
-        category
+        name
+        description
         language
-        metaDescription
-        imageUrl
-        likes
-        dislikes
-        updatedAt
+        level
+        slug
         createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
       }
       nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const syncCategories = /* GraphQL */ `
+  query SyncCategories(
+    $filter: ModelCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCategories(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        description
+        language
+        level
+        slug
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
     }
   }
 `;

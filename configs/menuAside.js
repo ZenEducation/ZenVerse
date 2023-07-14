@@ -13,6 +13,7 @@ import {
   mdiOpenInNew,
   mdiFormDropdown,
   mdiBallot,
+  mdiBookOpenPageVariantOutline,
   mdiViewQuilt,
   mdiMessage,
   mdiFastForwardOutline,
@@ -41,6 +42,12 @@ export default [
     to: "/pps/FormsView",
     label: "Forms Advanced",
     icon: mdiBallot,
+  },
+
+  {
+    to: "/helpKnowledgeAndDocs",
+    label: "Help Knowledge & Docs",
+    icon: mdiBookOpenPageVariantOutline,
   },
 
   {

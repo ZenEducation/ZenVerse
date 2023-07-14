@@ -56,22 +56,12 @@ const clientBarItems = ref([
 ]);
 </script>
 <template>
-  <SectionTitleLineWithButton
-    :icon="mdiChartTimelineVariant"
-    :title="title"
-    :hasSlot="w"
-    main
-  >
-  &nbsp;  
+  <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" :title="title" :hasSlot="w" main>
+    &nbsp;
   </SectionTitleLineWithButton>
   <div class="flex flex-wrap gap-4 justify-between">
     <div v-for="client in clientBarItems" class="lg:basis-96 grow md:basis-full">
-      <CardBoxClient
-        :key="client.id"
-        :name="client.name"
-        :progress="client.progress"
-      />
+      <CardBoxClient :key="client.id" :name="client.name" :progress="client.progress" />
     </div>
   </div>
-
 </template>

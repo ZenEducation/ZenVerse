@@ -1,72 +1,66 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createArticle = /* GraphQL */ `
-  mutation CreateArticle(
-    $input: CreateArticleInput!
-    $condition: ModelArticleConditionInput
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
   ) {
-    createArticle(input: $input, condition: $condition) {
+    createCategory(input: $input, condition: $condition) {
       id
-      slug
-      title
-      content
-      status
-      visibility
-      category
+      name
+      description
       language
-      metaDescription
-      imageUrl
-      likes
-      dislikes
-      updatedAt
+      level
+      slug
       createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
     }
   }
 `;
-export const updateArticle = /* GraphQL */ `
-  mutation UpdateArticle(
-    $input: UpdateArticleInput!
-    $condition: ModelArticleConditionInput
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
   ) {
-    updateArticle(input: $input, condition: $condition) {
+    updateCategory(input: $input, condition: $condition) {
       id
-      slug
-      title
-      content
-      status
-      visibility
-      category
+      name
+      description
       language
-      metaDescription
-      imageUrl
-      likes
-      dislikes
-      updatedAt
+      level
+      slug
       createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
     }
   }
 `;
-export const deleteArticle = /* GraphQL */ `
-  mutation DeleteArticle(
-    $input: DeleteArticleInput!
-    $condition: ModelArticleConditionInput
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
   ) {
-    deleteArticle(input: $input, condition: $condition) {
+    deleteCategory(input: $input, condition: $condition) {
       id
-      slug
-      title
-      content
-      status
-      visibility
-      category
+      name
+      description
       language
-      metaDescription
-      imageUrl
-      likes
-      dislikes
-      updatedAt
+      level
+      slug
       createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
     }
   }
 `;

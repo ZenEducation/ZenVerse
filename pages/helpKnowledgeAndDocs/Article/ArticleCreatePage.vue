@@ -5,42 +5,30 @@
         <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
           <!-- control sidebar -->
           <CardBox has-table class="md:col-span-1 p-2 text-sm rounded-sm">
-              <NuxtLink to="ArticleListPage">
-                  <button class="flex items-center mb-5" >
-                    <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer"/>
-                    <p>Back</p>
-                  </button>
-              </NuxtLink>
-              
-              <BaseButtons>
-                <BaseButton label="Save Draft" color="contrast" small />
-                <BaseButton
-                  label="Publish"
-                  color="contrast"
-                  small
-                  @click="publishData"
-                />
-              </BaseButtons>
+            <NuxtLink to="ArticleListPage">
+              <button class="flex items-center mb-5">
+                <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer" />
+                <p>Back</p>
+              </button>
+            </NuxtLink>
+
+            <BaseButtons>
+              <BaseButton label="Save Draft" color="contrast" small />
+              <BaseButton label="Publish" color="contrast" small @click="publishData" />
+            </BaseButtons>
 
             <CardBox has-table class="p-2 mt-6 rounded-sm">
               <ul class="grid grid-cols-2 mb-6">
-                <li
-                  @click="document"
-                  id="document"
-                  class="articleChangeBtn hover:activeArticleChangeBtn"
-                >
+                <li @click="document" id="document" class="articleChangeBtn hover:activeArticleChangeBtn">
                   Document
                 </li>
-                <li
-                  @click="block"
-                  class="articleChangeBtn hover:activeArticleChangeBtn"
-                >
+                <li @click="block" class="articleChangeBtn hover:activeArticleChangeBtn">
                   Block
                 </li>
               </ul>
 
               <div>
-                <Document v-if="activeTab === 'document'" ref="documentComp" @value="getValue" />
+                <Document v-if="activeTab === 'document'" ref="documentComp" @value="getValueDoc" />
                 <Block v-if="activeTab === 'block'" />
               </div>
             </CardBox>
@@ -66,7 +54,6 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
-import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
 import Document from "@/components/HelpKnowledgeAndDocs/Document.vue";
 import Block from "@/components/HelpKnowledgeAndDocs/Block.vue";
 import ArticleEditor from "@/components/HelpKnowledgeAndDocs/ArticleEditor.vue";
@@ -82,6 +69,7 @@ export default {
       year: '',
       month: '',
       day: '',
+      documentComp: {},
     };
   },
 
@@ -99,12 +87,18 @@ export default {
       this.content = value
     },
 
-    publishData(){
-      // console.log(this.$refs.documentComp.docForm, "----------> documentcomp");
-      // console.log(this.$refs.content, "-----------> content");
-      const data = {...this.$refs.documentComp.docForm, year: this.year, month: this.month, day: this.day, content: this.content}
-      console.log(data,'---------> All data')
-      localStorage.setItem('content',JSON.stringify(data, null, 2))
+    getValueDoc(value) {
+      console.log('--------``-> valueDoc', value)
+      this.documentComp = value
+    },
+
+    publishData() {
+      console.log(this.documentComp, "----------> documentcomp");
+      console.log(this.content, "-----------> content");
+      const data = { ...this.$refs.documentComp.docForm, year: this.year, month: this.month, day: this.day, content: this.content }
+      // console.log(data,'---------> All data')
+      // localStorage.setItem('content',JSON.stringify(data, null, 2))
+      console.log(localStorage.getItem('content'))
       this.$router.push('./ViewArticle')
     },
   },

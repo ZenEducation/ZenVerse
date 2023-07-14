@@ -9,7 +9,7 @@ import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue"
 import { mdiOpenInNew, mdiPlay, mdiFormatListBulleted, mdiGrid } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import image from "@/assets/img/bundleImage.png";
+import image from "@/assets/img/BundleImage.png";
 
 const items = ref([
   {

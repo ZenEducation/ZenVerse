@@ -3,7 +3,7 @@
     <NuxtLayout name="lmsstudent">
       <div class="w-full h-24 flex mt-2 border-b">
         <div class="h-full max-w-max inline-block max-sm:hidden">
-          <img src="@/assets/img/bundleImage.png" class="h-full" alt="" />
+          <img src="@/assets/img/BundleImage.png" class="h-full" alt="" />
         </div>
         <div class="w-full lg:pr-10 px-4 h-full">
           <div class="flex justify-between h-full items-center">
@@ -97,7 +97,7 @@ import {
 } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import image from "@/assets/img/bundleImage.png";
+import image from "@/assets/img/BundleImage.png";
 import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([

@@ -39,7 +39,7 @@ import {
 import { mdiGrid, mdiFormatListBulleted } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import image from "@/assets/img/bundleImage.png";
+import image from "@/assets/img/BundleImage.png";
 import { useLayoutStore } from "@/stores/layout.js";
 </script>
 

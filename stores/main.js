@@ -58,6 +58,62 @@ const state = () => ({
       material: "wood",
       price: "20.99"
     },
+  ],
+  created:[
+    {
+      id:1213, 
+      title: "Summer Batch", 
+      sub:"Link: https://something.com/",
+      type: "Video", 
+      category: "JEE Coaching", 
+      status: "Creator Approval Pending", 
+      submitted: "Mar 3 2021"
+    },
+    {
+      id:1214, 
+      title: "Diwali Offer", 
+      avatar:'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+      type: "Graphics", 
+      category: "NEET Coaching", 
+      status: "Corrections Needed", 
+      submitted: "Dec 1 2021"
+    },
+    {
+      id:1215, 
+      title: "Winter Batch", 
+      sub:"Hello, Everyone!! ",
+      type: "Text", 
+      category: "NEET Coaching", 
+      status: "Final Approval Pending", 
+      submitted: "May 18 2021"
+    },
+    {
+      id:1216, 
+      title: "Summer Batch", 
+      sub:"Link: https://something.com/",
+      type: "Video", 
+      category: "JEE Coaching", 
+      status: "Creator Approval Pending", 
+      submitted: "May 4 2021"
+    },
+    {
+      id:1217, 
+      title: "Summer Batch", 
+      sub:"Link: https://something.com/",
+      type: "Video", 
+      category: "JEE Coaching", 
+      status: "Creator Approval Pending", 
+      submitted: "Mar 3 2021"
+    },
+    {
+      id:1218, 
+      title: "Summer Batch", 
+      sub:"Link: https://something.com/",
+      type: "Video", 
+      category: "JEE Coaching", 
+      status: "Creator Approval Pending", 
+      submitted: "Mar 3 2021"
+    },
   ]
 });
 

@@ -62,10 +62,7 @@ import Editor from "@/components/CMS/Editor.vue";
             </PremFormField>
 
               <PremFormField label="Status">
-                <PremFormControl v-model=text placeholder="Initial Approval Pending">
-                </PremFormControl>
-                
-
+                  <input class="p-2 border-2 border-black dark:bg-gray-700" v-model=text placeholder="Initial Approval Pending" readonly/>
               </PremFormField>
 
             <PremFormField label="Role :">

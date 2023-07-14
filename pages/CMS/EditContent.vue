@@ -7,6 +7,8 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import { mdiFileEdit } from "@mdi/js";
 import PremFormField from "~~/components/Forms/FormField.vue";
 import PremFormControl from "~~/components/Forms/FormControl.vue";
+import RichTextEditor from "~~/components/CMS/RichTextEditor.vue"
+
 
 
 const typeVal = reactive([
@@ -36,19 +38,21 @@ const statusLabel = computed(() => {
     return "Select Role";
 });
 
+const categoryText = ref("")
 const messageText = ref("")
 const previewText = ref("This is the preview Text")
 
-const categoryText = ref("")
+
 
 watch(messageText, (newVal) => {
     if (newVal) {
-        previewText.value = newVal;
+        const parser = new DOMParser();
+        const text = parser.parseFromString(newVal, "text/html").documentElement.textContent;
+        previewText.value = text;
     } else {
-
-        previewText.value = "This is the preview Text"
+        previewText.value = "This is the preview Text";
     }
-})
+});
 
 const titleText = ref('');
 const feedbackText = ref('');
@@ -70,7 +74,7 @@ console.log(myFile.value);
 console.log(previewFileUrl);
 
 
-const imageLink = ref("https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80")
+
 const reviews = ref([]);
 
 const saveReview = () => {
@@ -111,6 +115,7 @@ const uploadFile = (event) => {
     event.preventDefault();
 
 }
+const editorContent = ref("");
 
 
 
@@ -188,7 +193,8 @@ const uploadFile = (event) => {
 
                             </div>
 
-                            <PremFormControl type="textarea" v-model="messageText" placeholder="Enter Message" />
+                            <!-- <PremFormControl type="textarea" v-model="messageText" placeholder="Enter Message" /> -->
+                            <RichTextEditor v-model:modelValue="messageText" />
                             <PremFormField label="URL:" horizontal>
                                 <PremFormField horizontal>
                                     <PremFormControl v-model="myUrl" placeholder="Enter URL" />

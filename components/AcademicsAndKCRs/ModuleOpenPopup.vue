@@ -2,7 +2,7 @@
   <div
     class="fixed popupContainer text-center h-full w-full flex justify-center items-center"
   >
-    <div class="w-5/12 h-fit bg-white dark:bg-slate-900 text-left px-5">
+    <div class="w-12/12 sm:w-5/12  h-fit bg-white dark:bg-slate-900 text-left px-5 rounded">
       <div class="text-right pt-4">
         <BaseIcon
           :path="mdiCloseThick"
@@ -100,8 +100,8 @@
       </div>
 
       <div class="mt-5 mb-5">
-        <div class="">Commands :</div>
-        <div class="mt-3" v-for="(cmd,idx) in comments" :key="idx" >{{ idx+1 }}. {{ cmd }}</div>
+        <div class="mb-3">Commands :</div>
+        <div class="mt-1 py-2 px-3 bg-gray-200 dark:bg-slate-800 shadow rounded" v-for="(cmd,idx) in comments" :key="idx" > {{ cmd }}</div>
      
       </div>
     </div>
@@ -182,8 +182,8 @@ const comment=ref(null)
 const comments = ref(['Sample comments'])
 
 const addCommands=()=>{
-  comments.value.push(comment.value)
-  console.log(comment.value)
+  comments.value.unshift(comment.value)
+  comment.value=null
 }
 
 </script>

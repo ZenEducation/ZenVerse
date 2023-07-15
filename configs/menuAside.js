@@ -6,6 +6,7 @@ import {
   mdiSquareEditOutline,
   mdiTable,
   mdiMenuOpen,
+  mdiPublish ,
   mdiTelevisionGuide,
   mdiBarcode,
   mdiPalette,
@@ -15,6 +16,7 @@ import {
   mdiBallot,
   mdiViewQuilt,
   mdiMessage,
+  mdiAccountCheck,
   mdiFastForwardOutline,
   mdiBook,
 } from "@mdi/js";
@@ -84,6 +86,11 @@ export default [
     to: "/auth/register",
     label: "Register",
     icon: mdiSquareEditOutline,
+  },
+  {
+    to: "/CMS/publish",
+    label: "publish",
+    icon: mdiPublish ,
   },
   {
     // Key should be unique for each submenus object

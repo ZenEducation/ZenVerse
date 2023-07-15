@@ -307,86 +307,14 @@ const previewMenu = {
           <Curriculum v-if="layoutStore.currAsideMenu === 'Curriculum'" />
           <BulkImporter v-if="layoutStore.currAsideMenu === 'Bulk importer'" />
           <Settings v-if="layoutStore.currAsideMenu === 'Settings'" />
-          <Drip v-if="layoutStore.currAsideMenu === 'Drip'"  driptype="Drip type" />
+          <Drip v-if="layoutStore.currAsideMenu === 'Drip'"  />
           <Pricing v-if="layoutStore.currAsideMenu === 'Pricing'" />
           <Publish v-if="layoutStore.currAsideMenu === 'Publish'" />
         </div>
 
    
 
-        <div
-          v-if="layoutStore.currAsideMenu === 'Settings'"
-          class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-6"
-        >
-          <CardBox class="lg:col-span-3 xl:col-span-2">
-            <div
-              class="py-3 xl text-gray-500"
-              v-for="(item, index) in mainStore.settingOptions"
-              :key="index"
-              @click="triggerEvent(item.name)"
-            >
-              <b class="cursor-pointer hover:underline">{{ item.name }}</b>
-            </div>
-          </CardBox>
-          <CardBox
-            v-if="isSettings"
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-          >
-            <div class="grid grid-cols-1 mb-6 lg:grid-cols-2 gap-3">
-              <div class="text-3xl mb-4">Course image & description</div>
-              <div class="flex lg:justify-end">
-                <BaseButton label="Save" type="submit" color="info" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 mb-8">
-              <CourseImgAndDescription
-                :heading="courseDetails[0].heading"
-                :description="courseDetails[0].description"
-              />
-              <div class="flex flex-col lg:justify-end">
-                <div class="flex mb-3 lg:justify-end">
-                  <input
-                    type="file"
-                    ref="fileInput"
-                    style="display: none"
-                    @change="uploadImage"
-                  />
-                  <img
-                    style="width: 200px; height: auto"
-                    :src="course.file"
-                    @click="$refs.fileInput.click()"
-                  />
-                </div>
-                <div class="flex lg:justify-end">
-                  <BaseButton
-                    @click="deleteImg()"
-                    label="Delete"
-                    :color="buttonColor"
-                    :icon="mdiDelete"
-                  />
-                </div>
-                <div class="flex my-3 lg:justify-end">
-                  <span>{{ course.errMessage }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-col-1 lg:grid-cols-2 mb-8">
-              <CourseImgAndDescription
-                :heading="courseDetails[1].heading"
-                :description="courseDetails[1].description"
-              />
-            </div>
-            <div>
-              <PremFormControl
-                error
-                type="textarea"
-                placeholder="Course description"
-              />
-            </div>
-          </CardBox>
-        </div>
+      
       </SectionMain>
     </NuxtLayout>
   </div>

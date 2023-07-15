@@ -6,6 +6,26 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
+import { createCourse } from "~~/stores/createCourse";
+import BaseIcon from "@/components/Display/BaseIcon.vue";
+import {
+  mdiChevronUp,
+  mdiAccountMultipleOutline
+
+} from "@mdi/js";
+const courseStore = createCourse();
+let allChapters = courseStore.allChapters;
+let filterItems= courseStore.allChapters;
+const tab= ref("dripTpe")
+
+const currentTab=(item)=>{
+     
+  tab.value=item 
+  console.log(item)
+  // allChapters.value.filter((data)=>data.name==item)
+  filterItems = allChapters.filter((data)=>data.name==item)
+}
+
 
 const dripOptions = [
   {
@@ -53,24 +73,60 @@ const props = defineProps({
     default: null,
   },
 })
+
+const dripTypeItem = ref("first")
+
+const getDripType=(item)=>{
+  dripTypeItem.value=item
+}
+const saveData=()=>{
+
+  // other codes
+
+  // go first
+  getDripType("first")
+}
+
+
+
+
+
+
 </script>
 
 <template>
-  <div class="">
-  
-        <div class="grid grid-cols-1 xl:grid-cols-1 lg:ml-6"> 
-          <CardBox v-if="driptype=='Drip type'"
+{{ tab }}
+  <div class="grid grid-cols-6 gap-1 mb-6 xl:grid-cols-6" v-if="dripTypeItem=='schedule'">
+    <CardBox class="lg:col-span-2 xl:col-span-2 overflow-y-auto" >
+      <div class="opacity-70 cursor-pointer mb-3"    :class="[{active_calss:tab=='dripTpe'}]"
+     
+      @click="currentTab('dripTpe')"
+      >
+        Drip Type
+      </div>
+      <div class="opacity-70 cursor-pointer mb-3"    
+      v-for="(data,idx) in allChapters"
+      :key="idx"
+      @click="currentTab(data.name)"
+      :class="[{active_calss:tab==data.name}]"
+      >
+        {{ data.name }}
+      </div>
+    </CardBox>
+        <div class=" lg:mb-0 lg:col-span-4 xl:col-span-4"> 
+          <CardBox 
             class="mb-6 lg:mb-0 lg:col-span-1 xl:col-span-3"
             is-form
-            @submit.prevent="submit"
+            v-if="tab=='dripTpe'"
           >
             <div class="flex justify-between">
                 <h1 class="text-3xl">Dripping Schedule</h1>
                 <BaseButton
                   type="submit"
-                  to="/dashboard"
+             
                   color="info"
                   label="SAVE"
+                  @click="saveData"
                 />
               </div>
               <BaseDivider />
@@ -120,26 +176,51 @@ const props = defineProps({
 
           </CardBox>
           
-          <div v-for="(chapter,idx) in chapterList" :key="idx">
-          <template v-if="chapter.title === props.driptype">
+          <div v-for="(chapter,idx) in filterItems" :key="idx"  class="" 
+          
+          
+          
+          >
+          <!-- <template v-if="chapter.title === props.driptype"> -->
+
+       
           <CardBox
-          class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
+          class=" lg:mb-0 lg:col-span-2 xl:col-span-3"
           is-form
           @submit.prevent="submit"
           v-if="isDrip"
         >
-          <CardBoxComponentTitle :title="chapter.title" class="mb-12" />
+     
+        <div class="flex justify-between aligns-center">
+          <div class="my-auto text-3xl ">
+            Drip Lesson Schedule
+          </div>
+          <div class="">
+            <BaseButton
+                  type="submit"
+             
+                  color="info"
+                  label="SAVE CHAPTERS"
+               
+                />
+          </div>
+
+        </div>
+
+          <CardBoxComponentTitle :title="chapter.name" class="mb-12 mt-5 text-xl" />
 
 
             <BaseDivider />
-            <div class="" v-if="dripSelected !== 'On Specific Date'">
+            <!-- <div class="" v-if="dripSelected !== 'On Specific Date'"> -->
+
+            <div class="" >
             <template
               
-              v-for="(i,idx) in chapter.lessonList"
+              v-for="(i,idx) in chapter.lessons"
              :key="idx"
               >
               <b
-                ><h4>{{ i.label }}</h4></b
+                ><h4>{{ i.name }}</h4></b
               >
               <div
                 class="flex h-auto flex-wrap gap-2 max-md:grid-cols-2 items-center"
@@ -157,14 +238,16 @@ const props = defineProps({
               <BaseDivider />
             </template>
           </div>
-          <div class=""   v-if="dripSelected === 'On Specific Date'">
+          <!-- <div class=""   v-if="dripSelected === 'On Specific Date'"> -->
+
+          <div class=""   >
             <template
             
-              v-for="(i,idx) in chapter.lessonList"
+              v-for="(i,idx) in chapter.lessons"
               :key="idx"
             >
               <b
-                ><h4>{{ i.label }}</h4></b
+                ><h4>{{ i.name }}</h4></b
               >
               <div
                 class="flex h-auto flex-wrap gap-2 max-md:grid-cols-2 items-center"
@@ -186,8 +269,31 @@ const props = defineProps({
             </template>
           </div>
         </CardBox>
-        </template>
+     
         </div>
         </div>
   </div>
+
+  <div class="w-full h-screen  flex aligns-center justify-center" v-if="dripTypeItem=='first'">
+    <div class="text-center my-auto">
+      <BaseIcon :path="mdiAccountMultipleOutline" :size="60" w="60" h="60" class="text-gray-400" />
+      <div class="w-6/12 mx-auto">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, distinctio soluta nobis, animi dolores 
+      </div>
+      <BaseButton
+                  type="submit"
+                  class="mt-5"
+                  color="info"
+                  label="CREATE SCHEDULE"
+                  @click="getDripType('schedule')"
+                />
+
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.active_calss{
+  opacity: 1;
+}
+</style>

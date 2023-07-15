@@ -14,6 +14,8 @@ import { createCourse } from "~~/stores/createCourse";
     import { QuillEditor } from "@vueup/vue-quill";
     import '@vueup/vue-quill/dist/vue-quill.snow.css';
     import { mdiTrashCan } from "@mdi/js";
+import LessonSettings from "@/components/LMS/Admin/CreateCourse/LessonSettings.vue";
+
     const courseStore = createCourse();
 
     const draftOption = {
@@ -112,6 +114,27 @@ const saveData = ()=>{
                         <BaseDivider/>
                     </CardBox>
                 </div>
+                <CardBox >
+        <LessonSettings :lesson="{type:'Text'}" />
+ 
+      </CardBox>
+  <div class="flex mt-4 justify-end">
+          <BaseButton
+            label="DISCARD CHANGES"
+
+             class="mr-1"
+       
+            color="info"
+            outline
+          />
+          <BaseButton
+            label="SAVE"
+            color="info"
+            class="ml-1"
+            @click="saveData()"
+       
+          />
+        </div>
         
     </div>
 </template>

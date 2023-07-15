@@ -11,9 +11,8 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
-        <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
+
+        <div class=" mb-6 ">
 
           <CardBox
             class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
@@ -84,7 +83,6 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
             </p>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+    
   </div>
 </template>

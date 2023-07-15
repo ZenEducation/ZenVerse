@@ -97,9 +97,8 @@ const buttonColor = "danger";
 </script>
 
 <template>
-  <NuxtLayout name="zen">
-    <SectionMain>
-      <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
+ 
+      <div class=" mb-6 ">
         <CardBox
           :icon="mdiBallot"
           class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
@@ -154,6 +153,5 @@ const buttonColor = "danger";
           </div>
         </CardBox>
       </div>
-    </SectionMain>
-  </NuxtLayout>
+  
 </template>

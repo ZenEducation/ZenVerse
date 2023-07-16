@@ -46,7 +46,7 @@
                             </div>
                             <img v-else src="../../images/download.png" alt="Image" />
                             <div>
-                                <p class="text-center">{{ previewText }}</p>
+                                <p class="text-center">{{ modelValue }}</p>
                             </div>
                         </div>
                     </PremFormField>
@@ -56,10 +56,12 @@
                             <div class="border mb-4 py-8 flex justify-center flex-col items-center">
                                 <h1>Click to Upload any Image or Video Here</h1>
                                 <form @submit="uploadFile">
-                                    <input type="file" @change="handleFileChange" />
+                                    <!-- <input type="file" @change="handleFileChange" /> -->
+                                    <input type="file" @change="handleFileChange"
+                                        accept=".jpg, .jpeg, .png, .gif, .tiff, .mp4, .avi, .mov, .webm">
                                 </form>
                             </div>
-                            <Editor v-model="editorContent" @input="previewText = $event" :getText="getPreviewText" />
+                            <Editor v-model="modelValue" @input="previewText = $event" :getText="getPreviewText" />
                             <PremFormField label="URL:" horizontal>
                                 <PremFormField horizontal>
                                     <PremFormControl v-model="myUrl" placeholder="Enter URL" />
@@ -97,8 +99,10 @@ import { mdiFileEdit } from "@mdi/js";
 import PremFormField from "~~/components/Forms/FormField.vue";
 import PremFormControl from "~~/components/Forms/FormControl.vue";
 
-import DragDrop from "@/components/CMS/DragDrop.vue";
+
 import Editor from "@/components/CMS/Editor.vue";
+
+
 
 
 const typeVal = reactive([
@@ -177,8 +181,7 @@ const saveReview = () => {
     categoryText.value = '';
     messageText.value = '';
     myUrl.value = '';
-    uploadedFile.value = null;
-    uploadedFile.name = ''
+
 };
 
 const uploadedFile = ref(null)
@@ -187,29 +190,29 @@ const formatDate = (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Intl.DateTimeFormat('en-US', options).format(date);
 };
+
+const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'mp4', 'avi', 'mov', 'webm'];
+
 const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-        file.url = URL.createObjectURL(file);
-        uploadedFile.value = file;
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (allowedExtensions.includes(fileExtension)) {
+            file.url = URL.createObjectURL(file);
+            uploadedFile.value = file;
+        } else {
+            alert('Invalid file format. Please select an image, video, gif, or tiff file.');
+
+            event.target.value = '';
+        }
     }
 };
 const uploadFile = (event) => {
     event.preventDefault();
 }
 
-const previewText = ref("");
 
-const getPreviewText = (text) => {
-    window.alert(text)
-};
-
-const EditContent = {
-    components: {
-        Editor,
-    },
-    getPreviewText,
-};
 
 </script>
 

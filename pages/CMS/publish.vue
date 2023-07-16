@@ -51,6 +51,7 @@ const menuClick = (event, item) => {
     router.push("/auth/login");
   }
 };
+
 </script>
 
 <template>
@@ -140,8 +141,8 @@ const menuClick = (event, item) => {
     <label for="telegram">Telegram</label>
   </div>
 
- <div class="flex justify-end pr-10 mt-1">
-  <button class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500" style="margin-left: 200px;">Publish</button>
+<div class="flex justify-end pr-10 mt-1">
+  <button id="publishButton" class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500" style="margin-left: 200px;">Publish</button>
 </div>
 </div>
 <div class="flex items-center mb-5 pl-10 pr-10">
@@ -165,7 +166,7 @@ const menuClick = (event, item) => {
 
 <div class="flex items-center mb-5 pl-10 pr-10">
   <label for="publishDate" style="margin-right: 10px;">Publish Date:</label>
-  <input type="text" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Publish Date">
+  <input type="date" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Select a Publish Date">
 </div>
 
 <div class="flex items-center mb-5 pl-12 pr-12">
@@ -190,7 +191,7 @@ const menuClick = (event, item) => {
       <option value="option3">Image</option>
     </select>
   </div>
-  <div style="margin-left: 60px;">
+   <div style="margin-left: 60px;">
     <label for="status" style="margin-right: 10px;">Status:</label>
     <input type="text" id="status" name="status" placeholder="Initial approval pending" style="padding-right: 8px;">
   </div>
@@ -214,7 +215,7 @@ const menuClick = (event, item) => {
   <div style="display: inline-block; border: 1px solid #000; width: 750px; padding: 20px; margin-left: 60px; margin-top: 2px;">
   <div style="position: relative; padding-top: 70%; margin-left: 120px;">
     <!-- Insert your video display code here -->
-    <iframe src="https://www.youtube.com/embed/your-video-id" style="position: absolute; top: 0; left: 0; width: 80%; height: 80%;" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://github.com/ZenEducation/ZenVerse/blob/feat/Publishpage/Shubhom/assets/svg/cloud.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 80%;" frameborder="0" allowfullscreen></iframe>
     <div style="position: absolute; bottom: 0; background-color:whitesmoke; width: 80%; padding: 10px; color: black;">
       <p>Extended text <b>help</b> you to build rich text quickly . any special text you will have with extended text .
         <b>Text can be bold</b> <I>Italic</I> .<br> It my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to imperove flutter.
@@ -257,3 +258,9 @@ const menuClick = (event, item) => {
     </div>
   </div>
 </template>
+
+
+<style scoped>
+
+
+</style>

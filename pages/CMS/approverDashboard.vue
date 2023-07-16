@@ -31,74 +31,74 @@ const endDate = ref('');
 const items = reactive([
     {
         id: 1213, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
-        category: 'Jee Coaching', status: 'Initial approval Pending',
-        submittedOn: 'Mar 3 ,2021',
+        category: 'Jee Coaching', approvee: ' Sam', status: 'Initial approval Pending',
+        submittedOn: 'Mar 3 ,2021', avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
     },
     {
         id: 1214, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
+        type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1215, title: 'Winter Batch', submission: 'https://www.aakash.ac.in/',
-        type: 'Text', category: 'Neet Coaching ', status: 'Final Approval Pending',
-        submittedOn: 'May 18, 2021',
+        type: 'Text', category: 'Neet Coaching ', approvee: 'Sid', status: 'Final Approval Pending',
+        submittedOn: 'May 18, 2021', avatar: 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
     },
     {
         id: 1216, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
+        type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1217, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        submittedOn: 'May 19, 2021',
+        category: 'Coursera', approvee: 'Shub', status: 'Not verified', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
+        submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
+        type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1219, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
-        submittedOn: 'May 19, 2021',
+        category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+        submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
+        type: 'ACC', category: 'Jee coachin', approvee: 'Ross', status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1221, title: 'Diwali Offer', type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram',
         status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1222, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
-        submittedOn: 'May 19, 2021',
+        category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+        submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
 
     {
         id: 1223, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
-        submittedOn: 'May 19, 2021',
+        category: 'Coursera', approvee: 'Shub', status: 'Not verified',
+        submittedOn: 'May 19, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1224, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
+        type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
     {
         id: 1225, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
-        category: 'Jee Coaching', status: 'Initial approval Pending',
-        submittedOn: 'Mar 3 ,2021',
+        category: 'Jee Coaching', approvee: ' Sam', status: 'Initial approval Pending',
+        submittedOn: 'Mar 3 ,2021', avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
     },
     {
         id: 1226, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
+        type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram', status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021', avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
     },
 
 ])
@@ -161,6 +161,7 @@ const toggleDateInput = () => {
     typeFilter.value = ""
 
 
+
 };
 
 
@@ -181,7 +182,8 @@ const itemsPaginated = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.approvee.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -259,7 +261,8 @@ const numPages = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.approvee.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -283,6 +286,7 @@ const numPages = computed(() => {
             item.type.toLowerCase().includes(trimmedTypeFilter)
         );
     }
+
 
     // Apply date filter
     if (trimmedDateFilter === "on") {
@@ -367,24 +371,28 @@ const clearResult = () => {
     <div>
         <NuxtLayout name="zen">
             <SectionMain>
-                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Creator Dashbaord" main>
+                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Approver Dashbaord" main>
                     <BaseButton label="Create Content" color="contrast" />
 
 
                 </SectionTitleLineWithButton>
                 <CardBox class="mb-6 g:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
                     <PremFormField horizontal>
-                        <PremFormControl v-model="searchquery" :icon="mdiMagnify" placeholder="Search by Title or ID" />
+                        <PremFormControl v-model="searchquery" :icon="mdiMagnify"
+                            placeholder="Search by Title or ID or Approver Name" />
                     </PremFormField>
                     <PremFormField label="Filter By:" horizontal>
 
                         <BaseButtons>
                             <BaseButton label="Status" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleStatusDropdown" :active="isStatusDropdownOpen" />
+
                             <BaseButton label="Category" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleCategoryDropdown" :active="isCategoryDropdownOpen" />
+
                             <BaseButton label="Type" color="info" class="   text-white font-bold py-2 px-4 rounded " outline
                                 small @click="toggleTypeDropdown" :active="isTypeDropdownOpen" />
+
                             <BaseButton label="Submitted On" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleDateInput" :active="isDateInputOpen" />
                         </BaseButtons>
@@ -424,6 +432,8 @@ const clearResult = () => {
 
                             </select>
                         </div>
+
+
 
                         <!-- Submitted On Date Input -->
                         <div v-if="isDateInputOpen" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
@@ -483,6 +493,7 @@ const clearResult = () => {
                                 <th>Submission</th>
                                 <th>Type</th>
                                 <th>Category</th>
+                                <th>Approver</th>
                                 <th>Status</th>
                                 <th>Submitted On</th>
                                 <th>Actions</th>
@@ -516,6 +527,12 @@ const clearResult = () => {
                                 <td data-label="Category">
                                     {{ client.category }}
                                 </td>
+                                <td data-label="Approvee">
+                                    <div class="flex items-center gap-2 justify-center">
+                                        <img :src="client.avatar" alt="Approvee Avatar" class="w-6 h-6 rounded-[50%]" />
+                                        <span>{{ client.approvee }}</span>
+                                    </div>
+                                </td>
                                 <td data-label="Status">
                                     {{ client.status }}
                                 </td>
@@ -526,6 +543,7 @@ const clearResult = () => {
                                 <td class="before:hidden lg:w-1 whitespace-nowrap">
                                     <BaseButtons type="justify-start lg:justify-end" no-wrap>
                                         <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
+                                        <BaseButton color="success" outline small label="Approve" />
                                         <BaseButton color="info" :icon="mdiPen" small @click="isModalDangerActive = true" />
                                     </BaseButtons>
                                 </td>

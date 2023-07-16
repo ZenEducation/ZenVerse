@@ -367,7 +367,7 @@ const clearResult = () => {
     <div>
         <NuxtLayout name="zen">
             <SectionMain>
-                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Creator Dashbaord" main>
+                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Editor Dashbaord" main>
                     <BaseButton label="Create Content" color="contrast" />
 
 

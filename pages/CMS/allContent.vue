@@ -19,6 +19,7 @@ const statusFilter = ref('')
 const categoryFilter = ref('');
 const typeFilter = ref('');
 const dateFilter = ref('');
+const publishedFilter = ref('');
 
 const onDate = ref('');
 const beforeDate = ref('');
@@ -30,75 +31,145 @@ const endDate = ref('');
 
 const items = reactive([
     {
-        id: 1213, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
-        category: 'Jee Coaching', status: 'Initial approval Pending',
+        id: 1213,
+        title: 'Summer Batch',
+        type: 'Video',
+        category: 'Jee Coaching',
+        status: 'Initial approval Pending',
         submittedOn: 'Mar 3 ,2021',
+        assigned_to: 'Ram',
+        published: 'Yes'
     },
     {
-        id: 1214, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
-    },
-    {
-        id: 1215, title: 'Winter Batch', submission: 'https://www.aakash.ac.in/',
-        type: 'Text', category: 'Neet Coaching ', status: 'Final Approval Pending',
-        submittedOn: 'May 18, 2021',
-    },
-    {
-        id: 1216, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-    },
-    {
-        id: 1217, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        submittedOn: 'May 19, 2021',
-    },
-    {
-        id: 1218, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-    },
-    {
-        id: 1219, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
-        submittedOn: 'May 19, 2021',
-    },
-    {
-        id: 1220, title: 'New Course', submission: 'https://www.aakash.ac.in/',
-        type: 'ACC', category: 'Jee Coaching', status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-    },
-    {
-        id: 1221, title: 'Diwali Offer', type: 'Graphic', category: 'Neet Coaching', approvee: 'Ram',
+        id: 1214,
+        title: 'Diwali Offer',
+        type: 'Graphic',
+        category: 'Neet Coaching',
         status: 'Editor Submission Pending',
         submittedOn: 'Dec 1, 2021',
+        assigned_to: 'Sam',
+        published: 'No'
     },
     {
-        id: 1222, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
+        id: 1215,
+        title: 'Winter Batch',
+        type: 'Text',
+        category: 'Neet Coaching ',
+        status: 'Final Approval Pending',
+        submittedOn: 'May 18, 2021',
+        assigned_to: 'Ram',
+        published: 'Yes'
+    },
+    {
+        id: 1216,
+        title: 'New Course',
+        type: 'ACC',
+        category: 'Jee coachin',
+        status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021',
+        assigned_to: "Sam",
+        published: 'No'
+    },
+    {
+        id: 1217,
+        title: 'Web Dev Course',
+        type: 'Online',
+        category: 'Coursera',
+        status: 'Not verified',
         submittedOn: 'May 19, 2021',
+        assigned_to: 'Shyam',
+        published: 'No'
+    },
+    {
+        id: 1218,
+        title: 'New Course',
+        type: 'ACC',
+        category: 'Jee coachin',
+        status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021',
+        assigned_to: "Mahesh",
+        published: 'Yes'
+    },
+    {
+        id: 1219,
+        title: 'Web Dev Course',
+        type: 'Online',
+        category: 'Coursera',
+        status: 'Not verified',
+        submittedOn: 'May 19, 2021',
+        assigned_to: 'Ram',
+        published: 'No'
+    },
+    {
+        id: 1220,
+        title: 'New Course',
+        type: 'ACC',
+        category: 'Jee coachin',
+        status: 'Initial submission Pending',
+        submittedOn: 'May 4, 2021',
+        assigned_to: "Shyam",
+        published: 'No'
+    },
+    {
+        id: 1221,
+        title: 'Diwali Offer',
+        type: 'Graphic',
+        category: 'Neet Coaching',
+        status: 'Editor Submission Pending',
+        submittedOn: 'Dec 1, 2021',
+        assigned_to: "Yash",
+        published: 'Yes'
+    },
+    {
+        id: 1222,
+        title: 'Web Dev Course',
+        type: 'Online',
+        category: 'Coursera',
+        status: 'Not verified',
+        submittedOn: 'May 19, 2021',
+        assigned_to: 'Mahesh',
+        published: 'No',
     },
 
     {
-        id: 1223, title: 'Web Dev Course', submission: 'https://www.aakash.ac.in/', type: 'Online',
-        category: 'Coursera', status: 'Not verified',
+        id: 1223,
+        title: 'Web Dev Course',
+        type: 'Online',
+        category: 'Coursera',
+        status: 'Not verified',
         submittedOn: 'May 19, 2021',
+        assigned_to: 'Ram',
+        published: 'Yes',
     },
     {
-        id: 1224, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXQSzQtgI8a6EE0QHs0ZNuYel_KfRbbze7Dg&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
+        id: 1224,
+        title: 'Diwali Offer',
+        type: 'Graphic',
+        category: 'Neet Coaching',
+        status: 'Editor Submission Pending',
         submittedOn: 'Dec 1, 2021',
+        assigned_to: 'Mukesh',
+        published: 'Yes'
     },
     {
-        id: 1225, title: 'Summer Batch', submission: 'https://www.iitiansgravity.com/', type: 'Video',
-        category: 'Jee Coaching', status: 'Initial approval Pending',
+        id: 1225,
+        title: 'Summer Batch',
+        type: 'Video',
+        category: 'Jee Coaching',
+        status: 'Initial approval Pending',
         submittedOn: 'Mar 3 ,2021',
+        assigned_to: 'Ram',
+        published: 'No'
     },
     {
-        id: 1226, title: 'Diwali Offer', submissionImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l2crOvLts0mzw32kIK_nMtQPOYEnEPF_KQ&usqp=CAU',
-        type: 'Graphic', category: 'Neet Coaching', status: 'Editor Submission Pending',
+        id: 1226,
+        title: 'Diwali Offer',
+        type: 'Graphic',
+        category: 'Neet Coaching',
+        status: 'Editor Submission Pending',
         submittedOn: 'Dec 1, 2021',
+        assigned_to: 'Sam',
+        published: 'No'
     },
 
 ])
@@ -119,15 +190,18 @@ const checkedRows = ref([]);
 const isStatusDropdownOpen = ref(false);
 const isCategoryDropdownOpen = ref(false);
 const isTypeDropdownOpen = ref(false);
+const isPublishedDropdown = ref(false)
 const isDateInputOpen = ref(false);
 
 const toggleStatusDropdown = () => {
     isStatusDropdownOpen.value = !isStatusDropdownOpen.value;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
+    isPublishedDropdown.value = false;
     isDateInputOpen.value = false;
     categoryFilter.value = ""
     typeFilter.value = ""
+    publishedFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -135,9 +209,11 @@ const toggleCategoryDropdown = () => {
     isCategoryDropdownOpen.value = !isCategoryDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
+    isPublishedDropdown.value = false;
     isDateInputOpen.value = false;
     statusFilter.value = "";
     typeFilter.value = "";
+    publishedFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -145,9 +221,25 @@ const toggleTypeDropdown = () => {
     isTypeDropdownOpen.value = !isTypeDropdownOpen.value;
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
+    isPublishedDropdown.value = false
     isDateInputOpen.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
+    publishedFilter.value = ""
+    dateFilter.value = ""
+};
+
+
+
+const togglePublishedInput = () => {
+    isPublishedDropdown.value = !isPublishedDropdown.value
+    isStatusDropdownOpen.value = false;
+    isCategoryDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
+    isDateInputOpen.value = false;
+    statusFilter.value = ""
+    categoryFilter.value = ""
+    typeFilter.value = ""
     dateFilter.value = ""
 };
 
@@ -156,9 +248,11 @@ const toggleDateInput = () => {
     isStatusDropdownOpen.value = false;
     isCategoryDropdownOpen.value = false;
     isTypeDropdownOpen.value = false;
+    isPublishedDropdown.value = false;
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
+    publishedFilter.value = ""
 
 
 };
@@ -172,6 +266,7 @@ const itemsPaginated = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+    const trimmedPublishedFilter = publishedFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
     let filteredItems = items;
@@ -180,8 +275,9 @@ const itemsPaginated = computed(() => {
     if (trimmedSearchQuery.length > 0) {
         filteredItems = filteredItems.filter(
             (item) =>
-                item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.id.toString().startsWith(trimmedSearchQuery) ||
+                item.title.toLowerCase().startsWith(trimmedSearchQuery) ||
+                item.assigned_to.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -203,6 +299,13 @@ const itemsPaginated = computed(() => {
     if (trimmedTypeFilter.length > 0) {
         filteredItems = filteredItems.filter((item) =>
             item.type.toLowerCase().includes(trimmedTypeFilter)
+        );
+    }
+
+    // Apply Published Filter
+    if (trimmedPublishedFilter.length > 0) {
+        filteredItems = filteredItems.filter((item) =>
+            item.published.toLowerCase().includes(trimmedPublishedFilter)
         );
     }
 
@@ -250,6 +353,7 @@ const numPages = computed(() => {
     const trimmedStatusFilter = statusFilter.value.trim().toLowerCase();
     const trimmedCategoryFilter = categoryFilter.value.trim().toLowerCase();
     const trimmedTypeFilter = typeFilter.value.trim().toLowerCase();
+    const trimmedPublishedFilter = publishedFilter.value.trim().toLowerCase();
     const trimmedDateFilter = dateFilter.value.trim().toLowerCase();
 
     let filteredItems = items;
@@ -259,7 +363,8 @@ const numPages = computed(() => {
         filteredItems = filteredItems.filter(
             (item) =>
                 item.id.toString().includes(trimmedSearchQuery) ||
-                item.title.toLowerCase().includes(trimmedSearchQuery)
+                item.title.toLowerCase().includes(trimmedSearchQuery) ||
+                item.assigned_to.toLowerCase().includes(trimmedSearchQuery)
         );
     }
 
@@ -281,6 +386,13 @@ const numPages = computed(() => {
     if (trimmedTypeFilter.length > 0) {
         filteredItems = filteredItems.filter((item) =>
             item.type.toLowerCase().includes(trimmedTypeFilter)
+        );
+    }
+
+    // Apply Published Filter
+    if (trimmedPublishedFilter.length > 0) {
+        filteredItems = filteredItems.filter((item) =>
+            item.published.toLowerCase().includes(trimmedPublishedFilter)
         );
     }
 
@@ -350,16 +462,18 @@ const clearResult = () => {
     statusFilter.value = ""
     categoryFilter.value = ""
     typeFilter.value = ""
+    publishedFilter.value = ""
     dateFilter.value = ""
-    isDateInputOpen.value = false;
-    isStatusDropdownOpen.value = false;
-    isCategoryDropdownOpen.value = false;
-    isTypeDropdownOpen.value = false;
     onDate.value = ""
     beforeDate.value = ""
     afterDate.value = ""
     startDate.value = ""
     endDate.value = ""
+    isStatusDropdownOpen.value = false;
+    isCategoryDropdownOpen.value = false;
+    isTypeDropdownOpen.value = false;
+    isPublishedDropdown.value = false;
+    isDateInputOpen.value = false;
 }
 </script>
 
@@ -367,24 +481,31 @@ const clearResult = () => {
     <div>
         <NuxtLayout name="zen">
             <SectionMain>
-                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Creator Dashbaord" main>
+                <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="All Content" main>
                     <BaseButton label="Create Content" color="contrast" />
 
 
                 </SectionTitleLineWithButton>
                 <CardBox class="mb-6 g:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
                     <PremFormField horizontal>
-                        <PremFormControl v-model="searchquery" :icon="mdiMagnify" placeholder="Search by Title or ID" />
+                        <PremFormControl v-model="searchquery" :icon="mdiMagnify"
+                            placeholder="Search by Title or ID or Assigned Name" />
                     </PremFormField>
                     <PremFormField label="Filter By:" horizontal>
 
                         <BaseButtons>
                             <BaseButton label="Status" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleStatusDropdown" :active="isStatusDropdownOpen" />
+
                             <BaseButton label="Category" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleCategoryDropdown" :active="isCategoryDropdownOpen" />
+
                             <BaseButton label="Type" color="info" class="   text-white font-bold py-2 px-4 rounded " outline
                                 small @click="toggleTypeDropdown" :active="isTypeDropdownOpen" />
+
+                            <BaseButton label="Published" color="info" class="   text-white font-bold py-2 px-4 rounded "
+                                outline small @click="togglePublishedInput" :active="isPublishedDropdown" />
+
                             <BaseButton label="Submitted On" color="info" class="   text-white font-bold py-2 px-4 rounded "
                                 outline small @click="toggleDateInput" :active="isDateInputOpen" />
                         </BaseButtons>
@@ -421,6 +542,17 @@ const clearResult = () => {
                                 <option value="text">Text</option>
                                 <option value="acc">ACC</option>
                                 <option value="online">Online</option>
+
+                            </select>
+                        </div>
+
+                        <!-- Published Dropdown -->
+                        <div v-if="isPublishedDropdown" class="mt-2 py-2 bg-white rounded shadow-lg text-center">
+                            <select name="status" id="status" v-model="publishedFilter" class="w-1/2">
+                                <option value=""> Select Type </option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+
 
                             </select>
                         </div>
@@ -480,9 +612,10 @@ const clearResult = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Title</th>
-                                <th>Submission</th>
                                 <th>Type</th>
                                 <th>Category</th>
+                                <th>Assigned To</th>
+                                <th>Published</th>
                                 <th>Status</th>
                                 <th>Submitted On</th>
                                 <th>Actions</th>
@@ -499,22 +632,17 @@ const clearResult = () => {
                                     {{ client.title }}
                                 </td>
 
-
-
-                                <td v-if="client.submissionImage" data-label="submission">
-                                    <img :src="client.submissionImage" alt="Avatar" width="150" height="150" />
-
-                                </td>
-                                <td v-else data-label="Submission">
-
-                                    {{ client.submission }}
-                                </td>
-
                                 <td data-label="Type">
                                     {{ client.type }}
                                 </td>
                                 <td data-label="Category">
                                     {{ client.category }}
+                                </td>
+                                <td data-label="Assigned_To">
+                                    {{ client.assigned_to }}
+                                </td>
+                                <td data-label="Published">
+                                    {{ client.published }}
                                 </td>
                                 <td data-label="Status">
                                     {{ client.status }}

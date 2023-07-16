@@ -12,24 +12,27 @@
                         </PremFormField>
                     </PremFormField>
 
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-center my-5">
-                        <PremFormField label="Type" class="flex justify-center items-center md:mb-0">
-                            <PremFormField class="w-full md:w-96 md:ml-3">
-                                <PremFormControl v-model="selectedOption" :options="typeVal" />
-                            </PremFormField>
-                        </PremFormField>
-                        <PremFormField label="Status" class="flex justify-center items-center md:mb-0 md:ml-3">
-                            <PremFormField class="w-full md:w-96 md:ml-3">
-                                <PremFormControl :disabled="true" :modelValue="statusLabel" />
-                            </PremFormField>
-                        </PremFormField>
-                        <PremFormField label="Role" class="flex justify-center items-center md:ml-3">
-                            <PremFormField class="w-full md:w-56 md:ml-3">
-                                <PremFormControl v-model="roleSelectedOption" :options="roleVal" />
-                            </PremFormField>
-                        </PremFormField>
-                    </div>
 
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-5">
+                        <div>
+                            <label class="block mb-2">Type</label>
+                            <div class="w-full">
+                                <PremFormControl v-model="selectedOption" :options="typeVal" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-2">Status</label>
+                            <div class="w-full">
+                                <PremFormControl :disabled="true" :modelValue="statusLabel" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-2">Role</label>
+                            <div class="w-full">
+                                <PremFormControl v-model="roleSelectedOption" :options="roleVal" />
+                            </div>
+                        </div>
+                    </div>
                     <PremFormField label="Category" horizontal>
                         <PremFormField horizontal>
                             <PremFormControl placeholder="OG Category" v-model="categoryText" />

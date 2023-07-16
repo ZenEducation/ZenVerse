@@ -76,6 +76,11 @@ export default [
     icon: mdiAccountCircle,
   },
   {
+    to: "/academicsAndKCRs/academicPlan",
+    label: "Academics and KCRs",
+    icon: mdiBook,
+  },
+  {
     to: "/auth/login",
     label: "Login",
     icon: mdiLock,

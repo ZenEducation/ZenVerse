@@ -15,6 +15,48 @@
               @change="filterTable"
           />
       </div> 
+      <div class="mx-auto flex justify-center">
+         <div class="p-2">
+                      <BaseButton
+                        label="Physics"
+                        type="button"
+                        
+                        class="uppercase px-0 py-0"
+                        small rounded-full
+                        @click="renderArray(1)"
+                      />
+                    </div>
+                     <div class="p-2">
+                      <BaseButton
+                        label="Biology"
+                        type="button"
+                        
+                          class="uppercase px-0 py-0"
+                          small rounded-full
+                          @click="renderArray(2)"
+                      />
+                    </div>
+                      <div class="p-2">
+                        <BaseButton
+                          label="Chemistry"
+                           type="button"
+                        
+                          class="uppercase px-0 py-0"
+                          small rounded-full
+                          @click="renderArray(3)"
+                        />
+                      </div>
+                        <div class="p-2">
+                        <BaseButton
+                          label="Mathematics"
+                           type="button"
+                        
+                          class="uppercase px-0 py-0"
+                          small rounded-full
+                          @click="renderArray(4)"
+                        />
+                      </div>
+      </div>
    
     </div>
     <div
@@ -127,7 +169,12 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import ModuleOpenPopup from "~~/components/AcademicsAndKCRs/ModuleOpenPopup.vue";
 import { mdiLink } from "@mdi/js";
 import PremFormControl from "@/components/Forms/FormControl.vue";
+import { reactive, ref, computed } from 'vue';
 import PremFormField from "@/components/Forms/FormField.vue";
+import {PhysicsChapters} from "../../store/academicsAndKCRs/physicsChapters"
+import { BiologyChapters } from "../../store/academicsAndKCRs/biologyChapters"
+import { MathematicsChapters } from "../../store/academicsAndKCRs/mathematicsChapters"
+import { ChemistryChapters } from "../../store/academicsAndKCRs/chemistryChapters"
 
 
 const openPopup = ref(false);
@@ -141,7 +188,6 @@ const closePopup = () => {
   openPopup.value = false;
 
 };
-
 const tableHeadings = [
   "Chapter",
   "Teaching Status",
@@ -161,476 +207,40 @@ const tableHeadings = [
   "module 14",
 ];
 
-const studentTasks = reactive({
-  data: [
-    {
-      Chapter: "kinematics",
-      teachingStatus: {
-        status: "Unassigned",
-        type: "teachingStatus",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-    },
-    {
-      Chapter: "NLM",
-      teachingStatus: {
-        status: "In Progress",
-        type: "teachingStatus",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-    },
-    {
-      Chapter: "Work Power ",
-      teachingStatus: {
-        status: "Completed",
-        type: "teachingStatus",
-      },
-      module1: {
-        link: "https://www.google.com",
-        status: "Assigned - Not Started",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-    },
-    {
-      Chapter: "kinematics",
-      teachingStatus: {
-        status: "Unassigned",
-        type: "teachingStatus",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "Unassigned",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-    },
-    {
-      Chapter: "kinematics",
-      teachingStatus: {
-        status: "In Progress",
-        type: "teachingStatus",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-    },
-    {
-      Chapter: "kinematics",
-      teachingStatus: {
-        status: "Completed",
-        type: "teachingStatus",
-      },
-      module1: {
-        id: 1,
-        link: "https://www.google.com",
-        status: "Assigned-Not Started",
-      },
-      module2: {
-        id: 2,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module3: {
-        id: 3,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module4: {
-        id: 4,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module5: {
-        id: 5,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module6: {
-        id: 6,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module7: {
-        id: 7,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-      module8: {
-        id: 8,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module9: {
-        id: 9,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module10: {
-        id: 10,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module11: {
-        id: 11,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module12: {
-        id: 12,
-        link: "https://www.google.com",
-        status: "on it",
-      },
-      module13: {
-        id: 13,
-        link: "https://www.google.com",
-        status: "Completed",
-      },
-      module14: {
-        id: 14,
-        link: "https://www.google.com",
-        status: "Revising",
-      },
-    },
-  ],
+
+const state = reactive({
+  array1: PhysicsChapters().data,
+  array2: BiologyChapters().data,
+  array3: ChemistryChapters().data,
+  array4: MathematicsChapters().data,
+  selectedArray: null
 });
+
+const renderArray = (arrayIndex) => {
+state.selectedArray = arrayIndex;
+// console.log(studentTasks.value);
+};
+
+const studentTasks = computed(() => {
+  switch (state.selectedArray) {
+    case 1:
+      return state.array1;
+    case 2:
+      return state.array2;
+    case 3:
+      return state.array3;
+    case 4:
+      return state.array4;
+    default:
+      return state.array1;
+  }
+});
+
+watch(() => state.selectedArray, (newVal) => {
+  const selectedData = studentTasks.value;
+  // console.log('Selected Data:', JSON.stringify(selectedData));
+});
+
 function getColSpan(item) {
   if (typeof item === "string") {
     return 1;
@@ -648,11 +258,6 @@ const filterItems = [
   "Assigned-Not Started",
   "Unassigned",
 ];
-
-
-
-
-
 
 const filterTable = ()=>{
 

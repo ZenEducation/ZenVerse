@@ -1,4 +1,3 @@
-
 <script setup>
 import BaseButton from "~~/components/Buttons/BaseButton.vue";
 import PremFormField from "@/components/Forms/FormField.vue";

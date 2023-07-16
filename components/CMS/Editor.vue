@@ -1,12 +1,10 @@
+
 <script setup>
 import BaseButton from "~~/components/Buttons/BaseButton.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
-import { onMounted, } from 'vue';
 
-import {
-    mdiFormatBold, mdiFormatItalic, mdiStickerEmoji, mdiPound, mdiAt
-} from "@mdi/js";
-
+import { onMounted } from 'vue';
+import { mdiFormatBold, mdiFormatItalic, mdiStickerEmoji, mdiPound, mdiAt } from "@mdi/js";
 
 onMounted(() => {
     document.execCommand('defaultParagraphSeparator', false, 'p');
@@ -15,7 +13,6 @@ onMounted(() => {
 function applyBold() {
     document.execCommand('bold');
 }
-
 
 function applyItalic() {
     document.execCommand('italic');
@@ -37,9 +34,9 @@ function insertCharacter(character) {
     editor.focus();
 }
 </script>
+
 <template>
     <div>
-
         <div @input="onInput" v-html="innerValue" :contenteditable="true"
             class="text-output p-4 border-none bg-blue-50 dark:bg-slate-800" placeholder />
         <PremFormField class="mt-2">
@@ -61,7 +58,6 @@ function insertCharacter(character) {
                     color="" :icon="mdiAt" iconSize="30px" />
             </div>
         </PremFormField>
-
     </div>
 </template>
 
@@ -73,10 +69,6 @@ function insertCharacter(character) {
 
 .text-output h1 {
     @apply text-2xl font-bold pb-4;
-}
-
-.text-output p {
-    @apply pb-4;
 }
 
 .text-output p {

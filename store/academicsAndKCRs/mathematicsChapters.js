@@ -1781,6 +1781,160 @@ export const MathematicsChapters = defineStore("data3", {
           },
         },
         {
+          Chapter: "Functions",
+          teachingStatus: {
+            status: "Completed",
+            type: "teachingStatus",
+          },
+          module1: {
+            id: 1,
+            link: "https://www.google.com",
+            status: "Assigned-Not Started",
+          },
+          module2: {
+            id: 2,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module3: {
+            id: 3,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module4: {
+            id: 4,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module5: {
+            id: 5,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module6: {
+            id: 6,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module7: {
+            id: 7,
+            link: "https://www.google.com",
+            status: "Revising",
+          },
+          module8: {
+            id: 8,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module9: {
+            id: 9,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module10: {
+            id: 10,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module11: {
+            id: 11,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module12: {
+            id: 12,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module13: {
+            id: 13,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module14: {
+            id: 14,
+            link: "https://www.google.com",
+            status: "Revising",
+          },
+        },
+        {
+          Chapter: "Limits continuity and Differentiability",
+          teachingStatus: {
+            status: "Completed",
+            type: "teachingStatus",
+          },
+          module1: {
+            id: 1,
+            link: "https://www.google.com",
+            status: "Assigned-Not Started",
+          },
+          module2: {
+            id: 2,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module3: {
+            id: 3,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module4: {
+            id: 4,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module5: {
+            id: 5,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module6: {
+            id: 6,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module7: {
+            id: 7,
+            link: "https://www.google.com",
+            status: "Revising",
+          },
+          module8: {
+            id: 8,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module9: {
+            id: 9,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module10: {
+            id: 10,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module11: {
+            id: 11,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module12: {
+            id: 12,
+            link: "https://www.google.com",
+            status: "on it",
+          },
+          module13: {
+            id: 13,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module14: {
+            id: 14,
+            link: "https://www.google.com",
+            status: "Revising",
+          },
+        },
+        {
           Chapter: "Methods of Differentiation",
           teachingStatus: {
             status: "Completed",

@@ -6,45 +6,79 @@ export const PhysicsChapters = defineStore("data1", {
       data: [
         {
           Chapter: "Maths in Physics",
-          Trigonometry: {
+          teachingStatus: {
+            status: "Unassigned",
+            type: "teachingStatus",
+          },
+          module1: {
             id: 1,
             link: "https://www.google.com",
             status: "Unassigned",
           },
-          Algebra: {
+          module2: {
             id: 2,
             link: "https://www.google.com",
-            status: "Unassigned",
+            status: "on it",
           },
-          QuadraticEquations: {
+          module3: {
             id: 3,
             link: "https://www.google.com",
-            status: "Unassigned",
+            status: "Completed",
           },
-          BinomialTheorem: {
+          module4: {
             id: 4,
             link: "https://www.google.com",
             status: "Unassigned",
           },
-          APGPHP: {
+          module5: {
             id: 5,
             link: "https://www.google.com",
-            status: "Unassigned",
+            status: "Revising",
           },
-          CoordinateGeometry: {
+          module6: {
             id: 6,
             link: "https://www.google.com",
-            status: "Unassigned",
+            status: "on it",
           },
-          CalculusDifferentialCalculus: {
+          module7: {
             id: 7,
             link: "https://www.google.com",
-            status: "Unassigned",
+            status: "Completed",
           },
-          IntegralCalculus: {
+          module8: {
             id: 8,
             link: "https://www.google.com",
+            status: "on it",
+          },
+          module9: {
+            id: 9,
+            link: "https://www.google.com",
+            status: "Revising",
+          },
+          module10: {
+            id: 10,
+            link: "https://www.google.com",
             status: "Unassigned",
+          },
+          module11: {
+            id: 11,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module12: {
+            id: 12,
+            link: "https://www.google.com",
+            status: "Assigned-Not Started",
+          },
+          module13: {
+            id: 13,
+            link: "https://www.google.com",
+            status: "Completed",
+          },
+          module14: {
+            id: 14,
+            link: "https://www.google.com",
+            status: "on it",
           },
         },
         {
@@ -2211,4 +2245,10 @@ export const PhysicsChapters = defineStore("data1", {
       ],
     },
   }),
+  mutations: {
+    setData(value) {
+      // Using a mutation to update the count state
+      this.data = value;
+    },
+  },
 });

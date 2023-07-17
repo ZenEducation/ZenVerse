@@ -101,7 +101,9 @@
 
       <div class="mt-5 mb-5">
         <div class="">Commands :</div>
-        <div class="mt-3" v-for="(cmd,idx) in comments" :key="idx" >{{ idx+1 }}. {{ cmd }}</div>
+        <div class="mt-3" v-for="(cmd, idx) in comments.slice().reverse()" :key="comments.length - idx">
+    {{ idx + 1 }}. {{ cmd }}
+  </div>
      
       </div>
     </div>

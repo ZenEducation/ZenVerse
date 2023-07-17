@@ -2,165 +2,167 @@
 <template>
   <NuxtLayout name="zen">
 
-    <div class="flex items-center  relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+    <div
+    id="main_bar"
+      class="flex items-center  relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+      <div class="">
       <div class="">
         Filter by Status :
-      </div> 
-      <div class="ml-2">
-        <PremFormControl help=""
-              placeholder="None"
-              type="list"
-              :options="filterItems"
-              v-model="filterValue"
-              @change="filterTable"
-          />
-      </div> 
-      <div class="mx-auto flex justify-center">
-         <div class="p-2">
-                      <BaseButton
-                        label="Physics"
-                        type="button"
-                        
-                        class="uppercase px-0 py-0"
-                        small rounded-full
-                        @click="renderArray(1)"
-                      />
-                    </div>
-                     <div class="p-2">
-                      <BaseButton
-                        label="Biology"
-                        type="button"
-                        
-                          class="uppercase px-0 py-0"
-                          small rounded-full
-                          @click="renderArray(2)"
-                      />
-                    </div>
-                      <div class="p-2">
-                        <BaseButton
-                          label="Chemistry"
-                           type="button"
-                        
-                          class="uppercase px-0 py-0"
-                          small rounded-full
-                          @click="renderArray(3)"
-                        />
-                      </div>
-                        <div class="p-2">
-                        <BaseButton
-                          label="Mathematics"
-                           type="button"
-                        
-                          class="uppercase px-0 py-0"
-                          small rounded-full
-                          @click="renderArray(4)"
-                        />
-                      </div>
       </div>
-   
+      <div class="ml-2">
+        <PremFormControl help="" placeholder="None" type="list" :options="filterItems" v-model="filterValue"
+          @change="filterTable" />
+      </div>
+    </div>
+     <div class=" mx-auto flex justify-center items-end grid lg:grid-cols-4 xl:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-3" id="Inside_main_bar">
+          <div class="p-2">
+            <BaseButton label="Physics" type="button" class="uppercase px-0 py-0" small rounded-full
+              @click="renderArray(1)" />
+          </div>
+          <div class="p-2">
+            <BaseButton label="Biology" type="button" class="uppercase px-0 py-0" small rounded-full
+              @click="renderArray(2)" />
+          </div>
+          <div class="p-2">
+            <BaseButton label="Chemistry" type="button" class="uppercase px-0 py-0" small rounded-full
+              @click="renderArray(3)" />
+          </div>
+          <div class="p-2">
+            <BaseButton label="Mathematics" type="button" class="uppercase px-0 py-0" small rounded-full
+              @click="renderArray(4)" />
+          </div>
+        </div>
     </div>
     <div
-      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 "
-    >
-      <table
-        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800"
+        class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 overflow-x-auto"
       >
-        <thead
-          class="sm:table-header-group bg-gray-50 text-gray-700 dark:bg-gray-700 dark:text-gray-400"
+        <table
+          class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800 table-auto overflow-x-auto"
         >
-          <tr
-            class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
-          >
-            <th
-              v-for="(value, key) in tableHeadings"
-              class="p-3 text-center"
-              :key="key"
+       
+            <tr
+              class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
             >
-              {{ value }}
-            </th>
-          </tr>
-        </thead>
-        <tbody class="flex-1 lg:flex-none">
-          <tr
-            v-for="(row, index) in studentTasks.data"
-            class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-            :key="index"
-          >
-            <td
-              v-for="(colm, id) in row"
-              class="border-grey-light dark:border-gray-300 border p-3 min-w-20"
-              :key="id"
-            >
-              <div
-                v-if="typeof colm == 'string'"
-                class="flex items-center justify-center"
+              <th
+                v-for="(value, key) in tableHeadings"
+                class="p-3 text-center"
+                :key="key"
               >
-                {{ colm }}
-              </div>
-              <div class="" v-else>
-                <!-- teaching status  -->
-                <div class="" v-if="colm.type == 'teachingStatus'">
-                  <select
-                    v-model="colm.status"
-                    id="underline_select"
-                    class="w-full py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
-                    :class="colm.status"
-                  >
-                    <option value="Unassigned" class="text-red-500 Unassigned">
-                      Unassigned
-                    </option>
-                    <option value="In Progress" class="redText Progress">
-                      In Progress
-                    </option>
-                    <option value="Completed" class="blueText Completed">
-                      Completed
-                    </option>
-                  </select>
+                {{ value }}
+              </th>
+            </tr>
+    
+ 
+            <tr
+              v-for="(row, index) in studentTasks.data"
+              class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+              :key="index"
+            >
+              <td
+                v-for="(colm, id) in row"
+                class="border-grey-light dark:border-gray-300 border  "
+                :key="id"
+              >
+                <div
+                  v-if="typeof colm == 'string'"
+                  class="flex items-center justify-center "
+                  style="width: 200px;"
+                >
+                  {{ colm }}
                 </div>
-
-                <!-- Module drop down  -->
-                <div class="flex items-center justify-center" v-else>
-                  <select
-                    v-model="colm.status"
-                    id="underline_select"
-                    class="w-[100px] py-2.5 px-0 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
-                    :class="colm.status"
-                  >
-                    <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
-                    <option value="Completed" class="Completed">Completed</option>
-                    <option value="on it" class="on">On It</option>
-                    <option
-                      value="Assigned-Not Started"
-                      class="Assigned"
+                <div class=" " v-else>
+                  <!-- teaching status  -->
+                  <div class="" v-if="colm.type == 'teachingStatus'">
+                    <select
+                      v-model="colm.status"
+                      id="underline_select"
+                      class="w-full pb-2.5 px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
+                      :class="colm.status"
                     >
-                      Assigned - Not Started
-                    </option>
-                    <option value="Unassigned" class="Unassigned">Unassigned</option>
-                  </select>
-                  <div class=" ">
-                    <BaseButton
-                      label="Open"
-                      type="button"
-                      color=""
-                      class="uppercase px-0 py-0"
-                      :style="[]"
-                      small
-                      @click="openPopupItem(colm)"
-                    />
+                      <option value="Unassigned" class="text-red-500 Unassigned">
+                        Unassigned
+                      </option>
+                      <option value="In Progress" class="redText Progress">
+                        In Progress
+                      </option>
+                      <option value="Completed" class="blueText Completed">
+                        Completed
+                      </option>
+                    </select>
                   </div>
+
+                  <!-- Module drop down  -->
+                  <div class=" " v-else>
+                    <div  v-if="colm.status == filterValue" class="flex items-center justify-center">
+                    <select
+                      v-model="colm.status"
+                      id="underline_select"
+                      class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                      :class="colm.status"
+                    >
+                      <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                      <option value="Completed" class="Completed">Completed</option>
+                      <option value="on it" class="on">On It</option>
+                      <option
+                        value="Assigned-Not Started"
+                        class="Assigned"
+                      >
+                        Assigned - Not Started
+                      </option>
+                      <option value="Unassigned" class="Unassigned">Unassigned</option>
+                    </select>
+                    <div class=" pl-1">
+                      <BaseButton
+                        label="Open"
+                        type="button"
+                        color=""
+                        class="uppercase px-0 "
+                        :style="[]"
+                        small
+                        @click="openPopupItem(colm)"
+                      />
+                    </div>
+                  </div>
+                  <div  v-if="filterValue == 'All'" class="flex items-center justify-center">
+                    <select
+                      v-model="colm.status"
+                      id="underline_select"
+                      class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                      :class="colm.status"
+                    >
+                      <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                      <option value="Completed" class="Completed">Completed</option>
+                      <option value="on it" class="on">On It</option>
+                      <option
+                        value="Assigned-Not Started"
+                        class="Assigned"
+                      >
+                        Assigned - Not Started
+                      </option>
+                      <option value="Unassigned" class="Unassigned">Unassigned</option>
+                    </select>
+                    <div class=" pl-1">
+                      <BaseButton
+                        label="Open"
+                        type="button"
+                        color=""
+                        class="uppercase px-0 "
+                        :style="[]"
+                        small
+                        @click="openPopupItem(colm)"
+                      />
+                    </div>
+                  </div>
+              
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <ModuleOpenPopup
-      class="absolute openPopup"
-      @close="closePopup"
-      v-if="openPopup"
-      :value="currentpopupValue"
-    />
+                </div>
+              </td>
+            </tr>
+
+        </table>
+      </div>
+
+    <ModuleOpenPopup class="absolute openPopup" @close="closePopup" v-if="openPopup" :value="currentpopupValue" />
   </NuxtLayout>
 </template>
 <script setup>
@@ -171,7 +173,7 @@ import { mdiLink } from "@mdi/js";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import { reactive, ref, computed } from 'vue';
 import PremFormField from "@/components/Forms/FormField.vue";
-import {PhysicsChapters} from "../../store/academicsAndKCRs/physicsChapters"
+import { PhysicsChapters } from "../../store/academicsAndKCRs/physicsChapters"
 import { BiologyChapters } from "../../store/academicsAndKCRs/biologyChapters"
 import { MathematicsChapters } from "../../store/academicsAndKCRs/mathematicsChapters"
 import { ChemistryChapters } from "../../store/academicsAndKCRs/chemistryChapters"
@@ -208,6 +210,7 @@ const tableHeadings = [
 ];
 
 
+
 const state = reactive({
   array1: PhysicsChapters().data,
   array2: BiologyChapters().data,
@@ -217,8 +220,8 @@ const state = reactive({
 });
 
 const renderArray = (arrayIndex) => {
-state.selectedArray = arrayIndex;
-// console.log(studentTasks.value);
+  state.selectedArray = arrayIndex;
+  // console.log(studentTasks.value);
 };
 
 const studentTasks = computed(() => {
@@ -236,10 +239,13 @@ const studentTasks = computed(() => {
   }
 });
 
-watch(() => state.selectedArray, (newVal) => {
-  const selectedData = studentTasks.value;
-  // console.log('Selected Data:', JSON.stringify(selectedData));
-});
+
+
+const filterTable = () => {
+ console.log(studentTasks.data);
+}
+
+
 
 function getColSpan(item) {
   if (typeof item === "string") {
@@ -259,15 +265,7 @@ const filterItems = [
   "Unassigned",
 ];
 
-const filterTable = ()=>{
 
-   const filterArray = studentTasks.data
-console.log(filterArray)
-  // studentTasks.value= studentTasks.value.filter((item)=>{
-  //   item.status=filterValue.value
-  //   return item
-  // })
-}
 
 
 
@@ -277,38 +275,52 @@ html,
 body {
   height: 100%;
 }
+
 thead {
   display: block;
 }
+
 th {
   height: 3rem;
   overflow: hidden;
   line-height: 2rem;
   min-width: 150px;
 }
+
 td {
   position: relative;
   height: 3rem;
 }
+
 td .grid {
   position: absolute;
   right: 3px;
   top: 0;
   padding-left: 6px;
 }
-
+ @media (max-width: 767px) {
+    #main_bar {
+      flex-direction: column !important;
+    }
+    #Inside_main_bar{
+      padding: 30px !important;
+    }
+  }
 @media (min-width: 640px) {
   table {
     display: inline-table !important;
   }
+  
 
   thead tr:not(:first-child) {
     display: none;
   }
+
   td {
     display: table-cell;
     text-align: left;
   }
+
   thead {
     display: table-header-group;
   }
@@ -333,7 +345,8 @@ th:not(:last-child) {
   cursor: pointer;
 }
 
-.Progress,.on{
+.Progress,
+.on {
   color: #f99a33;
   background: transparent !important;
   padding: 0.5rem !important;
@@ -356,13 +369,14 @@ th:not(:last-child) {
 
 
 /* module  */
-.Revising{
+.Revising {
   color: #6d81ff;
   background: transparent !important;
   padding: 0.5rem !important;
   cursor: pointer;
 }
-.Assigned{
+
+.Assigned {
   color: #EC6AB8;
   background: transparent !important;
   padding: 0.5rem !important;

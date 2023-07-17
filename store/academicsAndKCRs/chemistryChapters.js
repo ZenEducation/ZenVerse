@@ -394,7 +394,7 @@ export const ChemistryChapters = defineStore("data2", {
           },
         },
         {
-          Chapter: "Redox Reactions",
+          Chapter: "Electrochemistry",
           teachingStatus: {
             status: "Completed",
             type: "teachingStatus",

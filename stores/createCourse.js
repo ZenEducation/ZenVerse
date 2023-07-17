@@ -77,8 +77,12 @@ showAddChapterNameSection(){
         if(item.id===this.currentChapterItem.id){
           if(item.lessons==undefined){
             item.lessons=[]
+            lesson.date="",
+            lesson.days=0
             item.lessons.push(lesson)
           } else {
+            lesson.date="",
+            lesson.days=0
             item.lessons.push(lesson)
           }
         }

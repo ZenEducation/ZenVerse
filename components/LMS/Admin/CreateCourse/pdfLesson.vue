@@ -14,8 +14,7 @@ import {
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
-import LessonSettings from "@/components/LMS/Admin/CreateCourse/LessonSettings.vue";
-
+import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
 import PremFormField from "@/components/Forms/FormField.vue";
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
@@ -112,26 +111,10 @@ const exportpdf = () => {
             </PremFormField>
           </CardBox>
         </div>
-        <CardBox >
-        <LessonSettings :lesson="{type:'PDF'}" />
  
-      </CardBox>
-  <div class="flex mt-4 justify-end">
-          <BaseButton
-            label="DISCARD CHANGES"
+    
+        <Lessonsetting />
+ 
 
-             class="mr-1"
-       
-            color="info"
-            outline
-          />
-          <BaseButton
-            label="SAVE"
-            color="info"
-            class="ml-1"
-            @click = "exportpdf()"
-       
-          />
-        </div>
   </div>
 </template>

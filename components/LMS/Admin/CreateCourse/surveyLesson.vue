@@ -20,7 +20,8 @@ import CardBox from "@/components/Cards/CardBox.vue";
 
 import PremFormField from "@/components/Forms/FormField.vue";
 import FormCheckRadio from "~~/components/Forms/FormCheckRadio.vue";
-import LessonSettings from "@/components/LMS/Admin/CreateCourse/LessonSettings.vue";
+
+import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
@@ -359,26 +360,7 @@ const saveData = ()=>{
             </PremFormField>
           </CardBox>
         </div>
-        <CardBox >
-        <LessonSettings :lesson="{type:'Survey'}" />
- 
-      </CardBox>
-  <div class="flex mt-4 justify-end">
-          <BaseButton
-            label="DISCARD CHANGES"
-
-             class="mr-1"
-       
-            color="info"
-            outline
-          />
-          <BaseButton
-            label="SAVE"
-            color="info"
-            class="ml-1"
-            @click="saveData"
-       
-          />
-        </div>
+   
+<Lessonsetting />
   </div>
 </template>

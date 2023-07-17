@@ -57,7 +57,11 @@ import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
   audio:Boolean,
   listDisplay: Boolean,
   downloadlist: Boolean,
-  pdffile : Boolean
+  pdffile : Boolean,
+  isBulkImporter:{
+    type:Boolean,
+    default:false
+  }
 });
 const slots = useSlots();
 const fileInput = ref(null);
@@ -571,8 +575,8 @@ const handlepdfFiles = (event) => {
         </div>
       </div>
     
-  
-      <div class="listing_cover_downlaod" v-if="downloadlist">
+      <!-- <div class="listing_cover_downlaod" v-if="downloadlist"> -->
+      <div class="listing_cover_downlaod" v-if="downloadlist && !isBulkImporter">
      
         <div
           v-if=download

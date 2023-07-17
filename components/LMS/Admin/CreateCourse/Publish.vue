@@ -1,84 +1,65 @@
-<template>
-  <div class="w-8/12 mx-auto mt-10 shadow">
-    <CardBox>
-      <div class="flex justify-between">
-        <div class="my-auto text-2xl">Publish</div>
-        <BaseButton type="submit" color="info" label="SAVE " />
-      </div>
-
-      <div class="mt-2 text-xl">Course publish status</div>
-      <div class="flex mt-3">
-        <div class="">
-          <FormCheckRadioGroup
-            name="sample-radio-two"
-            type="radio"
-            :options="radioOptions"
-            is-column
-          />
-        </div>
-        <div class="pl-1">
-          <div class="">Draft</div>
-          <div class="mt-1 text-gray-500">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            impedit eveniet debitis at nostrum animi molestiae nihil ipsum, unde
-            quisquam excepturi
-          </div>
-        </div>
-      </div>
-      <div class="flex mt-3">
-        <div class="">
-          <FormCheckRadioGroup
-            name="sample-radio-two"
-            type="radio"
-            :options="radioOptions"
-            is-column
-          />
-        </div>
-        <div class="pl-1">
-          <div class="">Pre Order</div>
-          <div class="mt-1 text-gray-500">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            impedit eveniet debitis at nostrum animi molestiae nihil ipsum, unde
-            quisquam excepturi
-          </div>
-        </div>
-      </div>
-      <div class="flex mt-3">
-        <div class="">
-          <FormCheckRadioGroup
-            name="sample-radio-two"
-            type="radio"
-            :options="radioOptions"
-            is-column
-          />
-        </div>
-        <div class="pl-1">
-          <div class="">Published</div>
-          <div class="mt-1 text-gray-500">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            impedit eveniet debitis at nostrum animi molestiae nihil ipsum, unde
-            quisquam excepturi
-          </div>
-        </div>
-      </div>
-    </CardBox>
-    <CardBox class="mt-5">
-      <div class="text-xl">
-        Anticipating a large number of sign-up at launch ?
-      </div>
-      <div class=" mt-2 text-gray-500">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae labore aliquid fugiat harum at velit animi quas dolores dolor, delectus minima assumenda earum sint, iure officia? Accusantium amet aperiam quia?
-      </div>
-      </CardBox>
-  </div>
-</template>
-
 <script setup>
-import BaseIcon from "@/components/Display/BaseIcon.vue";
-import BaseButton from "@/components/Buttons/BaseButton.vue";
+import {
+  mdiBallot,
+} from "@mdi/js";
+import SectionMain from "@/components/Sections/SectionMain.vue";
+import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
-import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
-const radioOptions = { one: "" };
+import PremFormField from "@/components/Forms/FormField.vue";
+import BaseButton from "@/components/Buttons/BaseButton.vue";
+import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
+
+const radioOptions = [
+    {label:"  Draft", description:"Students cannot purchase or enroll in this course. For students that are already enrolled, this course will not appear on their Student Dashboard."},
+    {label:"  Pre-Order", description:"Students can pre-order and enroll in this course but cannot access its contents. For students enrolled in this course, a course card will appear in their Student Dashboard with a \"Comming soon\" label"},
+    {label:"  Published", description:"Students can purchase, enroll in, and access the content of this course. For students that are enrolled, this course will appear on their Student Dashboard."}
+        ]; 
+
 </script>
 
-<style></style>
+<template>
+  <div class="w-8/12 mx-auto my-5">
+ 
+        <SectionTitleLineWithButton
+          title="Publish"
+          main
+        >
+          <BaseButton
+            href=""
+            label="SAVE"
+            color="info"
+            
+            medium
+          />
+        </SectionTitleLineWithButton>
+
+        <div class="">
+          <CardBox
+            :icon="mdiBallot"
+            class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
+            is-form
+            @submit.prevent="submit"
+          >
+            <CardBoxComponentTitle
+              title="Course Publish Status"
+              class="mb-12"
+            />
+            <PremFormField horizontal>
+              <div 
+              v-for="(options,key) in radioOptions"
+              :key="key"
+              >
+              <br>
+              <label>
+                <input type="radio" name="radioButton">{{options.label}}
+              </label>
+              <br>
+              <label class="text-gray-500 dark:text-slate-400">{{options.description}}</label>
+
+              </div>
+            </PremFormField>
+          </CardBox>
+        </div>
+
+  </div>
+</template>

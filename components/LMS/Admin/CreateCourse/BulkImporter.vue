@@ -228,7 +228,7 @@
                 placeholder="Upload a pdf file"
                 v-model="file"
                 @upload-data="getFile"
-
+                :isBulkImporter="true"
               />
             </PremFormField>
 

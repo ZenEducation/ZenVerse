@@ -89,7 +89,7 @@ export default [
   },
   {
     to: "/CMS/publish",
-    label: "publish",
+    label: "Publish",
     icon: mdiPublish ,
   },
   {

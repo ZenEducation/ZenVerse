@@ -40,6 +40,7 @@ router.beforeEach(() => {
   layoutStore.isAsideMobileExpanded = false;
 });
 
+
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
     styleStore.setDarkMode();
@@ -47,8 +48,17 @@ const menuClick = (event, item) => {
 
   if (item.isLogout) {
     AuthStore.logout();
-    // console.log("Clicked On Logout");
     router.push("/auth/login");
+  }
+
+  if (item.isPublish) { 
+    // Set the value of the "Status" input field to "Published"
+    const statusInput = document.getElementById("status");
+    if (statusInput) {
+      statusInput.value = "Published";
+      statusInput.style.color = "green";
+      statusInput.style.fontWeight = "bold";
+    }
   }
 };
 
@@ -141,9 +151,17 @@ const menuClick = (event, item) => {
     <label for="telegram">Telegram</label>
   </div>
 
-<div class="flex justify-end pr-10 mt-1">
-  <button id="publishButton" class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500" style="margin-left: 200px;">Publish</button>
+  <div class="flex justify-end pr-10 mt-1">
+  <button
+    id="publishButton"
+    class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500"
+    style="margin-left: 200px;"
+    @click="() => menuClick(event, { isPublish: true })"
+  >
+    Publish
+  </button>
 </div>
+
 </div>
 <div class="flex items-center mb-5 pl-10 pr-10">
   <div class="mr-24">
@@ -199,8 +217,8 @@ const menuClick = (event, item) => {
     <label for="role" style="margin-right: 10px;">Role:</label>
     <select id="role" name="role">
       <option value="option1">Developer</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
+      <option value="option2">Designer</option>
+      <option value="option3">Architect</option>
     </select>
   </div>
 </div>
@@ -215,7 +233,7 @@ const menuClick = (event, item) => {
   <div style="display: inline-block; border: 1px solid #000; width: 750px; padding: 20px; margin-left: 60px; margin-top: 2px;">
   <div style="position: relative; padding-top: 70%; margin-left: 120px;">
     <!-- Insert your video display code here -->
-    <iframe src="https://github.com/ZenEducation/ZenVerse/blob/feat/Publishpage/Shubhom/assets/svg/cloud.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 80%;" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 80%;" frameborder="0" allowfullscreen></iframe>
     <div style="position: absolute; bottom: 0; background-color:whitesmoke; width: 80%; padding: 10px; color: black;">
       <p>Extended text <b>help</b> you to build rich text quickly . any special text you will have with extended text .
         <b>Text can be bold</b> <I>Italic</I> .<br> It my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to imperove flutter.

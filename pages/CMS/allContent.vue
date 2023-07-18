@@ -479,7 +479,7 @@ const clearResult = () => {
 
 <template>
     <div>
-        <NuxtLayout name="zen">
+        <NuxtLayout name="cmslayout">
             <SectionMain>
                 <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="All Content" main>
                     <BaseButton label="Create Content" color="contrast" />

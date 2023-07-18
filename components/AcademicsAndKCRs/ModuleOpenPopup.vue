@@ -100,8 +100,13 @@
       </div>
 
       <div class="mt-5 mb-5">
-        <div class="mb-3">Commands :</div>
-        <div class="mt-1 py-2 px-3 bg-gray-200 dark:bg-slate-800 shadow rounded" v-for="(cmd,idx) in comments" :key="idx" > {{ cmd }}</div>
+        <!-- <div class="mb-3">Commands :</div>
+        <div class="mt-1 py-2 px-3 bg-gray-200 dark:bg-slate-800 shadow rounded" v-for="(cmd,idx) in comments" :key="idx" > {{ cmd }}</div> -->
+
+        <div class="">Comments :</div>
+        <div class="mt-3" v-for="(cmd, idx) in comments.slice().reverse()" :key="comments.length - idx">
+    {{ idx + 1 }}. {{ cmd }}
+  </div>
      
       </div>
     </div>

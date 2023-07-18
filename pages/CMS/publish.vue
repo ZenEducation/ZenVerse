@@ -64,6 +64,40 @@ const menuClick = (event, item) => {
 
 </script>
 
+<script>
+export default {
+  data() {
+    return {
+      newFeedbackText: '',
+      feedbacks: [
+      ]
+    };
+  },
+  methods: {
+    // Your existing methods
+    saveFeedback() {
+      // Get the new feedback text and current timestamp
+      const newFeedbackText = this.newFeedbackText;
+      const timestamp = new Date().toLocaleString();
+
+      // Create a new feedback object
+      const newFeedback = {
+        text: newFeedbackText,
+        timestamp: "Date: " + timestamp
+      };
+
+      // Add the new feedback to the feedbacks array
+      this.feedbacks.push(newFeedback);
+
+      // Clear the textarea after saving feedback
+      this.newFeedbackText = '';
+    }
+  }
+};
+
+// Your existing JavaScript code
+</script>
+
 <template>
   <div>
     <div
@@ -243,29 +277,50 @@ const menuClick = (event, item) => {
     </div>
   </div>
 </div>
-
-<div style="display: flex; align-items: center; margin-top: 30px; margin-left: 60px;">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-  <div>
-    <span style="font-weight: bold;">John Doe</span>
-    <br>
-    <textarea placeholder="Leave your feedback..." style="width: 600px; height: 40px; margin-top: 10px;"></textarea>
-  </div>
-  <span style="margin-left: 10px;">TimeStamp</span>
-</div>
-
-<div style="display: flex; align-items: center; margin-top: 30px; margin-left: 60px;">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-  <div>
-    <span style="font-weight: bold;">John Doe</span>
-    <br>
-    <p style="width: 500px; height: 40px;">This is an older feedback. In partnership with Duton Books, Amazon Literary Partnership, and Feminist Press, Girls. Write now is thrilled to announce our newest publication, Girls Write Now on the Other Side of Everything: 2023 Anthology</p>
+<div style="display: flex; align-items: center; margin-top: 50px; margin-left: 60px;">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU"
+        alt="Avatar"
+        style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;"
+      >
+      <div>
+        <span style="font-weight: bold;">John Doe</span>
+        <br>
+        <textarea
+          v-model="newFeedbackText"
+          placeholder="Leave your feedback..."
+          style="width: 600px; height: 40px; margin-top: 10px;"
+        ></textarea>
+      </div>
+      <button @click="saveFeedback" style="margin-left: 10px;">Save</button>
     </div>
-    <span style="margin-left: 10px;">Date: 12 July 2023 12:11 am</span>
-</div>
 
-<div id="feedback-section" style="margin-top: 100px; margin-left: 60px;"></div>
-<slot />
+    <!-- Feedback list -->
+    <div
+      id="feedback-list"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 60px; margin-left: 60px;"
+    >
+      <div
+        v-for="(feedback, index) in feedbacks"
+        :key="index"
+        style="display: flex; align-items: center; width: 600px; height: 40px; padding: 5px; margin-bottom: 90px;"
+      >
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU"
+          alt="Avatar"
+          style="width: 40px; height: 40px; border-radius: 60%; margin-right: 10px;"
+        >
+        <div>
+          <span style="font-weight: bold;">John Doe</span>
+          <br>
+          {{ feedback.text }}
+        </div>
+        <span style="margin-left: 20px;">{{ feedback.timestamp }}</span>
+      </div>
+    </div>
+
+    <div id="feedback-section" style="margin-top: 40px; margin-left: 60px;"></div>
+  <slot />
 
 
            <!-- FooterBar-->

@@ -107,7 +107,7 @@
 
   <div class="text-[#7d7d7d]">
     <exam-nav />
-    <div class="side-bar pt-[60px] h-[100vh] float-left">
+    <div class="side-bar pt-[60px] h-[100vh] float-left flex flex-col justify-between gap-2 pb-4">
       <div class="max-h-[418px]">
         <header
           class="uppercase text-[16px] text-[#808080] font-semibold py-2.5 px-5"
@@ -128,25 +128,21 @@
             Add section
           </li>
 
-          <li class="border-l-[3px] border-[#ffcc80] rounded-sm box-shadow">
-            <span class="mr-2.5"
-              ><img
-                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
-                alt=""
-            /></span>
-            Test attachments
-          </li>
+
 
           <!-- groups -->
           <p class="list-lable">Groups</p>
-          <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
-            <span class="mr-2.5"
+          <NuxtLink to="/examportal/exam/editGroup">
+
+            <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
+              <span class="mr-2.5"
               ><img
-                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
-                alt=""
-            /></span>
-            Group questions
-          </li>
+              src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
+              alt=""
+              /></span>
+              Group questions
+            </li>
+          </NuxtLink>
 
           <!-- questions -->
           <p class="list-lable">questions</p>
@@ -199,13 +195,10 @@
       <div>
         <ul>
           <li class="bottom-side-nav">
-            <a href="/examportal/exam/groupList">Groups</a>
+            <a href="/examportal/Exam/groupList">Groups</a>
           </li>
           <li class="bottom-side-nav">
-            <a href="/examportal/exam/exportPDF">Export questions</a>
-          </li>
-          <li class="bottom-side-nav">
-            <a href="">All questions</a>
+            <a href="/examportal/Exam/exportPDF">Export PDF</a>
           </li>
           <li class="bottom-side-nav">
             <a href="">Import from pool</a>
@@ -214,7 +207,7 @@
             <a href="">Import</a>
           </li>
           <li class="bottom-side-nav">
-            <a href="">Settings</a>
+            <a href="/examportal/Exam/examSetting">Settings</a>
           </li>
           <li class="bottom-side-nav">
             <a href="">Publish status</a>
@@ -240,12 +233,12 @@
 
       <div>
         <NuxtLink
-          to="/examPortal/exam/addQuestion/addInstructions"
+          to="/examportal/Exam/addQuestion/addInstructions"
           class="section"
           >Instruction</NuxtLink
         >
         <NuxtLink
-          to="/examPortal/exam/TestAttachment"
+          to="/examportal/Exam/TestAttachment"
           class="section flex items-center border-l-[3px] border-[#FFB11B]"
         >
           Test Attachments
@@ -378,7 +371,7 @@
 </template>
 
 <script setup>
-import ExamNav from "~~/components/ExamPortal/Exam/Exam-Nav.vue";
+import ExamNav from "~~/components/examportal/CreateExam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import {
@@ -542,13 +535,13 @@ const EditSectionControl = (id, temp) => {
 const toLink = (type) => {
   switch (type) {
     case "MCQ":
-      return "/examportal/exam/addQuestion/mcq";
+      return "/examportal/Exam/addQuestion/mcq";
     case "Numerical":
-      return "/examportal/exam/addQuestion/numerical";
+      return "/examportal/Exam/addQuestion/numerical";
     case "Essay":
-      return "/examportal/exam/addQuestion/para";
+      return "/examportal/Exam/addQuestion/para";
     case "Fill":
-      return "/examportal/exam/addQuestion/fillinblank";
+      return "/examportal/Exam/addQuestion/fillinblank";
 
     default:
       return "#";

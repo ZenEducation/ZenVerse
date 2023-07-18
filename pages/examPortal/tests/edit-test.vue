@@ -304,7 +304,7 @@
 </template>
 
 <script setup>
-import ExamNav from "~~/components/ExamPortal/Exam/Exam-Nav.vue";
+import ExamNav from "~~/components/examportal/CreateExam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import {

@@ -28,7 +28,7 @@
   </CardBoxModal>
   <div class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
-      <NuxtLink to="/examportal/exam/edit-page">
+      <NuxtLink to="/examportal/Exam/edit-page">
         <div
           class="text-[13px] flex items-center justify-center cursor-pointer"
         >

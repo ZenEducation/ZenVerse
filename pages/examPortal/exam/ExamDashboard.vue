@@ -270,7 +270,9 @@ const colors = computed(() => {
             </div>
             <div class="flex flex-wrap gap-4 items-center">
               <BaseButton color="lightDark" label="Re order" small />
-              <BaseButton color="info" :icon="mdiPlus" label="Create" small />
+              <NuxtLink to="/ExamPortal/exam/examsetting">
+                <BaseButton color="info" :icon="mdiPlus" label="Create" small />
+              </NuxtLink>
             </div>
           </div>
         </div>

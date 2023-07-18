@@ -239,7 +239,10 @@ const colors = computed(() => {
               />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
-              <BaseButton color="lightDark" label="Edit" small />
+              <a href="/examportal/tests/TestSetting">
+
+                <BaseButton color="lightDark" label="Edit" small />
+              </a>
               <BaseButton color="lightDark" label="Re order" small />
               <BaseButton
                 color="info"
@@ -345,7 +348,7 @@ const colors = computed(() => {
 
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
-            <NuxtLink to="/examportal/tests/testSidebar"
+            <NuxtLink to="/examportal/exam/examSetting"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
@@ -379,7 +382,7 @@ const colors = computed(() => {
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <NuxtLink to="/examportal/tests/testSidebar"
+            <NuxtLink to="/examportal/exam/examSetting"
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >

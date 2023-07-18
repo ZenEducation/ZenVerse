@@ -249,7 +249,7 @@ const isActive = ref(0);
           <div class="mt-12">
             <ul>
               <NuxtLink
-                to="/lms/InstructorMgmt"
+                to="/examportal/usermgmt/InstructorMgmt"
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
               >
                 <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />

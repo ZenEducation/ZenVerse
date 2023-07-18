@@ -18,13 +18,6 @@ export default [
 
   },
   {
-    label: "All Courses",
-    to: "/examportal/learner/AllCourses",
-
-
-
-  },
-  {
     label: "My Dashboard",
     to: "/examportal/learner/Dashboard",
 

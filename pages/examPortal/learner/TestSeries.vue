@@ -17,13 +17,13 @@
               <PremFormControl selected="JEE" :options="options" v-model="statusSelectedFilter" class=" w-32" />
             </div>
             <div class="h-80 max-md:h-auto overflow-y-scroll scrollbar-thin">
-              <div class="flex p-3" v-for="item in filteredItems" >
+              <NuxtLink to="/examportal/learner/mocktest" class="flex p-3" v-for="item in filteredItems" >
                 <img :src="image" class="w-1/4 rounded" alt="" />
                 <div class="p-3">
                   <p class="text-lg">{{item.title}}</p>
                   <p class="text-xs">Test + Live</p>
                 </div>
-              </div>
+              </NuxtLink>
             </div>
             <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
               <BaseLevel>

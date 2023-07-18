@@ -20,7 +20,7 @@ import {
       menu: [
         {
           label: "Mock Tests",
-          to:"/examportal/exam/ExamDashboard"
+          to:"/examportal/Exam/ExamDashboard"
         },
         {
           label: "Test Series",
@@ -73,7 +73,7 @@ import {
       label: "Manage",
     },
     {
-      to: "/examportal/settings",
+      to: "/examportal/AdminProfile",
       icon: mdiCogOutline,
       label: "Settings",
     },

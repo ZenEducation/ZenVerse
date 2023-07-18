@@ -29,15 +29,20 @@
         </div>
         <div class="flex  flex-wrap border rounded justify-between px-6 py-2 my-4 items-center">
           <p class="text-lg font-medium">Test Attempts : 2</p>
-          <BaseButton label="Continue Test"  color="info"/>
+          <NuxtLink to="/examportal/learner/examInstruction">
+
+            <BaseButton label="Continue Test"  color="info"/>
+          </NuxtLink>
         </div>
         <div class="flex flex-wrap justify-between px-6 py-2 my-4 items-center">
           <div>
             <p class="font-semibold">First Attempt</p>
             <p class=" font-light text-sm">Score 13 of 360</p>
           </div>
-          <BaseButton label="View Result" class="border rounded" />
+          <NuxtLink to="/examportal/learner/examResult">
 
+            <BaseButton label="View Result" class="border rounded" />
+          </NuxtLink>
         </div>
 
       </div>

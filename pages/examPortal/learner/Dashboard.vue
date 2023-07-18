@@ -10,97 +10,36 @@ import { mdiOpenInNew, mdiPlay, mdiFormatListBulleted, mdiGrid } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
-import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([
+
   {
-    CourseID: "course1",
-    title: "Mechanics: Newton's Laws of Motion",
-    status: "Published",
-    percentCompleted: 0,
-  },
-  {
-    CourseID: "course2",
+    ID: "BCD123",
     title: "Thermodynamics: Heat and Temperature",
     status: "Unpublished",
-    percentCompleted: 25,
+    type: "Tests",
+    quantity: 2,
+    isFree: false,
+    category: "Mock test",
   },
+
   {
-    CourseID: "course3",
-    title: "Optics: Geometrical Optics and Reflection",
-    status: "Coming Soon",
-    percentCompleted: 50,
-  },
-  {
-    CourseID: "course4",
+    ID: "EFG456",
     title: "Electricity and Magnetism: Electric Circuits",
     status: "Scheduled",
-    percentCompleted: 75,
+    type: "Tests",
+    quantity: 3,
+    isFree: false,
+    category: "test series",
   },
-  {
-    CourseID: "course5",
-    title: "Waves: Wave Properties and Sound",
-    status: "Published",
-    percentCompleted: 10,
-  },
-  {
-    CourseID: "course6",
-    title: "Modern Physics: Quantum Mechanics",
-    status: "Published",
-    percentCompleted: 90,
-  },
-  {
-    CourseID: "course7",
-    title: "Electromagnetism: Magnetic Fields and Induction",
-    status: "Unpublished",
-    percentCompleted: 35,
-  },
-  {
-    CourseID: "course8",
-    title: "Astrophysics: Stars and Galaxies",
-    status: "Coming Soon",
-    percentCompleted: 60,
-  },
-  {
-    CourseID: "course9",
-    title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
-    status: "Published",
-    percentCompleted: 80,
-  },
-  {
-    CourseID: "course10",
-    title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
-    status: "Published",
-    percentCompleted: 95,
-  },
-]);
 
-const statusOptions = [
-  "all",
-  "Published",
-  "Unpublished",
-  "Coming Soon",
-  "Scheduled",
-];
-const statusSelectedFilter = ref("all");
+]);
+const currentTab = ref("X");
 const searchQuery = ref("");
-const publishedFilterOption = ref("all");
 
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
-const publishedOnFilterModelActive = ref(false);
-const statusFilterModelActive = ref(false);
-
-const isFreeFilterActive = ref(false);
-
-const resetfilter = () => {
-  statusSelectedFilter.value = "all";
-  publishedFilterOption.value = "all";
-  publishedOnFilterModelActive.value = false;
-  statusFilterModelActive.value = false;
-  isFreeFilterActive.value = false;
-};
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -108,15 +47,13 @@ const filteredItems = computed(() => {
 
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
-      return search
-        ? item.CourseID.match(search) || item.title.match(search)
-        : true;
+      return search ? item.ID.match(search) || item.title.match(search) : true;
     });
   }
 
-  if (statusSelectedFilter.value !== "all") {
+  if (currentTab.value != "X") {
     filtered = filtered.filter((item) => {
-      return item.status === statusSelectedFilter.value;
+      return item.category == currentTab.value;
     });
   }
 
@@ -127,7 +64,6 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const layoutStore = useLayoutStore();
 const isLg = computed(() => {
   return window.innerWidth <= 600;
 });
@@ -140,7 +76,6 @@ const isFinalGrid = computed(() => {
     return isGrid.value;
   }
 });
-
 const colors = computed(() => {
   if (isGrid.value) {
     return ["lightDark", "info"];
@@ -152,9 +87,6 @@ const colors = computed(() => {
   <NuxtLayout name="lmsstudent">
     <div class="px-6">
       <div class="p-5">
-        <div>
-          <p class="font-bold text-xl">Welcome Back, S</p>
-        </div>
         <div class="mt-10 flex justify-between">
           <p class="font-bold text-3xl">All Courses</p>
           <div class="flex flex-wrap gap-0 items-center">
@@ -176,6 +108,52 @@ const colors = computed(() => {
                 }
               "
             />
+          </div>
+        </div>
+
+        <div class="w-full flex gap-5 items-center justify-start my-4">
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'X',
+            }"
+            @click="
+              () => {
+                currentTab = 'X';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">All Courses</p>
+          </div>
+
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'C',
+            }"
+            @click="
+              () => {
+                currentTab = 'Mock test';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Mock Tests</p>
+          </div>
+          <div
+            class="cursor-pointer"
+            :class="{
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'D',
+            }"
+            @click="
+              () => {
+                currentTab = 'test series';
+                searchQuery = '';
+              }
+            "
+          >
+            <p class="pb-2">Test Series</p>
           </div>
         </div>
 
@@ -204,96 +182,43 @@ const colors = computed(() => {
           </button>
         </form>
 
-        <div class="flex justify-between">
-          <div class="flex items-start gap-y-4 flex-wrap">
-            <div class="relative mr-4">
-              <p>filter by:</p>
-            </div>
-
-            <div class="relative mr-4">
-              <div
-                @click="statusFilterModelActive = !statusFilterModelActive"
-                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-              >
-                <p
-                  role=""
-                  tabindex="-1"
-                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-                >
-                  Status
-                </p>
-              </div>
-              <div
-                class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-                v-if="statusFilterModelActive"
-              >
-                <PremFormControl
-                  :options="statusOptions"
-                  v-model="statusSelectedFilter"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
-            @click="resetfilter"
-          >
-            <p
-              role=""
-              tabindex="-1"
-              class="break-words text-body text-darkSlate01 false"
-            >
-              Reset Fiters
-            </p>
-          </div>
-        </div>
-
         <BaseDivider />
-
-        <div class="text-gray-500 mb-7 dark:text-white">
-          <span>{{ filteredItems.length }} Courses </span>
-        </div>
-
         <template v-if="isFinalGrid">
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <div
-              class="rounded-md mt-4 overflow-hidden border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
+              class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
               v-for="item in filteredItems"
             >
               <div
-                class="h-44 w-full bg-cover bg-center bg-no-repeat"
+                class="h-44 w-full bg-cover bg-center bg-no-repeat relative"
                 :style="'background-image: url(' + image + ')'"
               ></div>
-              <div class="px-4 h-auto">
-                <p class="font-medium h-12">{{ item.title }}</p>
-                <div class="w-full flex justify-center items-center gap-4 h-4">
-                  <progress
-                    class="h-1 w-3/5"
-                    :value="item.percentCompleted"
-                    max="100"
-                  ></progress>
-                  {{ item.percentCompleted }}%
+              <div class="flex justify-center relative mb-8 top-[-20px]">
+                <div
+                  v-if="item.isFree"
+                  class="px-4 py-2 bg-white absolute border-2 border-green-500"
+                >
+                  <p>Free</p>
                 </div>
               </div>
-              <div class="w-full border-t mt-4"></div>
-              <div class="grid grid-cols-2 gap-0 h-16">
-                <NuxtLink
-                  to="/lms/LMSStudent/coursecontent"
-                  class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform"
-                >
-                  <BaseIcon :path="mdiOpenInNew" />
-                  <p>See Overview</p>
-                </NuxtLink>
-                <NuxtLink
+
+              <div class="px-4 h-auto">
+                <p class="font-medium h-12">{{ item.title }}</p>
+              </div>
+              <div class="w-full border-t mt-4"  v-if="item.category=='test series'" ></div>
+              <div class="flex items-center justify-center h-16 "                 v-if="item.category=='test series'" 
+              >
+                <div
                   to="#"
-                  class="flex flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
+                  class="flex flex-1 flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
                 >
-                  <BaseIcon :path="mdiPlay" />
-                  <p>Go To Course</p>
-                </NuxtLink>
+                  <p>
+                    <span class="font-semibold">{{ item.type }}</span> :
+                    {{ item.quantity }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -304,44 +229,20 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] cursor-pointer transition-transform"
               v-for="item in filteredItems"
             >
-              <div class="flex justify-between max-sm:block">
-                <div class="flex max-sm:block">
-
-                  <img :src="image" class="w-40 max-sm:w-full" />
-                  <div class="px-4 h-auto">
-                    <p class="font-medium min-h-18">{{ item.title }}</p>
-                    <div class="w-full flex justify-center items-center gap-4 h-4">
-                      <progress
-                        class="h-1 w-3/5"
-                        :value="item.percentCompleted"
-                        max="100"
-                      ></progress>
-                      {{ item.percentCompleted }}%
-                    </div>                  <div class="flex gap-48 max-md:gap-10">
-                      <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                    </div>
+              <div class="flex">
+                <img :src="image" class="w-40" />
+                <div class="px-4 h-auto">
+                  <p class="font-medium min-h-18">{{ item.title }}</p>
+                  <p v-if="item.category=='test series'" class="">{{ item.type }} : {{ item.quantity }}</p>
+                  <div class="flex gap-48 max-md:gap-10">
+                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   </div>
-                </div>
-                <div class="grid grid-cols-1 gap-2 pr-4 min-w-[140px]">
-                  <NuxtLink
-                    to="/lms/LMSStudent/coursecontent"
-                    class="flex flex-wrap items-center justify-center border-r hover:scale-105 cursor-pointer transition-transform"
-                  >
-                    <BaseIcon :path="mdiOpenInNew" />
-                    <p>See Overview</p>
-                  </NuxtLink>
-                  <NuxtLink
-                    to="#"
-                    class="flex flex-wrap items-center justify-center hover:scale-105 cursor-pointer transition-transform"
-                  >
-                    <BaseIcon :path="mdiPlay" />
-                    <p>Go To Course</p>
-                  </NuxtLink>
                 </div>
               </div>
             </div>
           </div>
         </template>
+
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
           <BaseLevel>
             <BaseButtons>

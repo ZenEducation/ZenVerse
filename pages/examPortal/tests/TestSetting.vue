@@ -8,6 +8,7 @@ import Publish from "~~/components/LMS/Bundle/Publish.vue";
 import ManageUser from "~~/components/LMS/Bundle/ManageUser.vue";
 import AddProducts from "~~/components/LMS/Bundle/AddProducts.vue";
 import ManageOrder from "~~/components/LMS/Bundle/ManageOrder.vue";
+import Dripping from "~~/components/LMS/Bundle/dripping.vue";
 
 import {
   mdiAccountCog,
@@ -27,6 +28,7 @@ const tabs = [
   "Manage Users",
   "Add Products",
   "Manage Order",
+  "Content Dripping"
 ];
 const isSidebarActive = ref(false);
 const isModalSaveActive = ref(false);
@@ -137,6 +139,17 @@ const isActive = ref(0);
                 />
                 <p>Manage Order</p>
               </li>
+              <li
+              class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+              :class="{ 'bg-slate-500': isActive == 6 }"
+              @click="() => (isActive = 6)"
+            >
+              <BaseIcon
+                :path="mdiDatabaseCogOutline"
+                class="cursor-pointer"
+              />
+              <p>Content Dripping</p>
+            </li>
             </ul>
           </div>
         </div>
@@ -194,6 +207,7 @@ const isActive = ref(0);
           <ManageUser v-if="isActive == 3" />
           <AddProducts v-if="isActive == 4" />
           <ManageOrder v-if="isActive == 5" />
+          <Dripping v-if="isActive == 6"/>
         </div>
       </div>
     </div>

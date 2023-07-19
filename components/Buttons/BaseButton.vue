@@ -46,6 +46,7 @@ const props = defineProps({
   active: Boolean,
   disabled: Boolean,
   roundedFull: Boolean,
+  fullwidth: Boolean,
 });
 
 const is = computed(() => {
@@ -73,7 +74,8 @@ const computedType = computed(() => {
 });
 
 const labelClass = computed(() =>
-  props.small && props.icon ? "px-1" : "px-2"
+  props.small && props.icon ? "px-1" : "px-2",
+  props.fullwidth ? "w-full" : "",
 );
 
 const componentClass = computed(() => {
@@ -88,6 +90,7 @@ const componentClass = computed(() => {
     "duration-150",
 
     props.disabled ? "cursor-not-allowed" : "cursor-pointer",
+    props.fullwidth ? "w-full" : "",
     props.roundedFull ? "rounded-full" : "rounded",
     getButtonColor(props.color, props.outline, !props.disabled, props.active),
   ];
@@ -110,17 +113,10 @@ const componentClass = computed(() => {
 
 <template>
   <div>
-    <component
-      :is="is"
-      :class="componentClass"
-      :href="href"
-      :type="computedType"
-      :to="to"
-      :target="target"
-      :disabled="disabled"
-    >
+    <component :is="is" :class="componentClass" :href="href" :type="computedType" :to="to" :target="target"
+      :disabled="disabled" :fullwidth="fullwidth">
       <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
-      <span v-if="label" :class="labelClass">{{ label }}</span>
+      <span v-if="label" :class="labelClass" :fullwidth="fullwidth">{{ label }}</span>
     </component>
   </div>
 </template>

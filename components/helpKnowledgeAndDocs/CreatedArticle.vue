@@ -2,12 +2,12 @@
     <div>
         <div class="flex justify-between mb-10">
             <div>
-                <NuxtLink to="./ArticleCreatePage">
-                  <button class="flex items-center" >
+               
+                  <button @click="goBack" class="flex items-center" >
                     <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer"/>
-                    <p>Back</p>
+                    <p>Back to</p>
                   </button>
-                </NuxtLink>
+               
             </div>
             <ul class="flex justify-start gap-0">
                <p id="year"></p>
@@ -17,7 +17,7 @@
         </div>
 
         <CardBox>
-            <div v-html="content.content" class="w-full h-auto"></div>
+            <div id="Content_data" class="w-full h-auto"></div>
         </CardBox>
     </div>
 </template>
@@ -33,16 +33,23 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { mdiArrowLeftBold, mdiLink } from "@mdi/js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 // import BaseIcon from "@/components/Display/BaseIcon.vue"
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute();
+const router = useRouter();
+
+const goBack = () => {
+  router.back();
+};
+// const post = ref(props.content);
 const likes = ref(0)
 const dislikes = ref(0)
-const content = ref('')
+const content = ref({})
 
 onMounted(() => {
-  console.log('editor')
-  console.log(localStorage.getItem('content'))
-  content.value = JSON.parse(localStorage.getItem('content'))
-
+  // console.log(localStorage.getItem('content'))
+ const data = JSON.parse(localStorage.getItem('content'))
+console.log(data);
 //   Date created
 
   const y = new Date();
@@ -55,8 +62,10 @@ onMounted(() => {
   document.getElementById('month').innerHTML = content.month
   document.getElementById('day').innerHTML = content.day
 
-  console.log(content.year)
-  console.log(content.month)
-  console.log(content.day)
+  document.getElementById("Content_data").innerHTML = data
+
+//   console.log(content.year)
+//   console.log(content.month)
+//   console.log(content.day)
 })
 </script>

@@ -23,9 +23,9 @@
               </template>
               <template v-slot:options>
                 <ul class="flex flex-col">
-                  <li @click="docForm.status = 'Published'" class="selectDdBtn"><p>Published</p></li>
-                  <li @click="docForm.status = 'Draft'" class="selectDdBtn"><p>Draft</p></li>
-                  <li @click="docForm.status = 'Archive'" class="selectDdBtn"><p>Archive</p></li>
+                  <li @click="docForm.status = 'PUBLISHED'" class="selectDdBtn"><p>PUBLISHED</p></li>
+                  <li @click="docForm.status = 'DRAFT'" class="selectDdBtn"><p>DRAFT</p></li>
+                  <li @click="docForm.status = 'ARCHIVE'" class="selectDdBtn"><p>ARCHIVE</p></li>
                 </ul>
               </template>
             </SelectDropdown>
@@ -38,12 +38,12 @@
         >
         <div class="flex gap-10">
         <div>
-        <input type="radio" value="Public" v-model="docForm.visibility"/>
-        <label class="ml-2" for="public">Public</label>
+        <input type="radio" value="PUBLIC" v-model="docForm.visibility"/>
+        <label class="ml-2" for="PUBLIC">PUBLIC</label>
         </div>
         <div>
-        <input type="radio" value="Private" v-model="docForm.visibility"/>
-        <label class="ml-2" for="private">Private</label>
+        <input type="radio" value="PRIVATE" v-model="docForm.visibility"/>
+        <label class="ml-2" for="PRIVATE">PRIVATE</label>
         </div>
         </div>
         </PremFormField>
@@ -78,15 +78,15 @@
 
                 <hr>
                 <div>
-                  <p class="text-center py-4">No available category</p>
+                  <!-- <p class="text-center py-4">No available category</p> -->
                   <hr>
 
                   <!-- category table start-->
                   <table>
                     <tbody class="text-[12px]">
-                      <tr>
-                        <td id="title">{{categories.name}} <p class="text-green-600" v-if="primary === true">-Primary</p></td>
-                        <td><BaseButton @click="primary = !primary" label="Make Primary"/></td>
+                      <tr v-for="category in  categories " :key="category.id">
+                        <td id="tittle">{{category.name}} <p class="text-green-600" v-if="primary === true">-Primary</p></td>
+                        <td><BaseButton @click="setPrimary(category.name)" label="Make Primary"/></td>
                         <td><BaseIcon :path="mdiCog"/></td>
                         <td><BaseIcon :path="mdiImage"/></td>
                         <td>
@@ -94,8 +94,8 @@
                         </td>
                       </tr>
                     </tbody>
-                  </table>
-                  <!-- category table end-->
+                  </table> 
+                 
                   
                   <!-- category form start-->
                   <div v-if="openCategoryForm === true" class="p-5 h-[400px] overflow-auto bg-gray-100 dark:bg-gray-900">
@@ -104,7 +104,7 @@
                     <PremFormControl
                     type="text"
                     placeholder="Enter category name"
-                    v-model="categories.name"
+                    v-model="category.name"
                     />
                   </PremFormField>
 
@@ -113,18 +113,18 @@
                     <PremFormControl
                     type="text"
                     placeholder="Enter slug"
-                    v-model="categories.slug"
+                    v-model="category.slug"
                     />
                     </PremFormField>
                     
                     <!-- PARENT CATEGORY -->
                       <PremFormField
                         label="Parent Category"
-                        v-model="categories.level"
+                        v-model="category.level"
                         >
                             <SelectDropdown>
                               <template v-slot:title>
-                                <div>{{categories.level}}</div>
+                                <div>{{category.level}}</div>
                               </template>
                               <template v-slot:options>
                                 <ul class="flex flex-col">
@@ -149,7 +149,7 @@
                     >
                       <PremFormControl
                         type="textarea"
-                        v-model="categories.description"
+                        v-model="category.description"
                       />
                   </PremFormField>
                  
@@ -162,6 +162,7 @@
                   <BaseButton
                     color="info"
                     label="Save"
+                    @click="saveCategory"
                   />
                   </BaseButtons>
                   </div>
@@ -305,6 +306,73 @@
 
 <script setup>
 import { mdiArrowLeftBoldCircle, mdiLink, mdiClose, mdiPlus, mdiCog, mdiImage } from "@mdi/js";
+import { ref, onMounted } from 'vue';
+import { fetchCategories } from '~/utils/api';
+import { Categories } from '~/src/models';
+
+const categories = ref([]);
+const category = ref({
+    name: '',
+    slug: '',
+    level: 'Top level category',
+    description: ''
+})
+
+
+
+const docForm= ref({
+  slug: '',
+  status: 'DRAFT',
+  visibility: 'ALL',
+  category: 'No Primary Category',
+  language: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
+  author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
+  meta: '',
+  imageUrl: '',
+  articles: 0,
+});
+const setPrimary = (id) => {
+  docForm.value.category = id;
+  console.log(docForm);
+}
+onMounted(async () => {
+  try {
+    const fetchedCategories = await fetchCategories();
+    categories.value = fetchedCategories;
+    console.log("sucuss", categories);
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+});
+
+const saveCategory = async () => {
+  console.log(category.value);
+  try {
+    const savedCategory = await saveContent(category.value);
+    console.log('Category saved:', savedCategory);
+  } catch (error) {
+    console.error('Error saving category:', error);
+  }
+};
+
+watch(
+  () => docForm,
+  (newValue) => {
+    // Run the function to save data to local storage
+    saveToLocalStorage(newValue);
+  },
+  { deep: true } // Watch nested properties of docForm
+);
+
+// Function to save data to local storage
+const saveToLocalStorage = (data) => {
+  try {
+    // Convert data to JSON and save to local storage
+    localStorage.setItem('docFormData', JSON.stringify(data));
+  } catch (error) {
+    console.error('Error saving data to local storage:', error);
+  }
+};
 </script>
 
 <script>
@@ -338,24 +406,24 @@ export default defineComponent({
     data() {
         return{
           primary: false,
-          docForm: {
-            slug: '',
-            status: 'Draft',
-            visibility: 'all',
-            category: 'No Primary Category',
-            language: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
-            author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
-            meta: '',
-            imageUrl: '',
-            articles: 0,
-          },
+          // docForm: {
+          //   slug: '',
+          //   status: 'DRAFT',
+          //   visibility: 'all',
+          //   category: 'No Primary Category',
+          //   language: '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
+          //   author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
+          //   meta: '',
+          //   imageUrl: '',
+          //   articles: 0,
+          // },
 
-          categories: {
-            name: '',
-            slug: '',
-            level: 'Top level category',
-            description: ''
-          },
+          // categories: {
+          //   name: '',
+          //   slug: '',
+          //   level: 'Top level category',
+          //   description: ''
+          // },
 
           openCategoryForm: false,
           categoryModal: false,

@@ -5,12 +5,12 @@
         <div class="grid grid-cols-1 gap-6 md:grid-cols-4">
           <!-- control sidebar -->
           <CardBox has-table class="md:col-span-1 p-2 text-sm rounded-sm">
-              <NuxtLink to="ArticleListPage">
-                  <button class="flex items-center mb-5" >
+              <!-- <NuxtLink to="ArticleListPage"> -->
+                  <button @click="goBack" class="flex items-center mb-5" >
                     <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer"/>
-                    <p>Back</p>
+                    <p>Back to</p>
                   </button>
-              </NuxtLink>
+              <!-- </NuxtLink> -->
               
               <BaseButtons>
                 <BaseButton label="Save Draft" color="contrast" small />
@@ -40,7 +40,7 @@
               </ul>
 
               <div>
-                <Document v-if="activeTab === 'document'" ref="documentComp" @value="getValue" />
+                <Document v-if="activeTab === 'document'" ref="documentComp" @value="getValue1" />
                 <Block v-if="activeTab === 'block'" />
               </div>
             </CardBox>
@@ -66,10 +66,21 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
-import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+import SelectDropdown from "/components/helpKnowledgeAndDocs/SelectDropdown.vue";
 import Document from "@/components/HelpKnowledgeAndDocs/Document.vue";
 import Block from "@/components/HelpKnowledgeAndDocs/Block.vue";
 import ArticleEditor from "@/components/HelpKnowledgeAndDocs/ArticleEditor.vue";
+
+import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { createArticle } from '~/utils/api';
+
+const route = useRoute();
+const router = useRouter();
+
+const goBack = () => {
+  router.back();
+};
 </script>
 
 <script>
@@ -95,16 +106,40 @@ export default {
     },
 
     getValue(value) {
-      console.log('---------> value', value)
+      console.log('---------> value is importantjnddbhvbkef', value)
       this.content = value
     },
+    getValue1(value) {
+      console.log('---------> I am a hero', value)
+      // this.content = value
+    },
 
-    publishData(){
-      // console.log(this.$refs.documentComp.docForm, "----------> documentcomp");
+    async publishData(){
+      const docFormData = JSON.parse(localStorage.getItem('docFormData'))._value
+      console.log(docFormData);
       // console.log(this.$refs.content, "-----------> content");
-      const data = {...this.$refs.documentComp.docForm, year: this.year, month: this.month, day: this.day, content: this.content}
+       const data = {category: docFormData.imageUrl,
+        dislikes: 10,
+        imageUrl: docFormData.imageUrl,
+        language: docFormData.language,
+        likes: 10,
+        metaDescription: docFormData.meta,
+        updatedAt: "2023-07-19",
+        // relatedArticles: '',
+        slug: docFormData.slug,
+        status: docFormData.status,
+        tittle: 'Tittle',
+        visibility: docFormData.visibility, 
+        content: this.content }
+      try {
+        const newArticle = await createArticle(data);
+        console.log('New Article created:', newArticle);
+      } catch (error) {
+        console.error('Error creating article:', error);
+      }
+     
       console.log(data,'---------> All data')
-      localStorage.setItem('content',JSON.stringify(data, null, 2))
+      localStorage.setItem('content',JSON.stringify(data.content))
       this.$router.push('./ViewArticle')
     },
   },

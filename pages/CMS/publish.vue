@@ -167,7 +167,7 @@ export default {
 <div class="flex items-center mb-5 pl-10 pr-10">
   <label class="mr-2">Where to Publish:</label>
 </div>
-<div class="flex items-center mb-5 pl-10 pr-10">
+<div style="display:flex;flex-wrap:wrap" class="flex items-center mb-5 pl-10 pr-10">
   <div class="mr-24">
     <input type="checkbox" id="facebook" name="facebook" class="mr-1">
     <label for="facebook">Facebook</label>
@@ -180,16 +180,16 @@ export default {
     <input type="checkbox" id="linkedin" name="linkedin" class="mr-1">
     <label for="linkedin">LinkedIn</label>
   </div>
-  <div class="mr-24">
-    <input type="checkbox" id="telegram" name="telegram" class="mr-1">
-    <label for="telegram">Telegram</label>
+  <div class="mr-28">
+    <input type="checkbox" id="facebook" name="facebook" class="mr-1">
+    <label for="facebook">Facebook</label>
   </div>
-
-  <div class="flex justify-end pr-10 mt-1">
+  
+  <div class="flex justify-end pr-13 mt-6">
   <button
     id="publishButton"
     class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500"
-    style="margin-left: 200px;"
+    style="align-item:flex-end"
     @click="() => menuClick(event, { isPublish: true })"
   >
     Publish
@@ -197,7 +197,7 @@ export default {
 </div>
 
 </div>
-<div class="flex items-center mb-5 pl-10 pr-10">
+<div style="display:flex;flex-wrap:wrap" class="flex items-center mb-9 pl-10 pr-10">
   <div class="mr-24">
     <input type="checkbox" id="instagram" name="instagram" class="mr-1">
     <label for="instagram">Instagram</label>
@@ -207,16 +207,16 @@ export default {
     <label for="telegram">Telegram</label>
   </div>
   <div class="mr-24">
-    <input type="checkbox" id="telegram" name="telegram" class="mr-1">
-    <label for="telegram">Telegram</label>
+    <input type="checkbox" id="instagram" name="instagram" class="mr-1">
+    <label for="instagram">Instagram</label>
   </div>
   <div class="mr-24">
-    <input type="checkbox" id="telegram" name="telegram" class="mr-1">
-    <label for="telegram">Telegram</label>
+    <input type="checkbox" id="instagram" name="instagram" class="mr-1">
+    <label for="instagram">Instagram</label>
   </div>
 </div>
 
-<div class="flex items-center mb-5 pl-10 pr-10">
+<div class="flex items-center mb-8 pl-11 pr-10">
   <label for="publishDate" style="margin-right: 10px;">Publish Date:</label>
   <input type="date" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Select a Publish Date">
 </div>
@@ -224,31 +224,31 @@ export default {
 <div class="flex items-center mb-5 pl-12 pr-12">
   <label class="mr-3 font-bold">Content Details:</label>
 </div>
-<hr class="pl-2 pr-12 mb-6">
-<div class="pl-14">
+<hr class="pl-2 pr-6 mb-1">
+<div style="padding:3rem">
   <!-- Content details go here -->
   <div>
    <div  class="mb-2" >
   <label for="title">Title:</label>
 </div>
-<div class="mb-6">
-  <input type="text" id="title" name="title"   placeholder="OG title" style="width: 900px; ">
+<div>
+  <input type="text" id="title" name="title"   placeholder="OG title" style="max-width: 800px; width:100%">
 </div>
-<div class="flex mb-3">
-  <div>
-    <label for="type" style="margin-right: 10px;">Type:</label>
+<div style="display:flex;flex-wrap:wrap; justify-content:space-between" class="flex mb-3">
+  <div style="padding:3rem">
+    <label for="type" >Type:</label>
     <select id="type" name="type">
       <option value="option1">Video</option>
       <option value="option2">Audio</option>
       <option value="option3">Image</option>
     </select>
   </div>
-   <div style="margin-left: 60px;">
-    <label for="status" style="margin-right: 10px;">Status:</label>
-    <input type="text" id="status" name="status" placeholder="Initial approval pending" style="padding-right: 8px;">
+   <div style="padding:2rem">
+    <label for="status" >Status:</label>
+    <input t style="width:100%" type="text" id="status" name="status" placeholder="Initial approval pending">
   </div>
-  <div style="margin-left: 80px;">
-    <label for="role" style="margin-right: 10px;">Role:</label>
+  <div style="padding: 3rem;">
+    <label for="role" >Role:</label>
     <select id="role" name="role">
       <option value="option1">Developer</option>
       <option value="option2">Designer</option>
@@ -259,24 +259,24 @@ export default {
  </div>
 </div>
 
-<div class="mb-3">
-  <div style="margin-left: 60px; margin-top: 22px;">
-      <label for="content">Content:</label>
-    </div>
-  </div>
-  <div style="display: inline-block; border: 1px solid #000; width: 750px; padding: 20px; margin-left: 60px; margin-top: 2px;">
-  <div style="position: relative; padding-top: 70%; margin-left: 120px;">
+<div class="mb-2" style="margin-left: 5%;">
+  <label for="content">Content:</label>
+</div>
+<div style="display: inline-block; border: 1px solid #000; width: 90%; max-width: 750px; padding: 5%; margin-left: 5%;">
+  <div style="position: relative; padding-top: 90%; margin-left: 10%;">
     <!-- Insert your video display code here -->
-    <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 80%;" frameborder="0" allowfullscreen></iframe>
-    <div style="position: absolute; bottom: 0; background-color:whitesmoke; width: 80%; padding: 10px; color: black;">
-      <p>Extended text <b>help</b> you to build rich text quickly . any special text you will have with extended text .
-        <b>Text can be bold</b> <I>Italic</I> .<br> It my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to imperove flutter.
+    <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 90%;" frameborder="0" allowfullscreen></iframe>
+    <div style="position: absolute; bottom: 0; background-color: whitesmoke; width: 90%; padding: 5%; color: black;">
+      <p>Extended text <b>help</b> you to build rich text quickly. Any special text you will have with extended text.
+        <b>Text can be bold</b> <I>Italic</I>.<br> It's my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to improve Flutter.
         <br>
         <br>
-        if you meet with any problem ,please let know <span style="color: rgb(100, 186, 220);">@zmtzawqlp</span>.  <b>#HashtagisBold</b></p>
+        if you meet with any problem, please let us know <span style="color: rgb(100, 186, 220);">@zmtzawqlp</span>. <b>#HashtagisBold</b></p>
     </div>
   </div>
 </div>
+
+
 <div style="display: flex; align-items: center; margin-top: 50px; margin-left: 60px;">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU"
@@ -289,10 +289,10 @@ export default {
         <textarea
           v-model="newFeedbackText"
           placeholder="Leave your feedback..."
-          style="width: 600px; height: 40px; margin-top: 10px;"
+          style="width: 160%; height: 40px; margin-top: 10px;"
         ></textarea>
       </div>
-      <button @click="saveFeedback" style="margin-left: 10px;">Save</button>
+      <button @click="saveFeedback" style="margin-left: 130px;">Save</button>
     </div>
 
     <!-- Feedback list -->
@@ -303,7 +303,7 @@ export default {
       <div
         v-for="(feedback, index) in feedbacks"
         :key="index"
-        style="display: flex; align-items: center; width: 600px; height: 40px; padding: 5px; margin-bottom: 90px;"
+        style="display: flex; align-items: center; width: 90%; height: 40px; padding: 5px; margin-bottom: 90px;"
       >
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjIUY-p1m1Pepco3XKOvX5p4ABMyv6A1lSCORbsVlDd46G9y8Vv_ilA9IwQrtEDanz6go&usqp=CAU"
@@ -315,7 +315,7 @@ export default {
           <br>
           {{ feedback.text }}
         </div>
-        <span style="margin-left: 20px;">{{ feedback.timestamp }}</span>
+        <span style="margin-left: 40px;">{{ feedback.timestamp }}</span>
       </div>
     </div>
 

@@ -266,7 +266,7 @@ export default {
   <div style="position: relative; padding-top: 90%; margin-left: 10%;">
     <!-- Insert your video display code here -->
     <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 90%;" frameborder="0" allowfullscreen></iframe>
-    <div style="position: absolute; bottom: 0; background-color: whitesmoke; width: 90%; padding: 5%; color: black;">
+    <div style="position: absolute; bottom: 0; background-color: whitesmoke; width: 80%; padding:4%; color: black;">
       <p>Extended text <b>help</b> you to build rich text quickly. Any special text you will have with extended text.
         <b>Text can be bold</b> <I>Italic</I>.<br> It's my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to improve Flutter.
         <br>

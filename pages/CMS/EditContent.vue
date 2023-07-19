@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NuxtLayout name="zen">
+        <NuxtLayout name="cmslayout">
             <SectionMain>
                 <SectionTitleLineWithButton :icon="mdiFileEdit" title="Edit Content" main>
                     <BaseButton label="Save" color="info" @click="saveReview" />

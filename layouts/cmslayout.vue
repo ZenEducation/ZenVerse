@@ -24,12 +24,7 @@
                             </div>
                             <div class="w-full pl-11" :class="openedSubMenu == item.title ? '' : 'hidden'" v-if="!Collapse">
                                 <ul v-if="item.subM">
-                                    <!-- <li v-for="(sub, index) in item.subMenu" :key="index"
-                                        v-on:click="openContent(sub.title, item.title)"
-                                        class="w-full hover:bg-slate-700 hover:text-white hover:cursor-pointer dark:hover:bg-slate-300 dark:hover:text-black p-1"
-                                        :class="openedContent == sub.title ? 'text-white bg-slate-700 dark:bg-slate-300 dark:text-black' : 'dark:bg-[#212838]'">
-                                        <span v-if="!Collapse"> {{ sub.title }} </span>
-                                    </li> -->
+
                                     <NuxtLink v-for="(sub, index) in item.subMenu" :to="sub.link"
                                         active-class="bg-slate-700 text-white dark:bg-slate-300 dark:text-black">
                                         <li :key="index" v-on:click="openContent(sub.title, item.title)"

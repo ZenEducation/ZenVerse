@@ -277,28 +277,71 @@
           label="Related Articles"
           v-model="docForm.articles"
           >
-              <SelectDropdown>
-                <template v-slot:title>
-                  <div>{{ docForm.articles }} Articles Selected</div>
-                </template>
-                <template v-slot:options>
-                  <ul class="flex flex-col">
-                      <li class="selectDdBtn">
-                        <PremFormField>
-                          <PremFormControl
-                          type="text"
-                          placeholder="Search"
-                          />
-                        </PremFormField>
-                      </li>
-                    <li class="selectDdBtn flex justify-between">
-                        <button class="text-red-600">Clear</button>
-                        <BaseButton label="Done"/>
-                    </li>
-                  </ul>
-                </template>
-              </SelectDropdown>
+            <SelectDropdown @click="articleModal = true">
+    <template v-slot:title>
+      <div>{{ docForm.articles.length }} Articles Selected</div>
+    </template>
+
+  </SelectDropdown>
+
         </PremFormField>
+        <div v-if="articleModal === true" class="fixed top-0 bottom-0 left-0 w-full h-[100vh] bg-gray-700/50 grid place-items-center z-50">
+                <CardBox class="rounded-sm w-11/12 md:w-6/12 opacity-100">
+                  <div class="flex justify-between pb-6">
+                    Articles
+                    <!-- Icon -->
+                    <BaseIcon @click="articleModal = false" :path="mdiClose" class="cursor-pointer" w="w-12"/>
+                  </div>
+
+                  <PremFormField>
+                    <PremFormControl
+                    type="text"
+                    placeholder="Search"
+                    />
+                  </PremFormField>
+
+                  <hr>
+                  <div>
+                    <!-- <p class="text-center py-4">No available category</p> -->
+                    <hr>
+
+                    <!-- category table start-->
+                    <table>
+                      <tbody class="text-[12px]">
+      <tr v-for="category in articles" :key="category.id">
+        <td id="tittle">
+          {{ category.tittle }}
+          <p class="text-green-600" v-if="primary === true">-Primary</p>
+        </td>
+        <td>{{ category.visibility }}</td>
+        <td>
+          <span v-html="category.language"></span>
+        </td>
+        <td>{{ category.status }}</td>
+        <td>{{ category.slug }}</td>
+        <td>{{ category.updatedAt }}</td>
+        <td>
+          <!-- <FormControl
+            type="radio"
+            value="selectedArticleId"
+            :checked="selectedArticleId === category.id"
+            @click="handleRadioClick(category.id)"
+          /> -->
+          <input
+      type="checkbox"
+      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+      
+      :checked="isChecked"
+      @click="isChecked = !isChecked; handleRadioClick(category.id)"
+    />
+        </td>
+      </tr>
+    </tbody>
+                    </table> 
+   
+                  </div>
+                </CardBox>
+              </div>
 
         <!-- <button type="submit" @click="submit">submit</button> -->
     </div>
@@ -319,7 +362,9 @@ const category = ref({
 })
 
 
+const articles = ref([]);
 
+const isChecked = ref(false);
 const docForm= ref({
   slug: '',
   status: 'DRAFT',
@@ -329,8 +374,23 @@ const docForm= ref({
   author: '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
   meta: '',
   imageUrl: '',
-  articles: 0,
+  articles: [],
 });
+const articles_array = reactive([])
+const selectedArticleId = ref(null);
+
+function handleRadioClick(articleId) {
+  selectedArticleId.value = articleId;
+  isChecked.value = !isChecked.value;
+   if (!articles_array.includes(articleId)) {
+    articles_array.push(articleId);
+   }else{
+    articles_array.pop();
+   }
+    docForm.value.articles = articles_array
+    console.log("i am workin", selectedArticleId);
+}
+
 const setPrimary = (id) => {
   docForm.value.category = id;
   console.log(docForm);
@@ -343,6 +403,14 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching categories:', error);
   }
+   try {
+    const fetchedArticles = await fetchArticles();
+    articles.value = fetchedArticles;
+    console.log("sucuss", articles);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+  }
+
 });
 
 const saveCategory = async () => {
@@ -434,7 +502,7 @@ export default defineComponent({
 
           openCategoryForm: false,
           categoryModal: false,
-            
+            articleModal: false
         }
     },
     

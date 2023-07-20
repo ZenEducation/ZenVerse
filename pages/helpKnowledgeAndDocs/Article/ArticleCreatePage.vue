@@ -124,7 +124,7 @@ export default {
         likes: 8,
         metaDescription: docFormData.meta,
         updatedAt: "2023-07-20",
-        // relatedArticles: '',
+        relatedArticles: docFormData.articles,
         slug: docFormData.slug,
         status: docFormData.status,
         tittle: 'Tittle',

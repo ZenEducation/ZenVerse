@@ -1,0 +1,15 @@
+{
+  "help": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-zenverse-help-73719-authRole",
+      "UnauthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-help-73719-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::596109967064:role/amplify-zenverse-help-73719-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-zenverse-help-73719-deployment",
+      "UnauthRoleName": "amplify-zenverse-help-73719-unauthRole",
+      "StackName": "amplify-zenverse-help-73719",
+      "StackId": "arn:aws:cloudformation:ap-south-1:596109967064:stack/amplify-zenverse-help-73719/4211f430-26d0-11ee-8b27-02de60f8b7d0",
+      "AmplifyAppId": "d1zumicxzxxdjk"
+    }
+  }
+}

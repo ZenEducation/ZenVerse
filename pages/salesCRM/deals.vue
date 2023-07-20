@@ -1,8 +1,11 @@
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="sales">
       <SectionMain>
         <!-- heading section  -->
+        <!-- table view  -->
+ 
+        <div class="" v-if="tableView">
         <section class="headingMenu px-3">
           <div class="flex justify-between items-center">
             <div class="flex justify-between items-center">
@@ -71,6 +74,14 @@
               </div>
             </div>
             <div class="flex justify-between items-center">
+              <BaseIcon
+                  :path="mdiPoll"
+                  class="cursor-pointer text-gray-600 mr-1 dark:text-gray-50 "
+                  size="20"
+                  h="20"
+                  w="20"
+                  @click="tableView=false"
+                />
               <div class="flex justify-between items-center mx-2 border pl-2 pr-2 py-2 cursor-pointer rounded border-red-600">
                 <BaseIcon
                   :path="mdiDeleteOutline"
@@ -193,6 +204,14 @@ class="add_new_deal_popup"
  v-if="newDealAdd"
   @on-action="closePopup"
   @get-deal-data="getDealItems"/>
+
+</div>
+  <!-- kannan view -->
+
+  <KanbanView @close="closeKanban" :data="tableData" v-else />
+
+
+
       </SectionMain>
     </NuxtLayout>
   </div>
@@ -210,7 +229,8 @@ import ListOptions from "@/components/SalesCRM/ListOptions.vue"
 import ExportPopUp from "@/components/SalesCRM/ExportPopUp.vue"
 import ImportPopup from "@/components/SalesCRM/ImportPopup.vue"
 import AddNewDealPopup from "@/components/SalesCRM/AddNewDealPopup.vue"
-import { mdiStar, mdiMenuDown,mdiContentSave,mdiDeleteOutline,mdiTable } from "@mdi/js";
+import { mdiStar, mdiMenuDown,mdiContentSave,mdiDeleteOutline,mdiTable ,mdiPoll  } from "@mdi/js";
+import KanbanView from "@/components/SalesCRM/seales/KanbanView.vue"
 const selectBranchOptions = [
   { id: 1, label: "All deals" },
   { id: 2, label: "Marketing" },
@@ -224,6 +244,7 @@ const listOptionSow =ref(false)
 const exportList =ref(false)
 const importList =ref(false)
 const newDealAdd =ref(false)
+const tableView=ref(true)
 const tableData =ref([
   {
     dealName:"My deal",
@@ -237,7 +258,7 @@ const tableData =ref([
     },
     status:"red",
     pipeline:"somthing",
-    stage:"somthing",
+    stage:"Qualified",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -259,7 +280,7 @@ const tableData =ref([
     },
     status:"green",
     pipeline:"somthing",
-    stage:"somthing",
+    stage:"Request for info",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -280,8 +301,8 @@ const tableData =ref([
       symbol:"$"
     },
     status:"red",
-    pipeline:"somthing",
-    stage:"somthing",
+    pipeline:"someting",
+    stage:"Presentation",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -303,7 +324,7 @@ const tableData =ref([
     },
     status:"yellow",
     pipeline:"somthing",
-    stage:"somthing",
+    stage:"Won",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -325,7 +346,7 @@ const tableData =ref([
     },
     status:"green",
     pipeline:"somthing",
-    stage:"somthing",
+    stage:"Lost",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -347,7 +368,7 @@ const tableData =ref([
     },
     status:"green",
     pipeline:"somthing",
-    stage:"somthing",
+    stage:"Negotiation",
     source:"Website",
     owner:"Bhavya",
     nextTask:"",
@@ -382,6 +403,11 @@ const getDealItems =(item)=>{
   console.log(item)
 
   tableData.value.unshift(item)
+}
+
+const closeKanban = (data)=>{
+
+  tableView.value=!data
 }
 </script>
 

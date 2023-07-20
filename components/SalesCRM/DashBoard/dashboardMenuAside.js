@@ -9,7 +9,8 @@ import {
   mdiBank,
   mdiGmail,
   mdiChartBar,
-  mdiFormDropdown
+  mdiFormDropdown,
+  mdiStorefront 
   
 } from "@mdi/js";
 
@@ -28,6 +29,11 @@ export default [
     to: "/",
     icon: mdiPlus,
     label: "Add Lead ",
+  },
+  {
+    to: "/SalesCRm/seales/Sales-CRM-Kanban-View",
+    icon: mdiStorefront,
+    label: "Sales CRM",
   },
   {
     label: "Sales CRM",

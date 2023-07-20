@@ -358,16 +358,16 @@ const saveCategory = async () => {
 watch(
   () => docForm,
   (newValue) => {
-    // Run the function to save data to local storage
+   
     saveToLocalStorage(newValue);
   },
-  { deep: true } // Watch nested properties of docForm
+  { deep: true } 
 );
 
-// Function to save data to local storage
+
 const saveToLocalStorage = (data) => {
   try {
-    // Convert data to JSON and save to local storage
+    
     localStorage.setItem('docFormData', JSON.stringify(data));
   } catch (error) {
     console.error('Error saving data to local storage:', error);

@@ -6,7 +6,6 @@ import {
   mdiSquareEditOutline,
   mdiTable,
   mdiMenuOpen,
-  mdiPublish ,
   mdiTelevisionGuide,
   mdiBarcode,
   mdiPalette,
@@ -14,9 +13,9 @@ import {
   mdiOpenInNew,
   mdiFormDropdown,
   mdiBallot,
+  mdiPublish,
   mdiViewQuilt,
   mdiMessage,
-  mdiAccountCheck,
   mdiFastForwardOutline,
   mdiBook,
 } from "@mdi/js";
@@ -60,6 +59,7 @@ export default [
     label: "Pricing layout",
     icon: mdiBarcode,
   },
+
   {
     label: "Dropdown",
     icon: mdiFormDropdown,
@@ -82,15 +82,17 @@ export default [
     label: "Login",
     icon: mdiLock,
   },
+  
+  {
+    to: "/CMS/publish",
+    label: "PUblish",
+    icon:   mdiPublish,
+  },
+
   {
     to: "/auth/register",
     label: "Register",
     icon: mdiSquareEditOutline,
-  },
-  {
-    to: "/CMS/publish",
-    label: "Publish",
-    icon: mdiPublish ,
   },
   {
     // Key should be unique for each submenus object

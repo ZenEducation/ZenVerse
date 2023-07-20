@@ -80,7 +80,7 @@ export default [
     icon: mdiAccountCircle,
   },
   {
-    to: "/helpKnowledgeAndDocs/Article/ArticleListPage",
+    to: "/helpKnowledgeAndDocs",
     label: "Help Knowledge And Docs",
     icon: mdiHelpCircle,
   },

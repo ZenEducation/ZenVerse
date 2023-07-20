@@ -25,7 +25,7 @@
                 <ul class="flex flex-col">
                   <li @click="docForm.status = 'PUBLISHED'" class="selectDdBtn"><p>PUBLISHED</p></li>
                   <li @click="docForm.status = 'DRAFT'" class="selectDdBtn"><p>DRAFT</p></li>
-                  <li @click="docForm.status = 'ARCHIVE'" class="selectDdBtn"><p>ARCHIVE</p></li>
+                  <li @click="docForm.status = 'ARCHIVED'" class="selectDdBtn"><p>ARCHIVED</p></li>
                 </ul>
               </template>
             </SelectDropdown>

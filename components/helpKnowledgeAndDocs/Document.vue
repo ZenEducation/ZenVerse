@@ -350,6 +350,13 @@ const saveCategory = async () => {
   try {
     const savedCategory = await saveContent(category.value);
     console.log('Category saved:', savedCategory);
+     try {
+      const fetchedCategories = await fetchCategories();
+      categories.value = fetchedCategories;
+      console.log("sucuss", categories);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
   } catch (error) {
     console.error('Error saving category:', error);
   }

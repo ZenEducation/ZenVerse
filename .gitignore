@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 .nuxt
 .nuxt/types
-models
+# models
 
 node_modules
 

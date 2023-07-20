@@ -1,6 +1,6 @@
 // utils/api.js
 import { DataStore } from "@aws-amplify/datastore";
-import { Article, Categories } from "~/src/models"; // Adjust the path according to your model definition
+import { Article, Categories } from "~/src/models";
 
 export async function saveContent(input) {
   try {
@@ -15,7 +15,7 @@ export async function saveContent(input) {
 export async function fetchCategories() {
   try {
     const categories = await DataStore.query(Categories);
-    console.log("i am from api ", categories);
+    // console.log("i am from api ", categories);
     return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);

@@ -62,16 +62,5 @@ onMounted(async () => {
 
 
 
-// onMounted(async() => {
-//   console.log('------categories')
-//   console.log(localStorage.getItem('category'))
-//   // category.value = JSON.parse(localStorage.getItem('category'))
-//   try {
-//     const fetchedCategories = await fetchCategories();
-//     category.value = fetchedCategories;
-//     console.error('categories fetched:', fetchCategories);
-//   } catch (error) {
-//     console.error('Error fetching categories:', error);
-//   }
-// })
+
 </script>

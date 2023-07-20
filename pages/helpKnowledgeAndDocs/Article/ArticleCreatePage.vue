@@ -106,7 +106,6 @@ export default {
     },
 
     getValue(value) {
-      console.log('---------> value is importantjnddbhvbkef', value)
       this.content = value
     },
     getValue1(value) {
@@ -118,14 +117,14 @@ export default {
       const docFormData = JSON.parse(localStorage.getItem('docFormData'))._value
       console.log(docFormData);
       // console.log(this.$refs.content, "-----------> content");
-       const data = {category: docFormData.imageUrl,
-        dislikes: 10,
+       const data = {category: docFormData.category,
+        dislikes: 1,
         imageUrl: docFormData.imageUrl,
         language: docFormData.language,
-        likes: 10,
+        likes: 8,
         metaDescription: docFormData.meta,
-        updatedAt: "2023-07-19",
-        // relatedArticles: '',
+        updatedAt: "2023-07-20",
+        relatedArticles: docFormData.articles,
         slug: docFormData.slug,
         status: docFormData.status,
         tittle: 'Tittle',

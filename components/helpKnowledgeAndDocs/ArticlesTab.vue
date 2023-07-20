@@ -201,7 +201,6 @@ const content = ref("");
 onMounted(async() => {
   console.log("editor");
   console.log(localStorage.getItem("content"));
-  // content.value = JSON.parse(localStorage.getItem("content"));
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
@@ -236,7 +235,7 @@ export default {
 
     onMounted(async () => {
       try {
-        // Check if articles are already stored in localStorage
+        
         const storedArticles = localStorage.getItem('articles');
         if (storedArticles) {
           articles.value = JSON.parse(storedArticles);

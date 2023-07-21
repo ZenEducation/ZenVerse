@@ -85,6 +85,7 @@
            <div class="text-gray-400">{{ item.companyName }}</div>
            <div class="flex justify-between items-center">
             <div class="">  &#x20b9;{{item.amount  }} </div>
+  
             <div class="w-4 h-4 rounded-full" :class="`bg-${item.status}-500`" ></div>
 
            </div>

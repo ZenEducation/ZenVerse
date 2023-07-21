@@ -31,7 +31,7 @@ export default [
     label: "Add Lead ",
   },
   {
-    to: "/SalesCRM/sales/sales-dashboard.vue",
+    to: "/SalesCRM/sales/sales-dashboard",
     icon: mdiStorefront,
     label: "Sales CRM",
   },

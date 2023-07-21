@@ -2,9 +2,10 @@
   <div>
     <NuxtLayout name="sales">
       <SectionMain>
+  
         <!-- heading section  -->
         <!-- table view  -->
- 
+
         <div class="" v-if="tableView">
         <section class="headingMenu px-3">
           <div class="flex justify-between items-center">
@@ -197,7 +198,7 @@
   </div>
 
   <!-- deal table  -->
-  <DealTable class="mt-5" :data="tableData" />
+  <DealTable class="mt-5" :data="getDeal.allDeals" />
   </div>
 <AddNewDealPopup 
 class="add_new_deal_popup"
@@ -208,7 +209,7 @@ class="add_new_deal_popup"
 </div>
   <!-- kannan view -->
 
-  <KanbanView @close="closeKanban" :data="tableData" v-else />
+  <KanbanView @close="closeKanban" :data="getDeal.allDeals" v-else />
 
 
 
@@ -231,6 +232,10 @@ import ImportPopup from "@/components/SalesCRM/ImportPopup.vue"
 import AddNewDealPopup from "@/components/SalesCRM/AddNewDealPopup.vue"
 import { mdiStar, mdiMenuDown,mdiContentSave,mdiDeleteOutline,mdiTable ,mdiPoll  } from "@mdi/js";
 import KanbanView from "@/components/SalesCRM/Sales/KanbanView.vue"
+import {dealStore} from "@/stores/SalesCRM/deals"
+
+const getDeal=dealStore()
+
 const selectBranchOptions = [
   { id: 1, label: "All deals" },
   { id: 2, label: "Marketing" },
@@ -400,7 +405,7 @@ const closePopup =()=>{
 
 const getDealItems =(item)=>{
   newDealAdd.value=false
-  console.log(item)
+  // console.log(item)
 
   tableData.value.unshift(item)
 }

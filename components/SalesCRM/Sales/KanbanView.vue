@@ -86,7 +86,7 @@
            <div class="flex justify-between items-center">
             <div class="">  &#x20b9;{{item.amount  }} </div>
   
-            <div class="w-4 h-4 rounded-full" :class="`bg-${item.status}-500`" ></div>
+            <div class="w-4 h-4 rounded-full" :class="item.status" ></div>
 
            </div>
             </div>
@@ -204,5 +204,14 @@ const componentsMenu =  [
 .border_color{
     border-color: rgb(250, 62, 62);
 }
+.red{
+  background: rgb(255, 59, 59);
 
+}
+.green{
+  background: rgb(14, 202, 14);
+}
+.yellow {
+  background: rgb(255, 255, 34);
+}
 </style>

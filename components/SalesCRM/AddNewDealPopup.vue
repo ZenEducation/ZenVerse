@@ -219,7 +219,7 @@
 
 <script setup>
 const emit = defineEmits(["onAction", "getDealData"]);
-
+import {dealStore} from "@/stores/SalesCRM/deals"
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
@@ -232,6 +232,8 @@ import {
   mdiTable,
   mdiCloseThick,
 } from "@mdi/js";
+const getDeal=dealStore()
+
 const listBoxOptions = [
   { id: 1, label: "INR ₹ Indian Rupee", symbol: "₹" },
   { id: 2, label: "USD $ Us Doller", symbol: "$" },
@@ -327,6 +329,7 @@ const submitData = () => {
   };
 
   emit("getDealData", data);
+  getDeal.addNewDeal(data)
 };
 </script>
 

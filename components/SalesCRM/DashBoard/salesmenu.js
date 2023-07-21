@@ -48,7 +48,7 @@ import {
       label: "Activities",
     },
         {
-      to: "/SalesCRM/sales/sales-dashboard.vue",
+      to: "/SalesCRM/sales/sales-dashboard",
       icon: mdiFinance ,
       label: "Dashboards",
     },

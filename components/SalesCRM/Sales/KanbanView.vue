@@ -104,7 +104,7 @@
 <script setup>
 const emit = defineEmits(['close'])
 import { reactive, computed } from 'vue'
-import OverviewDownMenu from "@/components/SalesCRM/seales/OverviewDownMenu.vue"
+import OverviewDownMenu from "@/components/SalesCRM/Sales/OverviewDownMenu.vue"
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";

@@ -230,7 +230,7 @@ import ExportPopUp from "@/components/SalesCRM/ExportPopUp.vue"
 import ImportPopup from "@/components/SalesCRM/ImportPopup.vue"
 import AddNewDealPopup from "@/components/SalesCRM/AddNewDealPopup.vue"
 import { mdiStar, mdiMenuDown,mdiContentSave,mdiDeleteOutline,mdiTable ,mdiPoll  } from "@mdi/js";
-import KanbanView from "@/components/SalesCRM/seales/KanbanView.vue"
+import KanbanView from "@/components/SalesCRM/Sales/KanbanView.vue"
 const selectBranchOptions = [
   { id: 1, label: "All deals" },
   { id: 2, label: "Marketing" },

@@ -31,7 +31,7 @@ export default [
     label: "Add Lead ",
   },
   {
-    to: "/SalesCRm/seales/Sales-CRM-Kanban-View",
+    to: "/SalesCRM/sales/sales-dashboard.vue",
     icon: mdiStorefront,
     label: "Sales CRM",
   },
@@ -41,7 +41,7 @@ export default [
     menu: [
       {
         label: "All Deals",
-        to: "/SalesCRm/deals",
+        to: "/SalesCRm/sales/deals",
       },
      
     ],

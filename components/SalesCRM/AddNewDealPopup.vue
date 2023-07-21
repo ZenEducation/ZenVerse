@@ -75,7 +75,7 @@
           <PremFormField label="Pipeline*">
             <PremFormControl
               help=""
-              placeholder="Seals Pipeline (default) "
+              placeholder="Sales Pipeline (default) "
               :icon-right="mdiChevronDown"
               v-model="pipeline"
             />

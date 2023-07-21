@@ -197,8 +197,9 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendar } from "@mdi/js";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { ref, onMounted } from 'vue';
-import { fetchArticles } from '~/utils/api';
-import { onBeforeUnmount } from 'vue';
+
+import { fetchArticles } from '~/utils/api'; 
+import {onBeforeUnmount } from 'vue';
 
 // Amplify Hub Start
 
@@ -215,7 +216,9 @@ const setupDataStoreListener = () => {
       FetchArticles()
     }
   });
-  // Clean up the listener when the component is about to be unmounted
+
+// Clean up the listener when the component is about to be unmounted
+
   onBeforeUnmount(() => {
     listener();
   });
@@ -233,7 +236,8 @@ const dislikes = ref(0);
 
 const content = ref("");
 
-const FetchArticles = async () => {
+
+const FetchArticles = async() => {
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
@@ -243,11 +247,14 @@ const FetchArticles = async () => {
   }
 }
 
-onMounted(async () => {
+onMounted(async() => {
+
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
     console.log("Articles fetched Successfully", fetchedArticles);
+
+
   } catch (error) {
     console.error('Error fetching articles:', error);
   }

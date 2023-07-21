@@ -185,26 +185,57 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendar } from "@mdi/js";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { ref, onMounted } from 'vue';
-import { fetchArticles } from '~/utils/api'; // Adjust the path to the fetchArticles function
+import { fetchArticles } from '~/utils/api'; 
+import {onBeforeUnmount } from 'vue';
 
-const articles = ref([]);
+// Amplify Hub Start
 
-onMounted(async () => {
-  
+import { Hub } from 'aws-amplify';
+
+const handleDataStoreReady = () => {
+  console.log('DataStore is ready. Perform actions here.');
+};
+const setupDataStoreListener = () => {
+  const listener = Hub.listen('datastore', hubData => {
+    const { event, data } = hubData.payload;
+    if (event === 'ready') {
+      handleDataStoreReady();
+      FetchArticles()
+    }
+  });
+// Clean up the listener when the component is about to be unmounted
+  onBeforeUnmount(() => {
+    listener();
+  });
+};
+// Set up the listener on component mount
+onMounted(() => {
+  setupDataStoreListener();
 });
 
+// Amplify Hub ending
+
+const articles = ref([]);
 const likes = ref(0);
 const dislikes = ref(0);
 
 const content = ref("");
 
-onMounted(async() => {
-  console.log("editor");
-  console.log(localStorage.getItem("content"));
+const FetchArticles = async() => {
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
-    console.log("sucuss", fetchedArticles);
+    console.log("Articles fetched Successfully", fetchedArticles);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+  }
+}
+
+onMounted(async() => {
+  try {
+    const fetchedArticles = await fetchArticles();
+    articles.value = fetchedArticles;
+    console.log("Articles fetched Successfully", fetchedArticles);
   } catch (error) {
     console.error('Error fetching articles:', error);
   }
@@ -228,59 +259,18 @@ onMounted(async() => {
 <script>
 import { onMounted, ref } from 'vue';
 import { API, graphqlOperation } from 'aws-amplify';
+import { useArticleStore } from "~~/stores/article";
 
 export default {
   setup() {
-    const articles = ref([]);
-
-    onMounted(async () => {
-      try {
-        
-        const storedArticles = localStorage.getItem('articles');
-        if (storedArticles) {
-          articles.value = JSON.parse(storedArticles);
-          console.log('Articles loaded from localStorage');
-        } else {
-          const response = await API.graphql(
-            graphqlOperation(`
-              query MyQuery {
-                listArticles {
-                  items {
-                    visibility
-                    updatedAt
-                    tittle
-                    status
-                    slug
-                    relatedArticles
-                    metaDescription
-                    likes
-                    language
-                    imageUrl
-                    id
-                    dislikes
-                    createdAt
-                    content
-                    category
-                  }
-                }
-              }
-            `)
-          );
-          articles.value = response.data.listArticles.items;
-          localStorage.setItem('articles', JSON.stringify(articles.value));
-          console.log('Articles fetched and stored in localStorage');
-        }
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-      }
-    });
-    
     return {
       articles,
     };
   },
   methods: {
     publishData(data) {
+      const articleStore = useArticleStore();
+      articleStore.updateArticleContent(data);
       localStorage.setItem("content", JSON.stringify(data));
       this.$router.push('./ViewArticle')
     },

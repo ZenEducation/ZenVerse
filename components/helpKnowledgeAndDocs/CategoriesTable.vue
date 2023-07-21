@@ -54,7 +54,7 @@ onMounted(async () => {
   try {
     const fetchedCategories = await fetchCategories();
     categories.value = fetchedCategories;
-    console.log("sucuss", categories);
+    console.log("Categories fetched Successfully", categories);
   } catch (error) {
     console.error('Error fetching categories:', error);
   }

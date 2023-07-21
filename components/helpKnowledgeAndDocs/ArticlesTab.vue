@@ -14,10 +14,18 @@
               <template v-slot:title>Status</template>
               <template v-slot:options>
                 <ul class="flex flex-col">
-                  <li class="articleBtn"><p>All</p></li>
-                  <li class="articleBtn"><p>Draft</p></li>
-                  <li class="articleBtn"><p>Published</p></li>
-                  <li class="articleBtn"><p>Archived</p></li>
+                  <li class="articleBtn">
+                    <p>All</p>
+                  </li>
+                  <li class="articleBtn">
+                    <p>Draft</p>
+                  </li>
+                  <li class="articleBtn">
+                    <p>Published</p>
+                  </li>
+                  <li class="articleBtn">
+                    <p>Archived</p>
+                  </li>
                 </ul>
               </template>
             </DropDown>
@@ -94,9 +102,15 @@
               <template v-slot:title> Visibility </template>
               <template v-slot:options>
                 <ul class="flex flex-col">
-                  <li class="articleBtn"><p>All</p></li>
-                  <li class="articleBtn"><p>Public</p></li>
-                  <li class="articleBtn"><p>Private</p></li>
+                  <li class="articleBtn">
+                    <p>All</p>
+                  </li>
+                  <li class="articleBtn">
+                    <p>Public</p>
+                  </li>
+                  <li class="articleBtn">
+                    <p>Private</p>
+                  </li>
                 </ul>
               </template>
             </DropDown>
@@ -108,11 +122,9 @@
               <template v-slot:title> Updated </template>
               <template v-slot:options>
                 <div class="relative max-w-sm">
-                  <input
-                    type="date"
+                  <input type="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date"
-                  />
+                    placeholder="Select date" />
                 </div>
               </template>
             </DropDown>
@@ -120,7 +132,7 @@
         </tr>
       </thead>
 
-    <!-- <tbody class="text-[12px] w-full">
+      <!-- <tbody class="text-[12px] w-full">
             
               <tr @click="publishData" v-for="content in articles" :key=".id" >
                 <td class="p-0">
@@ -147,27 +159,27 @@
               </tr>
             
             </tbody> -->
-  <tbody class="text-[12px] w-full">
-          <tr @click="publishData(content.content)" v-for="content in articles.slice().reverse()" :key="content.id">
-            <td class="p-0">
-              <TableCheckboxCell @checked="checked($event, content)" />
-            </td>
-            <td v-html="content.status"></td>
-            <td v-html="content.language"></td>
-            <td v-html="content.author"></td>
-            <td v-html="content.category"></td>
-            <td class="flex">
-              <BaseButton @click="incrementLikes(content)" small label="&#128077;" />
-              {{ content.likes }}
-              <BaseButton @click="incrementDislikes(content)" small label="&#128078;" />
-              {{ content.dislikes }}
-            </td>
-            <td>{{ content.visibility }}</td>
-            <td class="flex justify-start gap-0">
-              {{ content.updatedAt }}
-            </td>
-          </tr>
-        </tbody>
+      <tbody class="text-[12px] w-full">
+        <tr @click="publishData(content.content)" v-for="content in articles.slice().reverse()" :key="content.id">
+          <td class="p-0">
+            <TableCheckboxCell @checked="checked($event, content)" />
+          </td>
+          <td v-html="content.status"></td>
+          <td v-html="content.language"></td>
+          <td v-html="content.author"></td>
+          <td v-html="content.category"></td>
+          <td class="flex">
+            <BaseButton @click="incrementLikes(content)" small label="&#128077;" />
+            {{ content.likes }}
+            <BaseButton @click="incrementDislikes(content)" small label="&#128078;" />
+            {{ content.dislikes }}
+          </td>
+          <td>{{ content.visibility }}</td>
+          <td class="flex justify-start gap-0">
+            {{ content.updatedAt }}
+          </td>
+        </tr>
+      </tbody>
 
     </table>
     <!-- <CardBox v-if="!content" has-table class="text-center p-3"
@@ -185,26 +197,57 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendar } from "@mdi/js";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { ref, onMounted } from 'vue';
-import { fetchArticles } from '~/utils/api'; // Adjust the path to the fetchArticles function
+import { fetchArticles } from '~/utils/api';
+import { onBeforeUnmount } from 'vue';
 
-const articles = ref([]);
+// Amplify Hub Start
 
-onMounted(async () => {
-  
+import { Hub } from 'aws-amplify';
+
+const handleDataStoreReady = () => {
+  console.log('DataStore is ready. Perform actions here.');
+};
+const setupDataStoreListener = () => {
+  const listener = Hub.listen('datastore', hubData => {
+    const { event, data } = hubData.payload;
+    if (event === 'ready') {
+      handleDataStoreReady();
+      FetchArticles()
+    }
+  });
+  // Clean up the listener when the component is about to be unmounted
+  onBeforeUnmount(() => {
+    listener();
+  });
+};
+// Set up the listener on component mount
+onMounted(() => {
+  setupDataStoreListener();
 });
 
+// Amplify Hub ending
+
+const articles = ref([]);
 const likes = ref(0);
 const dislikes = ref(0);
 
 const content = ref("");
 
-onMounted(async() => {
-  console.log("editor");
-  console.log(localStorage.getItem("content"));
+const FetchArticles = async () => {
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
-    console.log("sucuss", fetchedArticles);
+    console.log("Articles fetched Successfully", fetchedArticles);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+  }
+}
+
+onMounted(async () => {
+  try {
+    const fetchedArticles = await fetchArticles();
+    articles.value = fetchedArticles;
+    console.log("Articles fetched Successfully", fetchedArticles);
   } catch (error) {
     console.error('Error fetching articles:', error);
   }
@@ -228,59 +271,18 @@ onMounted(async() => {
 <script>
 import { onMounted, ref } from 'vue';
 import { API, graphqlOperation } from 'aws-amplify';
+import { useArticleStore } from "~~/stores/article";
 
 export default {
   setup() {
-    const articles = ref([]);
-
-    onMounted(async () => {
-      try {
-        
-        const storedArticles = localStorage.getItem('articles');
-        if (storedArticles) {
-          articles.value = JSON.parse(storedArticles);
-          console.log('Articles loaded from localStorage');
-        } else {
-          const response = await API.graphql(
-            graphqlOperation(`
-              query MyQuery {
-                listArticles {
-                  items {
-                    visibility
-                    updatedAt
-                    tittle
-                    status
-                    slug
-                    relatedArticles
-                    metaDescription
-                    likes
-                    language
-                    imageUrl
-                    id
-                    dislikes
-                    createdAt
-                    content
-                    category
-                  }
-                }
-              }
-            `)
-          );
-          articles.value = response.data.listArticles.items;
-          localStorage.setItem('articles', JSON.stringify(articles.value));
-          console.log('Articles fetched and stored in localStorage');
-        }
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-      }
-    });
-    
     return {
       articles,
     };
   },
   methods: {
     publishData(data) {
+      const articleStore = useArticleStore();
+      articleStore.updateArticleContent(data);
       localStorage.setItem("content", JSON.stringify(data));
       this.$router.push('./ViewArticle')
     },

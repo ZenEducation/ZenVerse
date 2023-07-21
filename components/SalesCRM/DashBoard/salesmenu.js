@@ -22,7 +22,7 @@ import {
   
   export default [
     {
-      to: "/SalesCRm/deals",
+      to: "/SalesCRm/sales/deals",
       icon: mdiPoll ,
       label: "Pipeline",
     },
@@ -48,7 +48,7 @@ import {
       label: "Activities",
     },
         {
-      to: "/SalesCRm/seales/Sales-CRM-Kanban-View",
+      to: "/SalesCRM/sales/sales-dashboard.vue",
       icon: mdiFinance ,
       label: "Dashboards",
     },

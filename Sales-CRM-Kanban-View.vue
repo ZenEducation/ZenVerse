@@ -199,7 +199,7 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import BarChart from "@/components/Charts/BarChart.vue"
 import CardBox from "@/components/Cards/CardBox.vue";
-import OverviewDownMenu from "@/components/SalesCRM/seales/OverviewDownMenu.vue"
+import OverviewDownMenu from "@/components/SalesCRM/Sales/OverviewDownMenu.vue"
 
 const cardContent = [
     {

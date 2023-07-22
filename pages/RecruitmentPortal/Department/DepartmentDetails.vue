@@ -381,7 +381,7 @@
   
   import { mdiMapMarkerOutline, mdiLinkVariant, mdiCurrencyUsd , mdiAccountMultipleOutline,mdiLaptop,mdiCellphoneLink,mdiMemory,mdiDevices,mdiGuitarPickOutline,mdiCrop,mdiChevronRight,mdiCellphone} from "@mdi/js";
   import BaseIcon from "~~/components/Display/BaseIcon.vue";
-  import candidateData from "../../dummyData/jobCandidiatePage/jobCandidateData.json";
+  import candidateData from "../../../dummyData/jobCandidiatePage/jobCandidateData.json";
   import BaseButton from "@/components/Buttons/BaseButton.vue";
   </script>
   

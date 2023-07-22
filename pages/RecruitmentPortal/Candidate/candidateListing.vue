@@ -103,7 +103,7 @@ import HeroBackground from "~~/components/RecuitmentPortal/JobCandidiatePage/Her
 import CardCandidate from "~~/components/RecuitmentPortal/JobCandidiatePage/CardCandidate.vue";
 import { mdiChevronRight, mdiCellphone } from "@mdi/js";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import candidateData from "../../dummyData/jobCandidiatePage/jobCandidateData.json";
+import candidateData from "../../../dummyData/jobCandidiatePage/jobCandidateData.json";
 const candidate = candidateData.values;
 const title = "Company List";
 // breadcrumb links

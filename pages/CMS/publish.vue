@@ -165,7 +165,8 @@ export default {
 <hr class="border-gray-600 border-t-4 my-4">
 
 <div class="flex items-center mb-5 pl-10 pr-10">
-  <label class="mr-2">Where to Publish:</label>
+ <label class="mr-3"><strong>Where to Publish:</strong></label>
+
 </div>
 <div style="display:flex;flex-wrap:wrap" class="flex items-center mb-5 pl-10 pr-10">
   <div class="mr-24">
@@ -184,18 +185,8 @@ export default {
     <input type="checkbox" id="facebook" name="facebook" class="mr-1">
     <label for="facebook">Facebook</label>
   </div>
-  
-  <div class="flex justify-end pr-13 mt-6">
-  <button
-    id="publishButton"
-    class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500"
-    style="align-item:flex-end"
-    @click="() => menuClick(event, { isPublish: true })"
-  >
-    Publish
-  </button>
-</div>
-
+<br>
+<br>
 </div>
 <div style="display:flex;flex-wrap:wrap" class="flex items-center mb-9 pl-10 pr-10">
   <div class="mr-24">
@@ -216,9 +207,21 @@ export default {
   </div>
 </div>
 
-<div class="flex items-center mb-8 pl-11 pr-10">
-  <label for="publishDate" style="margin-right: 10px;">Publish Date:</label>
-  <input type="date" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Select a Publish Date">
+<div class="flex justify-between mb-8 pl-11 pr-10"> <!-- Added flex and justify-between for horizontal alignment -->
+  <div class="flex items-center"> <!-- Added flex and items-center to align elements vertically -->
+    <label for="publishDate" style="margin-right: 10px;">Publish Date:</label>
+    <input type="date" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Select a Publish Date">
+  </div>
+  <div>
+    <button
+      id="publishButton"
+      class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500"
+      style="align-items: flex-end"
+      @click="() => menuClick(event, { isPublish: true })"
+    >
+      Publish
+    </button>
+  </div>
 </div>
 
 <div class="flex items-center mb-5 pl-12 pr-12">
@@ -234,28 +237,29 @@ export default {
 <div>
   <input type="text" id="title" name="title"   placeholder="OG title" style="max-width: 800px; width:100%">
 </div>
-<div style="display:flex;flex-wrap:wrap; justify-content:space-between" class="flex mb-3">
-  <div style="padding:3rem">
-    <label for="type" >Type:</label>
-    <select id="type" name="type">
+<div style="display: flex; justify-content: space-between" class="flex mb-3">
+  <div style="padding: 1rem; flex: 1;">
+    <label for="type">Type:</label>
+    <select id="type" name="type" style="width: 100%;">
       <option value="option1">Video</option>
       <option value="option2">Audio</option>
       <option value="option3">Image</option>
     </select>
   </div>
-   <div style="padding:2rem">
-    <label for="status" >Status:</label>
-    <input t style="width:100%" type="text" id="status" name="status" placeholder="Initial approval pending">
+  <div style="padding: 1rem; flex: 1;">
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" placeholder="Initial approval pending" style="width: 100%;">
   </div>
-  <div style="padding: 3rem;">
-    <label for="role" >Role:</label>
-    <select id="role" name="role">
+  <div style="padding: 1rem; flex: 1;">
+    <label for="role">Role:</label>
+    <select id="role" name="role" style="width: 100%;">
       <option value="option1">Developer</option>
       <option value="option2">Designer</option>
       <option value="option3">Architect</option>
     </select>
   </div>
 </div>
+
  </div>
 </div>
 

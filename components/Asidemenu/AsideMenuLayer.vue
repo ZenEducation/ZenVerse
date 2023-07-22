@@ -39,7 +39,7 @@ const menuClick = (event, item) => {
     >
       <div
         :class="styleStore.asideBrandStyle"
-        class="flex flex-row w-full shrink-0 h-14 items-center dark:bg-slate-900"
+        class="flex flex-row w-full shrink-0 h-20 items-center dark:bg-slate-900"
       >
         <slot />
       </div>

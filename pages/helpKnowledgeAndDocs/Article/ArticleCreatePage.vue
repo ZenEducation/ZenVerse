@@ -77,9 +77,9 @@ import ArticleEditor from "@/components/HelpKnowledgeAndDocs/ArticleEditor.vue";
 
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
-import { createArticle } from "~/utils/api";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs";
-import { useArticleStore } from "~~/stores/article";
+import { createArticle } from "~/utils/helpKnowledgeAndDocs/api";
+import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
+import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
 
 const route = useRoute();
 const router = useRouter();

@@ -198,7 +198,7 @@ import { mdiCalendar } from "@mdi/js";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { ref, onMounted } from 'vue';
 
-import { fetchArticles } from '~/utils/api'; 
+import { fetchArticles } from '~/utils/helpKnowledgeAndDocs/api'; 
 import {onBeforeUnmount } from 'vue';
 
 // Amplify Hub Start
@@ -278,7 +278,7 @@ onMounted(async() => {
 <script>
 import { onMounted, ref } from 'vue';
 import { API, graphqlOperation } from 'aws-amplify';
-import { useArticleStore } from "~~/stores/article";
+import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
 
 export default {
   setup() {

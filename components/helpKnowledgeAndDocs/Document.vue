@@ -363,7 +363,7 @@ import {
   mdiImage,
 } from "@mdi/js";
 import { ref, onMounted } from "vue";
-import { fetchCategories } from "~/utils/api";
+import { fetchArticles, fetchCategories, saveContent } from "~/utils/helpKnowledgeAndDocs/api";
 import { Categories } from "~/src/models";
 
 const categories = ref([]);
@@ -457,7 +457,7 @@ import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs";
+import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
 
 export default defineComponent({
   name: "Document",

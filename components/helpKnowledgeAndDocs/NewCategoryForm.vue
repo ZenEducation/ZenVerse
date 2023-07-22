@@ -107,7 +107,7 @@ import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vu
 
 
 import { ref } from 'vue';
-import { saveContent } from '~/utils/api';
+import { saveContent } from '~/utils/helpKnowledgeAndDocs/api';
 
 const categoryData = ref({
   description: '',

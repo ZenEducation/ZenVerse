@@ -39,7 +39,7 @@ import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 
 import { ref, onMounted } from 'vue';
-import { fetchCategories } from '~/utils/api';
+import { fetchCategories } from '~/utils/helpKnowledgeAndDocs/api';
 import { Categories } from '~/src/models';
 
 const categories = ref([]);

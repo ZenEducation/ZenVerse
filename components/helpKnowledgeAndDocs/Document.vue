@@ -43,31 +43,37 @@
 
     <!-- Category start -->
     <div>
+
       <PremFormField
         class="grid md:grid-cols-1"
         label="Category"
         v-model="docForm.category"
       >
+
         <SelectDropdown @click="categoryModal = true">
           <template v-slot:title>
             {{ docForm.category }}
           </template>
         </SelectDropdown>
       </PremFormField>
+
       <div
         v-if="categoryModal === true"
         class="fixed top-0 bottom-0 left-0 w-full h-[100vh] bg-gray-700/50 grid place-items-center z-50"
       >
+
         <CardBox class="rounded-sm w-11/12 md:w-6/12 opacity-100">
           <div class="flex justify-between pb-6">
             Categories
             <!-- Icon -->
+
             <BaseIcon
               @click="categoryModal = false"
               :path="mdiClose"
               class="cursor-pointer"
               w="w-12"
             />
+
           </div>
 
           <PremFormField>
@@ -90,6 +96,7 @@
                     </p>
                   </td>
                   <td>
+
                     <BaseButton
                       @click="setPrimary(category.name)"
                       label="Make Primary"
@@ -97,6 +104,7 @@
                   </td>
                   <td><BaseIcon :path="mdiCog" /></td>
                   <td><BaseIcon :path="mdiImage" /></td>
+
                   <td>
                     <FormControl type="radio" />
                   </td>
@@ -105,6 +113,7 @@
             </table>
 
             <!-- category form start-->
+
             <div
               v-if="openCategoryForm === true"
               class="p-5 h-[400px] overflow-auto bg-gray-100 dark:bg-gray-900"
@@ -115,10 +124,12 @@
                   placeholder="Enter category name"
                   v-model="category.name"
                 />
+
               </PremFormField>
 
               <PremFormField>
                 <PremFormField label="Slug">
+
                   <PremFormControl
                     type="text"
                     placeholder="Enter slug"
@@ -165,6 +176,7 @@
                   label="Cancel"
                   :outline="!isMain"
                 />
+
                 <BaseButton color="info" label="Save" @click="saveCategory" />
               </BaseButtons>
             </div>
@@ -172,11 +184,13 @@
 
             <!-- category form event start-->
             <div>
+
               <button
                 v-if="openCategoryForm === false"
                 @click="openCategoryForm = true"
                 class="flex items-center py-4"
               >
+
                 <BaseIcon :path="mdiPlus" class="cursor-pointer" w="w-12" />
                 Add Category
               </button>
@@ -201,11 +215,13 @@
                 <PremFormControl type="text" placeholder="Search" />
               </PremFormField>
             </li>
+
             <li
               @click="docForm.language = docForm.language"
               class="selectDdBtn"
               v-html="docForm.language"
             ></li>
+
           </ul>
         </template>
       </SelectDropdown>
@@ -224,11 +240,13 @@
                 <PremFormControl type="text" placeholder="Search" />
               </PremFormField>
             </li>
+
             <li
               @click="docForm.author = docForm.author"
               class="selectDdBtn"
               v-html="docForm.author"
             ></li>
+
           </ul>
         </template>
       </SelectDropdown>
@@ -244,12 +262,14 @@
       <h1 class="text-md font-bold">Social Media Banner</h1>
       <div class="flex flex-col">
         <p class="my-2">Image URL</p>
+
         <PremFormControl
           class="mb-2"
           type="text"
           :icon="mdi"
           v-model="docForm.imageUrl"
         />
+
       </div>
     </div>
     <BaseButtons>
@@ -267,20 +287,24 @@
         </template>
       </SelectDropdown>
     </PremFormField>
+
     <div
       v-if="articleModal === true"
       class="fixed top-0 bottom-0 left-0 w-full h-[100vh] bg-gray-700/50 grid place-items-center z-50"
     >
+
       <CardBox class="rounded-sm w-11/12 md:w-6/12 opacity-100">
         <div class="flex justify-between pb-6">
           Articles
           <!-- Icon -->
+
           <BaseIcon
             @click="articleModal = false"
             :path="mdiClose"
             class="cursor-pointer"
             w="w-12"
           />
+
         </div>
 
         <PremFormField>
@@ -308,6 +332,7 @@
                 <td>{{ category.slug }}</td>
                 <td>{{ category.updatedAt }}</td>
                 <td>
+
                   <input
                     type="checkbox"
                     class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
@@ -317,6 +342,7 @@
                       handleRadioClick(category.id);
                     "
                   />
+
                 </td>
               </tr>
             </tbody>

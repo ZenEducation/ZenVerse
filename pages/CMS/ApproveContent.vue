@@ -3,10 +3,17 @@
         <NuxtLayout name="zen">
             <SectionMain>
                 <SectionTitleLineWithButton :icon="mdiCheckDecagram" title="Approve Content" main>
-                    <BaseButton label="Save" color="info" @click="saveReview" />
+                    <div
+                        class="ml-5  lg:flex flex-col hidden  lg:order-1 lg:flex-row lg:items-end lg:justify-end items-center justify-center  gap-3">
+                        <button class="bg-green-700 text-white w-24 h-10 rounded" @click="approveBtn">Approve</button>
+                        <button class="bg-blue-600 text-white w-24 h-10 rounded" @click="publishBtn">Publish</button>
+                        <BaseButton label="Save" color="info" @click="saveReview" />
+                    </div>
+                    <BaseButton label="Save" color="info" @click="saveReview" class="lg:hidden" />
+
                 </SectionTitleLineWithButton>
 
-                <div class="flex flex-col lg:flex-row gap-5">
+                <div class="flex flex-col lg:order-last gap-5">
                     <CardBox class="mb-6 g:mb-0 lg:col-span-2 xl:col-span-3 order-1" if-from @submit.prevent="submit">
                         <!-- Title Field -->
                         <PremFormField label="Title" horizontal>
@@ -53,7 +60,8 @@
                                     <video v-else-if="uploadedFile.type.startsWith('video/')" width="500"
                                         :src="uploadedFile.url" controls></video>
                                 </div>
-                                <img v-else src="../../images/download.png" alt="Image" />
+                                <img src="../../images/download.png" alt="Image" />
+                                <video width="500" class="mt-3" src="../../images/sampleVideo.webm" controls />
                                 <div>
                                     <p class="text-center px-36 text-xl text-justify">{{ previewText }}</p>
                                 </div>
@@ -79,10 +87,11 @@
                     </CardBox>
 
                     <!-- Buttons -->
-                    <div class="ml-5 order-2 flex flex-col items-center w-full lg:w-44 gap-3">
+                    <div class="order-2 lg:hidden flex flex-col lg:flex-row items-center w-full lg:w-44 gap-3">
                         <button class="bg-green-700 text-white w-full h-10 rounded" @click="approveBtn">Approve</button>
                         <button class="bg-blue-600 text-white w-full h-10 rounded" @click="publishBtn">Publish</button>
                     </div>
+
                 </div>
 
 

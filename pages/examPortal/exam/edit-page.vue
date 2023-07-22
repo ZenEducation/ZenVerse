@@ -131,7 +131,7 @@
 
 
           <!-- groups -->
-          <p class="list-lable">Groups</p>
+          <p class="list-lable">Groups List </p>
           <NuxtLink to="/examportal/exam/editGroup">
 
             <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
@@ -371,7 +371,6 @@
 </template>
 
 <script setup>
-import ExamNav from "~~/components/examportal/CreateExam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import {

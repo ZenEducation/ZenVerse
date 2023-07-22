@@ -34,6 +34,17 @@ const items = ref([
   },
 
 ]);
+
+const SingleRedirectLink = (type)=>{
+  if(type == 'test series'){
+    return "/examportal/learner/testseries"
+  }else if(type == 'Mock test'){
+    return "/examportal/learner/mocktest"
+  }
+  else{
+    return '#';
+  }
+}
 const currentTab = ref("X");
 const searchQuery = ref("");
 
@@ -130,7 +141,7 @@ const colors = computed(() => {
           <div
             class="cursor-pointer"
             :class="{
-              'text-blue-500 border-b border-b-blue-500': currentTab == 'C',
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'Mock test',
             }"
             @click="
               () => {
@@ -144,7 +155,7 @@ const colors = computed(() => {
           <div
             class="cursor-pointer"
             :class="{
-              'text-blue-500 border-b border-b-blue-500': currentTab == 'D',
+              'text-blue-500 border-b border-b-blue-500': currentTab == 'test series',
             }"
             @click="
               () => {
@@ -187,7 +198,7 @@ const colors = computed(() => {
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <div
+            <NuxtLink :to=SingleRedirectLink(item.category)
               class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
               v-for="item in filteredItems"
             >
@@ -220,12 +231,12 @@ const colors = computed(() => {
                   </p>
                 </div>
               </div>
-            </div>
+            </NuxtLink>
           </div>
         </template>
         <template v-else>
           <div class="grid grid-cols-1 gap-3">
-            <div
+            <NuxtLink :to=SingleRedirectLink(item.category)
               class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] cursor-pointer transition-transform"
               v-for="item in filteredItems"
             >
@@ -239,7 +250,7 @@ const colors = computed(() => {
                   </div>
                 </div>
               </div>
-            </div>
+            </NuxtLink>
           </div>
         </template>
 

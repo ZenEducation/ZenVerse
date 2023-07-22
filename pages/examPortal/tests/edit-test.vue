@@ -268,7 +268,7 @@
                     v-for="(test,index) in i.tests"
                   >
 
-                    <NuxtLink to="/examportal/test/lessonBuilder" class="flex">
+                    <NuxtLink to="/examportal/exam/createExam" class="flex">
                       <span class="mr-2.5"
                         ><img
                           src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
@@ -304,7 +304,6 @@
 </template>
 
 <script setup>
-import ExamNav from "~~/components/examportal/CreateExam/Exam-Nav.vue";
 import { ref } from "vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import {

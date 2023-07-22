@@ -138,9 +138,8 @@ const affiliateUnactive = computed(() => {
 
 <template>
     <div>
-        <NuxtLayout name="zen">
-            <SectionMain>
-                <div class="grid gird-cols-1 gap-6 mb-6 xl:grid-cols-4">
+       
+                <div class="mb-6 ">
                     <CardBox class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3" if-from @submit.prevent="submit">
                         <CardBoxComponentTitle title="Admins, Revenue Partners & Affiliates" class="mb-12" />
                         <h4 class="text-gray-700 dark:text-slate-400">Manage Course Admin, Revenue Partner, and Affiliate
@@ -219,8 +218,7 @@ const affiliateUnactive = computed(() => {
                         </PremFormField>
                     </CardBox>
                 </div>
-            </SectionMain>
-        </NuxtLayout>
+       
 
     </div>
 </template>

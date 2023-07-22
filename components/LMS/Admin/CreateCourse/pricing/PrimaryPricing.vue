@@ -233,7 +233,7 @@ const deleteItem = (popup, id) => {
   </CardBoxModal>
 
   <div>
-        <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4 ml-6">
+        <div class=" mb-6 ">
           <CardBox
             class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
             is-form
@@ -259,7 +259,7 @@ const deleteItem = (popup, id) => {
             <br />
 
             <div>
-              <template v-for="i in dripOptions">
+              <template v-for="(i,idx) in dripOptions" :key="idx">
                 <input type="radio" v-model="dripSelected" :value="i.label" />
                 <span class="pl-4 font-semibold">
                   {{ i.label }}

@@ -12,6 +12,8 @@ import {
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
+import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
+
 
 import PremFormField from "@/components/Forms/FormField.vue";
 
@@ -20,7 +22,8 @@ import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
 import QuilEditor from "@/components/LMS/QuilEditor.vue";
-
+import { createCourse } from "~~/stores/createCourse";
+const courseStore = createCourse();
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
@@ -38,12 +41,23 @@ const header = computed(() => {
 
 const inputValue = ref("");
 const contentValue = ref("")
+
+
+const saveData = ()=>{
+    const data = {
+        id:1,
+        name:inputValue.value,
+        icon:"mdiVolumeHigh",
+        type:"Audio"
+    }
+  courseStore.addLessonsOnChapters(data)
+
+}
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -51,16 +65,16 @@ const contentValue = ref("")
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+            color="info"
+              outline
+        
           />
           <BaseButton
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+           
+            color="info"
+            class="ml-1"
+           @click="saveData"
           />
         </SeclectionMultipleButton>
 
@@ -98,7 +112,6 @@ const contentValue = ref("")
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+   <Lessonsetting />
   </div>
 </template>

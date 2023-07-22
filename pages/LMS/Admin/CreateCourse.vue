@@ -1,7 +1,13 @@
 <script setup>
 import { mdiDotsVertical } from "@mdi/js";
 import { mdiDelete, mdiEye } from "@mdi/js";
-import { mdiChevronUp, mdiChevronDown, mdiKeyboardBackspace } from "@mdi/js";
+import {
+  mdiChevronUp,
+  mdiChevronDown,
+  mdiKeyboardBackspace,
+  mdiMultiplication,
+  mdiNotePlusOutline,
+} from "@mdi/js";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import { courseMenuOptions } from "@/configs/sampleButtonMenuOptions.js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
@@ -23,14 +29,17 @@ import adminMenu from "@/configs/adminMenu.js";
 import { reactive, ref } from "vue";
 import { useMainStore } from "~~/stores/main";
 import { useLayoutStore } from "@/stores/layout.js";
-import DrippingModule from "@/pages/LMS/Dripping.vue";
-import PricingModule from "@/pages/LMS/pricing.vue";
-import PublishModule from "@/pages/LMS/publishview.vue";
-import CourseSetting from "@/pages/LMS/coursesettings.vue";
-import BasicSettings from "@/components/LMS/Bundle/BasicSettings.vue";
-import CourseCompletion from "@/pages/LMS/CourseCompletion.vue";
-import Arpa from "@/pages/LMS/arpa.vue";
-import BulkImporter from "~~/pages/LMS/BulkImporter.vue";
+import { createCourse } from "~~/stores/createCourse";
+
+// components
+import Curriculum from "@/components/LMS/Admin/CreateCourse/Curriculum.vue";
+import BulkImporter from "~/components/LMS/Admin/CreateCourse/BulkImporter.vue";
+import Settings from "@/components/LMS/Admin/CreateCourse/Settings.vue";
+import Drip from "@/components/LMS/Admin/CreateCourse/Dripping.vue";
+import Pricing from "@/components/LMS/Admin/CreateCourse/Pricing.vue";
+import Publish from "@/components/LMS/Admin/CreateCourse/Publish.vue";
+
+const section = ref("first");
 
 const chapterName = ref("Untitled chapter");
 const isDivVisible = ref(false);
@@ -53,7 +62,7 @@ const handleError = () => {
 
 let className = "grid grid-cols-1 gap-6 xl:grid-cols-2";
 let chapters = reactive([]);
-
+const courseStore = createCourse();
 const saveChaptrerNames = () => {
   if (!chapterName.value) {
     isError.value = true;
@@ -93,9 +102,16 @@ const discardChapterName = () => {
 };
 
 const addChapter = () => {
-  isUntitleFieldVisible.value = true;
-  chapterName.value = "Untitled chapter";
-  editedChapterIndex.value = -1;
+  // isUntitleFieldVisible.value = true;
+  // chapterName.value = "Untitled chapter";
+  // editedChapterIndex.value = -1;
+  // courseStore.section
+
+  courseStore.addChapter();
+};
+
+const addChapterName = () => {
+  courseStore.addChapterName(chapterName.value);
 };
 
 const deleteChaptrerName = () => {
@@ -142,12 +158,11 @@ const mainStore = useMainStore();
 const layoutStore = useLayoutStore();
 
 const triggerEvent = (eventname) => {
-  // if(eventname == "Course Image & Description") {
-  //   subOptions = true;
-  // } else {
-  //   isSettings.value = false;
-  // }
-  mainStore.subOptions = eventname;
+  if (eventname == "Course Image & Description") {
+    isSettings.value = true;
+  } else {
+    isSettings.value = false;
+  }
 };
 
 function checkImageFileType(file) {
@@ -270,15 +285,16 @@ const previewMenu = {
           </div>
         </div>
         <div class="flex flex-col md:flex-row">
-          <div class="grid xl:grid-cols-8 md:grid-cols-1 my-5">
+          <div class="grid xl:grid-cols-8 md:grid-cols-2 mt-5">
             <NavBarItem
               v-for="(item, index) in adminMenu"
               :key="index"
               :item="item"
               @menu-click="menuClick"
+              class="px-0"
             />
           </div>
-          <div class="grid xl:grid-cols-1 md:grid-cols-1 my-5">
+          <div class="grid xl:grid-cols-1 md:grid-cols-1 mt-5">
             <NavBarItem
               :key="index"
               :item="previewMenu"
@@ -286,294 +302,25 @@ const previewMenu = {
             />
           </div>
         </div>
-        <div v-if="layoutStore.currAsideMenu === 'Drip'" class="grid grid-cols-1 gap-3 xl:grid-cols-2">
-          <div>
-          <CardBox class="mb-6 lg:col-span-3 xl:col-span-2">
-            <div
-              class="py-3 xl text-gray-500"
-              v-for="(item, index) in mainStore.dripOptions"
-              :key="index"
-              @click="triggerEvent(item.name)"
-            >
-              <b class="cursor-pointer hover:underline">{{ item.name }}</b>
-            </div>
-          </CardBox>
-          </div>
-          <div style="width: 100%;">
-          <DrippingModule :driptype="mainStore.subOptions" />
-          </div>
-        </div>
-        <div v-if="layoutStore.currAsideMenu === 'Pricing'" class="flex">
-          <div style="width: 30%;">
-          <CardBox class="lg:col-span-3 xl:col-span-2">
-            <div
-              class="py-3 xl text-gray-500"
-              v-for="(item, index) in mainStore.pricingOptions"
-              :key="index"
-              @click="triggerEvent(item.name)"
-            >
-              <b class="cursor-pointer hover:underline">{{ item.name }}</b>
-            </div>
-          </CardBox>
-          </div>
-          <div>
-          <PricingModule />
-          </div>
-        </div>
-        <div v-if="layoutStore.currAsideMenu === 'Publish'">
-          <PublishModule />
-        </div>
-        <div
-          v-if="layoutStore.currAsideMenu === 'Curriculum'"
-          class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-6"
-        >
-          <CardBox
-            class="lg:col-span-3 xl:col-span-2 overflow-y-auto"
-            style="height: 400px"
-          >
-            <div>
-              <BaseButton
-                v-if="isUntitleFieldVisible"
-                :label="chapterName ? chapterName : 'New Chapter'"
-                color="contrast"
-                :styles="['w-full', 'font-medium']"
-              />
-            </div>
-            <BaseDivider />
-            <div v-for="(item, index) in chapters" :key="index">
-              <div>
-                <BaseButton
-                  :icon="
-                    !isAddLessonVisible[index] ? mdiChevronDown : mdiChevronUp
-                  "
-                  :label="editedChapterIndex === index ? chapterName : item"
-                  color="contrast"
-                  @click="() => showAddLessonField(index)"
-                  :styles="[
-                    'w-full',
-                    'flex-row-reverse',
-                    'justify-between',
-                    'font-medium',
-                  ]"
-                />
-              </div>
-              <div
-                class="flex justify-between items-center gap-4 mt-4"
-                v-if="isDivVisible && isAddLessonVisible[index]"
-              >
-                <div>
-                  <BaseButton color="info" type="submit" label="Add lesson" />
-                </div>
-                <div class="hidden sm:block">
-                  <BaseButton color="info" label="Copy lesson from" outline />
-                </div>
-              </div>
-              <BaseDivider />
-            </div>
-            <p
-              class="text-sm text-blue-700 my-3 cursor-pointer hover:underline"
-            >
-              <b>course completion certificate</b>
-            </p>
 
-            <BaseDivider />
-            <BaseButtons type="justify-between" no-wrap>
-              <BaseButton
-                color="info"
-                type="submit"
-                label="Add chapter"
-                @click="addChapter"
-                :styles="['w-full']"
-              />
-              <PremButtonMenu
-                :options="courseMenuOptions"
-                :icon="mdiDotsVertical"
-                small
-              />
-            </BaseButtons>
-          </CardBox>
-
-          <CardBox
-            :icon="mdiBallot"
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-            is-form
-            @submit.prevent="submit"
-          >
-            <CardBoxComponentTitle
-              class="mb-12"
-              :title="
-                editedChapterIndex !== -1
-                  ? 'Edit' + ' : ' + chapterName
-                  : 'New Chapter' + ' : ' + chapterName
-              "
-            />
-            <PremFormField label="Chapter title" horizontal>
-              <input
-                v-model="chapterName"
-                @change="handleChange"
-                help="Enter chapter name"
-                placeholder="Untitled chapter"
-                required
-                type="text"
-                class="px-3 py-2 max-w-full focus:ring focus:outline-none border-gray-700 rounded w-full dark:placeholder-gray-400 bg-white dark:bg-slate-800"
-              />
-            </PremFormField>
-            <FormCheckRadioGroup
-              v-if="isDivVisible"
-              name="sample-checkbox-one"
-              class="pb-3"
-              :options="checkboxOptions"
-            />
-
-            <div
-              v-if="layoutStore.currAsideMenu === 'Curriculum'"
-              class="flex item-center my-10 flex-wrap xs:grid grid-cols-1 gap-3"
-            >
-              <div v-if="isDivVisible">
-                <BaseButton
-                  color="danger"
-                  type="button"
-                  :icon="mdiDelete"
-                  label="Delete"
-                  @click="deleteChaptrerName"
-                />
-              </div>
-              <div>
-                <BaseButton
-                  color="info"
-                  label="Discard changes"
-                  type="button"
-                  outline
-                  @click="discardChapterName"
-                />
-              </div>
-              <div>
-                <BaseButton
-                  color="info"
-                  type="button"
-                  label="Save"
-                  @click="saveChaptrerNames"
-                />
-              </div>
-            </div>
-
-            <NotificationBar color="danger" v-if="isError" @click="handleError">
-              Chapter name is required
-            </NotificationBar>
-
-            <NotificationBar color="info" v-if="isSuccess" @click="handleError">
-              Successfully created the
-              <b>Chapter</b></NotificationBar
-            >
-          </CardBox>
+        <div class="components_sec mt-4">
+          <Curriculum v-if="layoutStore.currAsideMenu === 'Curriculum'" />
+          <BulkImporter v-if="layoutStore.currAsideMenu === 'Bulk importer'" />
+          <Settings v-if="layoutStore.currAsideMenu === 'Settings'" />
+          <Drip v-if="layoutStore.currAsideMenu === 'Drip'"  />
+          <Pricing v-if="layoutStore.currAsideMenu === 'Pricing'" />
+          <Publish v-if="layoutStore.currAsideMenu === 'Publish'" />
         </div>
 
-        <div
-          v-if="layoutStore.currAsideMenu === 'Settings'"
-          class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-6"
-        >
-          <CardBox class="lg:col-span-3 xl:col-span-2">
-            <div
-              class="py-3 xl text-gray-500"
-              v-for="(item, index) in mainStore.settingOptions"
-              :key="index"
-              @click="triggerEvent(item.name)"
-            >
-              <b class="cursor-pointer hover:underline">{{ item.name }}</b>
-            </div>
-          </CardBox>
-          <CardBox
-            v-if="mainStore.subOptions == 'Course Image & Description'"
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-          >
-            <div class="grid grid-cols-1 mb-6 lg:grid-cols-2 gap-3">
-              <div class="text-3xl mb-4">Course image & description</div>
-              <div class="flex lg:justify-end">
-                <BaseButton label="Save" type="submit" color="info" />
-              </div>
-            </div>
+   
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 mb-8">
-              <CourseImgAndDescription
-                :heading="courseDetails[0].heading"
-                :description="courseDetails[0].description"
-              />
-              <div class="flex flex-col lg:justify-end">
-                <div class="flex mb-3 lg:justify-end">
-                  <input
-                    type="file"
-                    ref="fileInput"
-                    style="display: none"
-                    @change="uploadImage"
-                  />
-                  <img
-                    style="width: 200px; height: auto"
-                    :src="course.file"
-                    @click="$refs.fileInput.click()"
-                  />
-                </div>
-                <div class="flex lg:justify-end">
-                  <BaseButton
-                    @click="deleteImg()"
-                    label="Delete"
-                    :color="buttonColor"
-                    :icon="mdiDelete"
-                  />
-                </div>
-                <div class="flex my-3 lg:justify-end">
-                  <span>{{ course.errMessage }}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-col-1 lg:grid-cols-2 mb-8">
-              <CourseImgAndDescription
-                :heading="courseDetails[1].heading"
-                :description="courseDetails[1].description"
-              />
-            </div>
-            <div>
-              <PremFormControl
-                error
-                type="textarea"
-                placeholder="Course description"
-              />
-            </div>
-          </CardBox>
-          <CardBox
-            v-if="mainStore.subOptions == 'Basic settings'"
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-          >
-            <div>
-              <BasicSettings />
-            </div>
-          </CardBox>
-          <CardBox
-            v-if="mainStore.subOptions == 'Course progress & completion'"
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-          >
-            <div>
-              <CourseCompletion />
-            </div>
-          </CardBox>
-          <CardBox
-            v-if="
-              mainStore.subOptions == 'Admins, Revenue Partners & Affiliates'
-            "
-            class="mb-6 lg:mb-0 lg:col-span-3 xl:col-span-4"
-          >
-            <div>
-              <Arpa />
-            </div>
-          </CardBox>
-        </div>
-        <div v-if="layoutStore.currAsideMenu === 'Bulk importer'">
-          <BulkImporter />
-        </div>
-        <!-- <div v-if="">
-          <CourseSetting />
-        </div> -->
+      
       </SectionMain>
     </NuxtLayout>
   </div>
 </template>
+
+<style scoped>
+.Add_chapter_button {
+}
+</style>

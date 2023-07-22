@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
+
 import {
   mdiBallot,
   mdiAccount,
@@ -20,6 +21,8 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import FormCheckRadio from "~~/components/Forms/FormCheckRadio.vue";
 
+import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
+
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
@@ -31,20 +34,28 @@ import PremFormControlListbox from "~~/components/Forms/PremFormControlListbox.v
 import PremFormControl from "~~/components/Forms/PremFormControl.vue";
 import BaseDivider from "~~/components/NavBar/BaseDivider.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
+import { createCourse } from "~~/stores/createCourse";
+const courseStore = createCourse();
 const options = ref([
   { id: 1, option: "option1" },
   { id: 2, option: "option2" },
 ]);
-const QuestionTypeOptions = ["One Correct Answer", "Multiple Correct Answers"];
+const QuestionTypeOptions = [
+  "One Answer",
+  "One or more answers",
+  "Rating",
+  "Scale",
+  "Free Text",
+];
 const maxqueId = ref(2);
 const quiz = ref({
-  title: "quiz 1",
+  title: "Survey",
   questions: [
     {
       id: 1,
       title: "this is title of question",
       titleText: "this is title of question",
-      type: "One Correct Answer",
+      type: "One Answer",
       choices: [
         { id: 1, title: "this is choice 1", isCorrect: true },
         { id: 2, title: "this is choice 2", isCorrect: false },
@@ -79,13 +90,12 @@ const addQuestion = () => {
     id: maxqueId.value,
     title: "this is title of question",
     titleText: "this is title of question",
-    type: "One Correct Answer",
+    type: "One Answer",
     choices: [{ id: 1, title: "this is choice 1", isCorrect: true }],
     answer: 1,
   };
   quiz.value.questions.push(newQuestion);
-    isOpen.value = newQuestion.id;
-
+  isOpen.value = newQuestion.id;
 };
 
 const DuplicateQuestion = (id) => {
@@ -93,15 +103,15 @@ const DuplicateQuestion = (id) => {
   let lastQuestion = quiz.value.questions.find((que) => que.id == id);
   let newQuestion = {
     id: maxqueId.value,
-    title: lastQuestion.title,
+    title: lastQuestion.title+' ',
     titleText: lastQuestion.titleText,
     type: lastQuestion.type,
     choices: lastQuestion.choices,
     answer: lastQuestion.answer,
   };
   quiz.value.questions.push(newQuestion);
+  
   isOpen.value = newQuestion.id;
-
 };
 
 const addChoice = (queID) => {
@@ -147,12 +157,21 @@ const uploadQuestion = ref(false);
 const upload = () => {
   uploadQuestion.value = !uploadQuestion.value;
 };
+const saveData = ()=>{
+    const data = {
+        id:1,
+        name:quiz.value.title,
+        icon:"mdiFormatListCheckbox",
+        type:"Survey"
+    }
+  courseStore.addLessonsOnChapters(data)
+
+}
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -160,16 +179,18 @@ const upload = () => {
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+            color="info"
+  
+            outline
+            class="mr-1"
           />
           <BaseButton
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+
+            color="info"
+            class="ml-1"
+            
+            @click="saveData"
           />
         </SeclectionMultipleButton>
 
@@ -189,7 +210,9 @@ const upload = () => {
             </PremFormField>
           </CardBox>
 
-          <div class="mt-4" v-for="(que, index) in quiz.questions">
+          <div class="mt-4" v-for="(que, index) in quiz.questions" 
+           :key="index"
+           >
             <CardBox>
               <div class="flex justify-between px-4">
                 <div class="flex items-center font-semibold text-lg">
@@ -203,11 +226,9 @@ const upload = () => {
                     color="info"
                     @click="DuplicateQuestion(que.id)"
                   />
-                  <BaseIcon
-                    w="w-10"
-                    h="h-10"
-                    class="cursor-pointer"
-                    :path="mdiTrashCanOutline"
+                  <BaseButton
+                    class="cursor-pointer pl-3"
+                    :icon="mdiTrashCanOutline"
                     color="danger"
                     @click="deleteQuestion(que.id)"
                   />
@@ -217,7 +238,7 @@ const upload = () => {
                     class="cursor-pointer"
                     :path="mdiChevronUp"
                     v-if="isOpen == que.id"
-                    @click="isOpen = -1"
+                    @click="isOpen = null"
                   />
                   <BaseIcon
                     w="w-10"
@@ -237,79 +258,76 @@ const upload = () => {
                   />
                 </PremFormField>
 
+                <div class="flex gap-3" v-if="que.type == 'Scale'">
+                  <PremFormField label="Left Label" class="w-1/2" horizontal>
+                    <PremFormControl
+                      placeholder="Enter Left value"
+                    />
+                  </PremFormField>
+                  <PremFormField label="Right Label" class="w-1/2" horizontal>
+                    <PremFormControl
+                      placeholder="Enter Right value"
+                    />
+                  </PremFormField>
+                </div>
+
                 <PremFormField label="Question" horizontal>
                   <QuilEditor
                     v-model="que.title"
                     v-model:text="que.titleText"
                   />
                 </PremFormField>
+                <br />
+                <div class="py-2 px-2">
+                  <input type="checkbox" name="" id="" class="" /> This question
+                  is optional <br />
+                </div>
 
                 <div
-                  v-if="que.type == 'One Correct Answer'"
+                  v-if="que.type == 'One Answer'"
+                  class="my-2 p-3 bg-slate-100 rounded-lg"
+                >
+                  <div class="flex justify-between px-3 py-2">
+                    <h3 class="font-bold">{{ "Choice #1" }}</h3>
+                  </div>
+                  <QuilEditor />
+
+                  <br />
+                </div>
+<div class=""    v-if="
+                    que.type == 'One or more answers' ||
+                    que.type == 'Scale' ||
+                    que.type == 'Rating'
+                  " >
+                <div
+               
                   class="my-2 p-3 bg-slate-100 rounded-lg"
                   v-for="(totaloption, index) in que.choices"
                   :key="totaloption.id"
                 >
                   <div class="flex justify-between px-3 py-2">
-                    <h3 class="font-bold">{{ "Choice #" + index }}</h3>
-                    <BaseIcon
-                      w="w-10"
-                      h="h-10"
+                    <h3 class="font-bold">{{ "Choice #" + (index+1) }}</h3>
+                    <BaseButton
                       class="cursor-pointer"
-                      :path="mdiTrashCanOutline"
+                      :icon="mdiTrashCanOutline"
                       color="danger"
                       @click="deleteChoice(que.id, totaloption.id)"
                     />
                   </div>
                   <QuilEditor v-model="totaloption.title" />
-                  <input
-                    type="radio"
-                    name="option"
-                    id="'option' + totaloption.id"
-                  />
-                  <label for="'option' + totaloption.id" class="ml-2"
-                    >This is the Correct Answer</label
-                  >
-                  <br />
                 </div>
-                <div
-                  v-else
-                  class="my-2 p-3 bg-slate-100 rounded-lg"
-                  v-for="(totaloption, index) in que.choices"
-                  :key="index"
-                >
-                  <div class="flex justify-between px-3 py-2">
-                    <h3 class="font-bold">{{ "Choice #" + index }}</h3>
-                    <BaseIcon
-                      w="w-10"
-                      h="h-10"
-                      class="cursor-pointer"
-                      :path="mdiTrashCanOutline"
-                      color="danger"
-                      @click="deleteChoice(que.id, totaloption.id)"
-                    />
-                  </div>
-                  <QuilEditor v-model="totaloption.title" />
-                  <input
-                    type="checkbox"
-                    class="rounded-3xl"
-                    name="'option' + totaloption.id"
-                    id="'option' + totaloption.id"
-                  />
-                  <label for="'option' + totaloption.id" class="ml-2"
-                    >This is the Correct Answer</label
-                  >
-                  <br />
-                </div>
+              </div>
                 <button
+                  v-if="
+                    que.type == 'One or more answers' ||
+                    que.type == 'Scale' ||
+                    que.type == 'Rating'
+                  "
                   @click="addChoice(que.id)"
                   class="bg-blue-700 p-3 rounded-md text-white"
                 >
                   Add Choice
                 </button>
-                <PremFormField label="Explanation" horizontal>
-                  <QuilEditor />
-                </PremFormField>
               </template>
             </CardBox>
           </div>
@@ -342,7 +360,7 @@ const upload = () => {
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+   
+<Lessonsetting />
   </div>
 </template>

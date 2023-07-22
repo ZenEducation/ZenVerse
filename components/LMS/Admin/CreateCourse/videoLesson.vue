@@ -1,5 +1,7 @@
 <script setup>
+import { createCourse } from "~~/stores/createCourse";
 import { ref, reactive } from "vue";
+
 import {
   mdiBallot,
   mdiAccount,
@@ -8,10 +10,11 @@ import {
   mdiDragVertical,
   mdiTrashCanOutline,
 } from "@mdi/js";
-
+ 
 import SectionMain from "@/components/Sections/SectionMain.vue";
 
 import CardBox from "@/components/Cards/CardBox.vue";
+import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
 
 import PremFormField from "@/components/Forms/FormField.vue";
 
@@ -19,33 +22,39 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
 import Uploadtext from "@/components/LMS/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
-
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },
   { id: 2, label: "Video 1" },
   { id: 3, label: "Video 2" },
   { id: 4, label: "Video 3" },
 ];
-
+const courseStore = createCourse();
 const header = computed(() => {
   if (inputValue.value) {
     return `${inputValue.value}`;
   } else {
-    return "New Pdf Lesson";
+    return "New Video Lesson";
   }
 });
-const exportpdf = () => {
-  console.log('test')
-}
 
 const inputValue = ref("");
-const contentValue = ref("")
+
+
+const saveData = ()=> {
+  const data = {
+    id:1,
+    name:inputValue.value,
+    icon:"mdiVideoOutline",
+    type:"Video"
+  }
+  courseStore.addLessonsOnChapters(data)
+}
+
 </script>
 
 <template>
   <div>
-    <NuxtLayout name="zen">
-      <SectionMain>
+
         <SeclectionMultipleButton
           :icon="mdiFileUploadOutline"
           :title="header"
@@ -53,17 +62,18 @@ const contentValue = ref("")
         >
           <BaseButton
             label="DISCARD CHANGES"
-            :icon="mdiCreditCardOutline"
-            rounded-full
-            small
+
+             class="mr-1"
+       
+            color="info"
+            outline
           />
           <BaseButton
-          @click = "exportpdf()"
             label="SAVE"
-            :icon="mdiCreditCardOutline"
-            color="contrast"
-            rounded-full
-            small
+            color="info"
+            class="ml-1"
+            @click="saveData()"
+       
           />
         </SeclectionMultipleButton>
 
@@ -81,23 +91,35 @@ const contentValue = ref("")
                 help="Title"
               />
             </PremFormField>
-           
-            <PremFormField label="Upload a file" horizontal>
+            <PremFormField label="Text description" horizontal>
+              <FormUploadFiles
+                
+                :icon-left="mdiAccount"
+                help="Text"
+              />
+            </PremFormField>
+
+
+            <PremFormField label="Videos from your library" horizontal>
+              <FormUploadFiles :options="selectFieldOptions" />
+            </PremFormField>
+            <PremFormField label="Upload a video file" horizontal>
               <Uploadtext
-                downloadlist
-                pdffile
+              download
+              downloadlist
                 :icon="mdiDragVertical"
                 :iconRight="mdiTrashCanOutline"
-                dragText="Drag & drop PDF file here"
-                footer="footerText"
+                dragText = "Drag & Drop Video files here"
+                footer = "footerText"
                 :icon-left="mdiAccount"
-                help="Upload a pdf file"
-                placeholder="Upload a pdf file"
+                help="Upload a video file"
+                placeholder="Upload a video file"
               />
             </PremFormField>
           </CardBox>
         </div>
-      </SectionMain>
-    </NuxtLayout>
+        <Lessonsetting />
+    
+
   </div>
 </template>

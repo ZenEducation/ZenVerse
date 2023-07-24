@@ -58,66 +58,32 @@ export default [
     label: "Pricing layout",
     icon: mdiBarcode,
   },
-  {
-    label: "Dropdown",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Dropdown item Uno",
-      },
-      {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
 
   {
-    label: "Career",
+    label: "Recruitment Portal",
     icon: mdiFormDropdown,
     menu: [
       {
-        label: "All jobs",
-        to:'/careers/AllJobs'
+        label: "Create Job",
+        to: '/recruitmentportal/job/jobcreation',
       },
       {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "All Departments",
-        to:'/careers/allDepartments'
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Candidate Detail",
-        to:'/careers/candidateDetail'
+        label: "Job Listing",
+        to: '/recruitmentportal/job/joblisting',
       },
       {
-        label: "Dropdown item Dos",
-      },
-    ],
-  },
-  {
-    label: "Career",
-    icon: mdiFormDropdown,
-    menu: [
-      {
-        label: "Job Apply",
-        to:'/careers/jobApply'
+        label: "Candidate Listing",
+        to: '/recruitmentportal/candidate/candidatelisting',
       },
       {
-        label: "Dropdown item Dos",
+        label: "Create Department",
+        to: '/recruitmentportal/department/departmentcreation',
       },
+      {
+        label: "Department Listing",
+        to: '/recruitmentportal/department/departmentlisting',
+      },
+
     ],
   },
   {

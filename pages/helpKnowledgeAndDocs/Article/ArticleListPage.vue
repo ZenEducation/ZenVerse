@@ -1,70 +1,40 @@
 <template>
     <div>
         <NuxtLayout name="zen">
-        <SectionMain>
-            <div class="flex">
-                <PremFormField class="w-full">
-                    <PremFormControl
-                    type="text"
-                    placeholder="Search articles"
-                    />
-                </PremFormField>
-                <NuxtLink to="ArticleCreatePage">
-                <BaseButton
-                class="ml-2"
-                color="contrast"
-                label="New Article"
-                />
-                </NuxtLink>
-            </div>
+            <SectionMain>
+                <div class="flex">
+                    <PremFormField class="w-full">
+                        <PremFormControl type="text" placeholder="Search articles" />
+                    </PremFormField>
+                    <NuxtLink to="ArticleCreatePage">
+                        <BaseButton class="ml-2" color="contrast" label="New Article" />
+                    </NuxtLink>
+                </div>
 
-            <div class="flex justify-between">
-            <BaseButtons>
-                <BaseButton
-                @click="activeTab = 'Articles'"
-                class="m-1"
-                color="contrast"
-                label="Articles"
-                />
+                <div class="flex justify-between">
+                    <BaseButtons>
+                        <BaseButton @click="activeTab = 'Articles'" class="m-1" color="contrast" label="Articles" />
 
-                <BaseButton
-                @click="activeTab = 'Categories'"
-                class="m-1"
-                color="contrast"
-                label="Categories"
-                />
+                        <BaseButton @click="activeTab = 'Categories'" class="m-1" color="contrast" label="Categories" />
 
-                <BaseButton
-                v-if="activeTab === 'Categories'"
-                class="m-1"
-                color="contrast"
-                label="New Category"
-                to="NewCategoryPage"
-                />
-            </BaseButtons>
+                        <BaseButton v-if="activeTab === 'Categories'" class="m-1" color="contrast" label="New Category"
+                            to="NewCategoryPage" />
+                    </BaseButtons>
 
-            <BaseButtons>
-                <BaseButton
-                class="m-1"
-                color="contrast"
-                label="Configure"
-                />
+                    <BaseButtons>
+                        <BaseButton class="m-1" color="contrast" label="Configure" />
 
-                <BaseButton
-                class="m-1"
-                color="contrast"
-                label="View Site"
-                />
-            </BaseButtons>
-            </div>
+                        <BaseButton class="m-1" color="contrast" label="View Site" />
+                    </BaseButtons>
+                </div>
 
-            <CardBox has-table v-if="activeTab === 'Articles'" class="my-5 p-2 rounded-sm">
-                <ArticlesTab/>
-            </CardBox>
-            <CardBox has-table v-if="activeTab === 'Categories'" class="my-5 p-2 rounded-sm">
-                <CategoriesTable/>
-            </CardBox>
-        </SectionMain>
+                <CardBox has-table v-if="activeTab === 'Articles'" class="my-5 p-2 rounded-sm">
+                    <ArticlesTab />
+                </CardBox>
+                <CardBox has-table v-if="activeTab === 'Categories'" class="my-5 p-2 rounded-sm">
+                    <CategoriesTable />
+                </CardBox>
+            </SectionMain>
         </NuxtLayout>
     </div>
 </template>
@@ -83,10 +53,10 @@ import ArticlesTab from "@/components/HelpKnowledgeAndDocs/ArticlesTab.vue"
 
 <script>
 export default {
-    data(){
-    return{
-        activeTab: 'Articles'
-    }
+    data() {
+        return {
+            activeTab: 'Articles'
+        }
     }
 }
 </script>

@@ -12,7 +12,7 @@
                 <div class="p-2 rounded-md bg-gray-300" v-html="category.language"></div>
                 </div>
 
-                  <BaseButton @click="publishCategory" label="Create Category" color="info"/>
+                  <BaseButton @click="saveCategory" label="Create Category" color="info"/>
                 </div>
                   
                   <!-- category form start-->
@@ -32,7 +32,7 @@
                   <FormField label="Category Name"
                   >
                     <PremFormControl
-                    v-model="category.name"
+                    v-model="categoryData.name"
                     type="text"
                     placeholder="Enter category name"
                     />
@@ -41,7 +41,7 @@
 
                     <FormField label="Slug">
                     <PremFormControl
-                    v-model="category.slug"
+                    v-model="categoryData.slug"
                     type="text"
                     placeholder="Enter slug"
                     />
@@ -57,7 +57,7 @@
                         >
                             <SelectDropdown>
                               <template v-slot:title>
-                                <div>{{category.level}}</div>
+                                <div>{{ categoryData.level}}</div>
                               </template>
                               <template v-slot:options>
                                 <ul class="flex flex-col">
@@ -69,7 +69,7 @@
                                         />
                                       </FormField>
                                     </li>
-                                  <li class="selectDdBtn">{{category.level}}</li>
+                                  <li class="selectDdBtn">{{ categoryData.level}}</li>
                                 </ul>
                               </template>
                             </SelectDropdown>
@@ -84,7 +84,7 @@
                     >
                       <PremFormControl
                         type="textarea"
-                        v-model="category.description"
+                        v-model="categoryData.description"
                       />
                       <p>The description is will be displayed under each, Category, and in the meta data for each category page.</p>
                   </FormField>
@@ -104,6 +104,26 @@ import FormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+
+
+import { ref } from 'vue';
+import { saveContent } from '~/utils/helpKnowledgeAndDocs/api';
+
+const categoryData = ref({
+  description: '',
+  level: 'The top level',
+  name: '',
+  slug: ''
+});
+
+const saveCategory = async () => {
+  try {
+    const savedCategory = await saveContent(categoryData.value);
+    console.log('Category saved:', savedCategory);
+  } catch (error) {
+    console.error('Error saving category:', error);
+  }
+};
 </script>
 
 <script>
@@ -130,3 +150,5 @@ export default {
     }
 }
 </script>
+
+

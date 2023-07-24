@@ -6,14 +6,16 @@
                    <h1 class="text-5xl lg:text-6xl font-black">Set up a Knowledge Base</h1>
                    <p class="text-lg mt-5">Help your customers help themselves with a fully customizable hosted Knowledge Base solution built directly into the www.tawk.to platform.</p>
                     <div>
+                         <NuxtLink to="/helpKnowledgeAndDocs/Article/ArticleListPage">
                       <BaseButton
                        label="Set up Knowledge Base"
-                        href=""
+                        href="/Article/ArticleListPage"
                         color="contrast"
                         :icon="mdiAbugidaDevanagari"
                         target="_blank"
                         rounded-md
                         class="mt-10" />
+                        </NuxtLink>
                     </div>
                 </SectionTitle>
             </SectionMain>

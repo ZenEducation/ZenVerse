@@ -80,6 +80,11 @@ export default [
     icon: mdiAccountCircle,
   },
   {
+    to: "/helpKnowledgeAndDocs",
+    label: "Help Knowledge And Docs",
+    icon: mdiHelpCircle,
+  },
+  {
     to: "/auth/login",
     label: "Login",
     icon: mdiLock,

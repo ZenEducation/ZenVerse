@@ -1,25 +1,23 @@
 <template>
-    <div>
-        <div class="flex justify-between mb-10">
-            <div>
-                <NuxtLink to="./ArticleCreatePage">
-                  <button class="flex items-center" >
-                    <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer"/>
-                    <p>Back</p>
-                  </button>
-                </NuxtLink>
-            </div>
-            <ul class="flex justify-start gap-0">
-               <p id="year"></p>
-               <p id="month"></p>
-               <p id="day"></p>
-            </ul>
-        </div>
-
-        <CardBox>
-            <div v-html="content.content" class="w-full h-auto"></div>
-        </CardBox>
+  <div>
+    <div class="flex justify-between mb-10">
+      <div>
+        <button @click="goBack" class="flex items-center">
+          <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer" />
+          <p>Back to</p>
+        </button>
+      </div>
+      <ul class="flex justify-start gap-0">
+        <p id="year"></p>
+        <p id="month"></p>
+        <p id="day"></p>
+      </ul>
     </div>
+
+    <CardBox>
+      <div id="Content_data" class="w-full h-auto"></div>
+    </CardBox>
+  </div>
 </template>
 
 <script setup>
@@ -33,30 +31,34 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { mdiArrowLeftBold, mdiLink } from "@mdi/js";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 // import BaseIcon from "@/components/Display/BaseIcon.vue"
+import { useRoute, useRouter } from "vue-router";
 
-const likes = ref(0)
-const dislikes = ref(0)
-const content = ref('')
+const route = useRoute();
+const router = useRouter();
+
+const goBack = () => {
+  router.back();
+};
+// const post = ref(props.content);
+const likes = ref(0);
+const dislikes = ref(0);
+const content = ref({});
 
 onMounted(() => {
-  console.log('editor')
-  console.log(localStorage.getItem('content'))
-  content.value = JSON.parse(localStorage.getItem('content'))
-
-//   Date created
+  const data = JSON.parse(localStorage.getItem("content"));
+  console.log(data);
+  //   Date created
 
   const y = new Date();
-  
-  content.year = y.getFullYear() + '/';
-  content.month = y.getMonth() + 1 + '/';
+
+  content.year = y.getFullYear() + "/";
+  content.month = y.getMonth() + 1 + "/";
   content.day = y.getDate();
 
-  document.getElementById('year').innerHTML = content.year
-  document.getElementById('month').innerHTML = content.month
-  document.getElementById('day').innerHTML = content.day
+  document.getElementById("year").innerHTML = content.year;
+  document.getElementById("month").innerHTML = content.month;
+  document.getElementById("day").innerHTML = content.day;
 
-  console.log(content.year)
-  console.log(content.month)
-  console.log(content.day)
-})
+  document.getElementById("Content_data").innerHTML = data;
+});
 </script>

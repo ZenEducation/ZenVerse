@@ -159,7 +159,16 @@ export default {
 
         <header class="flex items-center justify-between mb-5 pl-10 pr-10">
   <h2 class="text-3xl font-bold">Publish Content</h2>
-  <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 pr-4">Save</button>
+  <div class="flex items-center"> <!-- Added flex and items-center to align elements vertically -->
+    <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mr-4">Save</button>
+    <button
+      id="publishButton"
+      class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+      @click="() => menuClick(event, { isPublish: true })"
+    >
+      Publish
+    </button>
+  </div>
 </header>
 
 <hr class="border-gray-600 border-t-4 my-4">
@@ -207,20 +216,10 @@ export default {
   </div>
 </div>
 
-<div class="flex justify-between mb-8 pl-11 pr-10"> <!-- Added flex and justify-between for horizontal alignment -->
+<div class="flex justify-between mb-8 pl-11 pr-10"> 
   <div class="flex items-center"> <!-- Added flex and items-center to align elements vertically -->
     <label for="publishDate" style="margin-right: 10px;">Publish Date:</label>
     <input type="date" id="publishDate" name="publishDate" class="px-5 py-3 border rounded-md mr-1" placeholder="Select a Publish Date">
-  </div>
-  <div>
-    <button
-      id="publishButton"
-      class="px-8 py-3 bg-green-500 text-white rounded-md hover:bg-green-500"
-      style="align-items: flex-end"
-      @click="() => menuClick(event, { isPublish: true })"
-    >
-      Publish
-    </button>
   </div>
 </div>
 
@@ -266,19 +265,20 @@ export default {
 <div class="mb-2" style="margin-left: 5%;">
   <label for="content">Content:</label>
 </div>
-<div style="display: inline-block; border: 1px solid #000; width: 90%; max-width: 750px; padding: 5%; margin-left: 5%;">
-  <div style="position: relative; padding-top: 90%; margin-left: 10%;">
+<div style="display: inline-block; border: 1px solid #000; width: 97%; max-width: 750px; padding: 5%; margin-left: 5%;">
+  <div style="position: relative; padding-top: 60%; padding-bottom: 50%; margin-left: 10%; margin-top: 30px;">
     <!-- Insert your video display code here -->
-    <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 90%;" frameborder="0" allowfullscreen></iframe>
-    <div style="position: absolute; bottom: 0; background-color: whitesmoke; width: 80%; padding:4%; color: black;">
+    <iframe src="https://d2of6bhnpl91ni.cloudfront.net/cms/animoto-free-online-video-maker-e8d6870030.mp4" style="position: absolute; top: 0; left: 0; width: 80%; height: 100%;" frameborder="0" allowfullscreen></iframe>
+    <div style="position: absolute; bottom: 0; background-color: whitesmoke; width: 80%; padding: 4%; color: black;">
       <p>Extended text <b>help</b> you to build rich text quickly. Any special text you will have with extended text.
-        <b>Text can be bold</b> <I>Italic</I>.<br> It's my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to improve Flutter.
+        <b>Text can be bold</b> <i>Italic</i>.<br> It's my pleasure to invite you to join <span style="color: rgb(252, 252, 19);">FlutterCandies</span> if you want to improve Flutter.
         <br>
         <br>
-        if you meet with any problem, please let us know <span style="color: rgb(100, 186, 220);">@zmtzawqlp</span>. <b>#HashtagisBold</b></p>
+        If you meet with any problem, please let us know <span style="color: rgb(100, 186, 220);">@zmtzawqlp</span>. <b>#HashtagisBold</b></p>
     </div>
   </div>
 </div>
+
 
 
 <div style="display: flex; align-items: center; margin-top: 50px; margin-left: 60px;">

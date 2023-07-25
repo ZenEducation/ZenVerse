@@ -28,22 +28,22 @@ import {
     },
 
         {
-      to: "/SalesCRM/dashBoard/dashboardUI",
+      to: "/SalesCRm/sales/contacts",
       icon: mdiContactsOutline ,
       label: "Contacts",
     },
         {
-      to: "/SalesCRM/dashBoard/dashboardUI",
-      icon: mdiDomain ,
+      to: "/SalesCRm/sales/companies",
+      icon: mdiDomain,
       label: "Companies",
     },
         {
-      to: "/SalesCRM/dashBoard/dashboardUI",
+      to: "/SalesCRm/sales/products",
       icon: mdiCartOutline ,
       label: "Products",
     },
         {
-      to: "/SalesCRM/dashBoard/dashboardUI",
+      to: "/SalesCRm/sales/activities",
       icon: mdiCalendarRange,
       label: "Activities",
     },

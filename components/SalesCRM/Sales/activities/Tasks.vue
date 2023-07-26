@@ -13,7 +13,7 @@
             class="flex justify-between items-center border px-3 py-2 rounded cursor-pointer"
             @click="overviewmenu = !overviewmenu"
           >
-            <div class="pl-1">All Deals</div>
+            <div class="pl-1">All Tasks</div>
             <BaseIcon :path="mdiMenuDown" size="22" />
           </div>
           <div

@@ -74,7 +74,7 @@
       </div>
     </div>
 <div class="z-0 shadow mx-6">
-  <Table :heading="tableHeadingData" :data="getContacts.allContacts"  />
+  <Table :heading="tableHeadingData" :data="getContacts.allContacts" :dotItems="dotItems"  />
 </div>
 <AddContactsForm v-if="getContacts.formShow" />
 </SectionMain>
@@ -122,6 +122,7 @@ import {
   mdiContactsOutline ,
   mdiTrayArrowDown ,
   mdiEmailSyncOutline ,
+  mdiCheckCircleOutline
 
 } from "@mdi/js";
 const overviewmenu = ref(false);
@@ -270,6 +271,17 @@ const tableHeadingData=[
   }
 ]
 
+
+const dotItems = [
+  [
+   
+    {
+      id:1 ,
+      icon: mdiDeleteOutline ,
+      label: "Delete",
+    },
+  ],
+]; 
 
 
 

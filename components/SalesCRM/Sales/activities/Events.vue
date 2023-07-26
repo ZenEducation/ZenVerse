@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getEvents.allEvents"  />
+  <Table :heading="tableHeadingData" :data="getEvents.allEvents" :dotItems="dotItems"  />
 </div>
 
   </div>
@@ -171,7 +171,16 @@ const tableHeadingData=[
 ]
 
 
-
+const dotItems =  [
+  [
+  
+    {
+      id: 1,
+      icon: mdiDeleteOutline,
+      label: "Delete",
+    },
+  ],
+]
 
 </script>
 

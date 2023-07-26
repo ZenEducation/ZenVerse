@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getCalls.allCalls"  />
+  <Table :heading="tableHeadingData" :data="getCalls.allCalls" :dotItems="dotItems"  />
 </div>
 
   </div>
@@ -78,6 +78,9 @@ import {
   mdiTagOutline,
   mdiTableArrowRight,
   mdiTable,
+  mdiCheckCircleOutline,
+  mdiClockEditOutline ,
+  mdiPhoneRemoveOutline 
 } from "@mdi/js";
 const overviewmenu = ref(false);
 const searchDownItems = [
@@ -174,7 +177,30 @@ const tableHeadingData=[
   }
 ]
 
-
+const dotItems= [
+  [
+    {
+      id: 1,
+      icon: mdiCheckCircleOutline ,
+      label: "Mark as completed",
+    },
+    {
+      id: 2,
+      icon: mdiClockEditOutline  ,
+      label: "Reschedule Call",
+    },
+    {
+      id: 1,
+      icon: mdiPhoneRemoveOutline  ,
+      label: "Cancel Call",
+    },
+    {
+      id: 2,
+      icon: mdiDeleteOutline,
+      label: "Delete",
+    },
+  ],
+]
 
 
 </script>

@@ -69,7 +69,7 @@
                   w="16"
                 />
                 <PremButtonMenu
-          :options="dotsMenu"
+          :options="dotItems"
           color="info"
           outline
           right
@@ -156,6 +156,24 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
         type: Array,
       required: true,
       default: [],
+    },
+    dotItems:{
+      type: Array,
+      required: true,
+      default: [
+  [
+    {
+      id: 1,
+      icon: mdiCheckCircleOutline ,
+      label: "Mark as completed",
+    },
+    {
+      id: 2,
+      icon: mdiDeleteOutline,
+      label: "Delete",
+    },
+  ],
+],  
     }
   });
   const router = useRouter();

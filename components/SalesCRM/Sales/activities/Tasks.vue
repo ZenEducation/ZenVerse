@@ -49,7 +49,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getTasks.allTasks"  />
+  <Table :heading="tableHeadingData" :data="getTasks.allTasks" :dotItems="dotItems"  />
 </div>
 
 
@@ -86,6 +86,9 @@ import {
   mdiTagOutline,
   mdiTableArrowRight,
   mdiTable,
+  mdiPhoneOutline,
+  mdiClipboardCheckOutline,
+  mdiCheckCircleOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
 const searchDownItems = [
@@ -181,7 +184,20 @@ const tableHeadingData=[
   }
 ]
 
-
+const dotItems =  [
+  [
+    {
+      id: 1,
+      icon: mdiCheckCircleOutline ,
+      label: "Mark as completed",
+    },
+    {
+      id: 2,
+      icon: mdiDeleteOutline,
+      label: "Delete",
+    },
+  ],
+]
 
 
 </script>

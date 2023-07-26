@@ -75,7 +75,7 @@
       </div>
     </div>
 <div class="z-0  shadow mx-6">
-  <Table :heading="tableHeadingData" :data="getCompanies.allCompani"  />
+  <Table :heading="tableHeadingData" :data="getCompanies.allCompani" :dotItems="dotItems"  />
 </div>
 <AddCompapanyForm v-if="getCompanies.formShow" />
 </SectionMain>
@@ -119,7 +119,9 @@ import {
   mdiDomain ,
   mdiNoteOutline,
   mdiFormSelect ,
-  mdiContentDuplicate
+  mdiContentDuplicate,
+  mdiClipboardCheckOutline ,
+  mdiPhoneOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
 const searchDownItems = [
@@ -237,6 +239,25 @@ const tableHeadingData=[
 ]
 
 
+const dotItems = [
+  [
+  {
+      id:1 ,
+      icon: mdiPhoneOutline  ,
+      label: "Log a Call",
+    },
+    {
+      id:1 ,
+      icon: mdiClipboardCheckOutline ,
+      label: "Create a Task",
+    },
+    {
+      id:1 ,
+      icon: mdiDeleteOutline ,
+      label: "Delete",
+    },
+  ],
+]; 
 
 
 </script>

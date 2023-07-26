@@ -9,7 +9,8 @@ import {
   mdiBank,
   mdiGmail,
   mdiChartBar,
-  mdiFormDropdown
+  mdiFormDropdown,
+  mdiStorefront 
   
 } from "@mdi/js";
 
@@ -30,12 +31,17 @@ export default [
     label: "Add Lead ",
   },
   {
+    to: "/SalesCRM/sales/sales-dashboard",
+    icon: mdiStorefront,
+    label: "Sales CRM",
+  },
+  {
     label: "Sales CRM",
     icon: mdiFormDropdown,
     menu: [
       {
         label: "All Deals",
-        to: "/SalesCRm/deals",
+        to: "/SalesCRm/sales/deals",
       },
      
     ],

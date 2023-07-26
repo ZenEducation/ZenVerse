@@ -259,7 +259,7 @@
           <td>
               <div class="flex justify-start items-center ">
                 <div class="w-4 h-4  rounded-full mr-2"
-                :class="`bg-${item.status}-500`"
+                :class="item.status"
                 >
                    
                 </div>
@@ -457,5 +457,15 @@ td {
 }
 tr {
   page-break-inside: avoid;
+}
+.red{
+  background: rgb(255, 59, 59);
+
+}
+.green{
+  background: rgb(14, 202, 14);
+}
+.yellow {
+  background: rgb(255, 255, 34);
 }
 </style>

@@ -18,6 +18,10 @@ const form = reactive({
 
 const mainStore = useMainStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
+
 const submit = () => {
   mainStore.pushMessage("Submitted. Demo only", "contrast");
 };

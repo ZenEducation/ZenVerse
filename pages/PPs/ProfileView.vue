@@ -44,6 +44,10 @@ import PremSectionBannerProfile from "@/components/Sections/SectionBannerProfile
 
 const mainStore = useMainStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
+
 const profileForm = reactive({
   name: mainStore.userName,
   email: mainStore.userEmail,

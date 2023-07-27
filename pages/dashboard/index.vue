@@ -21,6 +21,9 @@ import CardBoxTransaction from "@/components/Cards/CardBoxTransaction.vue";
 import NotificationBar from "@/components/NotificationBars/NotificationBar.vue";
 import TableCardClients from "@/components/Tables/TableCardClients.vue";
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 const chartData = ref(null);
 
 const fillChartData = () => {

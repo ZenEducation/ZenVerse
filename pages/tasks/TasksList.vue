@@ -818,6 +818,9 @@
 <script>
 import { ref } from "vue";
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 export default {
   name: "TasksList",
   components: {},

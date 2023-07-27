@@ -6,6 +6,15 @@ import "@/assets/css/main.css";
 import '@aws-amplify/ui-vue';
 import { Amplify, Auth } from "aws-amplify";
 import awsconfig from '@/src/aws-exports'; 
+const url = window.location.host
+if (url.includes('localhost')) {
+  awsconfig.oauth.redirectSignIn = 'http://localhost:3000/'
+  awsconfig.oauth.redirectSignOut = 'http://localhost:3000/'
+}else{
+  awsconfig.oauth.redirectSignIn = 'https://subproj-auth.d1zumicxzxxdjk.amplifyapp.com/'
+  awsconfig.oauth.redirectSignOut = 'https://subproj-auth.d1zumicxzxxdjk.amplifyapp.com/'
+}
+console.log(awsconfig)
 Amplify.configure(awsconfig);
 Auth.configure(awsconfig)
 

@@ -53,7 +53,7 @@ const handleSubmit = async () => {
 
     if (registrationConfirmed) {
       console.log(registrationConfirmed);
-      router.push("/auth/login");
+      router.push("/");
     }
   } catch (err) {
     errorMsg.value = err;
@@ -66,6 +66,7 @@ const resendCode = async() => {
       const data = await AuthStore.resendConfirmationCode({
         email: props.email
       })
+      return data
     } catch(err) {
       errorMsg.value = err;
       toggleNotificationModal(true)

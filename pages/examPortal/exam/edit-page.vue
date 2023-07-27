@@ -195,7 +195,7 @@
       <div>
         <ul>
           <li class="bottom-side-nav">
-            <a href="/examportal/Exam/groupList">Groups</a>
+            <a href="/examportal/Exam/groupList">Groups List</a>
           </li>
           <li class="bottom-side-nav">
             <a href="/examportal/Exam/exportPDF">Export PDF</a>

@@ -46,6 +46,7 @@ const props = defineProps({
   active: Boolean,
   disabled: Boolean,
   roundedFull: Boolean,
+  widthFull:Boolean
 });
 
 const is = computed(() => {
@@ -90,6 +91,7 @@ const componentClass = computed(() => {
     props.disabled ? "cursor-not-allowed" : "cursor-pointer",
     props.roundedFull ? "rounded-full" : "rounded",
     getButtonColor(props.color, props.outline, !props.disabled, props.active),
+    props.widthFull?"w-full":" "
   ];
 
   if (!props.label && props.icon) {
@@ -118,6 +120,7 @@ const componentClass = computed(() => {
       :to="to"
       :target="target"
       :disabled="disabled"
+      
     >
       <BaseIcon v-if="icon" :path="icon" :size="iconSize" />
       <span v-if="label" :class="labelClass">{{ label }}</span>

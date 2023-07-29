@@ -13,6 +13,7 @@ import {
   mdiOpenInNew,
   mdiFormDropdown,
   mdiBallot,
+  mdiPublish,
   mdiViewQuilt,
   mdiMessage,
   mdiAccountCheck,
@@ -59,6 +60,7 @@ export default [
     label: "Pricing layout",
     icon: mdiBarcode,
   },
+
   {
     label: "Dropdown",
     icon: mdiFormDropdown,
@@ -81,6 +83,13 @@ export default [
     label: "Login",
     icon: mdiLock,
   },
+  
+  {
+    to: "/CMS/publish",
+    label: "PUblish",
+    icon:   mdiPublish,
+  },
+
   {
     to: "/auth/register",
     label: "Register",

@@ -60,7 +60,7 @@ const isActive = ref(0);
       }
     "
   />
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <!-- <SectionMain> -->
     <div
       class="relative ml-2"
@@ -80,7 +80,7 @@ const isActive = ref(0);
           <div class="">
             <ul>
               <NuxtLink
-                to="/lms/BundleSingle"
+                to="/lms/adminUI/bundles/bundlesingle"
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
               >
                 <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />

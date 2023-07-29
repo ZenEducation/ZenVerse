@@ -19,8 +19,8 @@ import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue
 import PremFormField from "@/components/Forms/FormField.vue";
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
-import Uploadtext from "@/components/LMS/Uploadtext.vue";
+import FormUploadFiles from "@/components/LMS/Course/FormUploadFiles.vue";
+import Uploadtext from "@/components/LMS/Course/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
 const selectFieldOptions = [
   { id: 1, label: "Select a video file" },

@@ -295,7 +295,7 @@ import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import { createCourse } from "~~/stores/createCourse";
 import { courseMenuOptions } from "@/configs/sampleButtonMenuOptions.js";
-import Uploadtext from "@/components/LMS/Uploadtext.vue";
+import Uploadtext from "@/components/LMS/Course/Uploadtext.vue";
 
 // components
 import LessonsType from "./LessonsType.vue";

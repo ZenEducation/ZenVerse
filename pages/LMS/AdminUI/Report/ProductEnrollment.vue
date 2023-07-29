@@ -27,7 +27,6 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 defineProps({
   checkable: { type: Boolean, default: false },
 });
-const mainStore = useMainStore();
 const deleteItemId = ref("");
 const EnableItemId = ref("");
 
@@ -38,115 +37,70 @@ const isModalEnableActive = ref(false);
 const items = ref([
   {
     id: 1,
-    completedPercent: 79,
-    name: "Howell Hand",
-    email: "kiehngreen@lms.in",
-    mobile: "+91-9987654321",
+    ProductID: "course123",
+    ProductName: "Howell Hand",
+    ProductType: "Course",
+    Enrollments: "+91-9987654321",
     lastLogin: "Mar 03, 2021",
-    joinedOn: "Mar 03, 2021",
-    isEnabled: true
+    isEnabled: true,
   },
   {
     id: 2,
-    completedPercent: 65,
-    name: "Emily Johnson",
-    email: "emilyjohnson@example.com",
-    mobile: "+1-1234567890",
+    ProductID: "test456",
+    ProductName: "Emily Johnson",
+    ProductType: "Mock Test",
+    Enrollments: "+1-1234567890",
     lastLogin: "May 10, 2023",
-    joinedOn: "Apr 15, 2023",
-    isEnabled: false
+    isEnabled: false,
   },
   {
     id: 3,
-    completedPercent: 90,
-    name: "John Doe",
-    email: "johndoe@example.com",
-    mobile: "+1-9876543210",
+    ProductID: "bundle789",
+    ProductName: "John Doe",
+    ProductType: "Bundle",
+    Enrollments: "+1-9876543210",
     lastLogin: "May 31, 2023",
-    joinedOn: "Feb 20, 2023",
-    isEnabled: false
+    isEnabled: true,
   },
   {
     id: 4,
-    completedPercent: 100,
-    name: "Alice Smith",
-    email: "alicesmith@example.com",
-    mobile: "+44-7418529630",
+    ProductID: "test234",
+    ProductName: "Alice Smith",
+    ProductType: "Test Series",
+    Enrollments: "+44-7418529630",
     lastLogin: "May 29, 2023",
-    joinedOn: "Mar 05, 2023",
-    isEnabled: false
+    isEnabled: true,
   },
-  {
-    id: 5,
-    completedPercent: 45,
-    name: "Michael Brown",
-    email: "michaelbrown@example.com",
-    mobile: "+1-9876543210",
-    lastLogin: "May 30, 2023",
-    joinedOn: "Jan 10, 2023",
-    isEnabled: false
-  },
-  {
-    id: 6,
-    completedPercent: 85,
-    name: "Sophia Garcia",
-    email: "sophiagarcia@example.com",
-    mobile: "+1-1234567890",
-    lastLogin: "May 27, 2023",
-    joinedOn: "Mar 15, 2023",
-    isEnabled: true
-  },
-  {
-    id: 7,
-    completedPercent: 60,
-    name: "David Wilson",
-    email: "davidwilson@example.com",
-    mobile: "+44-7418529630",
-    lastLogin: "May 31, 2023",
-    joinedOn: "Jan 05, 2023",
-    isEnabled: true
-  },
-  {
-    id: 8,
-    completedPercent: 70,
-    name: "Olivia Martinez",
-    email: "oliviamartinez@example.com",
-    mobile: "+1-1234567890",
-    lastLogin: "May 29, 2023",
-    joinedOn: "Feb 10, 2023",
-    isEnabled: true
-  }
-]
-);
+]);
 const joinDateOptions = ["all", "before", "on", "after", "between"];
+const ProductOptions = ["all", "Course", "Mock Test", "Bundle", "Test Series"];
 const membershipOptions = ["all", "enabled", "disabled"];
+
 const membershipSelectedFilter = ref("all");
+const ProductSelectedFilter = ref("all");
+
 const searchQuery = ref("");
-const joinedFilterOption = ref("all");
-const joinedFilterDate = ref("");
-const joinedFilterStartDate = ref("");
-const joinedFilterEndDate = ref("");
+
 const lastLoginFilterOption = ref("all");
 const lastLoginFilterDate = ref("");
 const lastLoginFilterStartDate = ref("");
 const lastLoginFilterEndDate = ref("");
-const completedFilterOption = ref(false);
 const perPage = 25;
 const totalPages = ref(1);
 const currentPage = ref(0);
-const JoinedOnFilterModelActive = ref(false);
 const MembershipFilterModelActive = ref(false);
+const ProductFilterModelActive = ref(false);
+
 const LastLoginFilterModelActive = ref(false);
 
 const resetfilter = () => {
   membershipSelectedFilter.value = "all";
-  joinedFilterOption.value = "all";
+  ProductSelectedFilter.value = "all";
   lastLoginFilterOption.value = "all";
-  JoinedOnFilterModelActive.value = false;
   MembershipFilterModelActive.value = false;
+  ProductFilterModelActive.value = false;
   LastLoginFilterModelActive.value = false;
-  searchQuery.value = "";
-  completedFilterOption.value = false;
+  searchQuery.value = ""
 };
 
 const filteredItems = computed(() => {
@@ -156,17 +110,10 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.name.match(search) ||
-            item.email.match(search) ||
-            item.mobile.match(search)
+        ? item.ProductID.match(search) ||
+            item.ProductName.match(search)
         : true;
     });
-  }
-
-  if(completedFilterOption.value ){
-    filtered = filtered.filter((item)=>{
-        return item.completedPercent == 100;
-    })
   }
 
   if (membershipSelectedFilter.value == "enabled") {
@@ -176,37 +123,9 @@ const filteredItems = computed(() => {
     filtered = filtered.filter((item) => !item.isEnabled);
   }
 
-  if (joinedFilterOption.value !== "all") {
+  if (ProductSelectedFilter.value != "all") {
     filtered = filtered.filter((item) => {
-      const joinedDate = new Date(item.joinedOn);
-
-      if (joinedFilterOption.value === "on" && joinedFilterDate.value != "") {
-        const filterDate = new Date(joinedFilterDate.value);
-        return joinedDate.toDateString() === filterDate.toDateString();
-      } else if (
-        joinedFilterOption.value === "before" &&
-        joinedFilterDate.value != ""
-      ) {
-        console.log("object");
-        const filterDate = new Date(joinedFilterDate.value);
-        return joinedDate < filterDate;
-      } else if (
-        joinedFilterOption.value === "after" &&
-        joinedFilterDate.value != ""
-      ) {
-        const filterDate = new Date(joinedFilterDate.value);
-        return joinedDate > filterDate;
-      } else if (
-        joinedFilterOption.value === "between" &&
-        joinedFilterStartDate.value &&
-        joinedFilterEndDate.value
-      ) {
-        const startDate = new Date(joinedFilterStartDate.value);
-        const endDate = new Date(joinedFilterEndDate.value);
-        return joinedDate >= startDate && joinedDate <= endDate;
-      } else {
-        return true;
-      }
+      return item.ProductType == ProductSelectedFilter.value;
     });
   }
 
@@ -278,32 +197,35 @@ const deleteItem = (popup, id) => {
 <template>
   <CardBoxModal
     v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this learner?"
+    title="Are you sure you want to Change status ?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
     @confirm="EnableItem(false)"
   />
 
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <div
       class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
     >
       <div class="heading">
-        <h1 class="font-bold text-2xl">Course Name</h1>
+        <h1 class="font-bold text-2xl">Product Enrollment</h1>
         <h3 class="font-thin text-xs text-gray-500 py-1 dark:text-white">
-          Student Progress Report
         </h3>
       </div>
       <BaseButtons type="ml-auto xl:mr-4 mr-1">
         <BaseButton
           class="flex-1"
-          type="info"
           label="Export"
           color="info"
         />
       </BaseButtons>
-
+      <div class="flex items-center justify-center">
+        <PremButtonMenu
+          :options="adminPanelButtonMenu"
+          :icon="mdiDotsVertical"
+        />
+      </div>
     </div>
     <div class="flex flex-col gap-4 mx-10 xl:max-w-7xl xl:mx-auto pt-10">
       <form class="relative" @submit.prevent="submit">
@@ -313,7 +235,7 @@ const deleteItem = (popup, id) => {
           class="form-input w-full pl-9 focus:border-slate-300"
           type="search"
           v-model="searchQuery"
-          placeholder="Search by Name, Email or Mobile Number"
+          placeholder="Search by Product Name/ID"
         />
         <button class="absolute inset-0 right-auto group" aria-label="Search">
           <svg
@@ -336,53 +258,7 @@ const deleteItem = (popup, id) => {
           <div class="relative mr-4">
             <p>filter by:</p>
           </div>
-          <div class="relative mr-4">
-            <div
-              @click="JoinedOnFilterModelActive = !JoinedOnFilterModelActive"
-              class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-            >
-              <p
-                role=""
-                tabindex="-1"
-                class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-              >
-                Joining Date
-              </p>
-            </div>
-            <div
-              class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-              v-if="JoinedOnFilterModelActive"
-            >
-              <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-                <PremFormControl
-                  :options="joinDateOptions"
-                  v-model="joinedFilterOption"
-                />
-              </PremFormField>
-              <PremFormField
-                class="min-w-[50%] xl:min-w-[20%] mt-3"
-                v-if="
-                  joinedFilterOption != 'all' && joinedFilterOption != 'between'
-                "
-              >
-                <PremFormControl v-model="joinedFilterDate" type="date" />
-              </PremFormField>
-              <PremFormField
-                class="min-w-[50%] xl:min-w-[20%] mb-0"
-                v-if="joinedFilterOption == 'between'"
-                label="From"
-              >
-                <PremFormControl v-model="joinedFilterStartDate" type="date" />
-              </PremFormField>
-              <PremFormField
-                class="min-w-[50%] xl:min-w-[20%] mb-0"
-                v-if="joinedFilterOption == 'between'"
-                label="To"
-              >
-                <PremFormControl v-model="joinedFilterEndDate" type="date" />
-              </PremFormField>
-            </div>
-          </div>
+
           <div class="relative mr-4">
             <div
               @click="LastLoginFilterModelActive = !LastLoginFilterModelActive"
@@ -393,7 +269,7 @@ const deleteItem = (popup, id) => {
                 tabindex="-1"
                 class="break-words text-body text-darkSlate01 false flex-grow leading-none"
               >
-                Last login Date
+                Last login
               </p>
             </div>
             <div
@@ -446,7 +322,7 @@ const deleteItem = (popup, id) => {
                 tabindex="-1"
                 class="break-words text-body text-darkSlate01 false flex-grow leading-none"
               >
-                Membership Status
+                Status
               </p>
             </div>
             <div
@@ -459,18 +335,28 @@ const deleteItem = (popup, id) => {
               />
             </div>
           </div>
-          <div
-            @click="completedFilterOption = !completedFilterOption"
-            :class="{'bg-green-400' : completedFilterOption}"
-            class="flex-center mr-4 p-[0.6rem] border bg-transparent border-black dark:border-white cursor-pointer leading-none"
-          >
-            <p
-              role=""
-              tabindex="-1"
-              class="break-words text-body text-darkSlate01 false"
+          <div class="relative mr-4">
+            <div
+              @click="ProductFilterModelActive = !ProductFilterModelActive"
+              class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
             >
-              Completed
-            </p>
+              <p
+                role=""
+                tabindex="-1"
+                class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+              >
+                Product Type
+              </p>
+            </div>
+            <div
+              class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+              v-if="ProductFilterModelActive"
+            >
+              <PremFormControl
+                :options="ProductOptions"
+                v-model="ProductSelectedFilter"
+              />
+            </div>
           </div>
         </div>
 
@@ -483,40 +369,40 @@ const deleteItem = (popup, id) => {
             tabindex="-1"
             class="break-words text-body text-darkSlate01 false"
           >
-            Reset Fiters
+            Reset Filters
           </p>
         </div>
       </div>
 
       <div class="text-gray-500 dark:text-white">
-        <span>{{ filteredItems.length }} Students</span>
+        <span>{{ filteredItems.length }} Products</span>
       </div>
 
       <table>
         <thead>
           <tr>
-            <th>Completed</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Mobile no</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Type</th>
+            <th>Enrollments</th>
             <th>Last Login</th>
-            <th>Joined On</th>
             <th>Enabled</th>
+            <th />
           </tr>
         </thead>
         <tbody>
           <tr v-for="learners in filteredItems" :key="learners.id">
-            <td data-label="Name" >
-              {{ learners.completedPercent +" %" }}
+            <td data-label="Product ID">
+              {{ learners.ProductID }}
             </td>
-            <td data-label="Name">
-              {{ learners.name }}
+            <td data-label="Product Name">
+              {{ learners.ProductName }}
             </td>
-            <td data-label="Email">
-              {{ learners.email }}
+            <td data-label="Product Type">
+              {{ learners.ProductType }}
             </td>
-            <td data-label="Mobile No">
-              {{ learners.mobile }}
+            <td data-label="Enrollments">
+              {{ learners.Enrollments }}
             </td>
             <td data-label="Last Login" class="lg:w-1 whitespace-nowrap">
               <small
@@ -525,19 +411,16 @@ const deleteItem = (popup, id) => {
                 >{{ learners.lastLogin }}</small
               >
             </td>
-            <td data-label="Joined" class="lg:w-1 whitespace-nowrap">
-              <small
-                class="text-gray-500 dark:text-slate-400"
-                :title="learners.joinedOn"
-                >{{ learners.joinedOn }}</small
-              >
-            </td>
             <TableLearnerEnabled
               data-label="Enabled"
               :checked="learners.isEnabled"
               @click="EnableItem(true, learners.id)"
             />
-
+            <td>
+              <BaseButtons type="justify-start lg:justify-end" no-wrap>
+                <BaseButton color="info" small label="View Progress" />
+              </BaseButtons>
+            </td>
           </tr>
         </tbody>
       </table>

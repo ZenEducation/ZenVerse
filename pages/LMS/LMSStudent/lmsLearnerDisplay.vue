@@ -3,19 +3,18 @@
 const layout = 'lmslearnerdisplay'
 // const layout = 'pdf'
 
-// import SectionMain from "@/components/LMS/SectionMain.vue";
 import { onMounted,computed } from 'vue';
 // import pdfMake from "pdfmake/build/pdfmake";
 import {pdfViewerStore} from "~/stores/lmsLearnerDisplay.js"
 const allPdfData = pdfViewerStore()
-import pdfView from "../../components/LMS/PdfView1.vue"
-import audioView from "../../components/LMS/AudioView.vue"
-import videoView from "../../components/LMS/VideoView.vue"
-import RichTextView from "../../components/LMS/RichTextView.vue"
-import QuizView from "../../components/LMS/QuizView.vue"
-import PPTView from "../../components/LMS/PPTView.vue"
-import SurveyViewVue from '~/components/LMS/SurveyView.vue';
-import DownloadView from "../../components/LMS/DownloadView.vue"
+import pdfView from "@/components/LMS/Course/PdfView1.vue"
+import audioView from "@/components/LMS/Course/AudioView.vue"
+import videoView from "@/components/LMS/Course/VideoView.vue"
+import RichTextView from "@/components/LMS/Course/RichTextView.vue"
+import QuizView from "@/components/LMS/Course/QuizView.vue"
+import PPTView from "@/components/LMS/Course/PPTView.vue"
+import SurveyViewVue from '~/components/LMS/Course/SurveyView.vue';
+import DownloadView from "@/components/LMS/Course/DownloadView.vue"
 const file = computed(()=>{
   return allPdfData.currentPDF
 })

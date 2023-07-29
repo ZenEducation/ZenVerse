@@ -49,10 +49,10 @@
 </template>
 
 <script setup>
-import TextArea from "./Survey/TextArea.vue";
-import Quiz from "./Survey/Quiz.vue";
-import Rating from "./Survey/Rating.vue";
-import Scale from "./Survey/Scale.vue";
+import TextArea from "@/components/LMS/Survey/TextArea.vue";
+import Quiz from "@/components/LMS/Survey/Quiz.vue";
+import Rating from "@/components/LMS/Survey/Rating.vue";
+import Scale from "@/components/LMS/Survey/Scale.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import {pdfViewerStore} from "~/stores/lmsLearnerDisplay.js"

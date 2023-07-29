@@ -6,17 +6,17 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
-import { useLayoutStore } from "@/stores/layout.js";
 import {
   mdiDancePole,
-  mdiGrid,
   mdiInformationBoxOutline,
-  mdiFormatListBulleted,
   mdiPlus,
+  mdiArrowLeft,
 } from "@mdi/js";
+import { mdiGrid, mdiFormatListBulleted } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/BundleImage.png";
+import { useLayoutStore } from "@/stores/layout.js";
 
 const items = ref([
   {
@@ -135,13 +135,14 @@ const publishedFilterOption = ref("all");
 const publishedFilterDate = ref("");
 const publishedFilterStartDate = ref("");
 const publishedFilterEndDate = ref("");
-const isFreeFilterActive = ref(false);
 
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
 const publishedOnFilterModelActive = ref(false);
 const statusFilterModelActive = ref(false);
+
+const isFreeFilterActive = ref(false);
 
 const resetfilter = () => {
   statusSelectedFilter.value = "all";
@@ -158,7 +159,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.BundleID.match(search) || item.title.match(search)
+        ? item.CourseID.match(search) || item.title.match(search)
         : true;
     });
   }
@@ -175,41 +176,6 @@ const filteredItems = computed(() => {
     });
   }
 
-  if (publishedFilterOption.value !== "all") {
-    filtered = filtered.filter((item) => {
-      const publishedDate = new Date(item.PublishedDate);
-
-      if (
-        publishedFilterOption.value === "on" &&
-        publishedFilterDate.value != ""
-      ) {
-        const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate.toDateString() === filterDate.toDateString();
-      } else if (
-        publishedFilterOption.value === "before" &&
-        publishedFilterDate.value != ""
-      ) {
-        const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate < filterDate;
-      } else if (
-        publishedFilterOption.value === "after" &&
-        publishedFilterDate.value != ""
-      ) {
-        const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate > filterDate;
-      } else if (
-        publishedFilterOption.value === "between" &&
-        publishedFilterStartDate.value &&
-        publishedFilterEndDate.value
-      ) {
-        const startDate = new Date(publishedFilterStartDate.value);
-        const endDate = new Date(publishedFilterEndDate.value);
-        return publishedDate >= startDate && publishedDate <= endDate;
-      } else {
-        return true;
-      }
-    });
-  }
   totalPages.value = Math.ceil(filtered.length / perPage);
   const start = currentPage.value * perPage;
   const end = (currentPage.value + 1) * perPage;
@@ -239,15 +205,19 @@ const colors = computed(() => {
 });
 </script>
 <template>
-  <NuxtLayout name="zen">
-    <div class="p-6">
-      <CardBox>
+  <NuxtLayout name="lmsadmin">
+    <div class="px-6">
+      <NuxtLink to="/lms/adminUI/bundles/BundleDashboard" class="h-10 flex items-center border-b">
+        <BaseIcon :path="mdiArrowLeft" />
+        Back
+      </NuxtLink>
+      <div class="p-5">
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Bundles</p>
-            <p class="text-sm">Welcome to your bundle dashboard</p>
+            <p class="font-bold text-xl">Physucs | CWTs | V01</p>
+            <p class="text-sm">Manage and add products to your bundle</p>
           </div>
-          <div class="flex flex-wrap gap-4 items-center">
+          <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
               <BaseButton
                 :icon="mdiFormatListBulleted"
@@ -269,8 +239,15 @@ const colors = computed(() => {
               />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
+              <BaseButton color="lightDark" label="Edit" small />
               <BaseButton color="lightDark" label="Re order" small />
-              <BaseButton color="info" :icon="mdiPlus" label="Create" small />
+              <BaseButton
+                color="info"
+                :icon="mdiPlus"
+                label="Add Product"
+                small
+              />
+              <BaseButton color="info" icon="" label="Manage User" small />
             </div>
           </div>
         </div>
@@ -282,7 +259,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or Bundle ID "
+            placeholder="Search by Title or Course ID"
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg
@@ -305,62 +282,6 @@ const colors = computed(() => {
             <div class="relative mr-4">
               <p>filter by:</p>
             </div>
-            <div class="relative mr-4">
-              <div
-                @click="
-                  publishedOnFilterModelActive = !publishedOnFilterModelActive
-                "
-                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-              >
-                <p
-                  role=""
-                  tabindex="-1"
-                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-                >
-                  Publishing Date
-                </p>
-              </div>
-              <div
-                class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-                v-if="publishedOnFilterModelActive"
-              >
-                <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-                  <PremFormControl
-                    :options="publishDateOptions"
-                    v-model="publishedFilterOption"
-                  />
-                </PremFormField>
-                <PremFormField
-                  class="min-w-[50%] xl:min-w-[20%] mt-3"
-                  v-if="
-                    publishedFilterOption != 'all' &&
-                    publishedFilterOption != 'between'
-                  "
-                >
-                  <PremFormControl v-model="publishedFilterDate" type="date" />
-                </PremFormField>
-                <PremFormField
-                  class="min-w-[50%] xl:min-w-[20%] mb-0"
-                  v-if="publishedFilterOption == 'between'"
-                  label="From"
-                >
-                  <PremFormControl
-                    v-model="publishedFilterStartDate"
-                    type="date"
-                  />
-                </PremFormField>
-                <PremFormField
-                  class="min-w-[50%] xl:min-w-[20%] mb-0"
-                  v-if="publishedFilterOption == 'between'"
-                  label="To"
-                >
-                  <PremFormControl
-                    v-model="publishedFilterEndDate"
-                    type="date"
-                  />
-                </PremFormField>
-              </div>
-            </div>
 
             <div class="relative mr-4">
               <div
@@ -372,7 +293,7 @@ const colors = computed(() => {
                   tabindex="-1"
                   class="break-words text-body text-darkSlate01 false flex-grow leading-none"
                 >
-                  Publishing Status
+                  Status
                 </p>
               </div>
               <div
@@ -385,7 +306,6 @@ const colors = computed(() => {
                 />
               </div>
             </div>
-
             <div class="relative mr-4">
               <div
                 @click="isFreeFilterActive = !isFreeFilterActive"
@@ -422,10 +342,10 @@ const colors = computed(() => {
         <div class="text-gray-500 mb-7 dark:text-white">
           <span>{{ filteredItems.length }} Courses </span>
         </div>
+
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
-            <NuxtLink
-              to="/lms/bundlesingle"
+            <div
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
@@ -433,7 +353,7 @@ const colors = computed(() => {
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.BundleID }} | {{ item.CourseID }}</p>
+                  <p class="">{{ item.CourseID }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
@@ -452,15 +372,14 @@ const colors = computed(() => {
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
-            </NuxtLink>
+            </div>
           </div>
         </template>
         <template v-else>
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <NuxtLink
-              to="/lms/bundlesingle"
+            <div
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
@@ -470,7 +389,7 @@ const colors = computed(() => {
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.BundleID }} | {{ item.CourseID }}</p>
+                <p class="">{{ item.CourseID }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
@@ -486,9 +405,10 @@ const colors = computed(() => {
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
-            </NuxtLink>
+            </div>
           </div>
         </template>
+
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
           <BaseLevel>
             <BaseButtons>
@@ -505,7 +425,7 @@ const colors = computed(() => {
             <small>Page {{ currentPage + 1 }} of {{ totalPages }}</small>
           </BaseLevel>
         </div>
-      </CardBox>
+      </div>
     </div>
   </NuxtLayout>
 </template>

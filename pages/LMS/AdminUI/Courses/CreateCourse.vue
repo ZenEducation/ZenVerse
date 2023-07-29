@@ -22,7 +22,7 @@ import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import NotificationBar from "@/components/NotificationBars/NotificationBar.vue";
 import uploadImg from "@/assets/img/upload.png";
 import PremFormControl from "@/components/Forms/FormControl.vue";
-import CourseImgAndDescription from "@/components/LMS/CourseImgandDescription.vue";
+import CourseImgAndDescription from "@/components/LMS/Course/CourseImgandDescription.vue";
 import CardBoxWidget from "@/components/Cards/CardBoxWidget.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import adminMenu from "@/configs/adminMenu.js";
@@ -264,7 +264,7 @@ const previewMenu = {
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <div class="grid grid-cols-1">
           <div

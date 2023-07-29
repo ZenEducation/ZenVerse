@@ -11,8 +11,6 @@ import {
   mdiInformationBoxOutline,
   mdiPlus,
   mdiArrowLeft,
-  mdiTrashCan,
-  mdiPencil,
 } from "@mdi/js";
 import { mdiGrid, mdiFormatListBulleted } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
@@ -123,11 +121,36 @@ const items = ref([
   },
 ]);
 
+const publishDateOptions = ["all", "before", "on", "after", "between"];
+const statusOptions = [
+  "all",
+  "Published",
+  "Unpublished",
+  "Coming Soon",
+  "Scheduled",
+];
+const statusSelectedFilter = ref("all");
 const searchQuery = ref("");
+const publishedFilterOption = ref("all");
+const publishedFilterDate = ref("");
+const publishedFilterStartDate = ref("");
+const publishedFilterEndDate = ref("");
 
 const perPage = 16;
 const totalPages = ref(1);
 const currentPage = ref(0);
+const publishedOnFilterModelActive = ref(false);
+const statusFilterModelActive = ref(false);
+
+const isFreeFilterActive = ref(false);
+
+const resetfilter = () => {
+  statusSelectedFilter.value = "all";
+  publishedFilterOption.value = "all";
+  publishedOnFilterModelActive.value = false;
+  statusFilterModelActive.value = false;
+  isFreeFilterActive.value = false;
+};
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -138,6 +161,18 @@ const filteredItems = computed(() => {
       return search
         ? item.CategoryID.match(search) || item.title.match(search)
         : true;
+    });
+  }
+
+  if (isFreeFilterActive.value) {
+    filtered = filtered.filter((item) => {
+      return item.isFree;
+    });
+  }
+
+  if (statusSelectedFilter.value !== "all") {
+    filtered = filtered.filter((item) => {
+      return item.status === statusSelectedFilter.value;
     });
   }
 
@@ -170,16 +205,17 @@ const colors = computed(() => {
 });
 </script>
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <div class="px-6">
-      <NuxtLink to="/BundleDashboard" class="h-10 flex items-center border-b">
+      <NuxtLink to="/lms/adminUI/bundles/BundleDashboard" class="h-10 flex items-center border-b">
         <BaseIcon :path="mdiArrowLeft" />
         Back
       </NuxtLink>
       <div class="p-5">
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Categories</p>
+            <p class="font-bold text-xl">Physucs | CWTs | V01</p>
+            <p class="text-sm">Manage and add products to your Category</p>
           </div>
           <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
@@ -203,7 +239,13 @@ const colors = computed(() => {
               />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
-              <BaseButton color="info" :icon="mdiPlus" label="Create" small />
+              <BaseButton color="lightDark" label="Edit" small />
+              <BaseButton
+                color="info"
+                :icon="mdiPlus"
+                label="Add Product"
+                small
+              />
             </div>
           </div>
         </div>
@@ -233,10 +275,70 @@ const colors = computed(() => {
           </button>
         </form>
 
+        <div class="lg:flex justify-between">
+          <div class="flex items-start gap-y-4 flex-wrap">
+            <div class="relative mr-4">
+              <p>filter by:</p>
+            </div>
+
+            <div class="relative mr-4">
+              <div
+                @click="statusFilterModelActive = !statusFilterModelActive"
+                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+              >
+                <p
+                  role=""
+                  tabindex="-1"
+                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+                >
+                  Status
+                </p>
+              </div>
+              <div
+                class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
+                v-if="statusFilterModelActive"
+              >
+                <PremFormControl
+                  :options="statusOptions"
+                  v-model="statusSelectedFilter"
+                />
+              </div>
+            </div>
+            <div class="relative mr-4">
+              <div
+                @click="isFreeFilterActive = !isFreeFilterActive"
+                :class="{ 'bg-green-100': isFreeFilterActive }"
+                class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
+              >
+                <p
+                  role=""
+                  tabindex="-1"
+                  class="break-words text-body text-darkSlate01 false flex-grow leading-none"
+                >
+                  Free
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex-end mr-4 p-[0.6rem] underline cursor-pointer leading-none"
+            @click="resetfilter"
+          >
+            <p
+              role=""
+              tabindex="-1"
+              class="break-words text-body text-darkSlate01 false"
+            >
+              Reset Fiters
+            </p>
+          </div>
+        </div>
+
         <BaseDivider />
 
         <div class="text-gray-500 mb-7 dark:text-white">
-          <span>{{ filteredItems.length }} Categories </span>
+          <span>{{ filteredItems.length }} Categorys </span>
         </div>
 
         <template v-if="!isFinalGrid">
@@ -245,7 +347,7 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
-              <NuxtLink to="/lms/categorysingle" class="flex">
+              <div class="flex">
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
@@ -259,17 +361,14 @@ const colors = computed(() => {
                     <p class="text-sm">{{ item.days }} Days</p>
                   </div>
                 </div>
-              </NuxtLink>
+              </div>
 
-              <div class="flex gap-2 justify-between items-center px-3">
+              <div class="flex justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
+                  <BaseButton color="lightDark" label="Mock Test" small />
                   <BaseButton color="" :label="item.status" small />
                 </div>
-                <div class="flex gap-3 flex-wrap items-center">
-                  <BaseButton color="danger" :icon="mdiTrashCan" />
-                  <BaseButton color="info" :icon="mdiPencil" />
-                  <BaseIcon :path="mdiInformationBoxOutline" />
-                </div>
+                <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
             </div>
           </div>
@@ -282,37 +381,27 @@ const colors = computed(() => {
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
-              <NuxtLink to="/lms/categorysingle">
-                <div
-                  to="/lms/categorysingle"
-                  class="h-44 w-full bg-cover bg-center bg-no-repeat"
-                  :style="'background-image: url(' + image + ')'"
-                ></div>
-              </NuxtLink>
-
+              <div
+                class="h-44 w-full bg-cover bg-center bg-no-repeat"
+                :style="'background-image: url(' + image + ')'"
+              ></div>
               <div class="px-4 h-auto">
-                <NuxtLink to="/lms/categorysingle">
-                  <p class="font-medium h-12">{{ item.title }}</p>
-                  <p class="">{{ item.CategoryID }}</p>
-                  <div class="flex justify-between">
-                    <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                    <p v-else class="font-semibold text-sm">
-                      ₹ {{ item.price }}
-                    </p>
-                    <p class="text-sm">{{ item.days }} Days</p>
-                  </div>
-                </NuxtLink>
+                <p class="font-medium h-12">{{ item.title }}</p>
+                <p class="">{{ item.CategoryID }}</p>
+                <div class="flex justify-between">
+                  <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
+                  <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
+
+                  <p class="text-sm">{{ item.days }} Days</p>
+                </div>
               </div>
               <div class="w-full my-1 border-t"></div>
               <div class="flex justify-between items-center h-12 px-3">
                 <div class="flex flex-wrap gap-2">
+                  <BaseButton color="lightDark" label="Mock Test" small />
                   <BaseButton color="" :label="item.status" small />
                 </div>
-                <div class="flex gap-3 flex-wrap items-center">
-                  <BaseButton color="danger" :icon="mdiTrashCan" />
-                  <BaseButton color="info" :icon="mdiPencil" />
-                  <BaseIcon :path="mdiInformationBoxOutline" />
-                </div>
+                <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
             </div>
           </div>

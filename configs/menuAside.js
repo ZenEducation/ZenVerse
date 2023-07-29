@@ -77,7 +77,7 @@ export default [
     icon: mdiFilePdfBox,
   },
   {
-    to: "/LMS/lmsLearnerDisplay",
+    to: "/LMS/LMSStudent/lmsLearnerDisplay",
     label: "Pdf View",
     icon: mdiFilePdfBox,
   },

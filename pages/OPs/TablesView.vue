@@ -17,7 +17,7 @@ import CardBoxComponentEmpty from "@/components/Cards/CardBoxComponentEmpty.vue"
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton :icon="mdiTableBorder" title="Tables" main>
           <BaseButton

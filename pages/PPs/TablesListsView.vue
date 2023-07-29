@@ -31,7 +31,7 @@ const productBarItems = computed(() => (mainStore.products || []).slice(0, 4));
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton :icon="mdiBank" title="Finance" main>
           <BaseButton

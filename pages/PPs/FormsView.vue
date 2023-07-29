@@ -94,7 +94,7 @@ const formErrorSubmit = () => {
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton
           :icon="mdiBallotOutline"

@@ -1,5 +1,3 @@
 <template>
-    <NuxtLayout name="zen">
-
-        Test view page</NuxtLayout>
+  <NuxtLayout name="lmsadmin"> Test view page</NuxtLayout>
 </template>

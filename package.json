@@ -41,6 +41,7 @@
     "aws-amplify": "^5.0.5",
     "chart.js": "^3.9.1",
     "fabric": "^5.3.0",
+    "html2pdf.js": "^0.10.1",
     "numeral": "^2.0.6",
     "paper": "^0.12.17",
     "pinia": "^2.0.28",
@@ -49,6 +50,8 @@
     "uuid4": "^2.0.3",
     "vue": "^3.2.33",
     "vue-3-slider-component": "^0.1.0",
-    "vue-advanced-chat": "^2.0.6"
+    "vue-advanced-chat": "^2.0.6",
+    "vue-draggable-next": "^2.2.0",
+    "vue-html2pdf": "^1.8.0"
   }
 }

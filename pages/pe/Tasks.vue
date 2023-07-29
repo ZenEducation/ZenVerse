@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <CardBox has-table>
           <TableTasks :tasks="studentTasks.tasksList" />

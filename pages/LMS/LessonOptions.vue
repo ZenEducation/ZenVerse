@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import CardBox from "@/components/Cards/CardBox.vue";
 import { useMainStore } from "@/stores/main.js";
 import SectionMain from "@/components/Sections/SectionMain.vue";
-import LessonOptions from "@/components/LMS/LessonOptions.vue";
+import LessonOptions from "@/components/LMS/Course/LessonOptions.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import { mdiBookOpenPageVariant } from "@mdi/js";
 
@@ -15,7 +15,7 @@ const studentItems = computed(() => mainStore.accessStudents);
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton
           :icon="mdiBookOpenPageVariant"

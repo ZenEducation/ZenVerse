@@ -1,6 +1,5 @@
 <script setup>
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import BulkImporterChapter from "./BulkImporterChapter.vue";
 import {
   mdiBallot,
   mdiAccount,
@@ -8,8 +7,7 @@ import {
   mdiFileUploadOutline,
   mdiDragVertical
 } from "@mdi/js";
-import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
-import FormControlIcon from "@/components/Forms/FormControlIcon.vue";
+import FormUploadFiles from "@/components/LMS/Course/FormUploadFiles.vue";
 defineProps({
   icon: {
     type: String,

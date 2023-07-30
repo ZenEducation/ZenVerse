@@ -4,7 +4,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 const emit = defineEmits(['uploadData'])
 import { mdiAccount } from "@mdi/js";
-import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
+import FormUploadFiles from "@/components/LMS/Course/FormUploadFiles.vue";
          defineProps({
   label: {
     type: String,

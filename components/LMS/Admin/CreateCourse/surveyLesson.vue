@@ -24,10 +24,10 @@ import FormCheckRadio from "~~/components/Forms/FormCheckRadio.vue";
 import Lessonsetting from "@/components/LMS/Admin/CreateCourse/lessonsetting.vue"
 
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import FormUploadFiles from "@/components/LMS/FormUploadFiles.vue";
-import Uploadtext from "@/components/LMS/Uploadtext.vue";
+import FormUploadFiles from "@/components/LMS/Course/FormUploadFiles.vue";
+import Uploadtext from "@/components/LMS/Course/Uploadtext.vue";
 import SeclectionMultipleButton from "@/components/Sections/SeclectionMultipleButton.vue";
-import QuilEditor from "@/components/LMS/QuilEditor.vue";
+import QuilEditor from "@/components/LMS/Course/QuilEditor.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import SectionTitle from "@/components/Sections/SectionTitle.vue";
 import PremFormControlListbox from "~~/components/Forms/PremFormControlListbox.vue";

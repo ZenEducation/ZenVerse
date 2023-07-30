@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <div class="max-w-3xl mx-auto py-10">
       <div class="flex px-8 justify-between items-center">
         <p class="text-2xl font-semibold">Profile Picture</p>

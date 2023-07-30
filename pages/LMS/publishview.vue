@@ -19,7 +19,7 @@ const radioOptions = [
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="lmsadmin">
       <SectionMain>
         <SectionTitleLineWithButton
           title="Publish"

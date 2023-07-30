@@ -302,7 +302,7 @@ const filteredItems = computed(() => {
     </div>
   </CardBoxModal>
 
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <div
       class="flex justify-between border-b border-gray-300 p-2 mt-5 xl:max-w-7xl xl:mx-auto bg-gray-100 rounded dark:bg-gray-700"
     >

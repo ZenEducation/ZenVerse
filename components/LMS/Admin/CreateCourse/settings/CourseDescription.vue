@@ -11,7 +11,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { mdiDelete } from "@mdi/js";
 import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
 import uploadImg from "@/assets/img/upload.png";
-import CourseImgAndDescription from "@/components/LMS/CourseImgandDescription.vue"
+import CourseImgAndDescription from "@/components/LMS/Course/CourseImgandDescription.vue"
 
 const mainStore = useMainStore();
 const courseDetails = computed(()=> mainStore.courseDetails)

@@ -21,7 +21,7 @@ import image from "@/assets/img/BundleImage.png";
 const items = ref([
   {
     CourseID: "course1",
-    testID: "test1",
+    BundleID: "bundle1",
     title: "Mechanics: Newton's Laws of Motion",
     days: 234,
     status: "Published",
@@ -31,7 +31,7 @@ const items = ref([
   },
   {
     CourseID: "course2",
-    testID: "test2",
+    BundleID: "bundle2",
     title: "Thermodynamics: Heat and Temperature",
     days: 123,
     status: "Unpublished",
@@ -41,7 +41,7 @@ const items = ref([
   },
   {
     CourseID: "course3",
-    testID: "test1",
+    BundleID: "bundle1",
     title: "Optics: Geometrical Optics and Reflection",
     days: 456,
     status: "Coming Soon",
@@ -51,7 +51,7 @@ const items = ref([
   },
   {
     CourseID: "course4",
-    testID: "test3",
+    BundleID: "bundle3",
     title: "Electricity and Magnetism: Electric Circuits",
     days: 789,
     status: "Scheduled",
@@ -61,7 +61,7 @@ const items = ref([
   },
   {
     CourseID: "course5",
-    testID: "test2",
+    BundleID: "bundle2",
     title: "Waves: Wave Properties and Sound",
     days: 567,
     status: "Published",
@@ -71,7 +71,7 @@ const items = ref([
   },
   {
     CourseID: "course6",
-    testID: "test4",
+    BundleID: "bundle4",
     title: "Modern Physics: Quantum Mechanics",
     days: 345,
     status: "Published",
@@ -81,7 +81,7 @@ const items = ref([
   },
   {
     CourseID: "course7",
-    testID: "test2",
+    BundleID: "bundle2",
     title: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
     status: "Unpublished",
@@ -91,7 +91,7 @@ const items = ref([
   },
   {
     CourseID: "course8",
-    testID: "test1",
+    BundleID: "bundle1",
     title: "Astrophysics: Stars and Galaxies",
     days: 456,
     status: "Coming Soon",
@@ -101,7 +101,7 @@ const items = ref([
   },
   {
     CourseID: "course9",
-    testID: "test3",
+    BundleID: "bundle3",
     title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
     status: "Published",
@@ -111,7 +111,7 @@ const items = ref([
   },
   {
     CourseID: "course10",
-    testID: "test4",
+    BundleID: "bundle4",
     title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
     status: "Published",
@@ -158,7 +158,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.testID.match(search) || item.title.match(search)
+        ? item.BundleID.match(search) || item.title.match(search)
         : true;
     });
   }
@@ -239,13 +239,13 @@ const colors = computed(() => {
 });
 </script>
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="lmsadmin">
     <div class="p-6">
       <CardBox>
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Test Series</p>
-            <p class="text-sm">Welcome To Your Test Series Dashboard</p>
+            <p class="font-bold text-xl">Bundles</p>
+            <p class="text-sm">Welcome to your bundle dashboard</p>
           </div>
           <div class="flex flex-wrap gap-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
@@ -282,7 +282,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or test ID "
+            placeholder="Search by Title or Bundle ID "
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg
@@ -424,7 +424,8 @@ const colors = computed(() => {
         </div>
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
-            <div
+            <NuxtLink
+              to="/lms/adminUI/bundles/bundlesingle"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
@@ -432,7 +433,7 @@ const colors = computed(() => {
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
+                  <p class="">{{ item.BundleID }} | {{ item.CourseID }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
@@ -451,14 +452,15 @@ const colors = computed(() => {
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
-            </div>
+            </NuxtLink>
           </div>
         </template>
         <template v-else>
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <div
+            <NuxtLink
+              to="/lms/adminUI/bundles/bundlesingle"
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
@@ -468,7 +470,7 @@ const colors = computed(() => {
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.testID }} | {{ item.CourseID }}</p>
+                <p class="">{{ item.BundleID }} | {{ item.CourseID }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
@@ -484,7 +486,7 @@ const colors = computed(() => {
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
-            </div>
+            </NuxtLink>
           </div>
         </template>
         <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">

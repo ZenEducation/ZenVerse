@@ -20,18 +20,28 @@ import {
       menu: [
         {
           label: "Courses",
+          to:"/lms/adminUI/Courses/courseDashboard"
+
         },
         {
           label: "Bundles",
+          to:"/lms/adminUI/Bundles/BundleDashboard"
+
         },
         {
           label: "Mock Tests",
+          to:"/lms/adminUI/MockTest/MockTestDashboard"
+
         },
         {
           label: "Test Series",
+          to:"/lms/adminUI/TestSeries/testDashboard"
+
         },
         {
           label: "Categories",
+          to:"/lms/adminUI/Category/CategoryDashboard"
+
         },
       ],
     },
@@ -41,40 +51,40 @@ import {
       menu: [
         {
           label: "Learner",
-          to:"/lms/LearnerMgmt"
+          to:"/lms/adminUI/usermgmt/LearnerMgmt"
         },
         {
           label: "Admin",
-          to:"/lms/AdminMgmt"
+          to:"/lms/adminUI/usermgmt/AdminMgmt"
 
         },
         {
           label: "Instructor",
-          to:"/lms/InstructorMgmt"
+          to:"/lms/adminUI/usermgmt/InstructorMgmt"
         },
         {
           label: "Affiliates",
-          to:"/lms/AffiliateMgmt"
+          to:"/lms/adminUI/usermgmt/AffiliateMgmt"
         },
       ],
     },
     {
-      to: "/",
+      to:"/lms/adminUI/Manage/AssetMgmt",
       icon: mdiDotsTriangle,
       label: "Asset Library",
     },
     {
-      to: "/",
+      to:"/lms/adminUI/Report/CourseReport",
       icon: mdiChartLine,
       label: "Reports",
     },
     {
-      to: "/",
+      to:"/lms/adminUI/Manage/AccountSetting",
       icon: mdiFileMultipleOutline,
       label: "Manage",
     },
     {
-      to: "/",
+      to:"/lms/adminUI/Manage/AccountSetting",
       icon: mdiCogOutline,
       label: "Settings",
     },

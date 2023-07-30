@@ -20,23 +20,23 @@ import {
       menu: [
         {
           label: "Cash A/c",
-          to:"/"
+          to:"/accounts/accounts/cash"
         },
         {
           label: "Sales A/c",
-          to:"/"
+          to:"/accounts/accounts/sales"
         },
         {
           label: "Purchase A/c",
-          to:"/"
+          to:"/accounts/accounts/Purchase"
         },
         {
           label: "General Reserves A/c",
-          to:"/"
+          to:"/accounts/accounts/GeneralReserves"
         },
         {
           label: "Reverse Charge A/c",
-          to:"/"
+          to:"/accounts/accounts/ReverseCharge"
         },
       ],
     },
@@ -54,7 +54,7 @@ import {
         },
         {
           label: "Customer",
-          to:"/"
+          to:"/accounts/customer/customer"
         },
         {
           label: "Invoice",

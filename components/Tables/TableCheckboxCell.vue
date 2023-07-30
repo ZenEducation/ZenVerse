@@ -3,8 +3,8 @@ import { ref, watch } from "vue";
 
 defineProps({
   type: {
-    type: String,
-    default: "td",
+    type: Boolean,
+    required: true
   },
 });
 

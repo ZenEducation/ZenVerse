@@ -280,10 +280,10 @@
     <br />
 
     <!-- related articles -->
-    <PremFormField label="Related Articles" v-model="docForm.articles">
+    <PremFormField label="Related Articles" v-model="docForm.relatedArticles">
       <SelectDropdown @click="articleModal = true">
         <template v-slot:title>
-          <div>{{ docForm.articles.length }} Articles Selected</div>
+          <div>{{ docForm.relatedArticles.length }} Articles Selected</div>
         </template>
       </SelectDropdown>
     </PremFormField>
@@ -388,7 +388,7 @@ const handleRadioClick = (articleId) => {
   } else {
     articles_array.pop();
   }
-  docForm.value.articles = articles_array;
+  docForm.value.relatedArticles = articles_array;
 }
 
 const setPrimary = (id) => {

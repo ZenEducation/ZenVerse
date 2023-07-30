@@ -6,8 +6,8 @@
                     <PremFormField class="w-full">
                         <PremFormControl type="text" placeholder="Search articles" />
                     </PremFormField>
-                    <NuxtLink to="ArticleCreatePage">
-                        <BaseButton class="ml-2" color="contrast" label="New Article" />
+                   <NuxtLink to="ArticleCreatePage">
+                        <BaseButton @click="update()"  class="ml-2"  color="contrast" label="New Article" />
                     </NuxtLink>
                 </div>
 
@@ -23,8 +23,9 @@
 
                     <BaseButtons>
                         <BaseButton class="m-1" color="contrast" label="Configure" />
-
-                        <BaseButton class="m-1" color="contrast" label="View Site" />
+                         <!-- <NuxtLink to="/categoriesWithListOfArticles"> -->
+                        <BaseButton class="m-1" @click="redirect" color="contrast" label="View Site" />
+                        <!-- </NuxtLink> -->
                     </BaseButtons>
                 </div>
 
@@ -49,6 +50,15 @@ import CardBox from "@/components/Cards/CardBox.vue";
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
 import CategoriesTable from "@/components/HelpKnowledgeAndDocs/CategoriesTable.vue";
 import ArticlesTab from "@/components/HelpKnowledgeAndDocs/ArticlesTab.vue"
+const router = useRouter();
+const redirect = () => {
+   router.push("categoriesWithListOfArticles");
+}
+const update = () => {
+    console.log("heyyy");
+   localStorage.setItem("content", JSON.stringify(""))
+}
+
 </script>
 
 <script>

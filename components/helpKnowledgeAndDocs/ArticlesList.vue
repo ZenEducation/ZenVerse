@@ -2,11 +2,14 @@
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import CardBoxClient from "@/components/Cards/CardBoxClient.vue";
 
-defineProps({
+const props = defineProps({
   articles: {
     type: Array,
   },
 });
+const { articles } = {...toRefs(props)};
+const {array} = articles._object
+
 
 const _router = useRouter();
 const title = "Introduction Of Javascript";

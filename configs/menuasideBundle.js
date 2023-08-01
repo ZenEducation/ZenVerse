@@ -50,7 +50,7 @@ import {
         },
         {
           label: "Credit Node",
-          to:"/"
+          to:"/accountancy/customer/CreditNode"
         },
         {
           label: "Customer",
@@ -66,7 +66,7 @@ import {
         },
         {
           label: "Sales Order",
-          to:"/"
+          to:"/accountancy/customer/SalesOrder"
         },
         {
           label: "Sales Register",
@@ -83,8 +83,8 @@ import {
       icon: mdiMonitorDashboard,
       menu: [
         {
-          label: "Debit Note",
-          to:"/"
+          label: "Debit Node",
+          to:"/accountancy/Vendor/DebitNode"
         },
         {
           label: "Purchase Management",

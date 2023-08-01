@@ -122,6 +122,24 @@ const state = () => ({
       userSegment: "Trial", // Free, Trial, Paid,
     },
   ],
+  Invoices: [
+    {
+      id: 1,
+      Date: "Mar 03, 2021",
+      account:"abc",
+      voucherType:"v1",
+      voucherNo:"23",
+      sales:"sa",
+      return:"re",
+      qtyRate:"32",
+      discount:"-10",
+      tax:"32",
+      netSales:"12"
+
+
+    },
+
+  ],
   Customers: [
     {
       id: 1,
@@ -468,6 +486,9 @@ const actions = {
   },
   addCustomer(payload) {
     this.Customers.push(payload);
+  },
+  addInvoice(payload) {
+    this.Invoices.push(payload);
   },
   addAffiliate(payload) {
     this.affiliates.push(payload);

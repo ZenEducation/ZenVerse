@@ -70,7 +70,7 @@ import {
         },
         {
           label: "Sales Register",
-          to:"/"
+          to:"/accountancy/customer/SalesRegister"
         },
         {
           label: "Template",

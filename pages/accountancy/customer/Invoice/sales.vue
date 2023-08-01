@@ -1,14 +1,23 @@
 <template>
   <NuxtLayout name="accounts">
     <div class="p-4">
-      <NuxtLink to="/accountancy/customer/invoice" class="font-normal text-lg cursor-pointer mb-2">Back</NuxtLink>
-      <p to="/accountancy/customer/invoice" class="font-normal text-lg border-b-2 mb-2">Cash</p>
+      <p class="font-normal text-lg border-b-2 mb-2">Sales</p>
+      <div class="flex flex-wrap gap-4 justify-between items-center">
+      <FormField label="Select Customer" class="w-1/3 max-md:w-full">
 
-      <FormControl
-        class="w-1/3 max-md:w-full"
+        <FormControl
+        
         placeholder="account"
         v-model="addFormData.account"
-      />
+        :options="['Customer1' , 'Customer2']"
+        />
+      </FormField>
+        <div class="pr-8">
+          <p class="text-xl">Balance Due</p>
+          <p>0.00</p>
+        </div>
+
+      </div>
       <div class="grid grid-cols-3 gap-2 max-md:grid-cols-2 max-sm:grid-cols-1">
         <div class="">
           <p>Billing Address</p>
@@ -70,9 +79,9 @@
           <tr v-for="(item,index) in items">
             <td data-label="#">{{index+1}}</td>
             <td data-label="Product/Service Description"> 
-                <FormControl v-model="item.Product" /> 
+                <FormControl v-model="item.Product"  />  
                 Entry Date
-                <p>20-05-2023</p>    
+                <p>20-05-2023</p>  
             </td>
             <td data-label="Qty/Unit"><FormControl v-model="item.Qty" aria-valuemin="1" type="number"  /> </td>
             <td data-label="Rate (₹)"><FormControl v-model="item.Rate" type="number"  /> </td>
@@ -139,11 +148,23 @@
             <p>Total</p>
             <p>{{netTotal.payable}}</p>
           </div>
+
+          <div class="mt-8 bg-slate-300 p-4 max-w-sm rounded ">
+            <p class="text-xl">Deposit</p>
+            <FormField label="Select Account">
+              <FormControl :options="['Account 1','Account 2']" />
+            </FormField>
+            <FormField label="Amount">
+              <FormControl type="number" />
+            </FormField>
+            <p>Balance : 0.00</p>
+          </div>
         </div>
       </div>
       <div class="flex justify-end gap-6 items-center my-5">
         <BaseButton label="Clear" color="danger" />
-        <BaseButton label="Generate Cash" color="info" @click="submitProfile" />
+        <BaseButton label="Generate Sales and Update Account" color="info" @click="submitProfile" />
+        <BaseButton label="Generate Sales" color="info" @click="submitProfile" />
       </div>
     </div>
   </NuxtLayout>

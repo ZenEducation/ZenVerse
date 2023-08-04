@@ -26,7 +26,10 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^3.1.18",
+    "@aws-amplify/cli": "^12.2.3",
+    "@aws-amplify/core": "^5.8.0",
+    "@aws-amplify/datastore": "^4.7.0",
+    "@aws-amplify/ui-vue": "^3.1.22",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
     "@headlessui/vue": "^1.4.2",
@@ -38,7 +41,7 @@
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.2",
     "@vueup/vue-quill": "^1.0.1",
-    "aws-amplify": "^5.0.5",
+    "aws-amplify": "^5.3.6",
     "chart.js": "^3.9.1",
     "fabric": "^5.3.0",
     "numeral": "^2.0.6",

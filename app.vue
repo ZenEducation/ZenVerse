@@ -3,7 +3,10 @@ import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/configs/config";
 import { useMainStore } from "@/stores/main.js";
 import "@/assets/css/main.css";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
 
+Amplify.configure(awsconfig);
 const mainStore = useMainStore();
 const styleStore = useStyleStore();
 const loading = ref(true);

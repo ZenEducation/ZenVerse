@@ -65,25 +65,24 @@ export default [
     menu: [
       {
         label: "Create Job",
-        to: '/recruitmentportal/job/jobcreation',
+        to: "/recruitmentportal/job/jobcreation",
       },
       {
         label: "Job Listing",
-        to: '/recruitmentportal/job/joblisting',
+        to: "/recruitmentportal/job/joblisting",
       },
       {
         label: "Candidate Listing",
-        to: '/recruitmentportal/candidate/candidatelisting',
+        to: "/recruitmentportal/candidate/candidatelisting",
       },
       {
         label: "Create Department",
-        to: '/recruitmentportal/department/departmentcreation',
+        to: "/recruitmentportal/department/departmentcreation",
       },
       {
         label: "Department Listing",
-        to: '/recruitmentportal/department/departmentlisting',
+        to: "/recruitmentportal/department/departmentlisting",
       },
-
     ],
   },
   {

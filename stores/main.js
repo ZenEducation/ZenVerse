@@ -158,6 +158,24 @@ const state = () => ({
     },
 
   ],
+  Vendors: [
+    {
+      id: 1,
+      avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
+      login: "percy64",
+      name: "Howell Hand",
+      parentGroup:"Sundrydebtors",
+      openings:-50000,
+      Purchase:0,
+      Payment:0,
+      closing:-50000,
+      contacts:"",
+      state:"Maharashtra",
+      taxNumber:"GSTN1234",
+      Comment:""
+    },
+
+  ],
   affiliates: [
     {
       id: 1,
@@ -486,6 +504,9 @@ const actions = {
   },
   addCustomer(payload) {
     this.Customers.push(payload);
+  },
+  addVendor(payload) {
+    this.Vendors.push(payload);
   },
   addInvoice(payload) {
     this.Invoices.push(payload);

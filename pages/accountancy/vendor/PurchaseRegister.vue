@@ -30,7 +30,7 @@ const FYSelected = ref(FYOptions[0]);
             <p class="text-purple-500">FY-APR2022-MAR2023</p>
             <div class="grid grid-cols-2 border-b-2 text-xl py-4 ">
                 <p>Particular</p>
-                <p>Sales</p>
+                <p>Purchase</p>
             </div>
             <div class="grid grid-cols-2 border-b cursor-pointer py-2 hover:bg-slate-100 dark:hover:bg-slate-700 " v-for="i in 8">
                 <p class="text-blue-500">April 2022</p>

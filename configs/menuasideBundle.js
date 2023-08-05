@@ -88,15 +88,15 @@ import {
         },
         {
           label: "Purchase Management",
-          to:"/"
+          to:"/accountancy/Vendor/PurchaseMgmt"
         },
         {
           label: "Purchase Register",
-          to:"/"
+          to:"/accountancy/Vendor/PurchaseRegister"
         },
         {
           label: "Vendor",
-          to:"/"
+          to:"/accountancy/Vendor/vendor"
         },
 
       ],

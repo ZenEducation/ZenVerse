@@ -82,8 +82,8 @@ const addFormData = ref({
   currency: "",
   parentGroup: "",
   openings: 0,
-  sales: 0,
-  Receipt: 0,
+  Purchase: 0,
+  Payment: 0,
   closing: 0,
   contacts: {
     phone: "",
@@ -97,15 +97,15 @@ const addFormData = ref({
 
 function submitProfile() {
   isModalActive.value = false;
-  useMainStore().addCustomer({
+  useMainStore().addVendor({
     id: uuid4(),
     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
     login: "percy64",
     name: addFormData.value.name,
     parentGroup: addFormData.value.parentGroup,
     openings: addFormData.value.openings,
-    sales: addFormData.value.sales,
-    Receipt: addFormData.value.Receipt,
+    Purchase: addFormData.value.Purchase,
+    Payment: addFormData.value.Payment,
     closing: addFormData.value.closing,
     contacts: "",
     state: addFormData.value.state,
@@ -115,7 +115,7 @@ function submitProfile() {
 }
 const currentTab = ref(0);
 
-const items = ref(mainStore.Customers);
+const items = ref(mainStore.Vendors);
 const joinDateOptions = ["all", "before", "on", "after", "between"];
 
 const joinedFilterOption = ref("all");
@@ -214,8 +214,8 @@ const deleteItem = (popup, id) => {
           <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
         </div>
         <div class="flex flex-col ml-5 mx-auto">
-          <h1 class="font-bold">Add Customer</h1>
-          <h3 class="text-xs">Enter details to create Customer manually</h3>
+          <h1 class="font-bold">Add Vendor</h1>
+          <h3 class="text-xs">Enter details to create Vendor manually</h3>
         </div>
         <div
           class="text-gray-500 cursor-pointer"
@@ -284,6 +284,13 @@ const deleteItem = (popup, id) => {
             :class="{ 'text-blue-400 underline': currentTab == 3 }"
           >
             Custom
+          </p>
+          <p
+            class="text-lg font-bold cursor-pointer"
+            @click="currentTab = 4"
+            :class="{ 'text-blue-400 underline': currentTab == 4 }"
+          >
+            Bank Details
           </p>
         </div>
         <div v-if="currentTab == 0">
@@ -375,6 +382,19 @@ const deleteItem = (popup, id) => {
             </FormField>
           </div>
         </div>
+        <div v-if="currentTab == 4">
+          <div class="flex gap-2 flex-wrap items-center">
+            <FormField label="Bank Name" class="w-full">
+              <FormControl placeholder="Enter Bank Name" />
+            </FormField>
+            <FormField label="Account Number" class="w-full">
+              <FormControl placeholder="Enter Account No." />
+            </FormField>
+            <FormField label="IFSC Code" class="w-full">
+              <FormControl placeholder="Enter IFSC Code" />
+            </FormField>
+          </div>
+        </div>
 
         <div class="flex justify-end py-2">
           <BaseButtons>
@@ -392,7 +412,7 @@ const deleteItem = (popup, id) => {
           <BaseButton
             class="flex-1"
             type="submit"
-            label="+ Add Customer"
+            label="+ Add Vendor"
             :icon="mdiMessageBadge"
             color="info"
             @click="isModalActive = true"
@@ -458,7 +478,7 @@ const deleteItem = (popup, id) => {
         <div
           class="border p-5 dark:bg-slate-700 bg-white border-b-4 border-b-black"
         >
-          <p>Customers</p>
+          <p>Vendors</p>
           <p>{{ filteredItems.length }}</p>
         </div>
         <div
@@ -470,13 +490,13 @@ const deleteItem = (popup, id) => {
         <div
           class="border p-5 dark:bg-slate-700 bg-white border-b-4 border-b-black"
         >
-          <p>Sales</p>
+          <p>Purchase</p>
           <p>0.00</p>
         </div>
         <div
           class="border p-5 dark:bg-slate-700 bg-white border-b-4 border-b-black"
         >
-          <p>Receipt</p>
+          <p>Payment</p>
           <p>0.00</p>
         </div>
         <div
@@ -488,52 +508,56 @@ const deleteItem = (popup, id) => {
       </div>
 
       <div class="text-gray-500 dark:text-white mt-4">
-        <span>{{ filteredItems.length }} Customers</span>
+        <span>{{ filteredItems.length }} Vendors</span>
       </div>
 
       <table>
         <thead>
           <tr>
-            <th>Customer Name</th>
+            <th>Vendor Name</th>
             <th>Parent Group</th>
             <th>Opening</th>
-            <th>Sales</th>
-            <th>Receipt</th>
+            <th>Purchase</th>
+            <th>Payment</th>
             <th>Closing</th>
             <th>Contacts</th>
             <th>State</th>
             <th>Tax Number</th>
             <th>Comment</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="Customer in filteredItems" :key="Customer.id">
-            <td data-label="Customer Name">
-              {{ Customer.name }}
+          <tr v-for="Vendor in filteredItems" :key="Vendor.id">
+            <td data-label="Vendor Name">
+              {{ Vendor.name }}
             </td>
             <td data-label="Parent Group">
-              {{ Customer.parentGroup }}
+              {{ Vendor.parentGroup }}
             </td>
             <td data-label="Opening">
-              {{ Customer.openings }}
+              {{ Vendor.openings }}
             </td>
-            <td data-label="Sales">
-              {{ Customer.sales }}
+            <td data-label="Purchase">
+              {{ Vendor.Purchase }}
             </td>
-            <td data-label="Receipt">
-              {{ Customer.Receipt }}
+            <td data-label="Payment">
+              {{ Vendor.Payment }}
             </td>
             <td data-label="Closing">
-              {{ Customer.closing }}
+              {{ Vendor.closing }}
             </td>
             <td data-label="Contacts">-</td>
             <td data-label="State">
-              {{ Customer.state }}
+              {{ Vendor.state }}
             </td>
             <td data-label="Tax Number">
-              {{ Customer.taxNumber }}
+              {{ Vendor.taxNumber }}
             </td>
             <td data-label="Comment">-</td>
+            <td data-label="Action">
+              <BaseButton label="Connect ICICI Bank " />
+            </td>
           </tr>
         </tbody>
       </table>

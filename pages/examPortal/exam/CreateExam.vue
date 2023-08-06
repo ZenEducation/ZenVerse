@@ -233,7 +233,7 @@ import QuilEditor from "~~/components/ExamPortal/QuilEditor.vue";
 import { ref } from "vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 
-import image from "@/assets/img/BundleImage.png";
+import image from "@/assets/img/bundleImage.png";
 
 const profileInput = ref(null);
 const profilePreview = ref(image);

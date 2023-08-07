@@ -482,7 +482,7 @@ const nes = ref([]);
   </div>
 
   <div class="text-gray-500 dark:text-white">
-    <span>{{ filteredItems.length }} learners</span>
+    <span>{{ filteredItems.length }} Instructors </span>
   </div>
 
   <table>

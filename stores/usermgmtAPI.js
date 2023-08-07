@@ -266,10 +266,10 @@ const actions = {
         },
       });
 
-      this.learners.push(response.data.createInstructor);
+      this.instructors.push(response.data.createInstructor);
       return [true, response.data.createInstructor];
     } catch (error) {
-      console.error("Error Creating learner:", error.errors[0].message);
+      console.error("Error Creating instructors :", error.errors[0].message);
       return [false, error.errors[0].message];
     }
   },

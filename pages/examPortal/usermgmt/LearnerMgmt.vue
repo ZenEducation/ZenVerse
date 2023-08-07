@@ -22,6 +22,12 @@ import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import TableLearnersSample from "@/components/Tables/TableLearnersSample.vue";
+import { onMounted } from "vue";
+import { API } from "aws-amplify";
+import { createLearner } from "@/src/graphql/mutations";
+import { useMgmtStore } from "@/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
+
 
 const isModalActive = ref(false);
 const mainStore = useMainStore();
@@ -29,21 +35,38 @@ const mainStore = useMainStore();
 const name = ref("");
 const mobile = ref("");
 const email = ref("");
+const error = ref("");
 
-function submitProfile() {
-  isModalActive.value = false;
-  useMainStore().addLearner({
-    id: uuid4(),
-    avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
-    login: "percy64",
-    name: name.value,
-    email: email.value,
-    mobile: mobile.value,
-    lastLogin: "Mar 03, 2021",
-    joinedOn: "Mar 03, 2021",
-    isEnabled: true,
-  });
-}
+// function submitProfile() {
+//   isModalActive.value = false;
+//   useMainStore().addLearner({
+//     id: uuid4(),
+//     avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
+//     login: "percy64",
+//     name: name.value,
+//     email: email.value,
+//     mobile: mobile.value,
+//     lastLogin: "Mar 03, 2021",
+//     joinedOn: "Mar 03, 2021",
+//     isEnabled: true,
+//   });
+
+// }
+
+const submitProfile  = async () => {
+  try {
+    let resp = await userMgmtStore.CreateNewLearner(name.value , mobile.value , email.value);
+    if(resp[0]){
+      error.value="";
+      isModalActive.value = false;
+    }else{
+      error.value = resp[1];
+    }
+  } catch (error) {
+    console.error("Error Creating learner:", error);
+    error.value = error.data;
+  }
+};
 </script>
 
 <template>
@@ -62,6 +85,7 @@ function submitProfile() {
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
+    <p v-if="error" class="text-red-600">{{`error creating new learner : ${error}`}}</p>
     <CardBox is-form @submit.prevent="submitProfile">
       <FormField label="Name">
         <FormControl

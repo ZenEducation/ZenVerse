@@ -1,6 +1,9 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
+import { useMgmtStore } from "@/stores/usermgmtAPI";
+
+
 import {
   mdiPencil,
   mdiTrashCan,
@@ -17,10 +20,13 @@ import UserAvatar from "@/components/Avatars/UserAvatar";
 import PremFormField from "@/components/Forms/PremFormField.vue";
 import PremFormControl from "@/components/Forms/PremFormControl.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
+
 defineProps({
   checkable: { type: Boolean, default: false },
 });
 const mainStore = useMainStore();
+const userMgmtStore = useMgmtStore();
+
 const deleteItemId = ref("");
 const EnableItemId = ref("");
 
@@ -28,7 +34,21 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.learners);
+const items = ref(userMgmtStore.learners);
+// List all items
+import { onMounted } from "vue";
+// import { API } from "aws-amplify";
+// import { listLearners } from "@/src/graphql/queries";
+let x ;
+
+onMounted(async () => {
+  try {
+    await userMgmtStore.FetchLearners();
+    items.value = userMgmtStore.learners
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+});
 
 const uniqueList = () => {
   let uniqueProducts = [];
@@ -220,7 +240,7 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const EnableItem = (popup, id) => {
+const EnableItem = async (popup, id) => {
   if (popup) {
     isModalEnableActive.value = true;
     console.log("id is", id);
@@ -230,11 +250,12 @@ const EnableItem = (popup, id) => {
   const index = items.value.findIndex((item) => item.id === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
+    await userMgmtStore.UpdateLearnerStatus(EnableItemId.value ,items.value[index]._version, !items.value[index].isEnabled );
     items.value[index].isEnabled = !items.value[index].isEnabled;
   }
 };
 
-const deleteItem = (popup, id) => {
+const deleteItem = async (popup, id) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
@@ -242,6 +263,7 @@ const deleteItem = (popup, id) => {
   }
   const index = items.value.findIndex((item) => item.id === deleteItemId.value);
   if (index !== -1) {
+    await userMgmtStore.DeleteLearner(deleteItemId.value ,items.value[index]._version );
     items.value.splice(index, 1);
   }
 };

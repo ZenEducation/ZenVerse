@@ -34,19 +34,15 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(userMgmtStore.learners);
-// List all items
 import { onMounted } from "vue";
-// import { API } from "aws-amplify";
-// import { listLearners } from "@/src/graphql/queries";
-let x ;
+const items = ref(userMgmtStore.learners);
 
 onMounted(async () => {
   try {
     await userMgmtStore.FetchLearners();
     items.value = userMgmtStore.learners
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.error("Error fetching learners:", error);
   }
 });
 

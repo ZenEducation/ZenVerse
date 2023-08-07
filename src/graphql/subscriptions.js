@@ -14,6 +14,7 @@ export const onCreateLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
       createdAt
       updatedAt
       _version
@@ -36,6 +37,7 @@ export const onUpdateLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
       createdAt
       updatedAt
       _version
@@ -58,6 +60,223 @@ export const onDeleteLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateAffiliate = /* GraphQL */ `
+  subscription OnCreateAffiliate(
+    $filter: ModelSubscriptionAffiliateFilterInput
+  ) {
+    onCreateAffiliate(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAffiliate = /* GraphQL */ `
+  subscription OnUpdateAffiliate(
+    $filter: ModelSubscriptionAffiliateFilterInput
+  ) {
+    onUpdateAffiliate(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAffiliate = /* GraphQL */ `
+  subscription OnDeleteAffiliate(
+    $filter: ModelSubscriptionAffiliateFilterInput
+  ) {
+    onDeleteAffiliate(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateAdmin = /* GraphQL */ `
+  subscription OnCreateAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onCreateAdmin(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAdmin = /* GraphQL */ `
+  subscription OnUpdateAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onUpdateAdmin(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAdmin = /* GraphQL */ `
+  subscription OnDeleteAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onDeleteAdmin(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateInstructor = /* GraphQL */ `
+  subscription OnCreateInstructor(
+    $filter: ModelSubscriptionInstructorFilterInput
+  ) {
+    onCreateInstructor(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateInstructor = /* GraphQL */ `
+  subscription OnUpdateInstructor(
+    $filter: ModelSubscriptionInstructorFilterInput
+  ) {
+    onUpdateInstructor(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteInstructor = /* GraphQL */ `
+  subscription OnDeleteInstructor(
+    $filter: ModelSubscriptionInstructorFilterInput
+  ) {
+    onDeleteInstructor(filter: $filter) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
       createdAt
       updatedAt
       _version

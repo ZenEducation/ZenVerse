@@ -17,6 +17,7 @@ export const createLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
       createdAt
       updatedAt
       _version
@@ -42,6 +43,7 @@ export const updateLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
       createdAt
       updatedAt
       _version
@@ -67,6 +69,238 @@ export const deleteLearner = /* GraphQL */ `
       products
       leadStatus
       userSegment
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createAffiliate = /* GraphQL */ `
+  mutation CreateAffiliate(
+    $input: CreateAffiliateInput!
+    $condition: ModelAffiliateConditionInput
+  ) {
+    createAffiliate(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateAffiliate = /* GraphQL */ `
+  mutation UpdateAffiliate(
+    $input: UpdateAffiliateInput!
+    $condition: ModelAffiliateConditionInput
+  ) {
+    updateAffiliate(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteAffiliate = /* GraphQL */ `
+  mutation DeleteAffiliate(
+    $input: DeleteAffiliateInput!
+    $condition: ModelAffiliateConditionInput
+  ) {
+    deleteAffiliate(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      leadStatus
+      userSegment
+      commitionRate
+      isLifelong
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createAdmin = /* GraphQL */ `
+  mutation CreateAdmin(
+    $input: CreateAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    createAdmin(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateAdmin = /* GraphQL */ `
+  mutation UpdateAdmin(
+    $input: UpdateAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    updateAdmin(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteAdmin = /* GraphQL */ `
+  mutation DeleteAdmin(
+    $input: DeleteAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    deleteAdmin(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      role
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createInstructor = /* GraphQL */ `
+  mutation CreateInstructor(
+    $input: CreateInstructorInput!
+    $condition: ModelInstructorConditionInput
+  ) {
+    createInstructor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateInstructor = /* GraphQL */ `
+  mutation UpdateInstructor(
+    $input: UpdateInstructorInput!
+    $condition: ModelInstructorConditionInput
+  ) {
+    updateInstructor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteInstructor = /* GraphQL */ `
+  mutation DeleteInstructor(
+    $input: DeleteInstructorInput!
+    $condition: ModelInstructorConditionInput
+  ) {
+    deleteInstructor(input: $input, condition: $condition) {
+      id
+      name
+      email
+      mobile
+      lastLogin
+      joinedOn
+      isEnabled
+      products
+      password
       createdAt
       updatedAt
       _version

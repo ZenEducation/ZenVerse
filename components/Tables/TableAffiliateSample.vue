@@ -1,6 +1,9 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
+import { useMgmtStore } from "@/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
+
 import {
   mdiPencil,
   mdiTrashCan,
@@ -28,8 +31,16 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.affiliates);
+const items = ref(userMgmtStore.affiliates);
 
+onMounted(async () => {
+  try {
+    await userMgmtStore.FetchAffiliates();
+    items.value = userMgmtStore.affiliates
+  } catch (error) {
+    console.error("Error fetching Affiliates:", error);
+  }
+});
 const uniqueList = () => {
   let uniqueProducts = [];
 
@@ -229,7 +240,7 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const EnableItem = (popup, id) => {
+const EnableItem = async (popup, id) => {
   if (popup) {
     isModalEnableActive.value = true;
     console.log("id is", id);
@@ -239,11 +250,13 @@ const EnableItem = (popup, id) => {
   const index = items.value.findIndex((item) => item.id === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
+    await userMgmtStore.UpdateAffiliateStatus(EnableItemId.value ,items.value[index]._version, !items.value[index].isEnabled );
     items.value[index].isEnabled = !items.value[index].isEnabled;
+
   }
 };
 
-const deleteItem = (popup, id) => {
+const deleteItem = async (popup, id) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
@@ -251,6 +264,7 @@ const deleteItem = (popup, id) => {
   }
   const index = items.value.findIndex((item) => item.id === deleteItemId.value);
   if (index !== -1) {
+    await userMgmtStore.DeleteAffiliate(deleteItemId.value ,items.value[index]._version );
     items.value.splice(index, 1);
   }
 };

@@ -1,6 +1,9 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref , onMounted } from "vue";
 import { useMainStore } from "@/stores/main";
+import { useMgmtStore } from "@/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
+
 import {
   mdiPencil,
   mdiTrashCan,
@@ -29,7 +32,16 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.instructors);
+const items = ref(userMgmtStore.instructors);
+
+onMounted(async () => {
+  try {
+    await userMgmtStore.FetchInstructors();
+    items.value = userMgmtStore.instructors
+  } catch (error) {
+    console.error("Error fetching Instructors:", error);
+  }
+});
 
 const uniqueList = () => {
   let uniqueProducts = [];
@@ -209,7 +221,7 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const EnableItem = (popup, id) => {
+const EnableItem = async (popup, id) => {
   if (popup) {
     isModalEnableActive.value = true;
     console.log("id is", id);
@@ -219,11 +231,12 @@ const EnableItem = (popup, id) => {
   const index = items.value.findIndex((item) => item.id === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
+    await userMgmtStore.UpdateInstructorStatus(EnableItemId.value ,items.value[index]._version, !items.value[index].isEnabled );
     items.value[index].isEnabled = !items.value[index].isEnabled;
   }
 };
 
-const deleteItem = (popup, id) => {
+const deleteItem = async (popup, id) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
@@ -231,6 +244,7 @@ const deleteItem = (popup, id) => {
   }
   const index = items.value.findIndex((item) => item.id === deleteItemId.value);
   if (index !== -1) {
+    await userMgmtStore.DeleteInstructor(deleteItemId.value ,items.value[index]._version );
     items.value.splice(index, 1);
   }
 };
@@ -242,15 +256,15 @@ const nes = ref([]);
 <template>
   <CardBoxModal
     v-model="isModalActive"
-    title="Edit Affiliates"
+    title="Edit Instructors"
     buttonLabel="Okay"
   >
-    <p>You can edit Affiliate details here.(WIP)</p>
+    <p>You can edit Instructor details here.(WIP)</p>
   </CardBoxModal>
 
   <CardBoxModal
     v-model="isModalDangerActive"
-    title="Are you sure you want to delete this Affiliate?"
+    title="Are you sure you want to delete this Instructor?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
@@ -259,7 +273,7 @@ const nes = ref([]);
 
   <CardBoxModal
     v-model="isModalEnableActive"
-    title="Are you sure you want to Change status of this Affiliate?"
+    title="Are you sure you want to Change status of this Instructor?"
     button="danger"
     buttonLabel="Yes"
     has-cancel

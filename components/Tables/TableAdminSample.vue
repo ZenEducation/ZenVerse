@@ -1,6 +1,9 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
+import { useMgmtStore } from "@/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
+
 import {
   mdiClose,
   mdiPencil,
@@ -28,7 +31,16 @@ const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
-const items = ref(mainStore.admins);
+const items = ref(userMgmtStore.admins);
+
+onMounted(async () => {
+  try {
+    await userMgmtStore.FetchAdmins();
+    items.value = userMgmtStore.admins
+  } catch (error) {
+    console.error("Error fetching Admins:", error);
+  }
+});
 
 const uniqueList = () => {
   let uniqueProducts = [];
@@ -206,7 +218,7 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const EnableItem = (popup, id) => {
+const EnableItem = async (popup, id) => {
   if (popup) {
     isModalEnableActive.value = true;
     console.log("id is", id);
@@ -216,11 +228,12 @@ const EnableItem = (popup, id) => {
   const index = items.value.findIndex((item) => item.id === EnableItemId.value);
   console.log("index is", index);
   if (index !== -1) {
+    await userMgmtStore.UpdateAdminStatus(EnableItemId.value ,items.value[index]._version, !items.value[index].isEnabled );
     items.value[index].isEnabled = !items.value[index].isEnabled;
   }
 };
 
-const deleteItem = (popup, id) => {
+const deleteItem = async (popup, id) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
@@ -228,6 +241,7 @@ const deleteItem = (popup, id) => {
   }
   const index = items.value.findIndex((item) => item.id === deleteItemId.value);
   if (index !== -1) {
+    await userMgmtStore.DeleteAdmin(deleteItemId.value ,items.value[index]._version );
     items.value.splice(index, 1);
   }
 };

@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
 import { useRouter } from "vue-router";
-import menuAside from "@/configs/menuAside.js";
+import menuAside from "@/configs/menuAsideSMM.js";
 import menuNavBar from "@/configs/menuNavBar.js";
 import { useMainStore } from "@/stores/main.js";
 import { useLayoutStore } from "@/stores/layout.js";
@@ -54,6 +54,7 @@ const menuClick = (event, item) => {
 </script>
 
 <template>
+    
   <div>
     <div :class="{
       dark: styleStore.darkMode,
@@ -66,10 +67,16 @@ const menuClick = (event, item) => {
       ]"
         class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100">
         <!-- The  Navbar -->
-        <NavBar :menu="menuNavBar" :class="[
-          layoutAsidePadding,
-          { 'ml-60 lg:ml-0': layoutStore.isAsideMobileExpanded },
-        ]" @menu-click="menuClick">
+        <NavBar
+         @menu-click="menuClick"
+         :menu="menuNavBar"
+          :class="[
+            layoutAsidePadding,
+            layoutStore.isAsideMobileExpanded?  'ml-60 lg:ml-0' : ''  ]"
+          
+          >
+
+
           <NavBarItemPlain display="flex lg:hidden" @click.prevent="layoutStore.asideMobileToggle()">
             <BaseIcon :path="layoutStore.isAsideMobileExpanded
                 ? mdiBackburger
@@ -83,10 +90,10 @@ const menuClick = (event, item) => {
             <FormControl placeholder="Search (ctrl+k)" ctrl-k-focus transparent borderless />
           </NavBarItemPlain>
         </NavBar>
-        <!-- The  Premium Aside Menu -->
+    
         <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
-        <slot />
-        <!-- FooterBar-->
+        <slot  />
+    
         <FooterBar>
           <a href="#" target="_blank" class="text-blue-600"> Photon Ecademy</a>
         </FooterBar>

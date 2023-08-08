@@ -1,0 +1,71 @@
+import {
+  mdiAccountCircle,
+  mdiMonitor,
+  mdiHelpCircle,
+  mdiLock,
+  mdiSquareEditOutline,
+  mdiTable,
+  mdiMenuOpen,
+  mdiTelevisionGuide,
+  mdiBarcode,
+  mdiPalette,
+  mdiCardAccountDetailsOutline,
+  mdiOpenInNew,
+  mdiFormDropdown,
+  mdiBallot,
+  mdiViewQuilt,
+  mdiMessage,
+  mdiFastForwardOutline,
+  mdiBook,
+  mdiSend,
+  mdiCalendarRange,
+  mdiFinance,
+  mdiTrophyVariant,
+  mdiCommentEdit,
+  mdiImageCheck,
+  mdiShareVariant,
+  mdiAccountMultiple,
+} from "@mdi/js";
+
+export default [
+  {
+    to: "/SMM/publish",
+    icon: mdiSend,
+    label: "Publish dwdw",
+  },
+  {
+    to: "/dashboard",
+    label: "Calendar",
+    icon: mdiCalendarRange,
+  },
+  {
+    to: "/dashboard",
+    label: "Reports",
+    icon: mdiFinance,
+  },
+  {
+    to: "/dashboard",
+    label: "Champaings",
+    icon: mdiTrophyVariant,
+  },
+  {
+    to: "/dashboard",
+    label: "AI Writer",
+    icon: mdiCommentEdit,
+  },
+  {
+    to: "/dashboard",
+    label: "Approve",
+    icon: mdiImageCheck,
+  },
+  {
+    to: "/dashboard",
+    label: "Share Buttons",
+    icon: mdiShareVariant,
+  },
+  {
+    to: "/dashboard",
+    label: "Social CRM",
+    icon: mdiAccountMultiple,
+  },
+];

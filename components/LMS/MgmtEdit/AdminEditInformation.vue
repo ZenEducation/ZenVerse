@@ -4,44 +4,44 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="Name">
         <FormControl
-          :model-value="Admin.profile.name"
+          v-model="AdminData.profile.name"
           placeholder="Enter Admin Name"
         />
       </FormField>
 
       <FormField label="E-mail">
         <FormControl
-          :model-value="Admin.profile.email"
+          v-model="AdminData.profile.email"
           placeholder="Enter Admin email"
         />
       </FormField>
 
       <FormField label="Mobile">
         <FormControl
-          :model-value="Admin.profile.mobile"
+          v-model="AdminData.profile.mobile"
           placeholder="Enter Admin Mobile"
         />
       </FormField>
       <FormField label="Role">
         <FormControl
-          :model-value="Admin.profile.role"
+          v-model="AdminData.profile.role"
           :options="options.profileRoles"
         />
       </FormField>
       <FormField label="State">
         <FormControl
-          :model-value="Admin.profile.state"
+          v-model="AdminData.profile.state"
           :options="options.state"
         />
       </FormField>
       <FormField label="Language">
         <FormControl
-          :model-value="Admin.profile.language"
+          v-model="AdminData.profile.language"
           :options="options.language"
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save"  @click=" updateProfile"/>
       </div>
     </div>
 
@@ -49,13 +49,13 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="User Segment">
         <FormControl
-          :model-value="Admin.AdditionalDetails.UserSegment"
+          v-model="AdminData.AdditionalDetails.UserSegment"
           :options="options.UserSegment"
         />
       </FormField>
       <FormField label="Lead Status">
         <FormControl
-          :model-value="Admin.AdditionalDetails.LeadStatus"
+          v-model="AdminData.AdditionalDetails.LeadStatus"
           :options="options.LeadStatus"
         />
       </FormField>
@@ -65,7 +65,7 @@
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateAdditionalProfile"/>
       </div>
     </div>
 
@@ -191,6 +191,8 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
+import { useMgmtStore } from "~~/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
 
 const props = defineProps({
   Admin: {
@@ -202,6 +204,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+const AdminData = ref(props.Admin);
+
 const searchQuery = ref("");
 const perPage = 5;
 const totalPages = ref(1);
@@ -225,6 +230,21 @@ const filteredItems = computed(()=>{
 
   return filtered.slice(start, end);
   })
+
+  const updateAdditionalProfile = async ()=>{
+  console.log(AdminData.value);
+  await userMgmtStore.UpdateAdminAdditionalDetails( AdminData.value.profile.id , AdminData.value.profile._version ,   AdminData.value.AdditionalDetails.UserSegment , AdminData.value.AdditionalDetails.LeadStatus )
+
+}
+
+const updateProfile = async ()=>{
+  // console.log(AdminData.value);
+  let { id , _version , name , email , language , role , state , mobile } = AdminData.value.profile;
+  console.log(id , _version , name , email , language , role , state , mobile);
+  await userMgmtStore.UpdateAdminProfile( id , _version , name , email , language , role , state , mobile )
+}
+
+
 </script>
 
 <style lang="scss" scoped></style>

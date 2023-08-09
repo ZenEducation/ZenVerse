@@ -15,6 +15,10 @@ export const onCreateLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -38,6 +42,10 @@ export const onUpdateLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -61,6 +69,10 @@ export const onDeleteLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -88,6 +100,10 @@ export const onCreateAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -115,6 +131,10 @@ export const onUpdateAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -142,6 +162,10 @@ export const onDeleteAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -162,8 +186,13 @@ export const onCreateAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -184,8 +213,13 @@ export const onUpdateAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -206,8 +240,13 @@ export const onDeleteAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -230,7 +269,13 @@ export const onCreateInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -253,7 +298,13 @@ export const onUpdateInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -276,7 +327,13 @@ export const onDeleteInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version

@@ -35,6 +35,7 @@ const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
 import { onMounted } from "vue";
+import { Learner } from "~~/src/models";
 const items = ref(userMgmtStore.learners);
 
 onMounted(async () => {
@@ -612,7 +613,7 @@ const nes = ref([]);
           @click="EnableItem(true, learners.id)"
         />
         <td class="before:hidden whitespace-nowrap flex gap-2">
-          <NuxtLink to="/examportal/usermgmt/LearnerMgmtEdit">
+          <NuxtLink :to="'/examportal/usermgmt/LearnerMgmt/edit/' + learners.id">
             <BaseButton color="info" :icon="mdiPencil" small />
           </NuxtLink>
           <BaseButton

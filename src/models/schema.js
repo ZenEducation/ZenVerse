@@ -81,6 +81,34 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "state": {
+                    "name": "state",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "language": {
+                    "name": "language",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userNote": {
+                    "name": "userNote",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -218,6 +246,34 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "state": {
+                    "name": "state",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "language": {
+                    "name": "language",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userNote": {
+                    "name": "userNote",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -320,6 +376,20 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "leadStatus": {
+                    "name": "leadStatus",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userSegment": {
+                    "name": "userSegment",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "role": {
                     "name": "role",
                     "isArray": false,
@@ -329,6 +399,27 @@ export const schema = {
                 },
                 "password": {
                     "name": "password",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "state": {
+                    "name": "state",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "language": {
+                    "name": "language",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userNote": {
+                    "name": "userNote",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -436,8 +527,50 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "leadStatus": {
+                    "name": "leadStatus",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userSegment": {
+                    "name": "userSegment",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "password": {
                     "name": "password",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "state": {
+                    "name": "state",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "language": {
+                    "name": "language",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userNote": {
+                    "name": "userNote",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -489,5 +622,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "d51aa1656c2b817728bd428d8e1e1b44"
+    "version": "135ced9ecf4d92a0cc29afbdcdd7b456"
 };

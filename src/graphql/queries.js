@@ -15,6 +15,10 @@ export const getLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -43,6 +47,10 @@ export const listLearners = /* GraphQL */ `
         leadStatus
         userSegment
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -81,6 +89,10 @@ export const syncLearners = /* GraphQL */ `
         leadStatus
         userSegment
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -110,6 +122,10 @@ export const getAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -140,6 +156,10 @@ export const listAffiliates = /* GraphQL */ `
         commitionRate
         isLifelong
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -180,6 +200,10 @@ export const syncAffiliates = /* GraphQL */ `
         commitionRate
         isLifelong
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -204,8 +228,13 @@ export const getAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -231,8 +260,13 @@ export const listAdmins = /* GraphQL */ `
         joinedOn
         isEnabled
         products
+        leadStatus
+        userSegment
         role
         password
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -268,8 +302,13 @@ export const syncAdmins = /* GraphQL */ `
         joinedOn
         isEnabled
         products
+        leadStatus
+        userSegment
         role
         password
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -294,7 +333,13 @@ export const getInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -320,7 +365,13 @@ export const listInstructors = /* GraphQL */ `
         joinedOn
         isEnabled
         products
+        leadStatus
+        userSegment
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version
@@ -356,7 +407,13 @@ export const syncInstructors = /* GraphQL */ `
         joinedOn
         isEnabled
         products
+        leadStatus
+        userSegment
         password
+        role
+        state
+        language
+        userNote
         createdAt
         updatedAt
         _version

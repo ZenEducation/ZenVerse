@@ -4,27 +4,27 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="Name">
         <FormControl
-          :model-value="Instructor.profile.name"
+          v-model="InstructorData.profile.name"
           placeholder="Enter Instructor Name"
         />
       </FormField>
 
       <FormField label="E-mail">
         <FormControl
-          :model-value="Instructor.profile.email"
+          v-model="InstructorData.profile.email"
           placeholder="Enter Instructor email"
         />
       </FormField>
 
       <FormField label="Mobile">
         <FormControl
-          :model-value="Instructor.profile.mobile"
+          v-model="InstructorData.profile.mobile"
           placeholder="Enter Instructor Mobile"
         />
       </FormField>
       <FormField label="Role">
         <FormControl
-          :model-value="Instructor.profile.role"
+          v-model="InstructorData.profile.role"
           :options="options.profileRoles"
         />
       </FormField>
@@ -47,18 +47,18 @@
 
       <FormField label="State" class="mt-6">
         <FormControl
-          :model-value="Instructor.profile.state"
+          v-model="InstructorData.profile.state"
           :options="options.state"
         />
       </FormField>
       <FormField label="Language">
         <FormControl
-          :model-value="Instructor.profile.language"
+          v-model="InstructorData.profile.language"
           :options="options.language"
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save"  @click=" updateProfile"/>
       </div>
     </div>
 
@@ -66,13 +66,13 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="User Segment">
         <FormControl
-          :model-value="Instructor.AdditionalDetails.UserSegment"
+          v-model="InstructorData.AdditionalDetails.UserSegment"
           :options="options.UserSegment"
         />
       </FormField>
       <FormField label="Lead Status">
         <FormControl
-          :model-value="Instructor.AdditionalDetails.LeadStatus"
+          v-model="InstructorData.AdditionalDetails.LeadStatus"
           :options="options.LeadStatus"
         />
       </FormField>
@@ -82,7 +82,7 @@
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateAdditionalProfile"/>
       </div>
     </div>
 
@@ -208,6 +208,9 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
+import { useMgmtStore } from "~~/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
+
 
 const props = defineProps({
   Instructor: {
@@ -219,6 +222,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+const InstructorData = ref(props.Instructor);
+
 const searchQuery = ref("");
 
 
@@ -262,6 +268,19 @@ const choose = ref({
       "Access to Download Quiz/Live Test":"Yes",
       "Access to enroll learners in any course":"Yes",
     })
+
+const updateAdditionalProfile = async ()=>{
+  console.log(InstructorData.value);
+  await userMgmtStore.UpdateInstructorAdditionalDetails( InstructorData.value.profile.id , InstructorData.value.profile._version ,   InstructorData.value.AdditionalDetails.UserSegment , InstructorData.value.AdditionalDetails.LeadStatus )
+
+}
+
+const updateProfile = async ()=>{
+  // console.log(InstructorData.value);
+  let { id , _version , name , email , language , role , state , mobile } = InstructorData.value.profile;
+  console.log(id , _version , name , email , language , role , state , mobile);
+  await userMgmtStore.UpdateInstructorProfile( id , _version , name , email , language , role , state , mobile )
+}
 
 </script>
 

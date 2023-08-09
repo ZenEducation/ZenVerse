@@ -535,7 +535,7 @@ const nes = ref([]);
           @click="EnableItem(true, learners.id)"
         />
         <td class="before:hidden whitespace-nowrap flex gap-2">
-          <NuxtLink to="/examportal/usermgmt/InstructorMgmtEdit">
+          <NuxtLink :to="'/examportal/usermgmt/InstructorMgmt/edit/' + learners.id">
             <BaseButton color="info" :icon="mdiPencil" small />
           </NuxtLink>
           <BaseButton

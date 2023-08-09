@@ -22,6 +22,10 @@ type EagerLearner = {
   readonly leadStatus?: string | null;
   readonly userSegment?: string | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -42,6 +46,10 @@ type LazyLearner = {
   readonly leadStatus?: string | null;
   readonly userSegment?: string | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -70,6 +78,10 @@ type EagerAffiliate = {
   readonly commitionRate?: number | null;
   readonly isLifelong?: boolean | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -92,6 +104,10 @@ type LazyAffiliate = {
   readonly commitionRate?: number | null;
   readonly isLifelong?: boolean | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -115,8 +131,13 @@ type EagerAdmin = {
   readonly joinedOn?: string | null;
   readonly isEnabled?: boolean | null;
   readonly products?: (string | null)[] | null;
+  readonly leadStatus?: string | null;
+  readonly userSegment?: string | null;
   readonly role: string;
   readonly password?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -134,8 +155,13 @@ type LazyAdmin = {
   readonly joinedOn?: string | null;
   readonly isEnabled?: boolean | null;
   readonly products?: (string | null)[] | null;
+  readonly leadStatus?: string | null;
+  readonly userSegment?: string | null;
   readonly role: string;
   readonly password?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -159,7 +185,13 @@ type EagerInstructor = {
   readonly joinedOn?: string | null;
   readonly isEnabled?: boolean | null;
   readonly products?: (string | null)[] | null;
+  readonly leadStatus?: string | null;
+  readonly userSegment?: string | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -177,7 +209,13 @@ type LazyInstructor = {
   readonly joinedOn?: string | null;
   readonly isEnabled?: boolean | null;
   readonly products?: (string | null)[] | null;
+  readonly leadStatus?: string | null;
+  readonly userSegment?: string | null;
   readonly password?: string | null;
+  readonly role?: string | null;
+  readonly state?: string | null;
+  readonly language?: string | null;
+  readonly userNote?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

@@ -18,6 +18,10 @@ export const createLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -44,6 +48,10 @@ export const updateLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -70,6 +78,10 @@ export const deleteLearner = /* GraphQL */ `
       leadStatus
       userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -98,6 +110,10 @@ export const createAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -126,6 +142,10 @@ export const updateAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -154,6 +174,10 @@ export const deleteAffiliate = /* GraphQL */ `
       commitionRate
       isLifelong
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -177,8 +201,13 @@ export const createAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -202,8 +231,13 @@ export const updateAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -227,8 +261,13 @@ export const deleteAdmin = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       role
       password
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -252,7 +291,13 @@ export const createInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -276,7 +321,13 @@ export const updateInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version
@@ -300,7 +351,13 @@ export const deleteInstructor = /* GraphQL */ `
       joinedOn
       isEnabled
       products
+      leadStatus
+      userSegment
       password
+      role
+      state
+      language
+      userNote
       createdAt
       updatedAt
       _version

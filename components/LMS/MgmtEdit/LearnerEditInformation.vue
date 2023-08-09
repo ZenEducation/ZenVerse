@@ -4,44 +4,44 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="Name">
         <FormControl
-          :model-value="learner.profile.name"
+          v-model="learnerData.profile.name"
           placeholder="Enter learner Name"
         />
       </FormField>
 
       <FormField label="E-mail">
         <FormControl
-          :model-value="learner.profile.email"
+          v-model="learnerData.profile.email"
           placeholder="Enter learner email"
         />
       </FormField>
 
       <FormField label="Mobile">
         <FormControl
-          :model-value="learner.profile.mobile"
+          v-model="learnerData.profile.mobile"
           placeholder="Enter learner Mobile"
         />
       </FormField>
       <FormField label="Role">
         <FormControl
-          :model-value="learner.profile.role"
+          v-model="learnerData.profile.role"
           :options="options.profileRoles"
         />
       </FormField>
       <FormField label="State">
         <FormControl
-          :model-value="learner.profile.state"
+          v-model="learnerData.profile.state"
           :options="options.state"
         />
       </FormField>
       <FormField label="Language">
         <FormControl
-          :model-value="learner.profile.language"
+          v-model="learnerData.profile.language"
           :options="options.language"
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateProfile"/>
       </div>
     </div>
 
@@ -49,13 +49,13 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="User Segment">
         <FormControl
-          :model-value="learner.AdditionalDetails.UserSegment"
+          v-model="learnerData.AdditionalDetails.UserSegment"
           :options="options.UserSegment"
         />
       </FormField>
       <FormField label="Lead Status">
         <FormControl
-          :model-value="learner.AdditionalDetails.LeadStatus"
+          v-model="learnerData.AdditionalDetails.LeadStatus"
           :options="options.LeadStatus"
         />
       </FormField>
@@ -65,7 +65,7 @@
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateAdditionalProfile"/>
       </div>
     </div>
 
@@ -98,13 +98,13 @@
 
     <h2 class="text-2xl mt-8 font-semibold">Referral Details</h2>
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p v-for="(value , key) in learner.ReferralDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
+      <p v-for="(value , key) in learnerData.ReferralDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
 
     </div>
 
     <h2 class="text-2xl mt-8 font-semibold">UTM Details</h2>
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
-      <p v-for="(value , key) in learner.UTMDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
+      <p v-for="(value , key) in learnerData.UTMDetails" class="py-2">{{key}}: <span class="font-bold">{{value}}</span></p>
 
     </div>
     <h2 class="text-2xl mt-8 font-semibold">Login Details</h2>
@@ -189,6 +189,7 @@
 </template>
 
 <script setup>
+import { useMgmtStore } from "~~/stores/usermgmtAPI";
 import FormField from "@/components/Forms/FormField.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
@@ -196,6 +197,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
+const userMgmtStore = useMgmtStore();
 
 const props = defineProps({
   learner: {
@@ -208,6 +210,8 @@ const props = defineProps({
   },
 });
 
+const learnerData = ref(props.learner);
+// console.log("props" , props.learner );
 const searchQuery = ref("");
 
 const perPage = 5;
@@ -234,6 +238,18 @@ const filteredItems = computed(()=>{
   return filtered.slice(start, end);
 })
 
+const updateAdditionalProfile = async ()=>{
+  console.log(learnerData.value);
+  await userMgmtStore.UpdateLearnerAdditionalDetails( learnerData.value.profile.id , learnerData.value.profile._version ,   learnerData.value.AdditionalDetails.UserSegment , learnerData.value.AdditionalDetails.LeadStatus )
+
+}
+
+const updateProfile = async ()=>{
+  // console.log(learnerData.value);
+  let { id , _version , name , email , language , role , state , mobile } = learnerData.value.profile;
+  console.log(id , _version , name , email , language , role , state , mobile);
+  await userMgmtStore.UpdateLearnerProfile( id , _version , name , email , language , role , state , mobile )
+}
 </script>
 
 <style lang="scss" scoped></style>

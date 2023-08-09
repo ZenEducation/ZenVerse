@@ -635,7 +635,7 @@ const isMoreModalActive = ref(true);
           @click="EnableItem(true, learners.id)"
         />
         <td class="before:hidden whitespace-nowrap flex gap-2">
-          <NuxtLink to="/examportal/usermgmt/AffiliateMgmtEdit">
+          <NuxtLink :to="'/examportal/usermgmt/AffiliateMgmt/edit/' + learners.id">
             <BaseButton color="info" :icon="mdiPencil" small />
           </NuxtLink>
           <BaseButton

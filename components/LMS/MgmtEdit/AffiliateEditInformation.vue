@@ -4,34 +4,34 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="Name">
         <FormControl
-          :model-value="Affiliate.profile.name"
+          v-model="AffiliateData.profile.name"
           placeholder="Enter Affiliate Name"
         />
       </FormField>
 
       <FormField label="E-mail">
         <FormControl
-          :model-value="Affiliate.profile.email"
+          v-model="AffiliateData.profile.email"
           placeholder="Enter Affiliate email"
         />
       </FormField>
 
       <FormField label="Mobile">
         <FormControl
-          :model-value="Affiliate.profile.mobile"
+          v-model="AffiliateData.profile.mobile"
           placeholder="Enter Affiliate Mobile"
         />
       </FormField>
       <FormField label="Role">
         <FormControl
-          :model-value="Affiliate.profile.role"
+          v-model="AffiliateData.profile.role"
           :options="options.profileRoles"
         />
       </FormField>
 
 
       <FormField label="Commission Rate">
-        <FormControl placeholder="Enter Commission Rate" type="number" />
+        <FormControl v-model="AffiliateData.profile.commitionRate" placeholder="Enter Commission Rate" type="number" />
       </FormField>
       <h4 class="mt-5 mb-2 font-bold">Allow Commission on all Courses</h4>
       <template v-for="i in optionCommission">
@@ -55,18 +55,18 @@
       <FormControl v-if="choose[1] == 'Number of Days (Cookie Based)' " placeholder="Enter Days" type="number" />
       <FormField label="State">
         <FormControl
-          :model-value="Affiliate.profile.state"
+          v-model="AffiliateData.profile.state"
           :options="options.state"
         />
       </FormField>
       <FormField label="Language">
         <FormControl
-          :model-value="Affiliate.profile.language"
+          v-model="AffiliateData.profile.language"
           :options="options.language"
         />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateProfile" />
       </div>
     </div>
 
@@ -74,13 +74,13 @@
     <div class="p-6 bg-slate-100 dark:bg-transparent mt-5">
       <FormField label="User Segment">
         <FormControl
-          :model-value="Affiliate.AdditionalDetails.UserSegment"
+          v-model="AffiliateData.AdditionalDetails.UserSegment"
           :options="options.UserSegment"
         />
       </FormField>
       <FormField label="Lead Status">
         <FormControl
-          :model-value="Affiliate.AdditionalDetails.LeadStatus"
+          v-model="AffiliateData.AdditionalDetails.LeadStatus"
           :options="options.LeadStatus"
         />
       </FormField>
@@ -88,7 +88,7 @@
         <FormControl type="textarea" />
       </FormField>
       <div class="flex flex-row-reverse">
-        <BaseButton color="info" label="Save" />
+        <BaseButton color="info" label="Save" @click="updateAdditionalProfile" />
       </div>
     </div>
 
@@ -216,7 +216,8 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
-
+import { useMgmtStore } from "~~/stores/usermgmtAPI";
+const userMgmtStore = useMgmtStore();
 
 const props = defineProps({
   Affiliate: {
@@ -228,6 +229,8 @@ const props = defineProps({
     required: true,
   },
 });
+const AffiliateData = ref(props.Affiliate);
+
 const searchQuery = ref("");
 
 const perPage = 5;
@@ -256,6 +259,19 @@ const filteredItems = computed(() => {
 
   return filtered.slice(start, end);
   });
+
+const updateAdditionalProfile = async ()=>{
+  console.log(AffiliateData.value);
+  await userMgmtStore.UpdateAffiliateAdditionalDetails( AffiliateData.value.profile.id , AffiliateData.value.profile._version ,   AffiliateData.value.AdditionalDetails.UserSegment , AffiliateData.value.AdditionalDetails.LeadStatus )
+
+}
+
+const updateProfile = async ()=>{
+  // console.log(AffiliateData.value);
+  let { id , _version , name , email , language , role , state , mobile , commitionRate} = AffiliateData.value.profile;
+  console.log(id , _version , name , email , language , role , state , mobile , commitionRate);
+  await userMgmtStore.UpdateAffiliateProfile( id , _version , name , email , language , role , state , mobile , commitionRate )
+}
 </script>
 
 <style lang="scss" scoped></style>

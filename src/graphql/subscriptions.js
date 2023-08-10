@@ -1,6 +1,192 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateVariablePricing = /* GraphQL */ `
+  subscription OnCreateVariablePricing(
+    $filter: ModelSubscriptionVariablePricingFilterInput
+  ) {
+    onCreateVariablePricing(filter: $filter) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateVariablePricing = /* GraphQL */ `
+  subscription OnUpdateVariablePricing(
+    $filter: ModelSubscriptionVariablePricingFilterInput
+  ) {
+    onUpdateVariablePricing(filter: $filter) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteVariablePricing = /* GraphQL */ `
+  subscription OnDeleteVariablePricing(
+    $filter: ModelSubscriptionVariablePricingFilterInput
+  ) {
+    onDeleteVariablePricing(filter: $filter) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateMockTest = /* GraphQL */ `
+  subscription OnCreateMockTest($filter: ModelSubscriptionMockTestFilterInput) {
+    onCreateMockTest(filter: $filter) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMockTest = /* GraphQL */ `
+  subscription OnUpdateMockTest($filter: ModelSubscriptionMockTestFilterInput) {
+    onUpdateMockTest(filter: $filter) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMockTest = /* GraphQL */ `
+  subscription OnDeleteMockTest($filter: ModelSubscriptionMockTestFilterInput) {
+    onDeleteMockTest(filter: $filter) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const onCreateLearner = /* GraphQL */ `
   subscription OnCreateLearner($filter: ModelSubscriptionLearnerFilterInput) {
     onCreateLearner(filter: $filter) {

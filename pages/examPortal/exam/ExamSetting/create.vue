@@ -3,9 +3,14 @@ import SectionMain from "@/components/Sections/SectionMain.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import BasicSettings from "~~/components/ExamPortal/examSetting/BasicSettings.vue";
-import pricingValidity from "~~/components/ExamPortal/examSetting/pricingValidity.vue";
+import pricingValidity from "~~/components/ExamPortal/examSetting/pricingValiditycreate.vue";
 import Publish from "~~/components/ExamPortal/examSetting/Publish.vue";
 import ManageUser from "~~/components/ExamPortal/examSetting/ManageUser.vue";
+import { getMockTest } from "@/src/graphql/queries";
+import { API } from "aws-amplify";
+import { useRouter, useRoute } from "vue-router";
+const route = useRoute();
+const postId = route.params.id;
 
 import {
   mdiAccountCog,
@@ -17,6 +22,9 @@ import {
   mdiMenu,
   mdiPublish,
 } from "@mdi/js";
+import { deleteMockTest, createMockTest } from "~~/src/graphql/mutations";
+import { MenuItems } from "@headlessui/vue";
+import { Item } from "paper/dist/paper-core";
 
 const tabs = [
   "Basic Settings",
@@ -31,6 +39,55 @@ const isModalSaveActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
+const item = ref({
+});
+
+
+const handleFormDataChangesBasic = (formData) => {
+  console.log("FormData1 : ", formData);
+  item.value.name = formData?.name;
+  item.value.shortId = formData?.shortId;
+  item.value.description = formData?.description;
+  item.value.shortDescription = formData?.shortDescription;
+};
+
+const handleFormDataChangesPricing = (formData) => {
+  console.log("FormData2 : ", formData);
+  item.value.isFree = formData?.isFree;
+  item.value.price = formData?.price;
+  item.value.discount = formData?.discount;
+  item.value.isValidityDays = formData?.isValidityDays;
+  item.value.validityDays = formData?.validityDays;
+  item.value.expiryDate = formData?.expiryDate;
+};
+
+const handleFormDataChangesPublish = (formData) => {
+  console.log("FormData3 : ", formData);
+  item.value.publishingDate = formData?.publishingDate;
+  item.value.publishingStatus = formData?.publishingStatus;
+};
+
+const handleSave = async () => {
+  try {
+    
+    let { name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays,  expiryDate ,publishingDate , publishingStatus } = item.value;
+    let input = { name , shortId , description , shortDescription , isFree , price , discount , isValidityDays, validityDays , expiryDate ,publishingDate , publishingStatus };
+    console.log(input);
+    const response = await API.graphql({
+      query:createMockTest,
+      variables:{input : input },
+    })
+    console.log(response.data.updateMockTest);
+    console.log(item.value);
+    window.alert("changes are saved Successfully")
+    window.location.href = "/ExamPortal/exam/ExamDashboard";
+  } catch (error) {
+    console.error(error);
+    window.alert("could not save the data ")
+  }
+};
+
+
 </script>
 
 <template>
@@ -42,22 +99,12 @@ const isActive = ref(0);
     has-cancel
     @confirm="
       () => {
+        handleSave();
         isModalSaveActive = false;
       }
     "
   />
-  <CardBoxModal
-    v-model="isModalDeleteActive"
-    title="Are you sure you want to delete this mock test ?"
-    button="danger"
-    buttonLabel="Yes"
-    has-cancel
-    @confirm="
-      () => {
-        isModalDeleteActive = false;
-      }
-    "
-  />
+
   <NuxtLayout name="lmsadmin">
     <!-- <SectionMain> -->
     <div
@@ -148,11 +195,6 @@ const isActive = ref(0);
             <p class="text-2xl">{{ tabs[isActive] }}</p>
           </div>
           <div class="flex flex-wrap items-center gap-4 px-4 py-4">
-              <a  href="/examportal/exam/edit-page"
-              class="cursor-pointer rounded-md py-2 px-3 text-white bg-blue-500"
-              >
-              Edit Mock Test
-            </a>
             <p
               @click="
                 () => {
@@ -161,20 +203,42 @@ const isActive = ref(0);
               "
               class="cursor-pointer rounded-md py-2 px-3 text-white bg-black"
             >
-              Save
+              Create
             </p>
-            <p
-              @click="() => (isModalDeleteActive = true)"
-              class="cursor-pointer rounded-md py-2 px-3 text-white bg-red-500"
-            >
-              Delete mock test
-            </p>
+
           </div>
         </div>
         <div class="md:p-12 p-3">
-          <BasicSettings v-if="isActive == 0" />
-          <pricingValidity v-if="isActive == 1" />
-          <Publish v-if="isActive == 2" />
+          <BasicSettings
+            :data="{
+              name: item.name,
+              shortId: item.shortId,
+              description: item.description,
+              shortDescription: item.shortDescription,
+            }"
+            @form-data-changes-basic="handleFormDataChangesBasic"
+            
+            v-if="isActive == 0 "
+          />
+          <pricingValidity
+            :data="{
+              id:item.id,
+              isFree: item.isFree,
+              price: item.price,
+              discount: item.discount,
+              isValidityDays: item.isValidityDays,
+              validityDays: item.validityDays,
+              expiryDate: item.expiryDate,
+            }"
+            @form-data-changes-pricing="handleFormDataChangesPricing"
+            v-if="isActive == 1"
+          />
+          <Publish :data="{
+            publishingDate: item.publishingDate,
+            publishingStatus : item.publishingStatus,
+          }"
+          @form-data-changes-publish="handleFormDataChangesPublish" 
+          v-if="isActive == 2" />
           <ManageUser v-if="isActive == 3" />
         </div>
       </div>

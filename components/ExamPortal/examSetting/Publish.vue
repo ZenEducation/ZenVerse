@@ -15,6 +15,25 @@ const publishOptions = ref([
 
 const selectedPublish = ref(publishOptions.value[0].label);
 
+const props = defineProps({
+  data: Object,
+});
+const emit = defineEmits(["form-data-changes-publish"]);
+
+const formData = ref(props.data);
+console.log(formData.value);
+let { publishingDate, publishingStatus } = formData.value;
+selectedPublish.value = publishingStatus ;
+
+
+
+const emitFormDataChanges = () => {
+  console.log("selected pub " , selectedPublish.value );
+  emit("form-data-changes-publish", {
+    publishingStatus : selectedPublish.value ,
+    publishingDate,
+  });
+};
 
 </script>
 <template>
@@ -30,7 +49,7 @@ const selectedPublish = ref(publishOptions.value[0].label);
       </p>
       <template v-for="i in publishOptions">
         <div class="border rounded-md my-2 p-3" :class="{'border-green-400 border-2' : i.label == selectedPublish}">
-            <input type="radio" v-model="selectedPublish" :value="i.label" />
+            <input type="radio" v-model="selectedPublish" :value="i.label" @change="emitFormDataChanges" />
             <p class="inline p-4 font-semibold leading-8">
                 {{ i.label }}
             </p>
@@ -39,7 +58,7 @@ const selectedPublish = ref(publishOptions.value[0].label);
             </p>
             <p v-if="i.id==2">
                 Set Release Date 
-                <PremFormControl type="Date" class=" max-w-sm" />
+                <PremFormControl type="Date" class=" max-w-sm" v-model="publishingDate" @input="emitFormDataChanges"/>
             </p>
         </div>
       </template>

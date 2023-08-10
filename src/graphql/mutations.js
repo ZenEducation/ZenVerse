@@ -1,6 +1,204 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createVariablePricing = /* GraphQL */ `
+  mutation CreateVariablePricing(
+    $input: CreateVariablePricingInput!
+    $condition: ModelVariablePricingConditionInput
+  ) {
+    createVariablePricing(input: $input, condition: $condition) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateVariablePricing = /* GraphQL */ `
+  mutation UpdateVariablePricing(
+    $input: UpdateVariablePricingInput!
+    $condition: ModelVariablePricingConditionInput
+  ) {
+    updateVariablePricing(input: $input, condition: $condition) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteVariablePricing = /* GraphQL */ `
+  mutation DeleteVariablePricing(
+    $input: DeleteVariablePricingInput!
+    $condition: ModelVariablePricingConditionInput
+  ) {
+    deleteVariablePricing(input: $input, condition: $condition) {
+      id
+      days
+      price
+      discountPrice
+      mocktestID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createMockTest = /* GraphQL */ `
+  mutation CreateMockTest(
+    $input: CreateMockTestInput!
+    $condition: ModelMockTestConditionInput
+  ) {
+    createMockTest(input: $input, condition: $condition) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateMockTest = /* GraphQL */ `
+  mutation UpdateMockTest(
+    $input: UpdateMockTestInput!
+    $condition: ModelMockTestConditionInput
+  ) {
+    updateMockTest(input: $input, condition: $condition) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteMockTest = /* GraphQL */ `
+  mutation DeleteMockTest(
+    $input: DeleteMockTestInput!
+    $condition: ModelMockTestConditionInput
+  ) {
+    deleteMockTest(input: $input, condition: $condition) {
+      id
+      name
+      shortId
+      isFree
+      publishingDate
+      publishingStatus
+      description
+      shortDescription
+      price
+      discount
+      isValidityDays
+      validityDays
+      expiryDate
+      VariablePricings {
+        items {
+          id
+          days
+          price
+          discountPrice
+          mocktestID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const createLearner = /* GraphQL */ `
   mutation CreateLearner(
     $input: CreateLearnerInput!

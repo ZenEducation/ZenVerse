@@ -4,9 +4,11 @@ import { schema } from './schema';
 
 
 
-const { Learner, Affiliate, Admin, Instructor } = initSchema(schema);
+const { VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor } = initSchema(schema);
 
 export {
+  VariablePricing,
+  MockTest,
   Learner,
   Affiliate,
   Admin,

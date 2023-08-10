@@ -17,105 +17,107 @@ import {
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
+import { listMockTests } from "@/src/graphql/queries";
+import { API } from "aws-amplify";
 
 const items = ref([
   {
-    CourseID: "course1",
+    shortId: "course1",
     TestSeriesID: "Mock Test 1",
-    title: "Mechanics: Newton's Laws of Motion",
+    name: "Mechanics: Newton's Laws of Motion",
     days: 234,
-    status: "Published",
-    PublishedDate: "2021-10-01",
+    publishingStatus: "Published",
+    publishingDate: "2021-10-01",
     isFree: true,
     price: 200,
   },
   {
-    CourseID: "course2",
+    shortId: "course2",
     TestSeriesID: "Mock Test 2",
-    title: "Thermodynamics: Heat and Temperature",
+    name: "Thermodynamics: Heat and Temperature",
     days: 123,
-    status: "Unpublished",
-    PublishedDate: "2022-01-15",
+    publishingStatus: "Unpublished",
+    publishingDate: "2022-01-15",
     isFree: false,
     price: 1800,
   },
   {
-    CourseID: "course3",
+    shortId: "course3",
     TestSeriesID: "Mock Test 1",
-    title: "Optics: Geometrical Optics and Reflection",
+    name: "Optics: Geometrical Optics and Reflection",
     days: 456,
-    status: "Coming Soon",
-    PublishedDate: "2023-05-01",
+    publishingStatus: "Coming Soon",
+    publishingDate: "2023-05-01",
     isFree: true,
     price: 1500,
   },
   {
-    CourseID: "course4",
+    shortId: "course4",
     TestSeriesID: "Mock Test 3",
-    title: "Electricity and Magnetism: Electric Circuits",
+    name: "Electricity and Magnetism: Electric Circuits",
     days: 789,
-    status: "Scheduled",
-    PublishedDate: "2023-08-10",
+    publishingStatus: "Scheduled",
+    publishingDate: "2023-08-10",
     isFree: false,
     price: 2000,
   },
   {
-    CourseID: "course5",
+    shortId: "course5",
     TestSeriesID: "Mock Test 2",
-    title: "Waves: Wave Properties and Sound",
+    name: "Waves: Wave Properties and Sound",
     days: 567,
-    status: "Published",
-    PublishedDate: "2023-03-25",
+    publishingStatus: "Published",
+    publishingDate: "2023-03-25",
     isFree: true,
     price: 1500,
   },
   {
-    CourseID: "course6",
+    shortId: "course6",
     TestSeriesID: "Mock Test 4",
-    title: "Modern Physics: Quantum Mechanics",
+    name: "Modern Physics: Quantum Mechanics",
     days: 345,
-    status: "Published",
-    PublishedDate: "2022-06-20",
+    publishingStatus: "Published",
+    publishingDate: "2022-06-20",
     isFree: true,
     price: 2000,
   },
   {
-    CourseID: "course7",
+    shortId: "course7",
     TestSeriesID: "Mock Test 2",
-    title: "Electromagnetism: Magnetic Fields and Induction",
+    name: "Electromagnetism: Magnetic Fields and Induction",
     days: 678,
-    status: "Unpublished",
-    PublishedDate: "2023-01-05",
+    publishingStatus: "Unpublished",
+    publishingDate: "2023-01-05",
     isFree: false,
     price: 1500,
   },
   {
-    CourseID: "course8",
+    shortId: "course8",
     TestSeriesID: "Mock Test 1",
-    title: "Astrophysics: Stars and Galaxies",
+    name: "Astrophysics: Stars and Galaxies",
     days: 456,
-    status: "Coming Soon",
-    PublishedDate: "2024-02-14",
+    publishingStatus: "Coming Soon",
+    publishingDate: "2024-02-14",
     isFree: true,
     price: 2000,
   },
   {
-    CourseID: "course9",
+    shortId: "course9",
     TestSeriesID: "Mock Test 3",
-    title: "Nuclear Physics: Radioactivity and Nuclear Reactions",
+    name: "Nuclear Physics: Radioactivity and Nuclear Reactions",
     days: 987,
-    status: "Published",
-    PublishedDate: "2022-12-01",
+    publishingStatus: "Published",
+    publishingDate: "2022-12-01",
     isFree: true,
     price: 1500,
   },
   {
-    CourseID: "course10",
+    shortId: "course10",
     TestSeriesID: "Mock Test 4",
-    title: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
+    name: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
     days: 543,
-    status: "Published",
-    PublishedDate: "2023-09-30",
+    publishingStatus: "Published",
+    publishingDate: "2023-09-30",
     isFree: true,
     price: 2000,
   },
@@ -124,9 +126,8 @@ const items = ref([
 const publishDateOptions = ["all", "before", "on", "after", "between"];
 const statusOptions = [
   "all",
-  "Published",
+  "Live",
   "Unpublished",
-  "Coming Soon",
   "Scheduled",
 ];
 const statusSelectedFilter = ref("all");
@@ -158,7 +159,7 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item.TestSeriesID.match(search) || item.title.match(search)
+        ? item.TestSeriesID.match(search) || item.name.match(search)
         : true;
     });
   }
@@ -171,32 +172,32 @@ const filteredItems = computed(() => {
 
   if (statusSelectedFilter.value !== "all") {
     filtered = filtered.filter((item) => {
-      return item.status === statusSelectedFilter.value;
+      return item.publishingStatus === statusSelectedFilter.value;
     });
   }
 
   if (publishedFilterOption.value !== "all") {
     filtered = filtered.filter((item) => {
-      const publishedDate = new Date(item.PublishedDate);
+      const publishingDate = new Date(item.publishingDate);
 
       if (
         publishedFilterOption.value === "on" &&
         publishedFilterDate.value != ""
       ) {
         const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate.toDateString() === filterDate.toDateString();
+        return publishingDate.toDateString() === filterDate.toDateString();
       } else if (
         publishedFilterOption.value === "before" &&
         publishedFilterDate.value != ""
       ) {
         const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate < filterDate;
+        return publishingDate < filterDate;
       } else if (
         publishedFilterOption.value === "after" &&
         publishedFilterDate.value != ""
       ) {
         const filterDate = new Date(publishedFilterDate.value);
-        return publishedDate > filterDate;
+        return publishingDate > filterDate;
       } else if (
         publishedFilterOption.value === "between" &&
         publishedFilterStartDate.value &&
@@ -204,7 +205,7 @@ const filteredItems = computed(() => {
       ) {
         const startDate = new Date(publishedFilterStartDate.value);
         const endDate = new Date(publishedFilterEndDate.value);
-        return publishedDate >= startDate && publishedDate <= endDate;
+        return publishingDate >= startDate && publishingDate <= endDate;
       } else {
         return true;
       }
@@ -237,6 +238,26 @@ const colors = computed(() => {
   }
   return ["info", "lightDark"];
 });
+
+// fetch all mocktests
+const FetchMockTests = async () => {
+  try {
+    const response = await API.graphql({
+      query: listMockTests,
+      variables: { filter: { _deleted: { ne: true } } },
+    });
+    console.log("response", response.data.listMockTests.items);
+    items.value =  response.data.listMockTests.items;
+  } catch (error) {
+    
+    window.alert("Error fetching learners:", error?.errors?.[0]?.message);
+  }
+};
+onMounted( ()=>{
+  FetchMockTests() ;
+
+} );
+
 </script>
 <template>
   <NuxtLayout name="lmsadmin">
@@ -270,7 +291,7 @@ const colors = computed(() => {
             </div>
             <div class="flex flex-wrap gap-4 items-center">
               <BaseButton color="lightDark" label="Re order" small />
-              <NuxtLink to="/ExamPortal/exam/examsetting">
+              <NuxtLink to="/ExamPortal/exam/examsetting/create">
                 <BaseButton color="info" :icon="mdiPlus" label="Create" small />
               </NuxtLink>
             </div>
@@ -284,7 +305,7 @@ const colors = computed(() => {
             class="form-input w-full pl-9 focus:border-slate-300"
             type="search"
             v-model="searchQuery"
-            placeholder="Search by Title or Mock Test ID "
+            placeholder="Search by name or Mock Test ID "
           />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg
@@ -427,22 +448,22 @@ const colors = computed(() => {
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
             <NuxtLink
-            to="/ExamPortal/exam/examsetting"
+            :to="'/ExamPortal/exam/ExamSetting/' + item.id"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems"
             >
               <div class="flex">
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
-                  <p class="font-medium min-h-18">{{ item.title }}</p>
-                  <p class="">{{ item.TestSeriesID }} | {{ item.CourseID }}</p>
+                  <p class="font-medium min-h-18">{{ item.name }}</p>
+                  <p class="">TS-1 | {{ item.shortId }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
                       ₹ {{ item.price }}
                     </p>
 
-                    <p class="text-sm">{{ item.days }} Days</p>
+                    <p class="text-sm">30 Days</p>
                   </div>
                 </div>
               </div>
@@ -450,7 +471,7 @@ const colors = computed(() => {
               <div class="flex justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
                   <BaseButton color="lightDark" label="Mock Test" small />
-                  <BaseButton color="" :label="item.status" small />
+                  <BaseButton color="" :label="item.publishingStatus" small />
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>
@@ -462,8 +483,8 @@ const colors = computed(() => {
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <NuxtLink
-            to="/ExamPortal/exam/examsetting"
-              class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
+            :to="'/ExamPortal/exam/ExamSetting/' + item.id"
+            class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs"
               v-for="item in filteredItems"
             >
               <div
@@ -471,20 +492,20 @@ const colors = computed(() => {
                 :style="'background-image: url(' + image + ')'"
               ></div>
               <div class="px-4 h-auto">
-                <p class="font-medium h-12">{{ item.title }}</p>
-                <p class="">{{ item.TestSeriesID }} | {{ item.CourseID }}</p>
+                <p class="font-medium h-12">{{ item.name }}</p>
+                <p class="">TS-1  | {{ item.shortId }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                   <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
 
-                  <p class="text-sm">{{ item.days }} Days</p>
+                  <p class="text-sm">30 Days</p>
                 </div>
               </div>
               <div class="w-full my-1 border-t"></div>
               <div class="flex justify-between items-center h-12 px-3">
                 <div class="flex flex-wrap gap-2">
                   <BaseButton color="lightDark" label="Mock Test" small />
-                  <BaseButton color="" :label="item.status" small />
+                  <BaseButton color="" :label="item.publishingStatus" small />
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
               </div>

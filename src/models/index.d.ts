@@ -1,10 +1,96 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
 
+
+type EagerVariablePricing = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<VariablePricing, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly days?: number | null;
+  readonly price?: number | null;
+  readonly discountPrice?: number | null;
+  readonly mocktestID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyVariablePricing = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<VariablePricing, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly days?: number | null;
+  readonly price?: number | null;
+  readonly discountPrice?: number | null;
+  readonly mocktestID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type VariablePricing = LazyLoading extends LazyLoadingDisabled ? EagerVariablePricing : LazyVariablePricing
+
+export declare const VariablePricing: (new (init: ModelInit<VariablePricing>) => VariablePricing) & {
+  copyOf(source: VariablePricing, mutator: (draft: MutableModel<VariablePricing>) => MutableModel<VariablePricing> | void): VariablePricing;
+}
+
+type EagerMockTest = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTest, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name?: string | null;
+  readonly shortId?: string | null;
+  readonly isFree?: boolean | null;
+  readonly publishingDate?: string | null;
+  readonly publishingStatus?: string | null;
+  readonly description?: string | null;
+  readonly shortDescription?: string | null;
+  readonly price?: number | null;
+  readonly discount?: number | null;
+  readonly isValidityDays?: boolean | null;
+  readonly validityDays?: number | null;
+  readonly expiryDate?: string | null;
+  readonly VariablePricings?: (VariablePricing | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMockTest = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTest, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name?: string | null;
+  readonly shortId?: string | null;
+  readonly isFree?: boolean | null;
+  readonly publishingDate?: string | null;
+  readonly publishingStatus?: string | null;
+  readonly description?: string | null;
+  readonly shortDescription?: string | null;
+  readonly price?: number | null;
+  readonly discount?: number | null;
+  readonly isValidityDays?: boolean | null;
+  readonly validityDays?: number | null;
+  readonly expiryDate?: string | null;
+  readonly VariablePricings: AsyncCollection<VariablePricing>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MockTest = LazyLoading extends LazyLoadingDisabled ? EagerMockTest : LazyMockTest
+
+export declare const MockTest: (new (init: ModelInit<MockTest>) => MockTest) & {
+  copyOf(source: MockTest, mutator: (draft: MutableModel<MockTest>) => MutableModel<MockTest> | void): MockTest;
+}
 
 type EagerLearner = {
   readonly [__modelMeta__]: {

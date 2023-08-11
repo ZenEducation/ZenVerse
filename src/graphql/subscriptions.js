@@ -13,9 +13,6 @@ export const onCreateBlogPost = /* GraphQL */ `
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       comment {
         items {
@@ -24,21 +21,14 @@ export const onCreateBlogPost = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           blogPostCommentId
         }
         nextToken
-        startedAt
       }
       coverImage
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCategoryId
     }
   }
@@ -55,9 +45,6 @@ export const onUpdateBlogPost = /* GraphQL */ `
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       comment {
         items {
@@ -66,21 +53,14 @@ export const onUpdateBlogPost = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           blogPostCommentId
         }
         nextToken
-        startedAt
       }
       coverImage
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCategoryId
     }
   }
@@ -97,9 +77,6 @@ export const onDeleteBlogPost = /* GraphQL */ `
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       comment {
         items {
@@ -108,21 +85,14 @@ export const onDeleteBlogPost = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           blogPostCommentId
         }
         nextToken
-        startedAt
       }
       coverImage
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCategoryId
     }
   }
@@ -135,9 +105,6 @@ export const onCreateCategory = /* GraphQL */ `
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -149,9 +116,6 @@ export const onUpdateCategory = /* GraphQL */ `
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -163,9 +127,6 @@ export const onDeleteCategory = /* GraphQL */ `
       isDeleted
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -174,6 +135,26 @@ export const onCreateComment = /* GraphQL */ `
     onCreateComment(filter: $filter) {
       id
       content
+      post {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+        }
+        comment {
+          nextToken
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        blogPostCategoryId
+      }
       isDeleted
       blogPostId {
         id
@@ -185,28 +166,18 @@ export const onCreateComment = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         comment {
           nextToken
-          startedAt
         }
         coverImage
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         blogPostCategoryId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCommentId
     }
   }
@@ -216,6 +187,26 @@ export const onUpdateComment = /* GraphQL */ `
     onUpdateComment(filter: $filter) {
       id
       content
+      post {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+        }
+        comment {
+          nextToken
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        blogPostCategoryId
+      }
       isDeleted
       blogPostId {
         id
@@ -227,28 +218,18 @@ export const onUpdateComment = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         comment {
           nextToken
-          startedAt
         }
         coverImage
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         blogPostCategoryId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCommentId
     }
   }
@@ -258,6 +239,26 @@ export const onDeleteComment = /* GraphQL */ `
     onDeleteComment(filter: $filter) {
       id
       content
+      post {
+        id
+        title
+        content
+        category {
+          id
+          name
+          isDeleted
+          createdAt
+          updatedAt
+        }
+        comment {
+          nextToken
+        }
+        coverImage
+        isDeleted
+        createdAt
+        updatedAt
+        blogPostCategoryId
+      }
       isDeleted
       blogPostId {
         id
@@ -269,28 +270,18 @@ export const onDeleteComment = /* GraphQL */ `
           isDeleted
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         comment {
           nextToken
-          startedAt
         }
         coverImage
         isDeleted
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         blogPostCategoryId
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       blogPostCommentId
     }
   }

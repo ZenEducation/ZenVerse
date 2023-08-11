@@ -204,6 +204,21 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "BlogPost"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "blogPostCommentId"
+                        ]
+                    }
+                },
                 "isDeleted": {
                     "name": "isDeleted",
                     "isArray": false,
@@ -243,15 +258,6 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "name": "gsi-BlogPost.comment",
-                        "fields": [
-                            "blogPostCommentId"
-                        ]
-                    }
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -273,5 +279,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.5",
-    "version": "cf782dc8e55a5a8c9af11cfc94617f60"
+    "version": "37d8649c541f2912f1ea2e36e5112254"
 };

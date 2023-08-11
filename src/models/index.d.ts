@@ -83,6 +83,7 @@ type EagerComment = {
   };
   readonly id: string;
   readonly content?: string | null;
+  readonly post?: BlogPost | null;
   readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -96,6 +97,7 @@ type LazyComment = {
   };
   readonly id: string;
   readonly content?: string | null;
+  readonly post: AsyncItem<BlogPost | undefined>;
   readonly isDeleted?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

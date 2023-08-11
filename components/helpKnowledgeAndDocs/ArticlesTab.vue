@@ -122,9 +122,11 @@
               <template v-slot:title> Updated </template>
               <template v-slot:options>
                 <div class="relative max-w-sm">
-                  <input type="date"
+                  <input
+                    type="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date" />
+                    placeholder="Select date"
+                  />
                 </div>
               </template>
             </DropDown>
@@ -159,19 +161,45 @@
               </tr>
             
             </tbody> -->
+           
       <tbody class="text-[12px] w-full">
-        <tr @click="publishData(content.content)" v-for="content in articles.slice().reverse()" :key="content.id">
+        <tr v-for="content in articles.slice().reverse()" :key="content.id">
           <td class="p-0">
-            <TableCheckboxCell @checked="checked($event, content)" />
+            <!-- <TableCheckboxCell 
+            :type="isChecked(content.id)"
+              
+              @click="setChecked(content.id)"
+              
+            /> -->
+             <input
+        type="checkbox"
+        @click="setChecked(content.id)"
+        class="form-checkbox h-5 w-5 text-indigo-600 ml-3"
+        :checked="isChecked(content.id)"
+        @change="$emit('update:checked', $event.target.checked)"
+      />
           </td>
-          <td v-html="content.status"></td>
+           <nuxt-link :to="`ArticleCreatePage/${content.id}`">
+          <td
+            @click="publishData(content)"
+            v-html="content.slug"
+          ></td>
+          </nuxt-link>
           <td v-html="content.language"></td>
           <td v-html="content.author"></td>
           <td v-html="content.category"></td>
           <td class="flex">
-            <BaseButton @click="incrementLikes(content)" small label="&#128077;" />
+            <BaseButton
+              @click="incrementLikes(content)"
+              small
+              label="&#128077;"
+            />
             {{ content.likes }}
-            <BaseButton @click="incrementDislikes(content)" small label="&#128078;" />
+            <BaseButton
+              @click="incrementDislikes(content)"
+              small
+              label="&#128078;"
+            />
             {{ content.dislikes }}
           </td>
           <td>{{ content.visibility }}</td>
@@ -180,11 +208,18 @@
           </td>
         </tr>
       </tbody>
-
     </table>
     <!-- <CardBox v-if="!content" has-table class="text-center p-3"
       >No Documents</CardBox
     > -->
+    
+    <BaseButtons v-if="checkedItems.size > 0" class="flex flex-row m-4 justify-end items-center">
+      <P class="  p-4">{{ checkedItems.size }} item selected 
+  </P>
+      <BaseButton class="m-1" @click="deleteArticle(id)" color="contrast" label="Delete Selection" />
+
+      <BaseButton class="m-1"  @click="unCheck()" color="contrast" label="clear Selection" />
+    </BaseButtons>
   </div>
 </template>
 
@@ -196,28 +231,30 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendar } from "@mdi/js";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
-import { fetchArticles } from '~/utils/helpKnowledgeAndDocs/api'; 
-import {onBeforeUnmount } from 'vue';
+import { fetchArticles } from "~/utils/helpKnowledgeAndDocs/api";
+
+import { deleteArticleById } from "~/utils/helpKnowledgeAndDocs/api";
+import { onBeforeUnmount } from "vue";
 
 // Amplify Hub Start
 
-import { Hub } from 'aws-amplify';
-
+import { Hub } from "aws-amplify";
+const id = ref("76150941-ab18-414e-8beb-cf1cc8b185b9")
 const handleDataStoreReady = () => {
-  console.log('DataStore is ready. Perform actions here.');
+  console.log("DataStore is ready. Perform actions here.");
 };
 const setupDataStoreListener = () => {
-  const listener = Hub.listen('datastore', hubData => {
+  const listener = Hub.listen("datastore", (hubData) => {
     const { event, data } = hubData.payload;
-    if (event === 'ready') {
+    if (event === "ready") {
       handleDataStoreReady();
-      FetchArticles()
+      FetchArticles();
     }
   });
 
-// Clean up the listener when the component is about to be unmounted
+  // Clean up the listener when the component is about to be unmounted
 
   onBeforeUnmount(() => {
     listener();
@@ -236,27 +273,77 @@ const dislikes = ref(0);
 
 const content = ref("");
 
-
-const FetchArticles = async() => {
+const FetchArticles = async () => {
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
     console.log("Articles fetched Successfully", fetchedArticles);
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
   }
+};
+
+const checkedItems = reactive(new Set()); // Array to store the IDs of checked items
+async function deleteArticle(articleId) {
+  // const isSuccess = await deleteArticleById(articleId);
+  // if (isSuccess) {
+  //  console.log("sucuss");
+  // } else {
+  //   console.log("error");
+  // }
+  const listener = Hub.listen("datastore", (hubData) => {
+    const { event, data } = hubData.payload;
+    if (event === "ready") {
+      handleDataStoreReady();
+      FetchArticles();
+    }
+  });
+   const articleIdsToDelete = Array.from(checkedItems);
+  // articleIdsToDelete.forEach((id) => deleteArticleById(id));
+  for (const articleId of articleIdsToDelete) {
+    if(articleId != articleIdsToDelete[articleIdsToDelete.length - 1]){
+    const savedCategory = await deleteArticleById(articleId);
+    // console.log(savedCategory, "finall");
+    }
+    console.log(`Article with ID ${articleId} could not be deleted`);
+    
+    listener();
+  }
+  const savedCategory = await deleteArticleById(articleIdsToDelete[articleIdsToDelete.length - 1]);
+  console.log(savedCategory, "finall");
+  try {
+    const fetchedArticles = await fetchArticles();
+    articles.value = fetchedArticles;
+    console.log("Articles fetched Successfully", fetchedArticles);
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+  }
+  // location.reload();
+    setupDataStoreListener();
+    checkedItems.clear();
+  console.log(articleIdsToDelete);
 }
 
-onMounted(async() => {
 
+const setChecked = (itemId) => {
+  checkedItems.add(itemId);
+
+  console.log("Checked Items:", checkedItems);
+};
+const unCheck = () => {
+    console.log("helloooooooooo");
+   checkedItems.clear();
+}
+const isChecked = (id) => {
+  return checkedItems.has(id);
+}
+onMounted(async () => {
   try {
     const fetchedArticles = await fetchArticles();
     articles.value = fetchedArticles;
     console.log("Articles fetched Successfully", fetchedArticles);
-
-
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
   }
 
   // date
@@ -276,9 +363,10 @@ onMounted(async() => {
 });
 </script>
 <script>
-import { onMounted, ref } from 'vue';
-import { API, graphqlOperation } from 'aws-amplify';
+import { onMounted, ref } from "vue";
+import { API, graphqlOperation } from "aws-amplify";
 import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
+import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
 
 export default {
   setup() {
@@ -288,13 +376,13 @@ export default {
   },
   methods: {
     publishData(data) {
+       const store = useGlobalStore();
+      store.updateGlobalStore(data);
       const articleStore = useArticleStore();
-      articleStore.updateArticleContent(data);
-      localStorage.setItem("content", JSON.stringify(data));
-      this.$router.push('./ViewArticle')
+      articleStore.updateArticleContent(data.content);
+      localStorage.setItem("content", JSON.stringify(data.content));
+      // this.$router.push("./ViewArticle");
     },
   },
 };
 </script>
-
-

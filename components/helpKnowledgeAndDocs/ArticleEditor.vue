@@ -42,7 +42,7 @@ export default defineComponent({
   computed: {
     content: {
       get(){
-        return ''
+        return JSON.parse(localStorage.getItem("content"))
       },
       set(data){
         console.log(data,'data')

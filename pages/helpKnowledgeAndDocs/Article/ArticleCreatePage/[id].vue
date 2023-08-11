@@ -9,6 +9,7 @@
             <button @click="goBack" class="flex items-center mb-5">
               <BaseIcon :path="mdiArrowLeftBold" class="cursor-pointer" />
               <p>Back to</p>
+              
             </button>
             <!-- </NuxtLink> -->
 
@@ -18,7 +19,7 @@
                 label="Publish"
                 color="contrast"
                 small
-                @click="publishData"
+                @click="updateArticleHandler()"
               />
             </BaseButtons>
 
@@ -77,15 +78,121 @@ import ArticleEditor from "@/components/HelpKnowledgeAndDocs/ArticleEditor.vue";
 
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
-import { createArticle } from "~/utils/helpKnowledgeAndDocs/api";
+import {
+  createArticle,
+  findArticleById,
+  updateArticleById,
+} from "~/utils/helpKnowledgeAndDocs/api";
 import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
 import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
+import { API, graphqlOperation } from "aws-amplify";
+import {} from "~~/src/graphql/mutations";
 
 const route = useRoute();
 const router = useRouter();
+const articleVersion = ref(null);
+// const id = ref(route.params.id)
+const articleDetails = ref(null);
+onMounted(async () => {
+  // Update the store here based on the received prop (e.g., aprop)
+  if (route.params.id) {
+    console.log("jqeb");
+  }
+  try {
+    articleDetails.value = await findArticleById(route.params.id);
+    console.log("sucussaaa", articleDetails.value);
+    const articleStore = useGlobalStore();
+    articleStore.updateGlobalStore(articleDetails.value);
+    const store = useGlobalStore();
+    const docFormData = ref({ ...store.$state })._value;
+    console.log(docFormData, "updated one ...");
+  } catch (err) {
+    console.log(err, "error");
+  }
+  getArticleVersion(route.params.id);
+  // console.log("yess");
+});
+
+async function getArticleVersion(id) {
+  const query = `
+    query MyQuery($id: ID!) {
+      getArticle(id: $id) {
+        _version
+      }
+    }
+  `;
+
+  try {
+    console.log("this is id", id);
+    const response = await API.graphql(graphqlOperation(query, { id }));
+    // const { _version } = response.data.getArticle
+    // articleVersion.value = _version
+    console.log("sucuss", response);
+  } catch (error) {
+    console.error("Error fetching article version:", error);
+  }
+}
 
 const goBack = () => {
   router.back();
+};
+const getCurrentDate = () => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const date = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${date}`;
+};
+const articleId = ref(route.params.id);
+// const store = useGlobalStore();
+// const docFormData = ref({ ...store.$state })._value;
+// const updatedArticleData = ref({
+//   // id: articleId,
+//   imageUrl: docFormData.imageUrl,
+//   likes: 10,
+//   metaDescription: "",
+//   relatedArticles: docFormData.relatedArticles,
+//   slug: docFormData.slug,
+//   status: docFormData.status,
+//   title: "",
+//   updatedAt: getCurrentDate(),
+//   visibility: docFormData.visibility,
+//   language: "",
+//   dislikes: 10,
+//   content: JSON.parse(localStorage.getItem("content")),
+//   category: docFormData.category,
+// });
+// const content = ref(data().content);
+const updateArticleHandler = async () => {
+  const store = useGlobalStore();
+  const docFormData = { ...store.$state };
+  const relatedArticles = [...docFormData.relatedArticles];
+  const updatedArticleData = {
+    // id: articleId,
+    imageUrl: docFormData.imageUrl,
+    likes: 10,
+    metaDescription: "",
+    relatedArticles: relatedArticles,
+    slug: docFormData.slug,
+    status: docFormData.status,
+    title: "",
+    updatedAt: getCurrentDate(),
+    visibility: docFormData.visibility,
+    language: "",
+    dislikes: 10,
+    content: JSON.parse(localStorage.getItem("content")),
+    category: docFormData.category,
+  };
+  try {
+    // Call the updateArticle utility function to update the article
+    const updatedArticle = await updateArticleById(
+      articleId.value,
+      updatedArticleData
+    );
+    console.log("Article updated:", updatedArticle);
+  } catch (error) {
+    console.error("Error updating article:", error);
+  }
 };
 </script>
 
@@ -112,6 +219,7 @@ export default {
 
     getValue(value) {
       this.content = value;
+      localStorage.setItem("content", JSON.stringify(value));
     },
     getValue1(value) {
       // console.log("---------> I am a hero", value);
@@ -137,7 +245,7 @@ export default {
         likes: 8,
         metaDescription: docFormData.meta,
         updatedAt: this.getCurrentDate(),
-        relatedArticles:  [...docFormData.articles],
+        relatedArticles: [...docFormData.articles],
         slug: docFormData.slug,
         status: docFormData.status,
         tittle: "Tittle",

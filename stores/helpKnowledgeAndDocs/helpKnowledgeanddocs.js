@@ -13,7 +13,7 @@ export const useGlobalStore = defineStore("global", {
       '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
     meta: "",
     imageUrl: "",
-    articles: [],
+    relatedArticles: [],
     content: "",
   }),
   actions: {
@@ -23,10 +23,10 @@ export const useGlobalStore = defineStore("global", {
       this.visibility = newData.visibility;
       this.category = newData.category;
       this.language = newData.language;
-      this.author = newData.author;
+      // this.author = newData.author;
       this.meta = newData.meta;
       this.imageUrl = newData.imageUrl;
-      this.articles = newData.articles;
+      this.relatedArticles = newData.relatedArticles;
     },
   },
 });

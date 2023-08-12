@@ -131,7 +131,7 @@
 
 
           <!-- groups -->
-          <p class="list-lable">Groups List </p>
+          <p class="list-lable">Groups </p>
           <NuxtLink to="/examportal/exam/editGroup">
 
             <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
@@ -195,7 +195,7 @@
       <div>
         <ul>
           <li class="bottom-side-nav">
-            <a href="/examportal/Exam/groupList">Groups List</a>
+            <NuxtLink to="/examportal/Exam/groupList">Groups List</NuxtLink>
           </li>
           <li class="bottom-side-nav">
             <a href="/examportal/Exam/exportPDF">Export PDF</a>

@@ -21,106 +21,7 @@ import { listMockTests } from "@/src/graphql/queries";
 import { API } from "aws-amplify";
 
 const items = ref([
-  {
-    shortId: "course1",
-    TestSeriesID: "Mock Test 1",
-    name: "Mechanics: Newton's Laws of Motion",
-    days: 234,
-    publishingStatus: "Published",
-    publishingDate: "2021-10-01",
-    isFree: true,
-    price: 200,
-  },
-  {
-    shortId: "course2",
-    TestSeriesID: "Mock Test 2",
-    name: "Thermodynamics: Heat and Temperature",
-    days: 123,
-    publishingStatus: "Unpublished",
-    publishingDate: "2022-01-15",
-    isFree: false,
-    price: 1800,
-  },
-  {
-    shortId: "course3",
-    TestSeriesID: "Mock Test 1",
-    name: "Optics: Geometrical Optics and Reflection",
-    days: 456,
-    publishingStatus: "Coming Soon",
-    publishingDate: "2023-05-01",
-    isFree: true,
-    price: 1500,
-  },
-  {
-    shortId: "course4",
-    TestSeriesID: "Mock Test 3",
-    name: "Electricity and Magnetism: Electric Circuits",
-    days: 789,
-    publishingStatus: "Scheduled",
-    publishingDate: "2023-08-10",
-    isFree: false,
-    price: 2000,
-  },
-  {
-    shortId: "course5",
-    TestSeriesID: "Mock Test 2",
-    name: "Waves: Wave Properties and Sound",
-    days: 567,
-    publishingStatus: "Published",
-    publishingDate: "2023-03-25",
-    isFree: true,
-    price: 1500,
-  },
-  {
-    shortId: "course6",
-    TestSeriesID: "Mock Test 4",
-    name: "Modern Physics: Quantum Mechanics",
-    days: 345,
-    publishingStatus: "Published",
-    publishingDate: "2022-06-20",
-    isFree: true,
-    price: 2000,
-  },
-  {
-    shortId: "course7",
-    TestSeriesID: "Mock Test 2",
-    name: "Electromagnetism: Magnetic Fields and Induction",
-    days: 678,
-    publishingStatus: "Unpublished",
-    publishingDate: "2023-01-05",
-    isFree: false,
-    price: 1500,
-  },
-  {
-    shortId: "course8",
-    TestSeriesID: "Mock Test 1",
-    name: "Astrophysics: Stars and Galaxies",
-    days: 456,
-    publishingStatus: "Coming Soon",
-    publishingDate: "2024-02-14",
-    isFree: true,
-    price: 2000,
-  },
-  {
-    shortId: "course9",
-    TestSeriesID: "Mock Test 3",
-    name: "Nuclear Physics: Radioactivity and Nuclear Reactions",
-    days: 987,
-    publishingStatus: "Published",
-    publishingDate: "2022-12-01",
-    isFree: true,
-    price: 1500,
-  },
-  {
-    shortId: "course10",
-    TestSeriesID: "Mock Test 4",
-    name: "Fluid Mechanics: Fluid Dynamics and Bernoulli's Principle",
-    days: 543,
-    publishingStatus: "Published",
-    publishingDate: "2023-09-30",
-    isFree: true,
-    price: 2000,
-  },
+
 ]);
 
 const publishDateOptions = ["all", "before", "on", "after", "between"];
@@ -456,14 +357,14 @@ onMounted( ()=>{
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
                   <p class="font-medium min-h-18">{{ item.name }}</p>
-                  <p class="">TS-1 | {{ item.shortId }}</p>
+                  <p class="">{{ item.shortId }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
-                      ₹ {{ item.price }}
+                      ₹ {{ item.discount  }}
                     </p>
 
-                    <p class="text-sm">30 Days</p>
+                    <p class="text-sm">{{item.isValidityDays ? `${item.validityDays} Days`: `${item.expiryDate}`}}</p>
                   </div>
                 </div>
               </div>
@@ -493,12 +394,12 @@ onMounted( ()=>{
               ></div>
               <div class="px-4 h-auto">
                 <p class="font-medium h-12">{{ item.name }}</p>
-                <p class="">TS-1  | {{ item.shortId }}</p>
+                <p class="">{{ item.shortId }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                  <p v-else class="font-semibold text-sm">₹ {{ item.price }}</p>
+                  <p v-else class="font-semibold text-sm">₹ {{ item.discount  }}</p>
 
-                  <p class="text-sm">30 Days</p>
+                  <p class="text-sm">{{item.isValidityDays ? `${item.validityDays} Days`: `${item.expiryDate}`}}</p>
                 </div>
               </div>
               <div class="w-full my-1 border-t"></div>

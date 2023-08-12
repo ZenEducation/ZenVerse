@@ -196,18 +196,47 @@ const isModalDeactivateActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
+
+const disableHandler = async () => {
+  try {
+    await userMgmtStore.UpdateAffiliateStatus(
+      Affiliate.value.profile.id,
+      Affiliate.value.profile._version,
+      !Affiliate.value.profile.isEnabled,
+    );
+    Affiliate.value.profile.isEnabled = !Affiliate.value.profile.isEnabled ;
+    
+    isModalDeactivateActive.value = false;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteHandler = async () => {
+  try {
+    await userMgmtStore.DeleteAffiliate(
+      Affiliate.value.profile.id,
+      Affiliate.value.profile._version,
+    );
+    
+    isModalDeactivateActive.value = false;
+    window.location.href = "/examportal/usermgmt/AffiliateMgmt"
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 
 <template>
   <CardBoxModal
     v-model="isModalDeactivateActive"
-    title="Are you sure you want to Deactivate this account ?"
+    title="Are you sure you want to Change Status of this account ?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
     @confirm="
       () => {
-        isModalDeactivateActive = false;
+        disableHandler();
       }
     "
   />
@@ -219,7 +248,7 @@ const isActive = ref(0);
     has-cancel
     @confirm="
       () => {
-        isModalDeleteActive = false;
+        deleteHandler();
       }
     "
   />
@@ -350,8 +379,8 @@ const isActive = ref(0);
               "
               class="cursor-pointer hover:bg-slate-200 p-1 border border-black"
             >
-              Deactivate
-            </p>
+            {{Affiliate.profile.isEnabled ? "Disable" : "Enable"}}
+          </p>
             <p
               @click="() => (isModalDeleteActive = true)"
               class="cursor-pointer hover:bg-slate-200 p-1 border border-black"

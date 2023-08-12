@@ -143,7 +143,7 @@ const addNewFormData = () => {
   </CardBox>
 </template>
 
-<style>
+<style scoped>
 thead {
   display: table-header-group;
 }

@@ -6,8 +6,8 @@ import CoursesTab from "@/components/LMS/MgmtEdit/LearnerEditCourses.vue";
 import PurchaseTab from "@/components/LMS/MgmtEdit/LearnerEditPurchase.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import { useMgmtStore } from "@/stores/usermgmtAPI";
-import { ref, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 const route = useRoute();
 const userMgmtStore = useMgmtStore();
 
@@ -128,12 +128,12 @@ onMounted(async () => {
   const postId = route.params.id;
   let temp = await userMgmtStore.FetchSingleAdmin(postId);
   console.log(temp);
-  if(temp[0]){
+  if (temp[0]) {
     Admin.value.profile = temp[1]; // You need to implement this function
     Admin.value.AdditionalDetails.LeadStatus = temp[1]?.leadStatus;
     Admin.value.AdditionalDetails.UserSegment = temp[1]?.userSegment;
   }
-  console.log( postId , Admin.value );
+  console.log(postId, Admin.value);
 });
 
 const tabs = ["Information", "Enrolled Courses", "Purchase History"];
@@ -176,32 +176,57 @@ const options = {
     "Lakshadweep",
     "Puducherry",
   ],
-  language:   ["Hindi", "English"]
-,
-    UserSegment: ["Free", "Paid", "Trial", "Returning"],
+  language: ["Hindi", "English"],
+  UserSegment: ["Free", "Paid", "Trial", "Returning"],
 
-  LeadStatus: ["Open", "Follow up", "Converted", "Not Interested"]
-,
+  LeadStatus: ["Open", "Follow up", "Converted", "Not Interested"],
 };
-
-
 
 const isModalDeactivateActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
+
+const disableHandler = async () => {
+  try {
+    await userMgmtStore.UpdateAdminStatus(
+      Admin.value.profile.id,
+      Admin.value.profile._version,
+      !Admin.value.profile.isEnabled,
+    );
+    Admin.value.profile.isEnabled = !Admin.value.profile.isEnabled ;
+    
+    isModalDeactivateActive.value = false;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteHandler = async () => {
+  try {
+    await userMgmtStore.DeleteAdmin(
+      Admin.value.profile.id,
+      Admin.value.profile._version,
+    );
+    
+    isModalDeactivateActive.value = false;
+    window.location.href = "/examportal/usermgmt/AdminMgmt"
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 
 <template>
   <CardBoxModal
     v-model="isModalDeactivateActive"
-    title="Are you sure you want to Deactivate this account ?"
+    title="Are you sure you want to Change Status of this account ?"
     button="danger"
     buttonLabel="Yes"
     has-cancel
     @confirm="
-      () => {
-        isModalDeactivateActive = false;
+      async () => {
+        disableHandler();
       }
     "
   />
@@ -213,7 +238,7 @@ const isActive = ref(0);
     has-cancel
     @confirm="
       () => {
-        isModalDeleteActive = false;
+        deleteHandler();
       }
     "
   />
@@ -333,7 +358,7 @@ const isActive = ref(0);
               "
               class="cursor-pointer hover:bg-slate-200 p-1 border border-black"
             >
-              Deactivate
+              {{Admin.profile.isEnabled ? "Disable" : "Enable"}}
             </p>
             <p
               @click="() => (isModalDeleteActive = true)"

@@ -27,9 +27,12 @@ export const updateArticleById = async (id, updatedFields) => {
         updated.visibility = updatedFields.visibility;
         updated.relatedArticles = updatedFields.relatedArticles;
         updated.imageUrl = updatedFields.imageUrl;
+        updated.likes = updatedFields.likes;
+        updated.dislikes = updatedFields.dislikes;
         updated.content = updatedFields.content;
         updated.status = updatedFields.status;
         updated.updatedAt = updatedFields.updatedAt;
+        updated.author = updatedFields.author;
       })
     );
     return updatedPost;

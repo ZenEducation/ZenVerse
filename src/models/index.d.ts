@@ -36,6 +36,7 @@ type EagerArticle = {
   readonly likes?: number | null;
   readonly dislikes?: number | null;
   readonly updatedAt?: string | null;
+  readonly author?: string | null;
   readonly createdAt?: string | null;
 }
 
@@ -58,6 +59,7 @@ type LazyArticle = {
   readonly likes?: number | null;
   readonly dislikes?: number | null;
   readonly updatedAt?: string | null;
+  readonly author?: string | null;
   readonly createdAt?: string | null;
 }
 

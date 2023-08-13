@@ -1,9 +1,10 @@
 <template>
     <div>
         <NuxtLayout name="zen">
+       
             <SectionMain>
                 <CardBox>
-                    <CreatedArticle/>
+                    <CreatedArticle />
                 </CardBox>
             </SectionMain>
         </NuxtLayout>
@@ -14,5 +15,6 @@
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import CreatedArticle from "@/components/helpKnowledgeAndDocs/CreatedArticle.vue"
+
 
 </script>

@@ -10,21 +10,21 @@
 
           <!-- status -->
           <th>
-            <DropDown>
+            <DropDown v-model="selectedStatus">
               <template v-slot:title>Status</template>
               <template v-slot:options>
                 <ul class="flex flex-col">
                   <li class="articleBtn">
-                    <p>All</p>
+                    <p @click="selectedStatus = 'All'">All</p>
                   </li>
                   <li class="articleBtn">
-                    <p>Draft</p>
+                    <p @click="selectedStatus = 'DRAFT'">Draft</p>
                   </li>
                   <li class="articleBtn">
-                    <p>Published</p>
+                    <p @click="selectedStatus = 'PUBLISHED'">Published</p>
                   </li>
                   <li class="articleBtn">
-                    <p>Archived</p>
+                    <p @click="selectedStatus = 'ARCHIVED'">Archived</p>
                   </li>
                 </ul>
               </template>
@@ -76,40 +76,42 @@
           <!-- categories -->
           <th>
             <DropDown>
-              <template v-slot:title> Categories </template>
+              <template v-slot:title>Categories</template>
               <template v-slot:options>
                 <ul>
                   <li class="articleBtn">
                     <PremFormField>
-                      <PremFormControl type="text" placeholder="Search" />
+                      <PremFormControl v-model="searchQuery" type="text" placeholder="Search" />
                     </PremFormField>
                   </li>
                   <li class="articleBtn flex justify-between">
-                    <button class="text-red-600">Clear</button>
-                    <BaseButton color="dark" small label="Done" />
+                    <button @click="clearSearch" class="text-red-600">Clear</button>
+                    <BaseButton @click="applyFilter" color="dark" small label="Done" />
                   </li>
                 </ul>
               </template>
             </DropDown>
+
           </th>
+
 
           <!-- feedback -->
           <th>Feedback</th>
 
           <!-- visibility -->
           <th>
-            <DropDown>
-              <template v-slot:title> Visibility </template>
+            <DropDown v-model="selectedVisibility">
+              <template v-slot:title>Visibility</template>
               <template v-slot:options>
                 <ul class="flex flex-col">
                   <li class="articleBtn">
-                    <p>All</p>
+                    <p @click="selectedVisibility = 'All'">All</p>
                   </li>
                   <li class="articleBtn">
-                    <p>Public</p>
+                    <p @click="selectedVisibility = 'PUBLIC'">PUBLIC</p>
                   </li>
                   <li class="articleBtn">
-                    <p>Private</p>
+                    <p @click="selectedVisibility = 'PRIVATE'">PRIVATE</p>
                   </li>
                 </ul>
               </template>
@@ -118,15 +120,12 @@
 
           <!-- updated -->
           <th>
-            <DropDown>
+            <DropDown class="w-40">
               <template v-slot:title> Updated </template>
-              <template v-slot:options>
-                <div class="relative max-w-sm">
-                  <input
-                    type="date"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date"
-                  />
+              <template v-slot:options style="width: 400px !important;">
+                <div class="">
+                  <vue-tailwind-datepicker v-model="dateValue" />
+
                 </div>
               </template>
             </DropDown>
@@ -161,9 +160,9 @@
               </tr>
             
             </tbody> -->
-           
+
       <tbody class="text-[12px] w-full">
-        <tr v-for="content in articles.slice().reverse()" :key="content.id">
+        <tr v-for="content in filteredArticles.slice().reverse()" :key="content.id">
           <td class="p-0">
             <!-- <TableCheckboxCell 
             :type="isChecked(content.id)"
@@ -171,35 +170,19 @@
               @click="setChecked(content.id)"
               
             /> -->
-             <input
-        type="checkbox"
-        @click="setChecked(content.id)"
-        class="form-checkbox h-5 w-5 text-indigo-600 ml-3"
-        :checked="isChecked(content.id)"
-        @change="$emit('update:checked', $event.target.checked)"
-      />
+            <input type="checkbox" @click="setChecked(content.id)" class="form-checkbox h-5 w-5 text-indigo-600 ml-3"
+              :checked="isChecked(content.id)" @change="$emit('update:checked', $event.target.checked)" />
           </td>
-           <nuxt-link :to="`ArticleCreatePage/${content.id}`">
-          <td
-            @click="publishData(content)"
-            v-html="content.slug"
-          ></td>
+          <nuxt-link :to="`ArticleCreatePage/${content.id}`">
+            <td @click="publishData(content)" v-html="content.slug"></td>
           </nuxt-link>
           <td v-html="content.language"></td>
           <td v-html="content.author"></td>
           <td v-html="content.category"></td>
           <td class="flex">
-            <BaseButton
-              @click="incrementLikes(content)"
-              small
-              label="&#128077;"
-            />
+            <BaseButton @click="incrementLikes(content)" small label="&#128077;" />
             {{ content.likes }}
-            <BaseButton
-              @click="incrementDislikes(content)"
-              small
-              label="&#128078;"
-            />
+            <BaseButton @click="incrementDislikes(content)" small label="&#128078;" />
             {{ content.dislikes }}
           </td>
           <td>{{ content.visibility }}</td>
@@ -212,13 +195,13 @@
     <!-- <CardBox v-if="!content" has-table class="text-center p-3"
       >No Documents</CardBox
     > -->
-    
+
     <BaseButtons v-if="checkedItems.size > 0" class="flex flex-row m-4 justify-end items-center">
-      <P class="  p-4">{{ checkedItems.size }} item selected 
-  </P>
+      <P class="  p-4">{{ checkedItems.size }} item selected
+      </P>
       <BaseButton class="m-1" @click="deleteArticle(id)" color="contrast" label="Delete Selection" />
 
-      <BaseButton class="m-1"  @click="unCheck()" color="contrast" label="clear Selection" />
+      <BaseButton class="m-1" @click="unCheck()" color="contrast" label="clear Selection" />
     </BaseButtons>
   </div>
 </template>
@@ -237,6 +220,8 @@ import { fetchArticles } from "~/utils/helpKnowledgeAndDocs/api";
 
 import { deleteArticleById } from "~/utils/helpKnowledgeAndDocs/api";
 import { onBeforeUnmount } from "vue";
+import VueTailwindDatepicker from 'vue-tailwind-datepicker'
+
 
 // Amplify Hub Start
 
@@ -245,6 +230,12 @@ const id = ref("76150941-ab18-414e-8beb-cf1cc8b185b9")
 const handleDataStoreReady = () => {
   console.log("DataStore is ready. Perform actions here.");
 };
+
+const dateValue = ref([])
+const isOpen = ref(false)
+watch(dateValue, (newDateValue, oldDateValue) => {
+  console.log('Date value changed:', newDateValue);
+});
 const setupDataStoreListener = () => {
   const listener = Hub.listen("datastore", (hubData) => {
     const { event, data } = hubData.payload;
@@ -270,6 +261,53 @@ onMounted(() => {
 const articles = ref([]);
 const likes = ref(0);
 const dislikes = ref(0);
+
+const selectedStatus = ref('All');
+const selectedVisibility = ref('All');
+
+const filteredArticles = computed(() => {
+  let filtered = articles.value;
+
+  if (selectedStatus.value !== 'All') {
+    filtered = filtered.filter(article => article.status === selectedStatus.value);
+  }
+  if (selectedVisibility.value !== 'All') {
+    filtered = filtered.filter(article => article.visibility === selectedVisibility.value);
+  }
+
+  if (searchQuery.value) {
+    filtered = filtered.filter(article => article.category.includes(searchQuery.value));
+  }
+
+  if (dateValue.value.length === 2) {
+    const startDate = new Date(dateValue.value[0]);
+    const endDate = new Date(dateValue.value[1]);
+
+    filtered = filtered.filter(article => {
+      if (!article.updatedAt) {
+        return false;
+      }
+
+      const updatedAt = new Date(article.updatedAt);
+      return updatedAt >= startDate && updatedAt <= endDate;
+    });
+  }
+
+
+  return filtered;
+});
+
+const searchQuery = ref('');
+
+
+const clearSearch = () => {
+  searchQuery.value = '';
+};
+
+const applyFilter = () => {
+  // Apply any additional logic when the "Done" button is clicked
+  // You can access the filteredArticles array here
+};
 
 const content = ref("");
 
@@ -298,15 +336,15 @@ async function deleteArticle(articleId) {
       FetchArticles();
     }
   });
-   const articleIdsToDelete = Array.from(checkedItems);
+  const articleIdsToDelete = Array.from(checkedItems);
   // articleIdsToDelete.forEach((id) => deleteArticleById(id));
   for (const articleId of articleIdsToDelete) {
-    if(articleId != articleIdsToDelete[articleIdsToDelete.length - 1]){
-    const savedCategory = await deleteArticleById(articleId);
-    // console.log(savedCategory, "finall");
+    if (articleId != articleIdsToDelete[articleIdsToDelete.length - 1]) {
+      const savedCategory = await deleteArticleById(articleId);
+      // console.log(savedCategory, "finall");
     }
     console.log(`Article with ID ${articleId} could not be deleted`);
-    
+
     listener();
   }
   const savedCategory = await deleteArticleById(articleIdsToDelete[articleIdsToDelete.length - 1]);
@@ -319,8 +357,8 @@ async function deleteArticle(articleId) {
     console.error("Error fetching articles:", error);
   }
   // location.reload();
-    setupDataStoreListener();
-    checkedItems.clear();
+  setupDataStoreListener();
+  checkedItems.clear();
   console.log(articleIdsToDelete);
 }
 
@@ -331,8 +369,8 @@ const setChecked = (itemId) => {
   console.log("Checked Items:", checkedItems);
 };
 const unCheck = () => {
-    console.log("helloooooooooo");
-   checkedItems.clear();
+  console.log("helloooooooooo");
+  checkedItems.clear();
 }
 const isChecked = (id) => {
   return checkedItems.has(id);
@@ -376,7 +414,7 @@ export default {
   },
   methods: {
     publishData(data) {
-       const store = useGlobalStore();
+      const store = useGlobalStore();
       store.updateGlobalStore(data);
       const articleStore = useArticleStore();
       articleStore.updateArticleContent(data.content);

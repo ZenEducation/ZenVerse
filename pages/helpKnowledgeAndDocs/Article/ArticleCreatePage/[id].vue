@@ -176,6 +176,7 @@ const updateArticleHandler = async () => {
     slug: docFormData.slug,
     status: docFormData.status,
     title: "",
+    author: docFormData.author,
     updatedAt: getCurrentDate(),
     visibility: docFormData.visibility,
     language: "",

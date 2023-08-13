@@ -9,8 +9,7 @@ export const useGlobalStore = defineStore("global", {
     category: "No Primary Category",
     language:
       '<p><span class="mr-2 w-6">&#127482;&#127480;</span> English(US)</p>',
-    author:
-      '<p><span class="mr-2 p-2 text-[10px] rounded-sm bg-green-700 text-white">N</span> Name(You)</p>',
+    author: "",
     meta: "",
     imageUrl: "",
     relatedArticles: [],
@@ -23,6 +22,7 @@ export const useGlobalStore = defineStore("global", {
       this.visibility = newData.visibility;
       this.category = newData.category;
       this.language = newData.language;
+      this.author = newData.author;
       // this.author = newData.author;
       this.meta = newData.meta;
       this.imageUrl = newData.imageUrl;

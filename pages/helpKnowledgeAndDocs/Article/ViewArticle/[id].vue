@@ -58,7 +58,7 @@
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 // import { useRoute } from "vue-router";
-import CreatedArticle from "@/components/helpKnowledgeAndDocs/CreatedArticle.vue"
+import CreatedArticle from "@/components/HelpKnowledgeAndDocs/CreatedArticle.vue"
 import {
     findArticleById,
     updateArticleById,
@@ -95,7 +95,7 @@ const toggleLike2 = async() => {
         const like = article._value.dislikes + 1;
         try {
             const res = await updateArticleById(article._value.id, { ...article._value, dislikes: like, updatedAt: getCurrentDate() })
-            console.log(updatedArticleData);
+            console.log("response is :" , res);
         }
         catch (err) {
             console.log(err);

@@ -471,7 +471,7 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
-import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+import SelectDropdown from "@/components/helpKnowledgeAndDocs/SelectDropdown.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";

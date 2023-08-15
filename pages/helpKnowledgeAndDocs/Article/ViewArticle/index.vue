@@ -14,7 +14,7 @@
 <script setup>
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
-import CreatedArticle from "@/components/helpKnowledgeAndDocs/CreatedArticle.vue"
+import CreatedArticle from "@/components/HelpKnowledgeAndDocs/CreatedArticle.vue"
 
 
 </script>

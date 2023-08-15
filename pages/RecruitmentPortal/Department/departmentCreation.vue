@@ -41,16 +41,13 @@ const submitProfile = () => {
 
 const handleSubmit = async () => {
   try {
-    // Create the department object with the form data
     const departmentData = {
       name: profileForm.name,
       description: profileForm.description,
-      logoUri: toString(profileForm.logo),
+      logoUri: profileForm.logoUri,
     };
 
-    console.log(departmentData);
-
-    const result = await DataStore.save(new Department(departmentData, { conflictResolution: 'AUTOMERGE' }));
+    const result = await DataStore.save(new Department(departmentData));
 
     console.log(result);
 

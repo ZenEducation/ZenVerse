@@ -37,7 +37,7 @@
     "@mdi/js": "^7.0.96",
     "@nuxtjs/auth-next": "^5.0.0-1637745161.ea53f98",
     "@rollup/plugin-inject": "^5.0.3",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.2",
     "@vueup/vue-quill": "^1.0.1",
@@ -49,7 +49,7 @@
     "pinia": "^2.0.28",
     "readable-stream": "^4.2.0",
     "rollup": "^2.79.1",
-    "uuid4": "^2.0.3",
+    "uuid": "^7.0.0",
     "vue": "^3.2.33",
     "vue-3-slider-component": "^0.1.0",
     "vue-advanced-chat": "^2.0.6"

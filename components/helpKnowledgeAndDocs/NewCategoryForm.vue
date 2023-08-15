@@ -103,7 +103,7 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import FormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
-import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+import SelectDropdown from "~~/components/HelpKnowledgeAndDocs/SelectDropdown.vue";
 
 
 import { ref } from 'vue';

@@ -474,7 +474,7 @@ import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import SelectDropdown from "@/components/HelpKnowledgeAndDocs/SelectDropdown.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
+import { useGlobalStore } from "~~/stores/helpKnowledgeAndDocs/helpKnowledgeanddocs.js";
 
 export default defineComponent({
   name: "Document",

@@ -41,11 +41,11 @@
               </ul>
 
               <div>
-                <Document
+                <!-- <Document
                   v-if="activeTab === 'document'"
                   ref="documentComp"
                   @value="getValue1"
-                />
+                /> -->
                 <Block v-if="activeTab === 'block'" />
               </div>
             </CardBox>
@@ -83,7 +83,7 @@ import {
   findArticleById,
   updateArticleById,
 } from "~/utils/helpKnowledgeAndDocs/api";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
+import { useGlobalStore } from "~~/stores/helpKnowledgeAndDocs/helpKnowledgeanddocs";
 import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
 import { API, graphqlOperation } from "aws-amplify";
 import {} from "~~/src/graphql/mutations";

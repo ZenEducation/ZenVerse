@@ -209,7 +209,7 @@
 <script setup>
 import CardBox from "@/components/Cards/CardBox.vue";
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
-import DropDown from "~~/components/helpKnowledgeAndDocs/DropDown.vue";
+import DropDown from "~~/components/HelpKnowledgeAndDocs/DropDown.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendar } from "@mdi/js";

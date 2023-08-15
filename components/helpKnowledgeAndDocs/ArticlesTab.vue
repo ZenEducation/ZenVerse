@@ -404,7 +404,7 @@ onMounted(async () => {
 import { onMounted, ref } from "vue";
 import { API, graphqlOperation } from "aws-amplify";
 import { useArticleStore } from "~~/stores/helpKnowledgeAndDocs/article";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
+import { useGlobalStore } from "~~/stores/helpKnowledgeAndDocs/helpKnowledgeanddocs.js";
 
 export default {
   setup() {

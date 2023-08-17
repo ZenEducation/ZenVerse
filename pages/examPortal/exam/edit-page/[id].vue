@@ -573,7 +573,11 @@ const addQue = async (type) => {
     guidelineTime: 180, 
     explanation: "explain", 
     instruction: "instruction", 
-    type: type
+    type: type,
+    range:{is:false , start : 0 , end : 0},
+    options:[],
+    criterias:[]
+
   }
   const newQue = await API.graphql({
     query:createQuestion,

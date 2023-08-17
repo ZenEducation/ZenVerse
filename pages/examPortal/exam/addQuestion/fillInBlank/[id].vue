@@ -26,9 +26,9 @@
       </div>
     </CardBox>
   </CardBoxModal>
-  <div class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
-    <div class="border-b w-full flex justify-between items-center px-5 py-2">
-      <NuxtLink to="/examportal/Exam/edit-page">
+  <div v-if="isLoaded" class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
+    <div  class="border-b w-full flex justify-between items-center px-5 py-2">
+      <NuxtLink :to="'/examportal/Exam/edit-page/' + question?.examID">
         <div
           class="text-[13px] flex items-center justify-center cursor-pointer"
         >
@@ -37,7 +37,7 @@
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
             alt=""
           />
-          <p class="p-2.5">Test Name | Q1</p>
+          <p class="p-2.5">Back</p>
         </div>
       </NuxtLink>
       <div class="pr-16 flex gap-3 items-center">
@@ -63,26 +63,32 @@
         />
       </div>
       <div class="flex justify-center items-center gap-5">
-        <BaseButton :icon="mdiTrashCan" color="danger" />
-        <BaseButton label="Save" color="info" />
+        <BaseButton :icon="mdiTrashCan" color="danger" @click="deleteHandler" />
+        <BaseButton label="Save" color="info" @click="saveHandler" />
       </div>
     </div>
   </div>
-  <div class="pt-28 h-screen max-md:block max-md:overflow-y-scroll scrollbar-thin w-full flex">
+  <div v-if="isLoaded" class="pt-28 h-screen max-md:block max-md:overflow-y-scroll scrollbar-thin w-full flex">
     <!-- sidebar -->
     <div class="w-1/4  max-md:w-5/6 max-md:mx-auto  px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <template v-if="!isPreview">
         <p class="font-semibold text-lg">Question Settings</p>
         <PremFormField label="Difficulty Level">
-          <PremFormControl :options="['Easy', 'Medium', 'Hard']" />
+          <PremFormControl
+            :options="['EASY', 'MODERATE', 'HARD']"
+            v-model="question.difficuilty"
+          />
         </PremFormField>
         <div class="flex gap-5 items-start">
           <PremFormField label="Marks (+)">
-            <PremFormControl placeholder="Correct" />
+            <PremFormControl
+              placeholder="Correct"
+              v-model="question.ifCorrect"
+            />
           </PremFormField>
           <PremFormField label="Marks (-)">
-            <PremFormControl placeholder="Wrong" />
+            <PremFormControl placeholder="Wrong" v-model="question.ifWrong" />
           </PremFormField>
         </div>
         <p
@@ -94,10 +100,10 @@
         <br />
 
         <PremFormField label="Tag Question">
-          <PremFormControl :options="tags" placeholder="Enter Tags..." />
+          <PremFormControl :options="tags" placeholder="Enter Tags..." v-model="question.topic" />
         </PremFormField>
         <PremFormField class="flex" label="Guideline Time">
-          <PremFormControl type="number" placeholder="sec" />
+          <PremFormControl type="number" placeholder="sec" v-model="question.guidelineTime" />
           <p>Seconds</p>
         </PremFormField>
       </template>
@@ -109,12 +115,12 @@
           </div>
           <div class="flex grid-cols-2 mb-4">
             <div class="w-6">Q.</div>
-            <div class="w-full" v-html="question.titleHtml" />
+            <div class="w-full" v-html="question.titleHTML" />
           </div>
           <p>{{ "Answer : " + question.answer }}</p>
           <div class="my-4">
             <p class="">Explanation:</p>
-            <div class="w-full" v-html="question.Explanation" />
+            <div class="w-full" v-html="question.explanation" />
           </div>
         </CardBox>
       </template>
@@ -142,7 +148,7 @@
           ></QuilEditor>
           <PremFormField label="Question">
             <QuilEditor
-              v-model="question.titleHtml"
+              v-model="question.titleHTML"
               v-model:text="question.title"
             ></QuilEditor>
           </PremFormField>
@@ -155,7 +161,7 @@
           </PremFormField>
 
           <PremFormField label="Explanation">
-            <QuilEditor v-model="question.Explanation" />
+            <QuilEditor v-model="question.explanation" />
           </PremFormField>
         </CardBox>
       </div>
@@ -184,6 +190,12 @@ import PremFormField from "~~/components/Forms/PremFormField.vue";
 import QuilEditor from "~~/components/ExamPortal/QuilEditor.vue";
 import { ref } from "vue";
 import CardBox from "@/components/Cards/CardBox.vue";
+import { API, graphqlOperation } from "aws-amplify";
+import { useRouter, useRoute } from "vue-router";
+import { updateQuestion } from "~~/src/graphql/mutations";
+import { getQuestion } from "~~/src/graphql/queries";
+const route = useRoute();
+const questionId = route.params.id;
 
 const isPreview = ref(false);
 const isInstruction = ref(false);
@@ -191,8 +203,8 @@ const tags = ref(["tag 1", "tag 2 ", "tag 3"]);
 
 const question = ref({
   title: "Question Title",
-  titleHtml: "Question Title",
-  Explanation: "",
+  titleHTML: "Question Title",
+  explanation: "",
   answer: "",
 });
 
@@ -206,4 +218,97 @@ const addTag = (temp) => {
     isAddModalActive.value = false;
   }
 };
+
+
+const fetchQuestionData = async () => {
+  try {
+    const response = await API.graphql({
+      query: getQuestion,
+      variables: { id: questionId },
+    });
+    console.log("response", response.data.getQuestion);
+    question.value = response.data.getQuestion;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const isLoaded = ref(false);
+
+onMounted(async () => {
+  await fetchQuestionData();
+  isLoaded.value = true;
+  console.log(question.value);
+});
+
+const saveHandler = async () => {
+  try {
+    let {
+      id,
+      _version,
+      title,
+      titleHTML,
+      maxMarks,
+      ifCorrect,
+      ifWrong,
+      explanation,
+      instruction,
+      topic,
+      difficuilty,
+      guidelineTime,
+      answer,
+    } = question.value;
+
+
+
+    let input = {
+      id,
+      _version,
+      title,
+      titleHTML,
+      maxMarks,
+      ifCorrect,
+      ifWrong,
+      explanation,
+      instruction,
+      topic,
+      difficuilty,
+      guidelineTime,
+      answer,
+    };
+    console.log(input);
+    await API.graphql({
+      query: updateQuestion,
+      variables: { input: input },
+    });
+    window.alert("changes saved sucessfully");
+    // window.location.href =
+    //   "/examportal/Exam/edit-page/" + question.value?.examID;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const deleteHandler = async () => {
+  try {
+    let { id, _version } = question.value;
+
+    let input = {
+      id,
+      _version,
+    };
+    console.log(input);
+    await API.graphql({
+      query: updateQuestion,
+      variables: { input: input },
+    });
+    window.alert("deleted successfully");
+    window.location.href =
+      "/examportal/Exam/edit-page/" + question.value?.examID;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 </script>

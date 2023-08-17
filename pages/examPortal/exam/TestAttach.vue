@@ -26,7 +26,7 @@
       <!-- if Settings  -->
       <p class="font-semibold text-lg uppercase">Test Attachments</p>
       <PremFormField label="Title">
-        <PremFormControl value="Test 1" />
+        <PremFormControl value="Test 1"  />
       </PremFormField>
       <PremFormField label="Short Description" class="pt-3">
         <PremFormControl type="textarea" value="Test 1" />
@@ -154,100 +154,10 @@ const openFileInput = (inputRef) => {
   fileInput.click();
 };
 
-const isPreview = ref(false);
-const isInstruction = ref(false);
-const tags = ref(["tag 1", "tag 2 ", "tag 3"]);
 
-const question = ref({
-  instruction: "",
-  title: "Question Title",
-  titleHtml: "Question Title",
-  multipleChoice: false,
-  partialMarking: false,
-  Explanation: "",
-  options: [
-    {
-      id: 1,
-      text: "Option Title",
-      html: "Option Title",
-      isCorrectAnswer: true,
-    },
-    {
-      id: 2,
-      text: "Option Title",
-      html: "Option Title",
-      isCorrectAnswer: false,
-    },
-    {
-      id: 3,
-      text: "Option Title",
-      html: "Option Title",
-      isCorrectAnswer: false,
-    },
-    {
-      id: 4,
-      text: "Option Title",
-      html: "Option Title",
-      isCorrectAnswer: false,
-    },
-  ],
-});
 
-const deleteChoice = (index) => {
-  question.value.options.splice(index, 1);
-};
-const AddChoice = () => {
-  question.value.options.push({
-    id: 10,
-    text: "Option Title",
-    html: "Option Title",
-    isCorrectAnswer: false,
-  });
-};
 
-const handleMCQOptionChange = () => {
-  question.value.multipleChoice = !question.value.multipleChoice;
-  if (!question.value.multipleChoice) {
-    for (let i = 0; i < question.value.options.length; ++i) {
-      question.value.options[i].isCorrectAnswer = false;
-    }
-    if (question.value.options.length > 0) {
-      question.value.options.at(0).isCorrectAnswer = true;
-    }
-  }
-};
 
-const AddAns = (index) => {
-  if (question.value.multipleChoice) {
-    question.value.options.at(index).isCorrectAnswer = true;
-  } else {
-    for (let i = 0; i < question.value.options.length; ++i) {
-      question.value.options[i].isCorrectAnswer = false;
-    }
-    question.value.options.at(index).isCorrectAnswer = true;
-  }
-};
-const removeAns = (index) => {
-  question.value.options.at(index).isCorrectAnswer = false;
-};
-const handleclick = (index) => {
-  console.log(index);
-  if (!question.value.options.at(index).isCorrectAnswer) {
-    AddAns(index);
-  } else {
-    removeAns(index);
-  }
-  return;
-};
 
-const isAddModalActive = ref(false);
-const newtagName = ref("");
-const addTag = (temp) => {
-  if (temp) {
-    isAddModalActive.value = true;
-  } else {
-    tags.value.push(newtagName.value);
-    isAddModalActive.value = false;
-  }
-};
+
 </script>

@@ -22,7 +22,12 @@ import {
   mdiMenu,
   mdiPublish,
 } from "@mdi/js";
-import { deleteMockTest, createMockTest } from "~~/src/graphql/mutations";
+import {
+  deleteMockTest,
+  createMockTest,
+  createExam,
+  updateExam,
+} from "~~/src/graphql/mutations";
 import { MenuItems } from "@headlessui/vue";
 import { Item } from "paper/dist/paper-core";
 
@@ -39,9 +44,7 @@ const isModalSaveActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
-const item = ref({
-});
-
+const item = ref({});
 
 const handleFormDataChangesBasic = (formData) => {
   console.log("FormData1 : ", formData);
@@ -69,25 +72,67 @@ const handleFormDataChangesPublish = (formData) => {
 
 const handleSave = async () => {
   try {
-    
-    let { name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays,  expiryDate ,publishingDate , publishingStatus } = item.value;
-    let input = { name , shortId , description , shortDescription , isFree , price , discount , isValidityDays, validityDays , expiryDate ,publishingDate , publishingStatus };
+    let {
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    } = item.value;
+    let input = {
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    };
     console.log(input);
-    const response = await API.graphql({
-      query:createMockTest,
-      variables:{input : input },
-    })
-    console.log(response.data.updateMockTest);
-    console.log(item.value);
-    window.alert("changes are saved Successfully")
+    const exam = await API.graphql({
+      query: createExam,
+      variables: {
+        input: {
+          title: "New Exam",
+          description: "this is description",
+          instructions: "this is instruction",
+        },
+      },
+    });
+    console.log("new exam : ", exam.data.createExam.id, exam.data.createExam);
+    const mock = await API.graphql({
+      query: createMockTest,
+      variables: {
+        input: { ...input, mockTestExamId: exam.data.createExam.id },
+      },
+    });
+    console.log("new mock : ", mock.data.createMockTest);
+    await API.graphql({
+      query: updateExam,
+      variables: { input: { id:exam.data.createExam.id , _version:exam.data.createExam._version , examMockTestId : mock.data.createMockTest.id } },
+    });
+    // console.log(exam.data.createExam );
+    // console.log(response.data.updateMockTest);
+    // console.log(item.value);
+    window.alert("changes are saved Successfully");
     window.location.href = "/ExamPortal/exam/ExamDashboard";
   } catch (error) {
     console.error(error);
-    window.alert("could not save the data ")
+    window.alert("could not save the data ");
   }
 };
-
-
 </script>
 
 <template>
@@ -205,7 +250,6 @@ const handleSave = async () => {
             >
               Create
             </p>
-
           </div>
         </div>
         <div class="md:p-12 p-3">
@@ -217,12 +261,11 @@ const handleSave = async () => {
               shortDescription: item.shortDescription,
             }"
             @form-data-changes-basic="handleFormDataChangesBasic"
-            
-            v-if="isActive == 0 "
+            v-if="isActive == 0"
           />
           <pricingValidity
             :data="{
-              id:item.id,
+              id: item.id,
               isFree: item.isFree,
               price: item.price,
               discount: item.discount,
@@ -233,12 +276,14 @@ const handleSave = async () => {
             @form-data-changes-pricing="handleFormDataChangesPricing"
             v-if="isActive == 1"
           />
-          <Publish :data="{
-            publishingDate: item.publishingDate,
-            publishingStatus : item.publishingStatus,
-          }"
-          @form-data-changes-publish="handleFormDataChangesPublish" 
-          v-if="isActive == 2" />
+          <Publish
+            :data="{
+              publishingDate: item.publishingDate,
+              publishingStatus: item.publishingStatus,
+            }"
+            @form-data-changes-publish="handleFormDataChangesPublish"
+            v-if="isActive == 2"
+          />
           <ManageUser v-if="isActive == 3" />
         </div>
       </div>

@@ -1,6 +1,897 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateQuestion = /* GraphQL */ `
+  subscription OnCreateQuestion($filter: ModelSubscriptionQuestionFilterInput) {
+    onCreateQuestion(filter: $filter) {
+      id
+      title
+      titleHTML
+      type
+      answer
+      range {
+        is
+        start
+        end
+        __typename
+      }
+      isPartial
+      isNegative
+      maxMarks
+      ifCorrect
+      ifWrong
+      options {
+        text
+        html
+        isCorrectAnswer
+        __typename
+      }
+      ismultipleChoice
+      criterias {
+        text
+        percentage
+        __typename
+      }
+      explanation
+      instruction
+      topic
+      difficuilty
+      sectionID
+      groupID
+      order
+      guidelineTime
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateQuestion = /* GraphQL */ `
+  subscription OnUpdateQuestion($filter: ModelSubscriptionQuestionFilterInput) {
+    onUpdateQuestion(filter: $filter) {
+      id
+      title
+      titleHTML
+      type
+      answer
+      range {
+        is
+        start
+        end
+        __typename
+      }
+      isPartial
+      isNegative
+      maxMarks
+      ifCorrect
+      ifWrong
+      options {
+        text
+        html
+        isCorrectAnswer
+        __typename
+      }
+      ismultipleChoice
+      criterias {
+        text
+        percentage
+        __typename
+      }
+      explanation
+      instruction
+      topic
+      difficuilty
+      sectionID
+      groupID
+      order
+      guidelineTime
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteQuestion = /* GraphQL */ `
+  subscription OnDeleteQuestion($filter: ModelSubscriptionQuestionFilterInput) {
+    onDeleteQuestion(filter: $filter) {
+      id
+      title
+      titleHTML
+      type
+      answer
+      range {
+        is
+        start
+        end
+        __typename
+      }
+      isPartial
+      isNegative
+      maxMarks
+      ifCorrect
+      ifWrong
+      options {
+        text
+        html
+        isCorrectAnswer
+        __typename
+      }
+      ismultipleChoice
+      criterias {
+        text
+        percentage
+        __typename
+      }
+      explanation
+      instruction
+      topic
+      difficuilty
+      sectionID
+      groupID
+      order
+      guidelineTime
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateGroup = /* GraphQL */ `
+  subscription OnCreateGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onCreateGroup(filter: $filter) {
+      id
+      title
+      instruction
+      order
+      difficuilty
+      sectionID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateGroup = /* GraphQL */ `
+  subscription OnUpdateGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onUpdateGroup(filter: $filter) {
+      id
+      title
+      instruction
+      order
+      difficuilty
+      sectionID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteGroup = /* GraphQL */ `
+  subscription OnDeleteGroup($filter: ModelSubscriptionGroupFilterInput) {
+    onDeleteGroup(filter: $filter) {
+      id
+      title
+      instruction
+      order
+      difficuilty
+      sectionID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      examID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateSection = /* GraphQL */ `
+  subscription OnCreateSection($filter: ModelSubscriptionSectionFilterInput) {
+    onCreateSection(filter: $filter) {
+      id
+      title
+      examID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateSection = /* GraphQL */ `
+  subscription OnUpdateSection($filter: ModelSubscriptionSectionFilterInput) {
+    onUpdateSection(filter: $filter) {
+      id
+      title
+      examID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteSection = /* GraphQL */ `
+  subscription OnDeleteSection($filter: ModelSubscriptionSectionFilterInput) {
+    onDeleteSection(filter: $filter) {
+      id
+      title
+      examID
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateExam = /* GraphQL */ `
+  subscription OnCreateExam($filter: ModelSubscriptionExamFilterInput) {
+    onCreateExam(filter: $filter) {
+      id
+      title
+      description
+      instructions
+      Sections {
+        items {
+          id
+          title
+          examID
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      MockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      examMockTestId
+      __typename
+    }
+  }
+`;
+export const onUpdateExam = /* GraphQL */ `
+  subscription OnUpdateExam($filter: ModelSubscriptionExamFilterInput) {
+    onUpdateExam(filter: $filter) {
+      id
+      title
+      description
+      instructions
+      Sections {
+        items {
+          id
+          title
+          examID
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      MockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      examMockTestId
+      __typename
+    }
+  }
+`;
+export const onDeleteExam = /* GraphQL */ `
+  subscription OnDeleteExam($filter: ModelSubscriptionExamFilterInput) {
+    onDeleteExam(filter: $filter) {
+      id
+      title
+      description
+      instructions
+      Sections {
+        items {
+          id
+          title
+          examID
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      MockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      Groups {
+        items {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Questions {
+        items {
+          id
+          title
+          titleHTML
+          type
+          answer
+          isPartial
+          isNegative
+          maxMarks
+          ifCorrect
+          ifWrong
+          ismultipleChoice
+          explanation
+          instruction
+          topic
+          difficuilty
+          sectionID
+          groupID
+          order
+          guidelineTime
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      examMockTestId
+      __typename
+    }
+  }
+`;
 export const onCreateVariablePricing = /* GraphQL */ `
   subscription OnCreateVariablePricing(
     $filter: ModelSubscriptionVariablePricingFilterInput
@@ -92,11 +983,62 @@ export const onCreateMockTest = /* GraphQL */ `
         startedAt
         __typename
       }
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      mockTestExamId
       __typename
     }
   }
@@ -135,11 +1077,62 @@ export const onUpdateMockTest = /* GraphQL */ `
         startedAt
         __typename
       }
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      mockTestExamId
       __typename
     }
   }
@@ -178,11 +1171,62 @@ export const onDeleteMockTest = /* GraphQL */ `
         startedAt
         __typename
       }
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      mockTestExamId
       __typename
     }
   }

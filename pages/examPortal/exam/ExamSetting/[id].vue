@@ -240,7 +240,7 @@ const handleDelete = async()=>{
           </div>
           <div class="flex flex-wrap items-center gap-4 px-4 py-4">
             <a
-              href="/examportal/exam/edit-page"
+              :href="'/examportal/exam/edit-page/'+ item.mockTestExamId "
               class="cursor-pointer rounded-md py-2 px-3 text-white bg-blue-500"
             >
               Edit Mock Test

@@ -144,7 +144,7 @@
             <PremFormControl
               help=""
               placeholder=""
-              v-model="expectedCode"
+              v-model="expectedClose"
               type="date"
             />
           </PremFormField>
@@ -306,13 +306,13 @@ const revenueType = ref(null);
 const dealPerformanceLane = ref(null);
 const productInterest = ref(null);
 
-const submitData = () => {
+const submitData = async () => {
   const data = {
     dealName: dealName.value,
     companyName: companyName.value,
     summary: summary.value,
-    amount: amount.value,
-    currency: currency.value,
+    amount: Number(amount.value),
+    currency: JSON.parse(JSON.stringify(currency.value)),
     status: status.value.toLowerCase(),
     pipeline: pipeline.value,
     stage: stage.value,
@@ -320,16 +320,17 @@ const submitData = () => {
     owner: owner.value,
 
     primaryContact: primaryContact.value,
-    weightedForecast: amount.value,
-    probability: probability.value,
+    weightedForecast: Number(amount.value),
+    probability: Number(probability.value),
     expectedClose: expectedClose.value,
     revenueType: revenueType.value,
     dealPerformanceLane: dealPerformanceLane.value,
     productInterest: productInterest.value,
   };
-
+  
   emit("getDealData", data);
-  getDeal.addNewDeal(data)
+  await getDeal.addNewDeal(data);
+  await getDeal.getDeals();
 };
 </script>
 

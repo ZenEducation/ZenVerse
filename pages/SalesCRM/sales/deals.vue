@@ -152,12 +152,12 @@
     <div class="flex  justify-between items-center">
     <div class=" flex justify-between items-center">
     <div class="text-sm">Filtered Total :</div>
-    <div class="text-green-600 pl-2 text-2xl">₹416,050.00 </div>
+    <div class="text-green-600 pl-2 text-2xl">₹{{ getDeal.totalDeals }}</div>
 
     </div>
     <div class=" flex justify-between items-center pl-3">
       <div class="text-sky-500 text-sm">All active Deals :</div>
-    <div class="text-green-600 pl-2 text-2xl">₹290,500.00.00 </div> 
+    <div class="text-green-600 pl-2 text-2xl">₹{{ getDeal.totalDeals }}</div> 
     </div>
 
     </div>
@@ -233,7 +233,7 @@ import AddNewDealPopup from "@/components/SalesCRM/AddNewDealPopup.vue"
 import { mdiStar, mdiMenuDown,mdiContentSave,mdiDeleteOutline,mdiTable ,mdiPoll  } from "@mdi/js";
 import KanbanView from "@/components/SalesCRM/Sales/KanbanView.vue"
 import {dealStore} from "@/stores/SalesCRM/deals"
-
+import { onMounted } from "vue"
 const getDeal=dealStore()
 
 const selectBranchOptions = [
@@ -250,141 +250,6 @@ const exportList =ref(false)
 const importList =ref(false)
 const newDealAdd =ref(false)
 const tableView=ref(true)
-const tableData =ref([
-  {
-    dealName:"My deal",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"red",
-    pipeline:"somthing",
-    stage:"Qualified",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  },
-  {
-    dealName:"App Develop",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"green",
-    pipeline:"somthing",
-    stage:"Request for info",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  },
-  {
-    dealName:"Graphics Manager",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"red",
-    pipeline:"someting",
-    stage:"Presentation",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  },
-  {
-    dealName:"Potik",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"yellow",
-    pipeline:"somthing",
-    stage:"Won",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  },
-  {
-    dealName:"New Website Create",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"green",
-    pipeline:"somthing",
-    stage:"Lost",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  },
-  {
-    dealName:"New Website Create",
-    companyName:"Bymond",
-    summary:"Some text here",
-    amount:"1000",
-    currency:{
-      id:1,
-      level:"USD",
-      symbol:"$"
-    },
-    status:"green",
-    pipeline:"somthing",
-    stage:"Negotiation",
-    source:"Website",
-    owner:"Bhavya",
-    nextTask:"",
-    nextTaskDue:"",
-    lossresion:"",
-    lossresionNote:"",
-    weightedForecast:"25,150.00"
-    
-  }
-])
-
 
 const ShowNewDealList=()=>{
   dealList.value = !dealList.value
@@ -407,13 +272,16 @@ const getDealItems =(item)=>{
   newDealAdd.value=false
   // console.log(item)
 
-  tableData.value.unshift(item)
 }
 
 const closeKanban = (data)=>{
 
   tableView.value=!data
 }
+
+onMounted(() => {
+  getDeal.getDeals();
+})
 </script>
 
 

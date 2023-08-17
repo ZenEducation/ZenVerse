@@ -1,73 +1,67 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
 
 
-type EagerWhiteboard = {
+type EagerDeals = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Whiteboard, 'id'>;
+    identifier: ManagedIdentifier<Deals, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly userId?: string | null;
-  readonly canvas?: string | null;
-  readonly Users?: (User | null)[] | null;
+  readonly dealName: string;
+  readonly companyName: string;
+  readonly summary: string;
+  readonly amount: number;
+  readonly currency: string;
+  readonly status: string;
+  readonly pipeline: string;
+  readonly stage: string;
+  readonly source: string;
+  readonly owner: string;
+  readonly primaryContact: string;
+  readonly weightedForecast: number;
+  readonly probability: number;
+  readonly expectedClose: string;
+  readonly revenueType: string;
+  readonly dealPerformanceLane: string;
+  readonly productInterest: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyWhiteboard = {
+type LazyDeals = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Whiteboard, 'id'>;
+    identifier: ManagedIdentifier<Deals, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly userId?: string | null;
-  readonly canvas?: string | null;
-  readonly Users: AsyncCollection<User>;
+  readonly dealName: string;
+  readonly companyName: string;
+  readonly summary: string;
+  readonly amount: number;
+  readonly currency: string;
+  readonly status: string;
+  readonly pipeline: string;
+  readonly stage: string;
+  readonly source: string;
+  readonly owner: string;
+  readonly primaryContact: string;
+  readonly weightedForecast: number;
+  readonly probability: number;
+  readonly expectedClose: string;
+  readonly revenueType: string;
+  readonly dealPerformanceLane: string;
+  readonly productInterest: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Whiteboard = LazyLoading extends LazyLoadingDisabled ? EagerWhiteboard : LazyWhiteboard
+export declare type Deals = LazyLoading extends LazyLoadingDisabled ? EagerDeals : LazyDeals
 
-export declare const Whiteboard: (new (init: ModelInit<Whiteboard>) => Whiteboard) & {
-  copyOf(source: Whiteboard, mutator: (draft: MutableModel<Whiteboard>) => MutableModel<Whiteboard> | void): Whiteboard;
-}
-
-type EagerUser = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly image?: string | null;
-  readonly name: string;
-  readonly address?: string | null;
-  readonly whiteboardID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyUser = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly image?: string | null;
-  readonly name: string;
-  readonly address?: string | null;
-  readonly whiteboardID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
-
-export declare const User: (new (init: ModelInit<User>) => User) & {
-  copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+export declare const Deals: (new (init: ModelInit<Deals>) => Deals) & {
+  copyOf(source: Deals, mutator: (draft: MutableModel<Deals>) => MutableModel<Deals> | void): Deals;
 }

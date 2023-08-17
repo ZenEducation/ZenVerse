@@ -11,8 +11,8 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install --force
-        - npm ci # ci = clean install, its needed to intall the exact packages on linux
+        - npm install --legacy-peer-deps
+        - npm ci --legacy-peer-deps # ci = clean install, its needed to intall the exact packages on linux
         - npm run prepBuild
     build:
       commands:

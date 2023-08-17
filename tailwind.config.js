@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
-
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -10,6 +10,7 @@ module.exports = {
     "./nuxt.config.{js,ts}",
     "./configs/**.{vue,js,ts,jsx,tsx}",
     "./app.vue",
+    "./node_modules/vue-tailwind-datepicker/**/*.js",
   ],
   darkMode: "class", // or 'media' or 'class'
   theme: {
@@ -45,6 +46,10 @@ module.exports = {
       animation: {
         "fade-out": "fade-out 250ms ease-in-out",
         "fade-in": "fade-in 250ms ease-in-out",
+      },
+      colors: {
+        "vtd-primary": colors.sky, // Light mode Datepicker color
+        "vtd-secondary": colors.gray, // Dark mode Datepicker color
       },
     },
   },

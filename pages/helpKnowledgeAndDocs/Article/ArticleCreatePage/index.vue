@@ -127,6 +127,7 @@ export default {
                 metaDescription: docFormData.meta,
                 updatedAt: this.getCurrentDate(),
                 relatedArticles: [...docFormData.relatedArticles],
+                author: docFormData.author,
                 slug: docFormData.slug,
                 status: docFormData.status,
                 tittle: "Tittle",

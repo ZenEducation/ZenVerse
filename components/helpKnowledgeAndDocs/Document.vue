@@ -61,8 +61,8 @@
         v-if="categoryModal === true"
         class="fixed top-0 bottom-0 left-0 w-full h-[100vh] bg-gray-700/50 grid place-items-center z-50"
       >
-
-        <CardBox class="rounded-sm w-11/12 md:w-6/12 opacity-100">
+  <div class="bg-white p-4 rounded-lg shadow-md w-2/3 h-2/3 overflow-y-auto">
+        <CardBox class="rounded-sm w-12/12 md:w-12/12 opacity-100">
           <div class="flex justify-between pb-6">
             Categories
             <!-- Icon -->
@@ -77,7 +77,7 @@
           </div>
 
           <PremFormField>
-            <PremFormControl type="text" placeholder="Search" />
+            <PremFormControl  type="text" v-model="searchQuery" placeholder="Search" />
           </PremFormField>
 
           <hr />
@@ -88,7 +88,7 @@
             <!-- category table start-->
             <table>
               <tbody class="text-[12px]">
-                <tr v-for="category in categories" :key="category.id">
+                <tr v-for="category in filteredArticles" :key="category.id">
                   <td id="tittle">
                     {{ category.name }}
                     <p class="text-green-600" v-if="primary === true">
@@ -199,6 +199,7 @@
           </div>
         </CardBox>
       </div>
+      </div>
     </div>
     <!-- Category end -->
 
@@ -228,7 +229,7 @@
     </PremFormField>
 
     <!-- Author -->
-    <PremFormField label="Author" v-model="docForm.author">
+    <!-- <PremFormField label="Author" v-model="docForm.author">
       <SelectDropdown>
         <template v-slot:title>
           <div v-html="docForm.author"></div>
@@ -250,8 +251,16 @@
           </ul>
         </template>
       </SelectDropdown>
-    </PremFormField>
+     <PremFormControl type="text" v-model="docForm.meta" />
+    </PremFormField> -->
+   <PremFormField label="Author Name">
+                  <PremFormControl
+                    type="text"
+                    placeholder="Enter Author name"
+                    v-model="docForm.author"
+                  />
 
+                </PremFormField>
     <!-- meta description -->
     <PremFormField label="Meta Description" horizontal>
       <PremFormControl type="textarea" v-model="docForm.meta" />
@@ -379,6 +388,14 @@ const articles = ref([]);
 const isChecked = ref(false);
 const articles_array = reactive([]);
 const selectedArticleId = ref(null);
+const searchQuery = ref('');
+const filteredArticles = computed(() => {
+  if (!searchQuery.value) {
+    return categories.value;
+  } else {
+    return categories.value.filter(article => article.name.includes(searchQuery.value));
+  }
+});
 
 const handleRadioClick = (articleId) => {
   selectedArticleId.value = articleId;
@@ -454,10 +471,10 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
-import SelectDropdown from "~~/components/helpKnowledgeAndDocs/SelectDropdown.vue";
+import SelectDropdown from "@/components/HelpKnowledgeAndDocs/SelectDropdown.vue";
 import CardBox from "@/components/Cards/CardBox.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import { useGlobalStore } from "~~/stores/helpKnowledgeanddocs/helpKnowledgeanddocs";
+import { useGlobalStore } from "~~/stores/helpKnowledgeAndDocs/helpKnowledgeanddocs.js";
 
 export default defineComponent({
   name: "Document",

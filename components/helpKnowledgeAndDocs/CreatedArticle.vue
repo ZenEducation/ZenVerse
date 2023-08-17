@@ -17,13 +17,14 @@
     <CardBox>
       <div id="Content_data" class="w-full h-auto"></div>
     </CardBox>
+    
   </div>
 </template>
 
 <script setup>
 import CardBox from "@/components/Cards/CardBox.vue";
 import TableCheckboxCell from "@/components/Tables/TableCheckboxCell.vue";
-import DropDown from "~~/components/helpKnowledgeAndDocs/DropDown.vue";
+import DropDown from "~~/components/HelpKnowledgeAndDocs/DropDown.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import { mdiCalendarAccountOutline } from "@mdi/js";
@@ -33,8 +34,49 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 // import BaseIcon from "@/components/Display/BaseIcon.vue"
 import { useRoute, useRouter } from "vue-router";
 
+import {
+  findArticleById,
+  updateArticleById,
+} from "~/utils/helpKnowledgeAndDocs/api";
+const article = ref()
+onBeforeMount(async () => {
+  console.log(route.params.id);
+  try {
+    article.value = await findArticleById(route.params.id);
+    console.log("sucussaaa", article.value);
+  }
+  catch (err) {
+    console.log("error in fetching artilce", err);
+  }
+})
 const route = useRoute();
 const router = useRouter();
+
+const isLiked = ref(false)
+const isDisliked = ref(false)
+// const updateLikes =async() => {
+//   if(isLiked.value = true){
+//     const like = article.likes + 1;
+//     const res = await updateArticleById(article.id, {...article, likes: like})
+//     console.log(res);
+//   }
+//   if(isDisliked.value = true){
+//     const like = article.dislikes + 1;
+//     try{
+//     const res = await updateArticleById(article.id, { ...article, dislikes: like })
+//     console.log(res);
+//     }
+//     catch(err){
+//       console.log(err);
+//     }
+//   }
+//   try{
+//     article.value = await findArticleById(route.params.id);
+//   }
+//   catch(err){
+//     console.log(err);
+//   }
+// }
 
 const goBack = () => {
   router.back();

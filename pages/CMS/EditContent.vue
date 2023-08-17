@@ -82,10 +82,10 @@
               class="border border-black rounded-md p-4 flex flex-col"
             >
               <div
-                class="border mb-4 py-8 flex justify-center flex-col items-center"
+                class="border mb-4 py-8 flex justify-center flex-col items-center gap-4"
               >
-                <h1>Click to Upload any Image or Video Here</h1>
-                <form @submit="uploadFile">
+                <!-- <h1>Click to Upload any Image or Video Here</h1> -->
+                <form @submit="uploadFile" class="w-52">
                   <!-- <input type="file" @change="handleFileChange" /> -->
                   <input
                     type="file"

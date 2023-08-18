@@ -134,6 +134,7 @@ const pickerCallback = (data) => {
   /* border: 1px solid black; */
   padding-inline: 16px;
   border-radius: 5px;
-  color: rgb(72, 185, 226);
+  color: #5256ad;
+  text-decoration: underline;
 }
 </style>

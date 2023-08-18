@@ -155,7 +155,7 @@
 
           <!-- groups -->
           <p class="list-lable">Groups</p>
-          <NuxtLink to="/examportal/exam/editGroup">
+          <NuxtLink to="#">
             <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
               <span class="mr-2.5"
                 ><img
@@ -217,10 +217,10 @@
       <div>
         <ul>
           <li class="bottom-side-nav">
-            <NuxtLink to="/examportal/Exam/groupList">Groups List</NuxtLink>
+            <NuxtLink :to="'/examportal/Exam/groupList/' + examId ">Groups List</NuxtLink>
           </li>
           <li class="bottom-side-nav">
-            <a href="/examportal/Exam/exportPDF">Export PDF</a>
+            <a :href="'/examportal/Exam/exportPDF/'+ examId ">Export PDF</a>
           </li>
           <li class="bottom-side-nav">
             <a href="">Import from pool</a>
@@ -229,10 +229,10 @@
             <a href="">Import</a>
           </li>
           <li class="bottom-side-nav">
-            <a href="/examportal/Exam/examSetting">Settings</a>
+            <a :href="'/ExamPortal/exam/ExamSetting/' + examData?.examMockTestId">Settings</a>
           </li>
           <li class="bottom-side-nav">
-            <a href="">Publish status</a>
+            <a :href="'/ExamPortal/exam/ExamSetting/' + examData?.examMockTestId">Publish status</a>
           </li>
         </ul>
       </div>
@@ -244,12 +244,12 @@
         <p
           class="text-[16px] text-[#808080] lowercase font-semibold ml-[9.5px]"
         >
-          chemistry
+          {{examData?.title}}
         </p>
         <p
           class="text-[14px] text-[#b7b9be] lowercase font-semibold mr-[9.5px]"
         >
-          {{ sections }} sections {{ questions }} questions
+          {{ examData?.Sections?.items?.length }} sections
         </p>
       </div>
 

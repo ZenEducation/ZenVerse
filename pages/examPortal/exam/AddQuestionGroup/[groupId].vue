@@ -9,49 +9,59 @@ import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import TableLearnerEnabled from "@/components/Tables/TableLearnerEnabled.vue";
 import BaseLevel from "~~/components/Buttons/BaseLevel.vue";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
+
+import { API, graphqlOperation } from "aws-amplify";
+import { useRouter, useRoute } from "vue-router";
+import { getGroup, listQuestions } from "~~/src/graphql/queries";
+import { deleteGroup, deleteQuestion, updateGroup, updateQuestion } from "~~/src/graphql/mutations";
+const route = useRoute();
+const groupId = route.params.groupId;
+console.log(groupId);
+
+
 const list = ref([
   {
     id: 0,
-    title: "question 1",
-    level: "easy",
-    correct: 2,
-    wrong: -0.25,
+    titleHTML: "question 1",
+    difficuilty: "easy",
+    ifCorrect: 2,
+    ifWrong: -0.25,
     type: "Multiple Choice",
     isSelected: true,
   },
   {
     id: 1,
-    title: "question 2",
-    level: "hard",
-    correct: 2,
-    wrong: -0.25,
+    titleHTML: "question 2",
+    difficuilty: "hard",
+    ifCorrect: 2,
+    ifWrong: -0.25,
     type: "Multiple Choice",
     isSelected: false,
   },
   {
     id: 2,
-    title: "question 2",
-    level: "hard",
-    correct: 2,
-    wrong: -0.25,
+    titleHTML: "question 2",
+    difficuilty: "hard",
+    ifCorrect: 2,
+    ifWrong: -0.25,
     type: "Multiple Choice",
     isSelected: false,
   },
   {
     id: 3,
-    title: "question 54",
-    level: "moderate",
-    correct: 4,
-    wrong: -2,
+    titleHTML: "question 54",
+    difficuilty: "moderate",
+    ifCorrect: 4,
+    ifWrong: -2,
     type: "Numerical",
     isSelected: false,
   },
   {
     id: 4,
-    title: "question 23",
-    level: "hard",
-    correct: 1,
-    wrong: -0.25,
+    titleHTML: "question 23",
+    difficuilty: "hard",
+    ifCorrect: 1,
+    ifWrong: -0.25,
     type: "Multiple Choice",
     isSelected: false,
   },
@@ -67,11 +77,59 @@ const filteredItems = computed(() => {
 
   return filtered.slice(start, end);
 });
+
+const sectionId = ref();
+const fetchQuestions = async()=>{
+  try {
+    let response =  await API.graphql({
+      query:getGroup,
+      variables:{id:groupId }
+    })
+    // console.log(response.data.getGroup.sectionID);
+    sectionId.value = response.data.getGroup.sectionID;
+
+    let QuestionsData = await API.graphql({
+      query:listQuestions,
+      variables:{filter:{ _deleted: { ne: true } , sectionID:{ eq : sectionId.value }, groupID: {attributeExists: false}  }}
+    })
+    list.value = QuestionsData.data.listQuestions.items;
+    console.log(list.value);
+
+    
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+onMounted(async()=>{
+  fetchQuestions();
+})
+
+const addHandler = async()=>{
+  try {
+    let selectedIds = [];
+    list.value.forEach((item)=>{
+      item["isSelected"] ? selectedIds.push(item.id) : null  ;
+    } )
+
+    selectedIds.forEach( async(id)=>{
+      const response = await API.graphql({
+        query:updateQuestion,
+        variables:{input:{id:id , groupID:groupId }}
+      })
+      console.log(response.data.updateQuestion);
+    })
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 </script>
 <template>
   <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
-      <NuxtLink to="/examportal/Exam/editGroup">
+      <NuxtLink :to="'/examportal/Exam/editGroup/'+groupId">
         <div
           class="text-[13px] flex items-center justify-center cursor-pointer"
         >
@@ -96,17 +154,17 @@ const filteredItems = computed(() => {
     <div class="px-8 flex max-md:flex-wrap justify-between align-middle">
 
       <p class="font-bold text-lg mt-4">
-        {{ "Select Questions( " + (list.length + 1) + " )" }}
+        {{ "Select Questions( " + (list.length ) + " )" }}
         <p class="font-light">
           Note: Questions imported from the question pool or questions added to
           other groups will not be displayed here. Maximum 10 Question are allowed
           to be added to the Group.
         </p>
       </p>
-      <NuxtLink to="/examportal/Exam/editGroup">
+      <!-- <NuxtLink to="/examportal/Exam/editGroup"> -->
 
-          <BaseButton class="max-md:py-8" :icon="mdiPlus" :label="'Add Questions'" :color="'info'" />
-        </NuxtLink>
+          <BaseButton class="max-md:py-8" :icon="mdiPlus" :label="'Add Questions'" :color="'info'" @click="addHandler" />
+        <!-- </NuxtLink> -->
     </div>
 
       <table>
@@ -131,9 +189,9 @@ const filteredItems = computed(() => {
               data-label="Question Details"
               class="cursor-pointer text-base font-normal"
             >
-              {{ item.title }}
+              <span v-html="item.titleHTML" />
               <br>
-              <span> {{ item.level + " | " }} </span> <span class="text-green-700"> {{"+" + item.correct + " | " }}</span><span class="text-red-700"> {{ item.wrong }}</span>
+              <span> {{ item.difficuilty + " | " }} </span> <span class="text-green-700"> {{"+" + item.ifCorrect + " | " }}</span><span class="text-red-700"> {{ item.ifWrong }}</span>
               
             </th>
             <th

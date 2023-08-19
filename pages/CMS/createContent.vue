@@ -75,7 +75,6 @@ import Editor from "@/components/CMS/Editor.vue";
                   <div class="p-3 container border-2 border-slate-600">
                     <DragDrop />
                     <Editor />
-
                     <PremFormField label="URL :">
                       <PremFormControl placeholder="" type="text" v-model="url" />
                     </PremFormField>

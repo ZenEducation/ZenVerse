@@ -11,7 +11,7 @@
               src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
               alt=""
             />
-            <p class="p-2.5">Test Name | Q1</p>
+            <p class="p-2.5">Back</p>
           </div>
         </NuxtLink>
         <div class="pr-16"></div>
@@ -81,9 +81,12 @@
               </div>
 
 
-              <div v-if="que.answer && (mode == 0 || mode == 1 || mode == 2)">
+              <div v-if="(que.answer && (mode == 0 || mode == 1 || mode == 2) )|| (que.type == 'MCQ')">
                 <span> Answer : </span>
                 <span v-html="que.answer"> </span>
+                <template v-if="que.type == 'MCQ'">
+                  <template v-for="item in que.options" > <span v-if="item.isCorrectAnswer"  v-html="item.html" /> </template>
+                </template>
               </div>
               <div v-if="que.explanation && (mode == 0 || mode == 1)">
                 <p>Explanation :</p>

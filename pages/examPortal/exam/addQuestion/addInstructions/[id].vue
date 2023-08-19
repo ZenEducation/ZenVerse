@@ -10,7 +10,7 @@
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
             alt=""
           />
-          <p class="p-2.5">Test Name | Q1</p>
+          <p class="p-2.5">Back</p>
         </div>
       </NuxtLink>
       <div class="pr-16">
@@ -26,7 +26,7 @@
       <!-- if Settings  -->
       <h1 class="border-b-2 text-center text-lg font-semibold">Preview</h1>
 
-      <div class="w-full p-4" v-html="instruction" />
+      <div class="w-full p-4"  v-html="instruction" />
     </div>
     <div
       class="w-3/4 max-md:w-5/6 max-md:mx-auto max-md:px-0 p-4 overflow-y-auto scroll-m-0 scrollbar-w-1"
@@ -112,4 +112,10 @@ const saveHandler = async () => {
     console.error(error);
   }
 };
+import '@/assets/css/basic.css'
+
 </script>
+<style scoped>
+
+
+</style>

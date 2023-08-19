@@ -155,7 +155,7 @@
 
           <!-- groups -->
           <p class="list-lable">Groups</p>
-          <NuxtLink to="#">
+          <NuxtLink :to="'/examportal/Exam/groupList/' + examId " >
             <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow">
               <span class="mr-2.5"
                 ><img
@@ -216,9 +216,7 @@
       </div>
       <div>
         <ul>
-          <li class="bottom-side-nav">
-            <NuxtLink :to="'/examportal/Exam/groupList/' + examId ">Groups List</NuxtLink>
-          </li>
+
           <li class="bottom-side-nav">
             <a :href="'/examportal/Exam/exportPDF/'+ examId ">Export PDF</a>
           </li>

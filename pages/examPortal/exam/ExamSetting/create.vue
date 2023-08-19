@@ -44,7 +44,11 @@ const isModalSaveActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
-const item = ref({});
+const item = ref({
+  isValidityDays : true,
+  isFree : true,
+  publishingStatus:"Unpublished"
+});
 
 const handleFormDataChangesBasic = (formData) => {
   console.log("FormData1 : ", formData);
@@ -86,6 +90,11 @@ const handleSave = async () => {
       publishingDate,
       publishingStatus,
     } = item.value;
+
+    if(validityDays===undefined || validityDays?.length == 0){
+      validityDays = 0;
+    }
+
     let input = {
       name,
       shortId,
@@ -101,6 +110,19 @@ const handleSave = async () => {
       publishingStatus,
     };
     console.log(input);
+
+    if(!(name?.length > 0 && shortId?.length > 0) ){
+      window.alert("title and shortID can not be empty");
+      console.error("title and shortID can not be empty")
+      return
+    }
+    if(validityDays===undefined || validityDays?.length == 0){
+      validityDays = 0;
+    }
+
+
+
+    console.log(input);
     const exam = await API.graphql({
       query: createExam,
       variables: {
@@ -111,6 +133,9 @@ const handleSave = async () => {
         },
       },
     });
+
+
+
     console.log("new exam : ", exam.data.createExam.id, exam.data.createExam);
     const mock = await API.graphql({
       query: createMockTest,
@@ -130,7 +155,7 @@ const handleSave = async () => {
     window.location.href = "/ExamPortal/exam/ExamDashboard";
   } catch (error) {
     console.error(error);
-    window.alert("could not save the data ");
+    window.alert("could not save the data :" , error);
   }
 };
 </script>

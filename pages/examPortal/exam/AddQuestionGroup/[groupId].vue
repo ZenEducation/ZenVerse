@@ -119,7 +119,7 @@ const addHandler = async()=>{
       })
       console.log(response.data.updateQuestion);
     })
-
+    window.location.href = '/examportal/Exam/editGroup/'+groupId;
   } catch (error) {
     console.error(error)
   }

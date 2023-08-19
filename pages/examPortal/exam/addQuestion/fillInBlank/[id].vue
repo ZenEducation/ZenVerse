@@ -41,9 +41,7 @@
         </div>
       </NuxtLink>
       <div class="pr-16 flex gap-3 items-center">
-        <BaseButton label="New" color="info" />
-        <BaseIcon :path="mdiChevronLeftBoxOutline" />
-        <BaseIcon :path="mdiChevronRightBoxOutline" />
+
       </div>
     </div>
     <div class="border-b w-full flex justify-between items-center px-16 py-2">

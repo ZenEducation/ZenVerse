@@ -92,6 +92,11 @@ const handleSave = async () => {
     
     let {id , _version , name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays , expiryDate ,publishingDate , publishingStatus } = item.value;
     let input = {id , _version ,name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays , expiryDate ,publishingDate , publishingStatus };
+    if(!(name?.length > 0 && shortId?.length > 0) ){
+      window.alert("title and shortID can not be empty");
+      console.error("title and shortID can not be empty")
+      return
+    }
     console.log(input);
     const response = await API.graphql({
       query: updateMockTest,

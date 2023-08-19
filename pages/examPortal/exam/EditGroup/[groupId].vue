@@ -10,7 +10,7 @@
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
             alt=""
           />
-          <p class="p-2.5">Back to Group 1</p>
+          <p class="p-2.5">Back</p>
         </div>
       </NuxtLink>
       <div class="pr-16"></div>

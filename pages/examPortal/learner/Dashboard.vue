@@ -10,13 +10,16 @@ import { mdiOpenInNew, mdiPlay, mdiFormatListBulleted, mdiGrid } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
+import { API } from "aws-amplify";
+import { listMockTests } from "~~/src/graphql/queries";
+
 
 const items = ref([
 
   {
-    ID: "BCD123",
-    title: "Thermodynamics: Heat and Temperature",
-    status: "Unpublished",
+    shortId: "BCD123",
+    name: "Thermodynamics: Heat and Temperature",
+    publishingStatus: "Unpublished",
     type: "Tests",
     quantity: 2,
     isFree: false,
@@ -24,9 +27,9 @@ const items = ref([
   },
 
   {
-    ID: "EFG456",
-    title: "Electricity and Magnetism: Electric Circuits",
-    status: "Scheduled",
+    shortId: "EFG456",
+    name: "Electricity and Magnetism: Electric Circuits",
+    publishingStatus: "Scheduled",
     type: "Tests",
     quantity: 3,
     isFree: false,
@@ -35,11 +38,11 @@ const items = ref([
 
 ]);
 
-const SingleRedirectLink = (type)=>{
+const SingleRedirectLink = (type , id)=>{
   if(type == 'test series'){
-    return "/examportal/learner/testseries"
+    return "/examportal/learner/testseries/"+id;
   }else if(type == 'Mock test'){
-    return "/examportal/learner/mocktest"
+    return "/examportal/learner/mocktest/"+id
   }
   else{
     return '#';
@@ -58,7 +61,7 @@ const filteredItems = computed(() => {
 
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
-      return search ? item.ID.match(search) || item.title.match(search) : true;
+      return search ? item.shortId.match(search) || item.name.match(search) : true;
     });
   }
 
@@ -93,6 +96,25 @@ const colors = computed(() => {
   }
   return ["info", "lightDark"];
 });
+
+const fetchMockTests = async()=>{
+  const response = await API.graphql({
+    query:listMockTests,
+    variables: { filter: { _deleted: {ne: true} }}
+  })
+  console.log(response.data.listMockTests.items);
+  items.value = response.data.listMockTests.items;
+  items.value.map((item)=>{
+    item.category = "Mock test"
+  })
+}
+
+onMounted(()=>{
+  fetchMockTests();
+})
+
+
+
 </script>
 <template>
   <NuxtLayout name="lmsstudent">
@@ -198,7 +220,7 @@ const colors = computed(() => {
           <div
             class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
-            <NuxtLink :to=SingleRedirectLink(item.category)
+            <NuxtLink :to=SingleRedirectLink(item.category,item.mockTestExamId)
               class="rounded-md overflow-hidden mt-4 border border-[rgba(0,0,0,0.2)] dark:border-[rgba(256,256,256,0.2)] max-w-xs hover:scale-105 cursor-pointer transition-transform"
               v-for="item in filteredItems"
             >
@@ -216,7 +238,7 @@ const colors = computed(() => {
               </div>
 
               <div class="px-4 h-auto">
-                <p class="font-medium h-12">{{ item.title }}</p>
+                <p class="font-medium h-12">{{ item.name }}</p>
               </div>
               <div class="w-full border-t mt-4"  v-if="item.category=='test series'" ></div>
               <div class="flex items-center justify-center h-16 "                 v-if="item.category=='test series'" 
@@ -243,7 +265,7 @@ const colors = computed(() => {
               <div class="flex">
                 <img :src="image" class="w-40" />
                 <div class="px-4 h-auto">
-                  <p class="font-medium min-h-18">{{ item.title }}</p>
+                  <p class="font-medium min-h-18">{{ item.name }}</p>
                   <p v-if="item.category=='test series'" class="">{{ item.type }} : {{ item.quantity }}</p>
                   <div class="flex gap-48 max-md:gap-10">
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>

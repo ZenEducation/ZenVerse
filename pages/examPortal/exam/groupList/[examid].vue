@@ -41,7 +41,7 @@ const addNewFormData = async() => {
     
     const newGroup = await API.graphql({
       query:createGroup,
-      variables:{input:{title:NewFormData.value.title , difficuilty:NewFormData.value.difficuilty , sectionID : NewFormData.value.section.id , examID:examId }}
+      variables:{input:{title:NewFormData.value.title , difficuilty:NewFormData.value.difficuilty , sectionID : NewFormData.value.section , examID:examId }}
     })
   
     list.value.push(newGroup.data.createGroup);
@@ -140,10 +140,9 @@ const link = (id)=>{
         />
       </PremFormField>
       <PremFormField label="Section">
-        <PremFormControl
-          v-model="NewFormData.section"
-          :options="sectionsList"
-        />
+        <select name="" id="" v-model="NewFormData.section">
+          <option :value="item.id" v-for="item in sectionsList" >{{item.title}}</option>
+        </select>
       </PremFormField>
 
       <div class="flex justify-end py-2">

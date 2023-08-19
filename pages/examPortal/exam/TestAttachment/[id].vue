@@ -11,7 +11,7 @@
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
             alt=""
           />
-          <p class="p-2.5">Tedy | Test Attachments </p>
+          <p class="p-2.5">Back </p>
         </div>
       </NuxtLink>
       <div class="pr-16 flex gap-3 items-center">

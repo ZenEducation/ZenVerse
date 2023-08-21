@@ -10,34 +10,13 @@ export const onCreateDepartment = /* GraphQL */ `
       name
       description
       logoUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
-      }
       createdAt
+      jobs {
+        nextToken
+        __typename
+      }
       updatedAt
-      jobDepartmentsId
+      __typename
     }
   }
 `;
@@ -50,34 +29,13 @@ export const onUpdateDepartment = /* GraphQL */ `
       name
       description
       logoUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
-      }
       createdAt
+      jobs {
+        nextToken
+        __typename
+      }
       updatedAt
-      jobDepartmentsId
+      __typename
     }
   }
 `;
@@ -90,34 +48,13 @@ export const onDeleteDepartment = /* GraphQL */ `
       name
       description
       logoUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
-      }
       createdAt
+      jobs {
+        nextToken
+        __typename
+      }
       updatedAt
-      jobDepartmentsId
+      __typename
     }
   }
 `;
@@ -131,45 +68,25 @@ export const onCreateJob = /* GraphQL */ `
       requirements
       niceToHave
       benefits
-      jobLocation
-      residenceAddress
-      residenceCity
-      jobType
       minSalary
       maxSalary
-      minHourlyRate
-      maxHourlyRate
-      currencyForSalary
-      departments {
-        items {
-          id
-          name
-          description
-          logoUri
-          createdAt
-          updatedAt
-          jobDepartmentsId
-        }
-        nextToken
-      }
-      applicants {
-        items {
-          id
-          name
-          email
-          mobile
-          cover
-          resumeUri
-          createdAt
-          updatedAt
-          jobApplicantsId
-        }
-        nextToken
-      }
+      jobType
+      jobMode
+      location
       createdAt
+      departmentId
+      department {
+        id
+        name
+        description
+        logoUri
+        createdAt
+        updatedAt
+        __typename
+      }
+      jobDepartmentId
       updatedAt
-      departmentJobsId
-      applicantJobsId
+      __typename
     }
   }
 `;
@@ -183,45 +100,25 @@ export const onUpdateJob = /* GraphQL */ `
       requirements
       niceToHave
       benefits
-      jobLocation
-      residenceAddress
-      residenceCity
-      jobType
       minSalary
       maxSalary
-      minHourlyRate
-      maxHourlyRate
-      currencyForSalary
-      departments {
-        items {
-          id
-          name
-          description
-          logoUri
-          createdAt
-          updatedAt
-          jobDepartmentsId
-        }
-        nextToken
-      }
-      applicants {
-        items {
-          id
-          name
-          email
-          mobile
-          cover
-          resumeUri
-          createdAt
-          updatedAt
-          jobApplicantsId
-        }
-        nextToken
-      }
+      jobType
+      jobMode
+      location
       createdAt
+      departmentId
+      department {
+        id
+        name
+        description
+        logoUri
+        createdAt
+        updatedAt
+        __typename
+      }
+      jobDepartmentId
       updatedAt
-      departmentJobsId
-      applicantJobsId
+      __typename
     }
   }
 `;
@@ -235,171 +132,25 @@ export const onDeleteJob = /* GraphQL */ `
       requirements
       niceToHave
       benefits
-      jobLocation
-      residenceAddress
-      residenceCity
-      jobType
       minSalary
       maxSalary
-      minHourlyRate
-      maxHourlyRate
-      currencyForSalary
-      departments {
-        items {
-          id
-          name
-          description
-          logoUri
-          createdAt
-          updatedAt
-          jobDepartmentsId
-        }
-        nextToken
-      }
-      applicants {
-        items {
-          id
-          name
-          email
-          mobile
-          cover
-          resumeUri
-          createdAt
-          updatedAt
-          jobApplicantsId
-        }
-        nextToken
-      }
+      jobType
+      jobMode
+      location
       createdAt
-      updatedAt
-      departmentJobsId
-      applicantJobsId
-    }
-  }
-`;
-export const onCreateApplicant = /* GraphQL */ `
-  subscription OnCreateApplicant(
-    $filter: ModelSubscriptionApplicantFilterInput
-  ) {
-    onCreateApplicant(filter: $filter) {
-      id
-      name
-      email
-      mobile
-      cover
-      resumeUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
+      departmentId
+      department {
+        id
+        name
+        description
+        logoUri
+        createdAt
+        updatedAt
+        __typename
       }
-      createdAt
+      jobDepartmentId
       updatedAt
-      jobApplicantsId
-    }
-  }
-`;
-export const onUpdateApplicant = /* GraphQL */ `
-  subscription OnUpdateApplicant(
-    $filter: ModelSubscriptionApplicantFilterInput
-  ) {
-    onUpdateApplicant(filter: $filter) {
-      id
-      name
-      email
-      mobile
-      cover
-      resumeUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      jobApplicantsId
-    }
-  }
-`;
-export const onDeleteApplicant = /* GraphQL */ `
-  subscription OnDeleteApplicant(
-    $filter: ModelSubscriptionApplicantFilterInput
-  ) {
-    onDeleteApplicant(filter: $filter) {
-      id
-      name
-      email
-      mobile
-      cover
-      resumeUri
-      jobs {
-        items {
-          id
-          title
-          description
-          duties
-          requirements
-          niceToHave
-          benefits
-          jobLocation
-          residenceAddress
-          residenceCity
-          jobType
-          minSalary
-          maxSalary
-          minHourlyRate
-          maxHourlyRate
-          currencyForSalary
-          createdAt
-          updatedAt
-          departmentJobsId
-          applicantJobsId
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      jobApplicantsId
+      __typename
     }
   }
 `;

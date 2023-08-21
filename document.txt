@@ -1,0 +1,72 @@
+enum JobType {
+  FULL_TIME
+  HALF_TIME
+  PART_TIME
+  INTERNSHIP
+}
+
+ enum JobLocation {
+   ONSITE
+   REMOTE
+   HYBRID
+ }
+ i have renamed jobLocation to jobMode to avoid confusion
+
+enum JobMode {
+  ONSITE
+  REMOTE
+  HYBRID
+}
+
+type Department @model {
+  id: ID!
+  name: String!
+  description: String
+  logoUri: String
+  createdAt: AWSDateTime
+  jobs: [Job] @hasMany(indexName: "DepartmentJobs", fields: ["id"])
+}
+
+type Job @model {
+  id: ID!
+  title: String!
+  description: String!
+  duties: String!
+  requirements: String!
+  niceToHave: String!
+  benefits: String!
+  minSalary: Int
+  maxSalary: Int
+  jobType: JobType!
+  jobMode: JobMode!
+  location: String
+  createdAt: AWSDateTime
+  jobDepartmentId: ID!
+  department: Department! @belongsTo(fields: ["departmentId"])
+  jobDepartmentId: ID! @index(name: "DepartmentJobs", sortKeyFields: ["id"])
+   applicants: [Applicant]
+   @hasMany(indexName: "JobApplicants", fields: ["jobId"])
+}
+
+ jobDepartmentId and jobDepartmentId is the same
+
+ type Applicant @model {
+   applicantId: ID!
+   name: String!
+   email: String!
+   mobile: String!
+   cover: String
+   resumeUri: String!
+   createdAt: AWSDateTime
+   job: Job! @belongsTo(fields: ["applicantJobId"])
+   applicantJobId: ID!
+     @index(name: "JobApplicants", sortKeyFields: ["applicantId"])
+ }
+
+ enum DepartmentType {
+   BRANDING
+   SALES
+   EDUCARE
+   CONTENT
+   TECHDEVELOPMENT
+ }

@@ -18,23 +18,47 @@ import FormFilePicker from "@/components/Forms/FormFilePicker.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import UserCard from "~~/components/Cards/UserCard.vue";
-
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
+import Amplify from "@aws-amplify/core";
+import { DataStore } from "aws-amplify";
+import { Department } from "~~/models";
 
 const mainStore = useMainStore();
 
 const profileForm = reactive({
-  name: mainStore.userName,
-  email: mainStore.userEmail,
+  name: mainStore.username,
+  description: mainStore.description,
+  logoUri: "",
 });
 
 const submitProfile = () => {
   mainStore.setUser(profileForm);
 };
 
-const submitPass = () => {
-  //
-};
+// const submitPass = () => {
+//   
+// };
+
+const handleSubmit = async () => {
+  try {
+    const departmentData = {
+      name: profileForm.name,
+      description: profileForm.description,
+      logoUri: profileForm.logoUri,
+    };
+
+    const result = await DataStore.save(new Department(departmentData));
+
+    console.log(result);
+
+    alert("Department created successfully!");
+
+  } catch (error) {
+    console.log("Error creating department:", error);
+    alert("An error occurred while creating the department.");
+  }
+}
+
 </script>
 
 <template>
@@ -44,29 +68,20 @@ const submitPass = () => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <CardBox is-form @submit.prevent="submitProfile">
             <FormField label="logo" help="Max 500kb">
-              <FormFilePicker label="Upload" accept=".jpg,.jpeg,.png" />
+              <FormFilePicker label="Upload" accept=".jpg,.jpeg,.png" v-model="profileForm.logo" />
             </FormField>
 
             <FormField label="Name" help="Your name required.">
-              <FormControl
-                :icon="mdiAccount"
-                name="username"
-                required
-                autocomplete="username"
-              />
+              <FormControl :icon="mdiAccount" name="username" v-model="profileForm.name" autocomplete="username" />
             </FormField>
             <FormField label="Description" help="Descrption required.">
-              <FormControl
-                :icon="mdiFileDocumentOutline"
-                name="description"
-                required
-                type="textarea"
-              />
+              <FormControl :icon="mdiFileDocumentOutline" name="description" v-model="profileForm.description"
+                type="textarea" />
             </FormField>
 
             <template #footer>
               <BaseButtons>
-                <BaseButton color="info" type="submit" label="Department" />
+                <BaseButton color="info" type="submit" label="Department" @click="handleSubmit" />
               </BaseButtons>
             </template>
           </CardBox>

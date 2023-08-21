@@ -1,37 +1,24 @@
 <template>
   <div>
     <NuxtLayout name="zen">
-      <div
-        class="font-nunito text-base text-black dark:text-white dark:bg-slate-900"
-      >
+      <div class="font-nunito text-base text-black dark:text-white dark:bg-slate-900">
         <!-- Start Hero -->
-        <section
-          class="relative table w-full py-72 bg-no-repeat bg-top bg-cover"
-        >
+        <section class="relative table w-full py-72 bg-no-repeat bg-top bg-cover">
           <div class="absolute inset-0 bg-black opacity-80 dark:bg-white"></div>
         </section>
         <!--end section-->
         <!-- End Hero -->
 
         <!-- Start -->
-        <section
-          class="relative pl-4 pr-4 md:py-24 md:pl-24 md:pr-24 py-16 sm:pl-20 sm:pr-20"
-        >
+        <section class="relative pl-4 pr-4 md:py-24 md:pl-24 md:pr-24 py-16 sm:pl-20 sm:pr-20">
           <div class="container">
             <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div class="lg:col-span-4 md:col-span-5">
                 <div class="lg:-mt-[330px] -mt-[299px]">
-                  <div
-                    class="rounded-md bg-white dark:bg-slate-900 shadow dark:shadow-gray-800"
-                  >
-                    <div
-                      class="text-center py-8 p-6 border-b border-gray-100 dark:border-gray-700"
-                    >
-                      <img
-                        src="../../images/user-64-09.jpg"
-                        class="h-24 w-24 p-1 shadow-md dark:shadow-gray-800 mx-auto rounded-full block"
-                        alt=""
-                      />
+                  <div class="rounded-md bg-white dark:bg-slate-900 shadow dark:shadow-gray-800">
+                    <div class="text-center py-8 p-6 border-b border-gray-100 dark:border-gray-700">
+                      <img src="../../../images/user-64-09.jpg"
+                        class="h-24 w-24 p-1 shadow-md dark:shadow-gray-800 mx-auto rounded-full block" alt="" />
                       <h5 class="mt-5 text-xl font-semibold mb-0">
                         {{ candidateData.name }}
                       </h5>
@@ -44,51 +31,44 @@
                       <h5 class="font-semibold">Company Details :</h5>
                       <ul class="list-none mt-4">
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiEmailOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >Email :
+                          <BaseIcon :path="mdiEmailOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">Email :
                           </span>
                           {{ candidateData.Email }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiGiftOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >D.O.B. :
+                          <BaseIcon :path="mdiGiftOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">D.O.B. :
                           </span>
                           {{ candidateData.birthDay }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiHomeOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >Address :
+                          <BaseIcon :path="mdiHomeOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">Address :
                           </span>
                           {{ candidateData.address }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiMapMarkerOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >City :
+                          <BaseIcon :path="mdiMapMarkerOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">City :
                           </span>
                           {{ candidateData.city }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiWeb"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >Country :
+                          <BaseIcon :path="mdiWeb" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">Country :
                           </span>
                           {{ candidateData.country }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiPostOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >Postal Code :
+                          <BaseIcon :path="mdiPostOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">Postal Code :
                           </span>
                           {{ candidateData.postalCode }}
                         </li>
                         <li class="flex mt-2 items-center font-medium">
-                          <BaseIcon :path="mdiPhoneOutline"/>
-                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2"
-                            >Mobile :
+                          <BaseIcon :path="mdiPhoneOutline" />
+                          <span class="text-slate-400 ltr:mr-3 rtl:ml-3 mr-2">Mobile :
                           </span>
                           {{ candidateData.mobile }}
                         </li>
@@ -96,11 +76,9 @@
 
                       <br />
                       <br />
-                      <a
-                        href="#0"
-                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md p-4"
-                        >Contact Me</a
-                      >
+                      <a href="#0"
+                        class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md p-4">Contact
+                        Me</a>
                     </div>
                   </div>
                 </div>
@@ -111,26 +89,17 @@
                 <p class="text-slate-400 mt-4">{{ candidateData.about }}</p>
                 <h4 class="mt-8 text-xl font-semibold">Skills :</h4>
 
-                <CandidateSkillSingle
-                  v-for="skill in candidateData.skills"
-                  :skillName="skill.skillName"
-                  :num="skill.num"
-                />
+                <CandidateSkillSingle v-for="skill in candidateData.skills" :skillName="skill.skillName"
+                  :num="skill.num" />
 
                 <h4 class="mt-8 text-xl font-semibold">Experience :</h4>
 
-                <CandidateExperienceSingle
-                  v-for="exp in candidateData.experience"
-                  :data="exp"
-                />
+                <CandidateExperienceSingle v-for="exp in candidateData.experience" :data="exp" />
 
                 <h4 class="mt-8 text-xl font-semibold">Projects :</h4>
 
                 <div class="grid lg:grid-cols-2 grid-cols-1 gap-6 mt-8">
-                  <CandidateProjectSingle
-                    v-for="project in candidateData.projects"
-                    :data="project"
-                  />
+                  <CandidateProjectSingle v-for="project in candidateData.projects" :data="project" />
                 </div>
               </div>
             </div>
@@ -151,7 +120,7 @@ import CandidateSkillSingle from "@/components/RecuitmentPortal/CandidateSkillSi
 import CandidateProjectSingle from "@/components/RecuitmentPortal/CandidateProjectSingle.vue";
 import CandidateExperienceSingle from "@/components/RecuitmentPortal/CandidateExperienceSingle.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
-import { mdiEmailOutline, mdiGiftOutline ,mdiHomeOutline ,mdiMapMarkerOutline, mdiWeb , mdiPostOutline , mdiPhoneOutline } from "@mdi/js";
+import { mdiEmailOutline, mdiGiftOutline, mdiHomeOutline, mdiMapMarkerOutline, mdiWeb, mdiPostOutline, mdiPhoneOutline } from "@mdi/js";
 
 const candidateData = {
   name: "Thomas Brewer",

@@ -2,6 +2,12 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const AttemptStatus = {
+  "NOTSTARTED": "NOTSTARTED",
+  "INPROGRESS": "INPROGRESS",
+  "DONE": "DONE"
+};
+
 const QuestionType = {
   "MCQ": "MCQ",
   "PARA": "PARA",
@@ -15,9 +21,11 @@ const Difficuilty = {
   "HARD": "HARD"
 };
 
-const { Question, Group, Section, Exam, VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor, Criteria, Option, Range } = initSchema(schema);
+const { Responce, Attempt, Question, Group, Section, Exam, VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor, MockTestLearner, MockTestAffiliate, MockTestAdmin, MockTestInstructor, Criteria, Option, Range } = initSchema(schema);
 
 export {
+  Responce,
+  Attempt,
   Question,
   Group,
   Section,
@@ -28,6 +36,11 @@ export {
   Affiliate,
   Admin,
   Instructor,
+  MockTestLearner,
+  MockTestAffiliate,
+  MockTestAdmin,
+  MockTestInstructor,
+  AttemptStatus,
   QuestionType,
   Difficuilty,
   Criteria,

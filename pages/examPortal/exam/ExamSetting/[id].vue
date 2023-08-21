@@ -33,16 +33,19 @@ const tabs = [
   "Manage Users",
   "Add Products",
   "Manage Order",
+  "Manage Learners",
+  "Manage Admins",
+  "Manage Affiliates",
+  "Manage Instructors",
 ];
 const isSidebarActive = ref(false);
 const isModalSaveActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
-const item = ref({
-});
+const item = ref({});
 
-const isDataLoaded = ref(false)
+const isDataLoaded = ref(false);
 const FetchMockTests = async () => {
   try {
     const response = await API.graphql({
@@ -60,7 +63,6 @@ const FetchMockTests = async () => {
 
 onMounted(() => {
   FetchMockTests();
-  
 });
 
 const handleFormDataChangesBasic = (formData) => {
@@ -89,42 +91,72 @@ const handleFormDataChangesPublish = (formData) => {
 
 const handleSave = async () => {
   try {
-    
-    let {id , _version , name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays , expiryDate ,publishingDate , publishingStatus } = item.value;
-    let input = {id , _version ,name , shortId , description , shortDescription , isFree , price , discount , isValidityDays , validityDays , expiryDate ,publishingDate , publishingStatus };
-    if(!(name?.length > 0 && shortId?.length > 0) ){
+    let {
+      id,
+      _version,
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    } = item.value;
+    let input = {
+      id,
+      _version,
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    };
+    if (!(name?.length > 0 && shortId?.length > 0)) {
       window.alert("title and shortID can not be empty");
-      console.error("title and shortID can not be empty")
-      return
+      console.error("title and shortID can not be empty");
+      return;
     }
     console.log(input);
     const response = await API.graphql({
       query: updateMockTest,
-      variables:{input : input },
-    })
+      variables: { input: input },
+    });
     console.log(response.data.updateMockTest);
     console.log(item.value);
-    window.alert("changes are saved Successfully")
+    window.alert("changes are saved Successfully");
   } catch (error) {
     console.error(error);
-    window.alert("could not save the data ")
+    window.alert("could not save the data ");
   }
 };
 
-const handleDelete = async()=>{
+const handleDelete = async () => {
   try {
-    console.log( item.value.id ,  item.value._version);
+    console.log(item.value.id, item.value._version);
     await API.graphql({
-      query:deleteMockTest,
-      variables:{input: {id: item.value.id , _version : item.value._version}},
-    })
+      query: deleteMockTest,
+      variables: {
+        input: { id: item.value.id, _version: item.value._version },
+      },
+    });
     window.location.href = "/ExamPortal/exam/ExamDashboard";
-
   } catch (error) {
     console.error(error);
-    window.alert("could not delete")
+    window.alert("could not delete");
   }
-}
+};
 </script>
 
 <template>
@@ -206,11 +238,35 @@ const handleDelete = async()=>{
               </li>
               <li
                 class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 3 }"
-                @click="() => (isActive = 3)"
+                :class="{ 'bg-slate-500': isActive == 4 }"
+                @click="() => (isActive = 4)"
               >
                 <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
-                <p>Manage Users</p>
+                <p>Manage Learners</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 5 }"
+                @click="() => (isActive = 5)"
+              >
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Admins</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 6 }"
+                @click="() => (isActive = 6)"
+              >
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Affiliates</p>
+              </li>
+              <li
+                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 7 }"
+                @click="() => (isActive = 7)"
+              >
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Instructors</p>
               </li>
             </ul>
           </div>
@@ -245,7 +301,7 @@ const handleDelete = async()=>{
           </div>
           <div class="flex flex-wrap items-center gap-4 px-4 py-4">
             <a
-              :href="'/examportal/exam/edit-page/'+ item.mockTestExamId "
+              :href="'/examportal/exam/edit-page/' + item.mockTestExamId"
               class="cursor-pointer rounded-md py-2 px-3 text-white bg-blue-500"
             >
               Edit Mock Test
@@ -277,12 +333,11 @@ const handleDelete = async()=>{
               shortDescription: item.shortDescription,
             }"
             @form-data-changes-basic="handleFormDataChangesBasic"
-            
             v-if="isActive == 0 && isDataLoaded"
           />
           <pricingValidity
             :data="{
-              id:item.id,
+              id: item.id,
               isFree: item.isFree,
               price: item.price,
               discount: item.discount,
@@ -293,13 +348,19 @@ const handleDelete = async()=>{
             @form-data-changes-pricing="handleFormDataChangesPricing"
             v-if="isActive == 1"
           />
-          <Publish :data="{
-            publishingDate: item.publishingDate,
-            publishingStatus : item.publishingStatus,
-          }"
-          @form-data-changes-publish="handleFormDataChangesPublish" 
-          v-if="isActive == 2" />
-          <ManageUser v-if="isActive == 3" />
+          <Publish
+            :data="{
+              publishingDate: item.publishingDate,
+              publishingStatus: item.publishingStatus,
+            }"
+            @form-data-changes-publish="handleFormDataChangesPublish"
+            v-if="isActive == 2"
+          />
+          <ExamPortalExamSettingManageLearner :postId="postId" v-if="isActive == 4" />
+          <ExamPortalExamSettingManageAdmin :postId="postId" v-if="isActive == 5" />
+          <ExamPortalExamSettingManageAffiliate :postId="postId" v-if="isActive == 6" />
+          <ExamPortalExamSettingManageInstructor  :postId="postId" v-if="isActive == 7" />
+
         </div>
       </div>
     </div>

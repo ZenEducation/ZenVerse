@@ -1,6 +1,159 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateResponce = /* GraphQL */ `
+  subscription OnCreateResponce($filter: ModelSubscriptionResponceFilterInput) {
+    onCreateResponce(filter: $filter) {
+      id
+      questionID
+      time
+      responce
+      attemptID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateResponce = /* GraphQL */ `
+  subscription OnUpdateResponce($filter: ModelSubscriptionResponceFilterInput) {
+    onUpdateResponce(filter: $filter) {
+      id
+      questionID
+      time
+      responce
+      attemptID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteResponce = /* GraphQL */ `
+  subscription OnDeleteResponce($filter: ModelSubscriptionResponceFilterInput) {
+    onDeleteResponce(filter: $filter) {
+      id
+      questionID
+      time
+      responce
+      attemptID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateAttempt = /* GraphQL */ `
+  subscription OnCreateAttempt($filter: ModelSubscriptionAttemptFilterInput) {
+    onCreateAttempt(filter: $filter) {
+      id
+      examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      marks
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAttempt = /* GraphQL */ `
+  subscription OnUpdateAttempt($filter: ModelSubscriptionAttemptFilterInput) {
+    onUpdateAttempt(filter: $filter) {
+      id
+      examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      marks
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAttempt = /* GraphQL */ `
+  subscription OnDeleteAttempt($filter: ModelSubscriptionAttemptFilterInput) {
+    onDeleteAttempt(filter: $filter) {
+      id
+      examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      marks
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const onCreateQuestion = /* GraphQL */ `
   subscription OnCreateQuestion($filter: ModelSubscriptionQuestionFilterInput) {
     onCreateQuestion(filter: $filter) {
@@ -41,6 +194,24 @@ export const onCreateQuestion = /* GraphQL */ `
       order
       guidelineTime
       examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -90,6 +261,24 @@ export const onUpdateQuestion = /* GraphQL */ `
       order
       guidelineTime
       examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -139,6 +328,24 @@ export const onDeleteQuestion = /* GraphQL */ `
       order
       guidelineTime
       examID
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -164,12 +371,29 @@ export const onCreateGroup = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -179,6 +403,11 @@ export const onCreateGroup = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -216,12 +445,29 @@ export const onUpdateGroup = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -231,6 +477,11 @@ export const onUpdateGroup = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -268,12 +519,29 @@ export const onDeleteGroup = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -283,6 +551,11 @@ export const onDeleteGroup = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -317,12 +590,29 @@ export const onCreateSection = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -332,6 +622,11 @@ export const onCreateSection = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -351,6 +646,11 @@ export const onCreateSection = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -386,12 +686,29 @@ export const onUpdateSection = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -401,6 +718,11 @@ export const onUpdateSection = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -420,6 +742,11 @@ export const onUpdateSection = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -455,12 +782,29 @@ export const onDeleteSection = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -470,6 +814,11 @@ export const onDeleteSection = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -489,6 +838,11 @@ export const onDeleteSection = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -523,6 +877,16 @@ export const onCreateExam = /* GraphQL */ `
           id
           title
           examID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
           description
           createdAt
           updatedAt
@@ -550,6 +914,19 @@ export const onCreateExam = /* GraphQL */ `
         validityDays
         expiryDate
         VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -559,12 +936,118 @@ export const onCreateExam = /* GraphQL */ `
           title
           description
           instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
           __typename
         }
         createdAt
@@ -583,6 +1066,11 @@ export const onCreateExam = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -602,12 +1090,29 @@ export const onCreateExam = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -617,6 +1122,33 @@ export const onCreateExam = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Attempts {
+        items {
+          id
+          examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          marks
+          status
           createdAt
           updatedAt
           _version
@@ -650,6 +1182,16 @@ export const onUpdateExam = /* GraphQL */ `
           id
           title
           examID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
           description
           createdAt
           updatedAt
@@ -677,6 +1219,19 @@ export const onUpdateExam = /* GraphQL */ `
         validityDays
         expiryDate
         VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -686,12 +1241,118 @@ export const onUpdateExam = /* GraphQL */ `
           title
           description
           instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
           __typename
         }
         createdAt
@@ -710,6 +1371,11 @@ export const onUpdateExam = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -729,12 +1395,29 @@ export const onUpdateExam = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -744,6 +1427,33 @@ export const onUpdateExam = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Attempts {
+        items {
+          id
+          examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          marks
+          status
           createdAt
           updatedAt
           _version
@@ -777,6 +1487,16 @@ export const onDeleteExam = /* GraphQL */ `
           id
           title
           examID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
           description
           createdAt
           updatedAt
@@ -804,6 +1524,19 @@ export const onDeleteExam = /* GraphQL */ `
         validityDays
         expiryDate
         VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -813,12 +1546,118 @@ export const onDeleteExam = /* GraphQL */ `
           title
           description
           instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
           __typename
         }
         createdAt
@@ -837,6 +1676,11 @@ export const onDeleteExam = /* GraphQL */ `
           order
           difficuilty
           sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
           examID
           createdAt
           updatedAt
@@ -856,12 +1700,29 @@ export const onDeleteExam = /* GraphQL */ `
           titleHTML
           type
           answer
+          range {
+            is
+            start
+            end
+            __typename
+          }
           isPartial
           isNegative
           maxMarks
           ifCorrect
           ifWrong
+          options {
+            text
+            html
+            isCorrectAnswer
+            __typename
+          }
           ismultipleChoice
+          criterias {
+            text
+            percentage
+            __typename
+          }
           explanation
           instruction
           topic
@@ -871,6 +1732,33 @@ export const onDeleteExam = /* GraphQL */ `
           order
           guidelineTime
           examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Attempts {
+        items {
+          id
+          examID
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
+          marks
+          status
           createdAt
           updatedAt
           _version
@@ -989,6 +1877,18 @@ export const onCreateMockTest = /* GraphQL */ `
         description
         instructions
         Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1007,6 +1907,44 @@ export const onCreateMockTest = /* GraphQL */ `
           isValidityDays
           validityDays
           expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1016,11 +1954,71 @@ export const onCreateMockTest = /* GraphQL */ `
           __typename
         }
         Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
         }
         Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1031,6 +2029,252 @@ export const onCreateMockTest = /* GraphQL */ `
         _deleted
         _lastChangedAt
         examMockTestId
+        __typename
+      }
+      Learners {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Affiliates {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Admin {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Instructors {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
         __typename
       }
       createdAt
@@ -1083,6 +2327,18 @@ export const onUpdateMockTest = /* GraphQL */ `
         description
         instructions
         Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1101,6 +2357,44 @@ export const onUpdateMockTest = /* GraphQL */ `
           isValidityDays
           validityDays
           expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1110,11 +2404,71 @@ export const onUpdateMockTest = /* GraphQL */ `
           __typename
         }
         Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
         }
         Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1125,6 +2479,252 @@ export const onUpdateMockTest = /* GraphQL */ `
         _deleted
         _lastChangedAt
         examMockTestId
+        __typename
+      }
+      Learners {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Affiliates {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Admin {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Instructors {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
         __typename
       }
       createdAt
@@ -1177,6 +2777,18 @@ export const onDeleteMockTest = /* GraphQL */ `
         description
         instructions
         Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1195,6 +2807,44 @@ export const onDeleteMockTest = /* GraphQL */ `
           isValidityDays
           validityDays
           expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1204,11 +2854,71 @@ export const onDeleteMockTest = /* GraphQL */ `
           __typename
         }
         Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
         }
         Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           nextToken
           startedAt
           __typename
@@ -1219,6 +2929,252 @@ export const onDeleteMockTest = /* GraphQL */ `
         _deleted
         _lastChangedAt
         examMockTestId
+        __typename
+      }
+      Learners {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Affiliates {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Admin {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      Instructors {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
         __typename
       }
       createdAt
@@ -1249,6 +3205,67 @@ export const onCreateLearner = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1276,6 +3293,67 @@ export const onUpdateLearner = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1303,6 +3381,67 @@ export const onDeleteLearner = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          learnerId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          learner {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1334,6 +3473,69 @@ export const onCreateAffiliate = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1365,6 +3567,69 @@ export const onUpdateAffiliate = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1396,6 +3661,69 @@ export const onDeleteAffiliate = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          affiliateId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          affiliate {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            commitionRate
+            isLifelong
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1423,6 +3751,67 @@ export const onCreateAdmin = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1450,6 +3839,67 @@ export const onUpdateAdmin = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1477,6 +3927,67 @@ export const onDeleteAdmin = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          adminId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          admin {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            role
+            password
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1506,6 +4017,67 @@ export const onCreateInstructor = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1535,6 +4107,67 @@ export const onUpdateInstructor = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -1564,6 +4197,2653 @@ export const onDeleteInstructor = /* GraphQL */ `
       state
       language
       userNote
+      mocktests {
+        items {
+          id
+          mockTestId
+          instructorId
+          mockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          instructor {
+            id
+            name
+            email
+            mobile
+            lastLogin
+            joinedOn
+            isEnabled
+            products
+            leadStatus
+            userSegment
+            password
+            role
+            state
+            language
+            userNote
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateMockTestLearner = /* GraphQL */ `
+  subscription OnCreateMockTestLearner(
+    $filter: ModelSubscriptionMockTestLearnerFilterInput
+  ) {
+    onCreateMockTestLearner(filter: $filter) {
+      id
+      mockTestId
+      learnerId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      learner {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMockTestLearner = /* GraphQL */ `
+  subscription OnUpdateMockTestLearner(
+    $filter: ModelSubscriptionMockTestLearnerFilterInput
+  ) {
+    onUpdateMockTestLearner(filter: $filter) {
+      id
+      mockTestId
+      learnerId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      learner {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMockTestLearner = /* GraphQL */ `
+  subscription OnDeleteMockTestLearner(
+    $filter: ModelSubscriptionMockTestLearnerFilterInput
+  ) {
+    onDeleteMockTestLearner(filter: $filter) {
+      id
+      mockTestId
+      learnerId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      learner {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateMockTestAffiliate = /* GraphQL */ `
+  subscription OnCreateMockTestAffiliate(
+    $filter: ModelSubscriptionMockTestAffiliateFilterInput
+  ) {
+    onCreateMockTestAffiliate(filter: $filter) {
+      id
+      mockTestId
+      affiliateId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      affiliate {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        commitionRate
+        isLifelong
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMockTestAffiliate = /* GraphQL */ `
+  subscription OnUpdateMockTestAffiliate(
+    $filter: ModelSubscriptionMockTestAffiliateFilterInput
+  ) {
+    onUpdateMockTestAffiliate(filter: $filter) {
+      id
+      mockTestId
+      affiliateId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      affiliate {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        commitionRate
+        isLifelong
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMockTestAffiliate = /* GraphQL */ `
+  subscription OnDeleteMockTestAffiliate(
+    $filter: ModelSubscriptionMockTestAffiliateFilterInput
+  ) {
+    onDeleteMockTestAffiliate(filter: $filter) {
+      id
+      mockTestId
+      affiliateId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      affiliate {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        commitionRate
+        isLifelong
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateMockTestAdmin = /* GraphQL */ `
+  subscription OnCreateMockTestAdmin(
+    $filter: ModelSubscriptionMockTestAdminFilterInput
+  ) {
+    onCreateMockTestAdmin(filter: $filter) {
+      id
+      mockTestId
+      adminId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      admin {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        role
+        password
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMockTestAdmin = /* GraphQL */ `
+  subscription OnUpdateMockTestAdmin(
+    $filter: ModelSubscriptionMockTestAdminFilterInput
+  ) {
+    onUpdateMockTestAdmin(filter: $filter) {
+      id
+      mockTestId
+      adminId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      admin {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        role
+        password
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMockTestAdmin = /* GraphQL */ `
+  subscription OnDeleteMockTestAdmin(
+    $filter: ModelSubscriptionMockTestAdminFilterInput
+  ) {
+    onDeleteMockTestAdmin(filter: $filter) {
+      id
+      mockTestId
+      adminId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      admin {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        role
+        password
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onCreateMockTestInstructor = /* GraphQL */ `
+  subscription OnCreateMockTestInstructor(
+    $filter: ModelSubscriptionMockTestInstructorFilterInput
+  ) {
+    onCreateMockTestInstructor(filter: $filter) {
+      id
+      mockTestId
+      instructorId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      instructor {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMockTestInstructor = /* GraphQL */ `
+  subscription OnUpdateMockTestInstructor(
+    $filter: ModelSubscriptionMockTestInstructorFilterInput
+  ) {
+    onUpdateMockTestInstructor(filter: $filter) {
+      id
+      mockTestId
+      instructorId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      instructor {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMockTestInstructor = /* GraphQL */ `
+  subscription OnDeleteMockTestInstructor(
+    $filter: ModelSubscriptionMockTestInstructorFilterInput
+  ) {
+    onDeleteMockTestInstructor(filter: $filter) {
+      id
+      mockTestId
+      instructorId
+      mockTest {
+        id
+        name
+        shortId
+        isFree
+        publishingDate
+        publishingStatus
+        description
+        shortDescription
+        price
+        discount
+        isValidityDays
+        validityDays
+        expiryDate
+        VariablePricings {
+          items {
+            id
+            days
+            price
+            discountPrice
+            mocktestID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Exam {
+          id
+          title
+          description
+          instructions
+          Sections {
+            nextToken
+            startedAt
+            __typename
+          }
+          MockTest {
+            id
+            name
+            shortId
+            isFree
+            publishingDate
+            publishingStatus
+            description
+            shortDescription
+            price
+            discount
+            isValidityDays
+            validityDays
+            expiryDate
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            mockTestExamId
+            __typename
+          }
+          Groups {
+            nextToken
+            startedAt
+            __typename
+          }
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          Attempts {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          examMockTestId
+          __typename
+        }
+        Learners {
+          items {
+            id
+            mockTestId
+            learnerId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Affiliates {
+          items {
+            id
+            mockTestId
+            affiliateId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Admin {
+          items {
+            id
+            mockTestId
+            adminId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Instructors {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        mockTestExamId
+        __typename
+      }
+      instructor {
+        id
+        name
+        email
+        mobile
+        lastLogin
+        joinedOn
+        isEnabled
+        products
+        leadStatus
+        userSegment
+        password
+        role
+        state
+        language
+        userNote
+        mocktests {
+          items {
+            id
+            mockTestId
+            instructorId
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version

@@ -121,7 +121,7 @@ const examData = ref({
   marks: 0,
   minutes: 180,
   questions: 0,
-  attempts: 1,
+  attempts: 0,
   expiryDate: null,
   isValidityDays: true,
   validityDays: 100,
@@ -205,7 +205,11 @@ const fetchExamData = async () => {
   }
 };
 
-
+const takeExam = async()=>{
+  const newAttempt = await API.graphql({
+    
+  })
+}
 
 onMounted(async () => {
   fetchExamData();

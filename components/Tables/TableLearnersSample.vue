@@ -30,7 +30,6 @@ const userMgmtStore = useMgmtStore();
 const deleteItemId = ref("");
 const EnableItemId = ref("");
 
-const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
 const isModalEnableActive = ref(false);
 
@@ -270,13 +269,7 @@ const nes = ref([]);
 </script>
 
 <template>
-  <CardBoxModal
-    v-model="isModalActive"
-    title="Edit Learners"
-    buttonLabel="Okay"
-  >
-    <p>You can edit learner details here.(WIP)</p>
-  </CardBoxModal>
+
 
   <CardBoxModal
     v-model="isModalDangerActive"

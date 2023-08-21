@@ -2,6 +2,12 @@ import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
+export enum AttemptStatus {
+  NOTSTARTED = "NOTSTARTED",
+  INPROGRESS = "INPROGRESS",
+  DONE = "DONE"
+}
+
 export enum QuestionType {
   MCQ = "MCQ",
   PARA = "PARA",
@@ -61,6 +67,74 @@ export declare type Range = LazyLoading extends LazyLoadingDisabled ? EagerRange
 
 export declare const Range: (new (init: ModelInit<Range>) => Range)
 
+type EagerResponce = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Responce, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly questionID: string;
+  readonly time?: number | null;
+  readonly responce?: string | null;
+  readonly attemptID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyResponce = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Responce, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly questionID: string;
+  readonly time?: number | null;
+  readonly responce?: string | null;
+  readonly attemptID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Responce = LazyLoading extends LazyLoadingDisabled ? EagerResponce : LazyResponce
+
+export declare const Responce: (new (init: ModelInit<Responce>) => Responce) & {
+  copyOf(source: Responce, mutator: (draft: MutableModel<Responce>) => MutableModel<Responce> | void): Responce;
+}
+
+type EagerAttempt = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Attempt, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly examID: string;
+  readonly Responces?: (Responce | null)[] | null;
+  readonly marks?: number | null;
+  readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyAttempt = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Attempt, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly examID: string;
+  readonly Responces: AsyncCollection<Responce>;
+  readonly marks?: number | null;
+  readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Attempt = LazyLoading extends LazyLoadingDisabled ? EagerAttempt : LazyAttempt
+
+export declare const Attempt: (new (init: ModelInit<Attempt>) => Attempt) & {
+  copyOf(source: Attempt, mutator: (draft: MutableModel<Attempt>) => MutableModel<Attempt> | void): Attempt;
+}
+
 type EagerQuestion = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Question, 'id'>;
@@ -89,6 +163,7 @@ type EagerQuestion = {
   readonly order?: number | null;
   readonly guidelineTime?: number | null;
   readonly examID: string;
+  readonly Responces?: (Responce | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -121,6 +196,7 @@ type LazyQuestion = {
   readonly order?: number | null;
   readonly guidelineTime?: number | null;
   readonly examID: string;
+  readonly Responces: AsyncCollection<Responce>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -220,6 +296,7 @@ type EagerExam = {
   readonly MockTest?: MockTest | null;
   readonly Groups?: (Group | null)[] | null;
   readonly Questions?: (Question | null)[] | null;
+  readonly Attempts?: (Attempt | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;
@@ -238,6 +315,7 @@ type LazyExam = {
   readonly MockTest: AsyncItem<MockTest | undefined>;
   readonly Groups: AsyncCollection<Group>;
   readonly Questions: AsyncCollection<Question>;
+  readonly Attempts: AsyncCollection<Attempt>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;
@@ -303,6 +381,10 @@ type EagerMockTest = {
   readonly expiryDate?: string | null;
   readonly VariablePricings?: (VariablePricing | null)[] | null;
   readonly Exam?: Exam | null;
+  readonly Learners?: (MockTestLearner | null)[] | null;
+  readonly Affiliates?: (MockTestAffiliate | null)[] | null;
+  readonly Admin?: (MockTestAdmin | null)[] | null;
+  readonly Instructors?: (MockTestInstructor | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly mockTestExamId?: string | null;
@@ -328,6 +410,10 @@ type LazyMockTest = {
   readonly expiryDate?: string | null;
   readonly VariablePricings: AsyncCollection<VariablePricing>;
   readonly Exam: AsyncItem<Exam | undefined>;
+  readonly Learners: AsyncCollection<MockTestLearner>;
+  readonly Affiliates: AsyncCollection<MockTestAffiliate>;
+  readonly Admin: AsyncCollection<MockTestAdmin>;
+  readonly Instructors: AsyncCollection<MockTestInstructor>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly mockTestExamId?: string | null;
@@ -359,6 +445,7 @@ type EagerLearner = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests?: (MockTestLearner | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -383,6 +470,7 @@ type LazyLearner = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests: AsyncCollection<MockTestLearner>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -415,6 +503,7 @@ type EagerAffiliate = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests?: (MockTestAffiliate | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -441,6 +530,7 @@ type LazyAffiliate = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests: AsyncCollection<MockTestAffiliate>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -471,6 +561,7 @@ type EagerAdmin = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests?: (MockTestAdmin | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -495,6 +586,7 @@ type LazyAdmin = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests: AsyncCollection<MockTestAdmin>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -525,6 +617,7 @@ type EagerInstructor = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests?: (MockTestInstructor | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -549,6 +642,7 @@ type LazyInstructor = {
   readonly state?: string | null;
   readonly language?: string | null;
   readonly userNote?: string | null;
+  readonly mocktests: AsyncCollection<MockTestInstructor>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -557,4 +651,140 @@ export declare type Instructor = LazyLoading extends LazyLoadingDisabled ? Eager
 
 export declare const Instructor: (new (init: ModelInit<Instructor>) => Instructor) & {
   copyOf(source: Instructor, mutator: (draft: MutableModel<Instructor>) => MutableModel<Instructor> | void): Instructor;
+}
+
+type EagerMockTestLearner = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestLearner, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly learnerId?: string | null;
+  readonly mockTest: MockTest;
+  readonly learner: Learner;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMockTestLearner = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestLearner, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly learnerId?: string | null;
+  readonly mockTest: AsyncItem<MockTest>;
+  readonly learner: AsyncItem<Learner>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MockTestLearner = LazyLoading extends LazyLoadingDisabled ? EagerMockTestLearner : LazyMockTestLearner
+
+export declare const MockTestLearner: (new (init: ModelInit<MockTestLearner>) => MockTestLearner) & {
+  copyOf(source: MockTestLearner, mutator: (draft: MutableModel<MockTestLearner>) => MutableModel<MockTestLearner> | void): MockTestLearner;
+}
+
+type EagerMockTestAffiliate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestAffiliate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly affiliateId?: string | null;
+  readonly mockTest: MockTest;
+  readonly affiliate: Affiliate;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMockTestAffiliate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestAffiliate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly affiliateId?: string | null;
+  readonly mockTest: AsyncItem<MockTest>;
+  readonly affiliate: AsyncItem<Affiliate>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MockTestAffiliate = LazyLoading extends LazyLoadingDisabled ? EagerMockTestAffiliate : LazyMockTestAffiliate
+
+export declare const MockTestAffiliate: (new (init: ModelInit<MockTestAffiliate>) => MockTestAffiliate) & {
+  copyOf(source: MockTestAffiliate, mutator: (draft: MutableModel<MockTestAffiliate>) => MutableModel<MockTestAffiliate> | void): MockTestAffiliate;
+}
+
+type EagerMockTestAdmin = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestAdmin, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly adminId?: string | null;
+  readonly mockTest: MockTest;
+  readonly admin: Admin;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMockTestAdmin = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestAdmin, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly adminId?: string | null;
+  readonly mockTest: AsyncItem<MockTest>;
+  readonly admin: AsyncItem<Admin>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MockTestAdmin = LazyLoading extends LazyLoadingDisabled ? EagerMockTestAdmin : LazyMockTestAdmin
+
+export declare const MockTestAdmin: (new (init: ModelInit<MockTestAdmin>) => MockTestAdmin) & {
+  copyOf(source: MockTestAdmin, mutator: (draft: MutableModel<MockTestAdmin>) => MutableModel<MockTestAdmin> | void): MockTestAdmin;
+}
+
+type EagerMockTestInstructor = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestInstructor, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly instructorId?: string | null;
+  readonly mockTest: MockTest;
+  readonly instructor: Instructor;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMockTestInstructor = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<MockTestInstructor, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly mockTestId?: string | null;
+  readonly instructorId?: string | null;
+  readonly mockTest: AsyncItem<MockTest>;
+  readonly instructor: AsyncItem<Instructor>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MockTestInstructor = LazyLoading extends LazyLoadingDisabled ? EagerMockTestInstructor : LazyMockTestInstructor
+
+export declare const MockTestInstructor: (new (init: ModelInit<MockTestInstructor>) => MockTestInstructor) & {
+  copyOf(source: MockTestInstructor, mutator: (draft: MutableModel<MockTestInstructor>) => MutableModel<MockTestInstructor> | void): MockTestInstructor;
 }

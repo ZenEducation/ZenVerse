@@ -99,11 +99,7 @@ const handleSave = async () => {
 
 
 
-    if(!(name?.length > 0 && shortId?.length > 0) ){
-      window.alert("Mock Test Name and Mock test ID can not be empty");
-      console.error("title and shortID can not be empty")
-      return
-    }
+
     if(!(name?.length > 0 && shortId?.length > 0) ){
       window.alert("Mock Test Name and Mock test ID can not be empty");
       console.error("title and shortID can not be empty")

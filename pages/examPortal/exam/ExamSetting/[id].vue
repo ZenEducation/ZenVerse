@@ -123,11 +123,28 @@ const handleSave = async () => {
       publishingDate,
       publishingStatus,
     };
-    if (!(name?.length > 0 && shortId?.length > 0)) {
-      window.alert("title and shortID can not be empty");
-      console.error("title and shortID can not be empty");
-      return;
+
+    if(!(name?.length > 0 && shortId?.length > 0) ){
+      window.alert("Mock Test Name and Mock test ID can not be empty");
+      console.error("Mock Test Name and Mock test ID can not be empty")
+      return
     }
+
+    if(price == undefined || price == null || price < 0 || !price ){
+      price = 0;
+    }
+    if(discount == undefined || discount == null || discount < 0 || !discount){
+      discount = 0;
+    }
+    if(validityDays == undefined || validityDays == null || validityDays < 0 || !validityDays){
+      validityDays = 0;
+    }
+    if(!expiryDate){
+      window.alert("Expiry date can not be null");
+      console.error("Expiry date can not be null")
+      return
+    }
+
     console.log(input);
     const response = await API.graphql({
       query: updateMockTest,

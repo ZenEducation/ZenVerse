@@ -287,6 +287,19 @@ const closePopup = () => {
   emit("onAction");
 };
 
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  }
+});
+
+const original = props.data;
 // form data
 
 const dealName = ref(null);
@@ -305,6 +318,23 @@ const expectedClose = ref(null);
 const revenueType = ref(null);
 const dealPerformanceLane = ref(null);
 const productInterest = ref(null);
+
+dealName.value = props.data.dealName;
+summary.value = props.data.summary;
+companyName.value = props.data.companyName;
+primaryContact.value = props.data.primaryContact;
+amount.value = props.data.amount;
+currency.value = props.data.currency;
+pipeline.value = props.data.pipeline;
+stage.value = props.data.stage;
+owner.value = props.data.owner;
+probability.value = props.data.probability;
+source.value = props.data.source;
+status.value = props.data.status;
+expectedClose.value = props.data.expectedClose;
+revenueType.value = props.data.revenueType;
+dealPerformanceLane.value = props.data.dealPerformanceLane;
+productInterest.value = props.data.productInterest;
 
 const submitData = async () => {
   const data = {
@@ -329,7 +359,12 @@ const submitData = async () => {
   };
   
   emit("getDealData", data);
-  await getDeal.addNewDeal(data);
+  if(props.new) {
+    await getDeal.addNewDeal(data);
+  }
+  else {
+    await getDeal.updateDeal(original, data);
+  }
   await getDeal.getDeals();
 };
 </script>

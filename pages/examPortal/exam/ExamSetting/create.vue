@@ -47,7 +47,9 @@ const isActive = ref(0);
 const item = ref({
   isValidityDays : true,
   isFree : true,
-  publishingStatus:"Unpublished"
+  publishingStatus:"Unpublished",
+  price:0,
+  discount:0,
 });
 
 const handleFormDataChangesBasic = (formData) => {
@@ -95,6 +97,34 @@ const handleSave = async () => {
       validityDays = 0;
     }
 
+
+
+    if(!(name?.length > 0 && shortId?.length > 0) ){
+      window.alert("Mock Test Name and Mock test ID can not be empty");
+      console.error("title and shortID can not be empty")
+      return
+    }
+    if(!(name?.length > 0 && shortId?.length > 0) ){
+      window.alert("Mock Test Name and Mock test ID can not be empty");
+      console.error("title and shortID can not be empty")
+      return
+    }
+
+    if(price == undefined || price == null || price < 0 || !price ){
+      price = 0;
+    }
+    if(discount == undefined || discount == null || discount < 0 || !discount){
+      discount = 0;
+    }
+    if(validityDays == undefined || validityDays == null || validityDays < 0 || !validityDays){
+      validityDays = 0;
+    }
+    if(!expiryDate){
+      window.alert("Expiry date can not be null");
+      console.error("title and shortID can not be empty")
+      return
+    }
+
     let input = {
       name,
       shortId,
@@ -110,15 +140,6 @@ const handleSave = async () => {
       publishingStatus,
     };
     console.log(input);
-
-    if(!(name?.length > 0 && shortId?.length > 0) ){
-      window.alert("title and shortID can not be empty");
-      console.error("title and shortID can not be empty")
-      return
-    }
-    if(validityDays===undefined || validityDays?.length == 0){
-      validityDays = 0;
-    }
 
 
 

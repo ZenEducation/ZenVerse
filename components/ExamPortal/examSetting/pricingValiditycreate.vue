@@ -137,6 +137,7 @@ const emitFormDataChanges = () => {
           v-if="i.id == 0"
           required
           type="number"
+          
           placeholder="Day(s)"
           v-model="validityDays"
           @input="emitFormDataChanges"

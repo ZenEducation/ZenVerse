@@ -362,6 +362,7 @@ onMounted( ()=>{
                     <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
                     <p v-else class="font-semibold text-sm">
                       ₹ {{ item.discount  }}
+                      <span class="line-through font-normal" >{{item.price}}</span>
                     </p>
 
                     <p class="text-sm">{{item.isValidityDays ? `${item.validityDays} Days`: `${item.expiryDate}`}}</p>
@@ -397,7 +398,12 @@ onMounted( ()=>{
                 <p class="">{{ item.shortId }}</p>
                 <div class="flex justify-between">
                   <p v-if="item.isFree" class="font-semibold text-sm">Free</p>
-                  <p v-else class="font-semibold text-sm">₹ {{ item.discount  }}</p>
+                  <p v-else class="font-semibold text-sm">
+                    
+                    ₹ {{ item.discount  }}
+                    <span class="line-through font-normal" >{{item.price}}</span>
+
+                  </p>
 
                   <p class="text-sm">{{item.isValidityDays ? `${item.validityDays} Days`: `${item.expiryDate}`}}</p>
                 </div>

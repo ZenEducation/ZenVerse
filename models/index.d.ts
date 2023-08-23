@@ -1,73 +1,47 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
 
 
-type EagerWhiteboard = {
+type EagerUntitledModel = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Whiteboard, 'id'>;
+    identifier: ManagedIdentifier<UntitledModel, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly userId?: string | null;
-  readonly canvas?: string | null;
-  readonly Users?: (User | null)[] | null;
+  readonly title?: string | null;
+  readonly type?: string | null;
+  readonly category?: string | null;
+  readonly published?: string | null;
+  readonly status?: string | null;
+  readonly submittedOn?: string | null;
+  readonly assigned_to?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyWhiteboard = {
+type LazyUntitledModel = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Whiteboard, 'id'>;
+    identifier: ManagedIdentifier<UntitledModel, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly userId?: string | null;
-  readonly canvas?: string | null;
-  readonly Users: AsyncCollection<User>;
+  readonly title?: string | null;
+  readonly type?: string | null;
+  readonly category?: string | null;
+  readonly published?: string | null;
+  readonly status?: string | null;
+  readonly submittedOn?: string | null;
+  readonly assigned_to?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Whiteboard = LazyLoading extends LazyLoadingDisabled ? EagerWhiteboard : LazyWhiteboard
+export declare type UntitledModel = LazyLoading extends LazyLoadingDisabled ? EagerUntitledModel : LazyUntitledModel
 
-export declare const Whiteboard: (new (init: ModelInit<Whiteboard>) => Whiteboard) & {
-  copyOf(source: Whiteboard, mutator: (draft: MutableModel<Whiteboard>) => MutableModel<Whiteboard> | void): Whiteboard;
-}
-
-type EagerUser = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly image?: string | null;
-  readonly name: string;
-  readonly address?: string | null;
-  readonly whiteboardID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyUser = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly image?: string | null;
-  readonly name: string;
-  readonly address?: string | null;
-  readonly whiteboardID: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
-
-export declare const User: (new (init: ModelInit<User>) => User) & {
-  copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+export declare const UntitledModel: (new (init: ModelInit<UntitledModel>) => UntitledModel) & {
+  copyOf(source: UntitledModel, mutator: (draft: MutableModel<UntitledModel>) => MutableModel<UntitledModel> | void): UntitledModel;
 }

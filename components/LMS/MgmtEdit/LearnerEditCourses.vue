@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import {
-  mdiTrashCan ,
+  mdiTrashCan,
   mdiPencil,
   mdiDotsVertical,
   mdiAccountPlus,
@@ -12,8 +12,9 @@ import {
   mdiCellphone,
   mdiAsterisk,
   mdiFormTextboxPassword,
-mdiPlus,
-mdiSchool,
+  mdiPlus,
+  mdiSchool,
+  mdiMinusCircle,
 } from "@mdi/js";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import TableLearnerEnabled from "@/components/Tables/TableLearnerEnabled.vue";
@@ -28,11 +29,35 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
+import { API } from "aws-amplify";
+import {
+  listMockTestLearners,
+  listMockTestAdmins,
+  listMockTestAffiliates,
+  listMockTestInstructors,
+  listMockTests,
+} from "~~/src/graphql/queries";
+import {
+  deleteMockTestAdmin,
+  deleteMockTestAffiliate,
+  deleteMockTestInstructor,
+  deleteMockTestLearner,
+  createMockTestAdmin,
+  createMockTestAffiliate,
+  createMockTestInstructor,
+  createMockTestLearner,
+} from "~~/src/graphql/mutations";
 
-defineProps({
+const props = defineProps({
   checkable: { type: Boolean, default: false },
+  isLearner: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false },
+  isAffiliate: { type: Boolean, default: false },
+  isInstructor: { type: Boolean, default: false },
+  id: { type: String, default: "" },
 });
 const deleteItemId = ref("");
+const deleteItemVersion = ref(0);
 const EnableItemId = ref("");
 
 const isModalDangerActive = ref(false);
@@ -40,67 +65,333 @@ const isModalEnableActive = ref(false);
 
 const items = ref([
   {
-    "Course Id": "FC123",
-    "Course Title": "Foundation Course",
+    id: "FC123",
+    title: "Foundation Course",
     "Joined On": "Mar 03 , 2023",
     "Expiry Date": "Mar 07 , 2024",
     isEnabled: false,
   },
   {
-    "Course Id": "NEET123",
-    "Course Title": "NEET Course",
+    id: "NEET123",
+    title: "NEET Course",
     "Joined On": "Mar 15 , 2023",
     "Expiry Date": "Mar 16 , 2024",
     isEnabled: true,
   },
 ]);
+const existingItems = ref([]);
+const existingListSelectedId = ref("");
+
+const addNewHandler = async () => {};
+const removeHandler = async () => {};
+
+const start = async () => {
+  let list = [];
+
+  if (props.isLearner) {
+    let response = await API.graphql({
+      query: listMockTestLearners,
+      variables: {
+        filter: { learnerId: { eq: props.id }, _deleted: { ne: true } },
+      },
+    });
+    console.log("responce ", response?.data?.listMockTestLearners?.items);
+    response = response?.data?.listMockTestLearners?.items
+      .filter((item) => {
+        return !item.mockTest._deleted;
+      })
+      .map((item) => {
+        let expiryDate = new Date();
+        console.log(
+          item?.mockTest?.isValidityDays,
+          item?.mockTest.validityDays
+        );
+        if (item?.mockTest.isValidityDays && item?.mockTest.validityDays) {
+          expiryDate = new Date(item.createdAt);
+          expiryDate = expiryDate.setDate(
+            expiryDate.getDate() + item?.mockTest.validityDays
+          );
+          console.log("object ", expiryDate);
+        } else {
+          expiryDate = item.mockTest.expiryDate;
+        }
+
+        return {
+          relationID: item.id,
+          type: "MockTest",
+          id: item.mockTest.shortId,
+          title: item.mockTest.name,
+          "Joined On": item.createdAt,
+          "Expiry Date": new Date(expiryDate).toDateString(),
+          version: item._version,
+          mockTestId: item.mockTest.id,
+        };
+      });
+    console.log(response);
+    list = response.map((item) => {
+      return item.mockTestId;
+    });
+    items.value = response;
+  }
+  if (props.isAdmin) {
+    let response = await API.graphql({
+      query: listMockTestAdmins,
+      variables: {
+        filter: { adminId: { eq: props.id }, _deleted: { ne: true } },
+      },
+    });
+    console.log("responce ", response?.data?.listMockTestAdmins?.items);
+    response = response?.data?.listMockTestAdmins?.items
+      .filter((item) => {
+        return !item.mockTest._deleted;
+      })
+      .map((item) => {
+        let expiryDate = new Date();
+        console.log(
+          item?.mockTest?.isValidityDays,
+          item?.mockTest.validityDays
+        );
+        if (item?.mockTest.isValidityDays && item?.mockTest.validityDays) {
+          expiryDate = new Date(item.createdAt);
+          expiryDate = expiryDate.setDate(
+            expiryDate.getDate() + item?.mockTest.validityDays
+          );
+          console.log("object ", expiryDate);
+        } else {
+          expiryDate = item.mockTest.expiryDate;
+        }
+
+        return {
+          relationID: item.id,
+          type: "MockTest",
+          id: item.mockTest.shortId,
+          title: item.mockTest.name,
+          "Joined On": item.createdAt,
+          "Expiry Date": new Date(expiryDate).toDateString(),
+          version: item._version,
+          mockTestId: item.mockTest.id,
+        };
+      });
+    console.log(response);
+    list = response.map((item) => {
+      return item.mockTestId;
+    });
+    items.value = response;
+  }
+  if (props.isAffiliate) {
+    let response = await API.graphql({
+      query: listMockTestAffiliates,
+      variables: {
+        filter: { affiliateId: { eq: props.id }, _deleted: { ne: true } },
+      },
+    });
+    console.log("responce ", response?.data?.listMockTestAffiliates?.items);
+    response = response?.data?.listMockTestAffiliates?.items
+      .filter((item) => {
+        return !item.mockTest._deleted;
+      })
+      .map((item) => {
+        let expiryDate = new Date();
+        console.log(
+          item?.mockTest?.isValidityDays,
+          item?.mockTest.validityDays
+        );
+        if (item?.mockTest.isValidityDays && item?.mockTest.validityDays) {
+          expiryDate = new Date(item.createdAt);
+          expiryDate = expiryDate.setDate(
+            expiryDate.getDate() + item?.mockTest.validityDays
+          );
+          console.log("object ", expiryDate);
+        } else {
+          expiryDate = item.mockTest.expiryDate;
+        }
+
+        return {
+          relationID: item.id,
+          type: "MockTest",
+          id: item.mockTest.shortId,
+          title: item.mockTest.name,
+          "Joined On": item.createdAt,
+          "Expiry Date": new Date(expiryDate).toDateString(),
+          version: item._version,
+          mockTestId: item.mockTest.id,
+        };
+      });
+    console.log(response);
+    list = response.map((item) => {
+      return item.mockTestId;
+    });
+    items.value = response;
+  }
+  if (props.isInstructor) {
+    let response = await API.graphql({
+      query: listMockTestInstructors,
+      variables: {
+        filter: { instructorId: { eq: props.id }, _deleted: { ne: true } },
+      },
+    });
+    console.log("responce ", response?.data?.listMockTestInstructors?.items);
+    response = response?.data?.listMockTestInstructors?.items
+      .filter((item) => {
+        return !item.mockTest._deleted;
+      })
+      .map((item) => {
+        let expiryDate = new Date();
+        console.log(
+          item?.mockTest?.isValidityDays,
+          item?.mockTest.validityDays
+        );
+        if (item?.mockTest.isValidityDays && item?.mockTest.validityDays) {
+          expiryDate = new Date(item.createdAt);
+          expiryDate = expiryDate.setDate(
+            expiryDate.getDate() + item?.mockTest.validityDays
+          );
+          console.log("object ", expiryDate);
+        } else {
+          expiryDate = item.mockTest.expiryDate;
+        }
+
+        return {
+          relationID: item.id,
+          type: "MockTest",
+          id: item.mockTest.shortId,
+          title: item.mockTest.name,
+          "Joined On": item.createdAt,
+          "Expiry Date": new Date(expiryDate).toDateString(),
+          version: item._version,
+          mockTestId: item.mockTest.id,
+        };
+      });
+    console.log(response);
+    list = response.map((item) => {
+      return item.mockTestId;
+    });
+    items.value = response;
+    console.log(list);
+  }
+  console.log(list);
+  let response = await API.graphql({
+    query: listMockTests,
+    variables: { filter: { _deleted: { ne: true } } },
+  });
+  response = response.data.listMockTests.items.filter((item) => {
+    return (
+      list.findIndex((t) => {
+        return t === item.id;
+      }) == -1
+    );
+  });
+  console.log(response);
+  existingItems.value = response;
+};
+
+onMounted(async () => {
+  // get list of courses
+  await start();
+});
 
 const isAddCourseModelActive = ref(false);
 const addCourse = ref({
-  "Course Id": "",
-  "Course Title": "",
+  id: "",
+  title: "",
   "Joined On": "",
   "Expiry Date": "",
   isEnabled: true,
 });
 
-const addNewCourse = ()=>{
-  items.value.push(addCourse.value);
-  isAddCourseModelActive.value = false;  
-}
+const addNewCourse = async () => {
+  try {
+    if (props.isAdmin) {
+      let relation = await API.graphql({
+        query: createMockTestAdmin,
+        variables: {
+          input: {
+            mockTestId: existingListSelectedId.value,
+            adminId: props.id,
+          },
+        },
+      });
+    }
+    if (props.isAffiliate) {
+      let relation = await API.graphql({
+        query: createMockTestAffiliate,
+        variables: {
+          input: {
+            mockTestId: existingListSelectedId.value,
+            affiliateId: props.id,
+          },
+        },
+      });
+    }
+    if (props.isLearner) {
+      let relation = await API.graphql({
+        query: createMockTestLearner,
+        variables: {
+          input: {
+            mockTestId: existingListSelectedId.value,
+            learnerId: props.id,
+          },
+        },
+      });
+    }
+    if (props.isInstructor) {
+      let relation = await API.graphql({
+        query: createMockTestInstructor,
+        variables: {
+          input: {
+            mockTestId: existingListSelectedId.value,
+            instructorId: props.id,
+          },
+        },
+      });
+    }
+    await start();
+    isAddCourseModelActive.value = false;
+  } catch (error) {
+    console.error("Error Creating admin:", error);
+  }
+};
 
 const isEditCourseModelActive = ref(false);
-const editCourseId = ref()
+const editCourseId = ref();
 const editCourseInputValues = ref({
   "Joined On": "",
   "Expiry Date": "",
 });
 
-const editCourse = ()=>{
-  items.value.find((item)=>{
-    return item["Course Id"] == editCourseId.value
-  })["Joined On"] = editCourseInputValues.value["Joined On"]
+const editCourse = () => {
+  items.value.find((item) => {
+    return item["id"] == editCourseId.value;
+  })["Joined On"] = editCourseInputValues.value["Joined On"];
 
-  items.value.find((item)=>{
-    return item["Course Id"] == editCourseId.value
+  items.value.find((item) => {
+    return item["id"] == editCourseId.value;
   })["Expiry Date"] = editCourseInputValues.value["Expiry Date"];
 
   isEditCourseModelActive.value = false;
-}
+};
 
-const openEdit = (id)=>{
-  let course = items.value.find((item)=>{
-    return item["Course Id"]==id
-  })
-  
-  let joiningDate = new Date(course["Joined On"])
-  let expiryDate = new Date(course["Expiry Date"])
+const openEdit = (id) => {
+  let course = items.value.find((item) => {
+    return item["id"] == id;
+  });
+
+  let joiningDate = new Date(course["Joined On"]);
+  let expiryDate = new Date(course["Expiry Date"]);
 
   editCourseId.value = id;
-  editCourseInputValues.value["Joined On"] = new Date(joiningDate.getTime() - joiningDate.getTimezoneOffset() * 60000).toISOString().split("T")[0];
-  editCourseInputValues.value["Expiry Date"] =  new Date(expiryDate.getTime() - expiryDate.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+  editCourseInputValues.value["Joined On"] = new Date(
+    joiningDate.getTime() - joiningDate.getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .split("T")[0];
+  editCourseInputValues.value["Expiry Date"] = new Date(
+    expiryDate.getTime() - expiryDate.getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .split("T")[0];
   isEditCourseModelActive.value = true;
-}
+};
 
 const joinDateOptions = ["all", "before", "on", "after", "between"];
 const membershipOptions = ["all", "enabled", "disabled"];
@@ -137,16 +428,9 @@ const filteredItems = computed(() => {
   if (searchQuery.value) {
     filtered = filtered.filter((item) => {
       return search
-        ? item["Course Id"].match(search) || item["Course Title"].match(search)
+        ? item["id"].match(search) || item["title"].match(search)
         : true;
     });
-  }
-
-  if (membershipSelectedFilter.value == "enabled") {
-    filtered = filtered.filter((item) => item.isEnabled);
-  }
-  if (membershipSelectedFilter.value == "disabled") {
-    filtered = filtered.filter((item) => !item.isEnabled);
   }
 
   if (joinedFilterOption.value !== "all") {
@@ -222,32 +506,79 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
-const EnableItem = (popup, id) => {
-  if (popup) {
-    isModalEnableActive.value = true;
-    EnableItemId.value = id;
-    return;
-  }
-  const index = items.value.findIndex(
-    (item) => item["Course Id"] === EnableItemId.value
-  );
-  console.log("index is", index);
-  if (index !== -1) {
-    items.value[index].isEnabled = !items.value[index].isEnabled;
-  }
-};
+// const EnableItem = (popup, id) => {
+//   if (popup) {
+//     isModalEnableActive.value = true;
+//     EnableItemId.value = id;
+//     return;
+//   }
+//   const index = items.value.findIndex(
+//     (item) => item["id"] === EnableItemId.value
+//   );
+//   console.log("index is", index);
+//   if (index !== -1) {
+//     items.value[index].isEnabled = !items.value[index].isEnabled;
+//   }
+// };
 
-const deleteItem = (popup, id) => {
+const deleteItem = async (popup, id, version) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
+    deleteItemVersion.value = version;
     return;
   }
   const index = items.value.findIndex(
-    (item) => item["Course Id"] === deleteItemId.value
+    (item) => item["relationID"] === deleteItemId.value
   );
   if (index !== -1) {
-    items.value.splice(index, 1);
+    try {
+      if (props.isAdmin) {
+        await API.graphql({
+          query: deleteMockTestAdmin,
+          variables: {
+            input: {
+              id: deleteItemId.value,
+              _version: deleteItemVersion.value,
+            },
+          },
+        });
+      } else if (props.isAffiliate) {
+        await API.graphql({
+          query: deleteMockTestAffiliate,
+          variables: {
+            input: {
+              id: deleteItemId.value,
+              _version: deleteItemVersion.value,
+            },
+          },
+        });
+      } else if (props.isInstructor) {
+        await API.graphql({
+          query: deleteMockTestInstructor,
+          variables: {
+            input: {
+              id: deleteItemId.value,
+              _version: deleteItemVersion.value,
+            },
+          },
+        });
+      } else if (props.isLearner) {
+        await API.graphql({
+          query: deleteMockTestLearner,
+          variables: {
+            input: {
+              id: deleteItemId.value,
+              _version: deleteItemVersion.value,
+            },
+          },
+        });
+      }
+
+      items.value.splice(index, 1);
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 </script>
@@ -261,51 +592,21 @@ const deleteItem = (popup, id) => {
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
-        <h1 class="font-bold">Add Course</h1>
-        <h3 class="text-xs">Enter details to create Course manually</h3>
+        <h1 class="font-bold">Add Product</h1>
       </div>
-      <div class="text-gray-500 cursor-pointer" @click="isAddCourseModelActive = false">
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isAddCourseModelActive = false"
+      >
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
     <CardBox is-form @submit.prevent="submitProfile">
-      <FormField label="Course Id">
-        <FormControl
-          :icon="mdiSchool"
-          required
-          v-model="addCourse['Course Id']"
-          placeholder="Enter Course Id"
-        />
-      </FormField>
-      <FormField label="Course Title">
-        <FormControl
-          :icon="mdiSchool"
-          required
-          v-model="addCourse['Course Title']"
-          placeholder="Enter Course Title"
-        />
-      </FormField>
-      <FormField label="Joining Date">
-        <FormControl
-          :icon="mdiSchool"
-          required
-          type="date"
-          v-model="addCourse['Joined On']"
-        />
-      </FormField>
-      <FormField label="Expiry Date">
-        <FormControl
-          :icon="mdiSchool"
-          required
-          type="date"
-          v-model="addCourse['Expiry Date']"
-        />
-      </FormField>
-
-      
-
-
-
+      <select v-model="existingListSelectedId">
+        <option v-for="item in existingItems" :value="item.id">
+          {{ item.name }}
+        </option>
+      </select>
       <div class="flex justify-end py-2">
         <BaseButtons>
           <BaseButton @click="addNewCourse" color="info" label="Submit" />
@@ -324,7 +625,10 @@ const deleteItem = (popup, id) => {
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Edit Course</h1>
       </div>
-      <div class="text-gray-500 cursor-pointer" @click="isEditCourseModelActive = false">
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isEditCourseModelActive = false"
+      >
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
@@ -372,32 +676,30 @@ const deleteItem = (popup, id) => {
     @confirm="EnableItem(false)"
   />
 
-
-    <form class="relative" @submit.prevent="submit">
-      <label for="msg-search" class="sr-only">Search</label>
-      <input
-        id="msg-search"
-        class="form-input w-full pl-9 focus:border-slate-300"
-        type="search"
-        v-model="searchQuery"
-        placeholder="Search by Course Id and Title"
-      />
-      <button class="absolute inset-0 right-auto group" aria-label="Search">
-        <svg
-          class="w-4 h-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 ml-3 mr-2"
-          viewBox="0 0 16 16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"
-          />
-          <path
-            d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z"
-          />
-        </svg>
-      </button>
-    </form>
-
+  <form class="relative" @submit.prevent="submit">
+    <label for="msg-search" class="sr-only">Search</label>
+    <input
+      id="msg-search"
+      class="form-input w-full pl-9 focus:border-slate-300"
+      type="search"
+      v-model="searchQuery"
+      placeholder="Search by Product Id and Title"
+    />
+    <button class="absolute inset-0 right-auto group" aria-label="Search">
+      <svg
+        class="w-4 h-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 ml-3 mr-2"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z"
+        />
+        <path
+          d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z"
+        />
+      </svg>
+    </button>
+  </form>
 
   <div class="lg:flex justify-between my-8">
     <div class="flex items-start gap-y-4 flex-wrap">
@@ -536,10 +838,10 @@ const deleteItem = (popup, id) => {
       </p>
     </div>
     <BaseButton
-    color="danger"
-    :icon="mdiPlus"
-    label="Add"
-    @click="isAddCourseModelActive = true"
+      color="danger"
+      :icon="mdiPlus"
+      label="Add"
+      @click="isAddCourseModelActive = true"
     />
   </div>
 
@@ -550,22 +852,21 @@ const deleteItem = (popup, id) => {
   <table>
     <thead>
       <tr>
-        <th>Course Id</th>
-        <th>Course Title</th>
+        <th>Product Id</th>
+        <th>Product title</th>
         <th>Joined On</th>
         <th>Expiry Date</th>
-        <th>Enabled</th>
         <th />
         <th />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in filteredItems" :key="item['Course Id']">
-        <td data-label="Course Id">
-          {{ item["Course Id"] }}
+      <tr v-for="item in filteredItems" :key="item['id']">
+        <td data-label="Product Id">
+          {{ item["id"] }}
         </td>
-        <td data-label="'Course Title'">
-          {{ item["Course Title"] }}
+        <td data-label="'Product title'">
+          {{ item["title"] }}
         </td>
 
         <td data-label="Joined" class="lg:w-1 whitespace-nowrap">
@@ -579,29 +880,18 @@ const deleteItem = (popup, id) => {
           <small
             class="text-gray-500 dark:text-slate-400"
             :title="item['Expiry Date']"
-            >{{ new Date(item["Expiry Date"]).toDateString()  }}</small
+            >{{ new Date(item["Expiry Date"]).toDateString() }}</small
           >
         </td>
-        <TableLearnerEnabled
-          data-label="Enabled"
-          :checked="item.isEnabled"
-          @click="EnableItem(true, item['Course Id'])"
-        />
+
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton
               color="danger"
-              :icon="mdiTrashCan"
+              :icon="mdiMinusCircle"
               small
-              @click="deleteItem(true, item['Course Id'])"
-              />
-            <BaseButton
-            color="info"
-            :icon="mdiPencil"
-            small
-            @click="openEdit(item['Course Id'])"
-
-          />
+              @click="deleteItem(true, item['relationID'], item?.version)"
+            />
           </BaseButtons>
         </td>
       </tr>

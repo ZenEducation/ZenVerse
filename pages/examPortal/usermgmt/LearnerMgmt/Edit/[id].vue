@@ -24,6 +24,8 @@ const userMgmtStore = useMgmtStore();
 
 
 const route = useRoute();
+const postId = route.params.id;
+
 
 const LearnerData = ref(null);
 const learner = ref({
@@ -127,7 +129,6 @@ const learner = ref({
 });
 
 onMounted(async () => {
-  const postId = route.params.id;
   let temp = await userMgmtStore.FetchSingleLearner(postId);
   if(temp[0]){
     learner.value.profile = temp[1]; // You need to implement this function
@@ -381,7 +382,7 @@ const deleteHandler = async () => {
             :options="options"
             v-if="isActive == 0"
           />
-          <CoursesTab v-if="isActive == 1" />
+          <CoursesTab :is-learner="true" :id="postId" v-if="isActive == 1" />
           <PurchaseTab v-if="isActive == 2" />
         </div>
       </div>

@@ -14,7 +14,7 @@ import {
 } from "@mdi/js";
 import {
   mdiPencil,
-  mdiTrashCan,
+  mdiMinusCircle,
   mdiClose,
   mdiPlusCircleOutline,
   mdiMinusCircleOutline,
@@ -30,7 +30,7 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import { onMounted } from "vue";
 import { API } from "aws-amplify";
-import { createAffiliate, createMockTestAffiliate } from "@/src/graphql/mutations";
+import { createAffiliate, createMockTestAffiliate , deleteMockTestAffiliate } from "@/src/graphql/mutations";
 import { listMockTestAffiliates, listAffiliates } from "@/src/graphql/queries";
 import { useMgmtStore } from "@/stores/usermgmtAPI";
 import TableLearnerEnabled from "@/components/Tables/TableLearnerEnabled.vue";
@@ -156,14 +156,24 @@ const addExistingAffiliate = async () => {
 
 onMounted(async () => {
   try {
+    let MTAffiliates = [];
     let mockTestAffiliates = await API.graphql({
       query: listMockTestAffiliates,
       variables: {
-        filter: { mockTestId: { eq: props.postId } },
+        filter: { mockTestId: { eq: props.postId } , _deleted:{ne:true} },
       },
     });
     mockTestAffiliates = mockTestAffiliates.data?.listMockTestAffiliates?.items;
     console.log(mockTestAffiliates);
+    MTAffiliates = mockTestAffiliates
+      .filter((item) => {
+        return (
+          !item._deleted && !item.affiliate._deleted && !item.mockTest._deleted
+        );
+      })
+      .map((item) => {
+        return { ...item.affiliate , relationId: item.id, version: item._version };
+      });
     mockTestAffiliates = mockTestAffiliates.map((item) => item.affiliateId);
     console.log(mockTestAffiliates);
 
@@ -173,13 +183,11 @@ onMounted(async () => {
     });
     console.log(allAffiliates.data?.listAffiliates?.items);
 
-    let MTAffiliates = [];
     let nonMTAffiliates = [];
     allAffiliates.data?.listAffiliates?.items.forEach((item) => {
       console.log(item.id);
       console.log(mockTestAffiliates.findIndex((t) => t == item.id));
       if (mockTestAffiliates.findIndex((t) => t == item.id) > -1) {
-        MTAffiliates.push(item);
       } else {
         nonMTAffiliates.push(item);
       }
@@ -410,19 +418,34 @@ const EnableItem = async (popup, id) => {
   }
 };
 
-const deleteItem = async (popup, id) => {
+const isModalDangerActive = ref(false);
+const deleteItemId = ref();
+const deleteItemVersion = ref();
+const deleteItem = async (popup, id, version) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
+    deleteItemVersion.value = version;
     return;
   }
-  const index = items.value.findIndex((item) => item.id === deleteItemId.value);
+  const index = items.value.findIndex((item) => item.relationId === deleteItemId.value);
   if (index !== -1) {
-    await userMgmtStore.DeleteAffiliate(
-      deleteItemId.value,
-      items.value[index]._version
-    );
-    items.value.splice(index, 1);
+    try {
+      console.log(deleteItemId.value , deleteItemVersion.value );
+      await API.graphql({
+        query: deleteMockTestAffiliate,
+        variables: {
+          input: {
+            id: deleteItemId.value,
+            _version: deleteItemVersion.value,
+          },
+        },
+      });
+      items.value.splice(index, 1);
+      isModalDangerActive.value = false;
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
@@ -759,31 +782,7 @@ const isMoreModalActive = ref(true);
               </PremFormField>
             </div>
           </div>
-          <div class="relative mr-4">
-            <div
-              @click="
-                MembershipFilterModelActive = !MembershipFilterModelActive
-              "
-              class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-            >
-              <p
-                role=""
-                tabindex="-1"
-                class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-              >
-                Membership Status
-              </p>
-            </div>
-            <div
-              class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-              v-if="MembershipFilterModelActive"
-            >
-              <PremFormControl
-                :options="membershipOptions"
-                v-model="membershipSelectedFilter"
-              />
-            </div>
-          </div>
+
           <div class="relative mr-4">
             <div
               @click="nes[1] = !nes[1]"
@@ -928,7 +927,6 @@ const isMoreModalActive = ref(true);
             <th>Mobile no</th>
             <th>Last Login</th>
             <th>Joined On</th>
-            <th>Enabled</th>
             <th />
           </tr>
         </thead>
@@ -966,11 +964,7 @@ const isMoreModalActive = ref(true);
                 >{{ learners.joinedOn }}</small
               >
             </td>
-            <TableLearnerEnabled
-              data-label="Enabled"
-              :checked="learners.isEnabled"
-              @click="EnableItem(true, learners.id)"
-            />
+
             <td class="before:hidden whitespace-nowrap flex gap-2">
               <NuxtLink
                 :to="'/examportal/usermgmt/AffiliateMgmt/edit/' + learners.id"
@@ -979,9 +973,9 @@ const isMoreModalActive = ref(true);
               </NuxtLink>
               <BaseButton
                 color="danger"
-                :icon="mdiTrashCan"
+                :icon="mdiMinusCircle"
                 small
-                @click="deleteItem(true, learners.id)"
+                @click="deleteItem(true, learners.relationId, learners.version)"
               />
             </td>
           </tr>

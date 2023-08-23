@@ -10,6 +10,8 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 const route = useRoute();
 const userMgmtStore = useMgmtStore();
+const postId = route.params.id;
+
 
 import {
   mdiClose,
@@ -125,7 +127,6 @@ const Admin = ref({
 });
 
 onMounted(async () => {
-  const postId = route.params.id;
   let temp = await userMgmtStore.FetchSingleAdmin(postId);
   console.log(temp);
   if (temp[0]) {
@@ -374,7 +375,7 @@ const deleteHandler = async () => {
             :options="options"
             v-if="isActive == 0"
           />
-          <CoursesTab v-if="isActive == 1" />
+          <CoursesTab :is-admin="true" :id="postId" v-if="isActive == 1" />
           <PurchaseTab v-if="isActive == 2" />
         </div>
       </div>

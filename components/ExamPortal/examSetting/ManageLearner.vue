@@ -14,7 +14,7 @@ import {
 } from "@mdi/js";
 import {
   mdiPencil,
-  mdiTrashCan,
+  mdiMinusCircle,
   mdiClose,
   mdiPlusCircleOutline,
   mdiMinusCircleOutline,
@@ -30,7 +30,11 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import { onMounted } from "vue";
 import { API } from "aws-amplify";
-import { createLearner, createMockTestLearner } from "@/src/graphql/mutations";
+import {
+  createLearner,
+  createMockTestLearner,
+  deleteMockTestLearner,
+} from "@/src/graphql/mutations";
 import {
   mockTestLearnersByMockTestId,
   getMockTest,
@@ -75,7 +79,6 @@ const error = ref("");
 
 // }
 
-
 const mainStore = useMainStore();
 const userMgmtStore = useMgmtStore();
 
@@ -89,7 +92,6 @@ const items = ref(userMgmtStore.learners);
 const addExistingsList = ref();
 const existingListSelectedId = ref();
 const isModalExistingActive = ref(false);
-
 
 const submitProfile = async () => {
   try {
@@ -167,17 +169,26 @@ const addExistingLearner = async () => {
   }
 };
 
-
 onMounted(async () => {
   try {
+    let MTLearners = [];
     let mockTestLearners = await API.graphql({
       query: listMockTestLearners,
       variables: {
-        filter: { mockTestId: { eq: props.postId } },
+        filter: { mockTestId: { eq: props.postId } , _deleted:{ne:true} },
       },
     });
     mockTestLearners = mockTestLearners.data?.listMockTestLearners?.items;
     console.log(mockTestLearners);
+    MTLearners = mockTestLearners
+      .filter((item) => {
+        return (
+          !item._deleted && !item.learner._deleted && !item.mockTest._deleted
+        );
+      })
+      .map((item) => {
+        return { ...item.learner, relationId: item.id, version: item._version };
+      });
     mockTestLearners = mockTestLearners.map((item) => item.learnerId);
     console.log(mockTestLearners);
 
@@ -187,24 +198,19 @@ onMounted(async () => {
     });
     console.log(allLearners.data?.listLearners?.items);
 
-    let MTLearners = [];
     let nonMTLearners = [];
-    allLearners.data?.listLearners?.items.forEach((item)=>{
+    allLearners.data?.listLearners?.items.forEach((item) => {
       console.log(item.id);
-      console.log(mockTestLearners.findIndex((t)=> t==item.id ));
-      if(mockTestLearners.findIndex((t)=> t==item.id ) > -1 ){
-
-        MTLearners.push(item);
-      }else{
+      console.log(mockTestLearners.findIndex((t) => t == item.id));
+      if (mockTestLearners.findIndex((t) => t == item.id) > -1) {
+      } else {
         nonMTLearners.push(item);
       }
-    })
+    });
 
-    console.log(MTLearners , nonMTLearners );
+    console.log(MTLearners, nonMTLearners);
     items.value = MTLearners;
     addExistingsList.value = nonMTLearners;
-
-
   } catch (error) {
     console.error("Error fetching learners:", error);
   }
@@ -419,25 +425,37 @@ const EnableItem = async (popup, id) => {
   }
 };
 
-const deleteItem = async (popup, id) => {
+const deleteItemVersion = ref();
+const deleteItem = async (popup, id, version) => {
   if (popup) {
     isModalDangerActive.value = true;
     deleteItemId.value = id;
+    deleteItemVersion.value = version;
     return;
   }
-  const index = items.value.findIndex((item) => item.id === deleteItemId.value);
+  const index = items.value.findIndex((item) => item.relationId === deleteItemId.value);
   if (index !== -1) {
-    await userMgmtStore.DeleteLearner(
-      deleteItemId.value,
-      items.value[index]._version
-    );
-    items.value.splice(index, 1);
+    try {
+      console.log(deleteItemId.value , deleteItemVersion.value );
+      await API.graphql({
+        query: deleteMockTestLearner,
+        variables: {
+          input: {
+            id: deleteItemId.value,
+            _version: deleteItemVersion.value,
+          },
+        },
+      });
+      items.value.splice(index, 1);
+      isModalDangerActive.value = false;
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
 const isMoreModalActive = ref(true);
 const nes = ref([]);
-
 </script>
 
 <template>
@@ -734,31 +752,6 @@ const nes = ref([]);
           </div>
           <div class="relative mr-4">
             <div
-              @click="
-                MembershipFilterModelActive = !MembershipFilterModelActive
-              "
-              class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
-            >
-              <p
-                role=""
-                tabindex="-1"
-                class="break-words text-body text-darkSlate01 false flex-grow leading-none"
-              >
-                Membership Status
-              </p>
-            </div>
-            <div
-              class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-              v-if="MembershipFilterModelActive"
-            >
-              <PremFormControl
-                :options="membershipOptions"
-                v-model="membershipSelectedFilter"
-              />
-            </div>
-          </div>
-          <div class="relative mr-4">
-            <div
               @click="nes[1] = !nes[1]"
               class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white"
             >
@@ -885,7 +878,6 @@ const nes = ref([]);
             <th>Mobile no</th>
             <th>Last Login</th>
             <th>Joined On</th>
-            <th>Enabled</th>
             <th />
           </tr>
         </thead>
@@ -920,11 +912,7 @@ const nes = ref([]);
                 >{{ learners.joinedOn }}</small
               >
             </td>
-            <TableLearnerEnabled
-              data-label="Enabled"
-              :checked="learners.isEnabled"
-              @click="EnableItem(true, learners.id)"
-            />
+
             <td class="before:hidden whitespace-nowrap flex gap-2">
               <NuxtLink
                 :to="'/examportal/usermgmt/LearnerMgmt/edit/' + learners.id"
@@ -933,9 +921,9 @@ const nes = ref([]);
               </NuxtLink>
               <BaseButton
                 color="danger"
-                :icon="mdiTrashCan"
+                :icon="mdiMinusCircle"
                 small
-                @click="deleteItem(true, learners.id)"
+                @click="deleteItem(true, learners.relationId, learners.version)"
               />
             </td>
           </tr>

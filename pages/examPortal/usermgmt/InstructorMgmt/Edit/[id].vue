@@ -9,6 +9,8 @@ import { useMgmtStore } from "@/stores/usermgmtAPI";
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 const route = useRoute();
+const postId = route.params.id;
+
 const userMgmtStore = useMgmtStore();
 
 import {
@@ -390,7 +392,7 @@ const deleteHandler = async () => {
             :options="options"
             v-if="isActive == 0"
           />
-          <CoursesTab v-if="isActive == 1" />
+          <CoursesTab :is-instructor="true" :id="postId" v-if="isActive == 1" />
           <PurchaseTab v-if="isActive == 2" />
         </div>
       </div>

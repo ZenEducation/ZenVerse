@@ -2,7 +2,8 @@
 import { computed } from "vue";
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
 import { useRouter } from "vue-router";
-import menuAside from "@/configs/menuAside.js";
+import menuAside from "@/configs/profile-menu/menuAside.js";
+import menuAsideDeveloper from "@/configs/menuAside.js";
 import menuNavBar from "@/configs/menuNavBar.js";
 import { useMainStore } from "@/stores/main.js";
 import { useLayoutStore } from "@/stores/layout.js";
@@ -25,6 +26,7 @@ useMainStore().setUser({
 const layoutAsidePadding = computed(() =>
   layoutStore.isAsideLgActive ? "lg:pl-20" : "xl:pl-20"
 );
+const role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"]
 
 const styleStore = useStyleStore();
 
@@ -39,6 +41,7 @@ const AuthStore = useAuthStore();
 router.beforeEach(() => {
   layoutStore.isAsideMobileExpanded = false;
 });
+
 
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
@@ -110,7 +113,19 @@ const menuClick = (event, item) => {
           </NavBarItemPlain>
         </NavBar>
         <!-- The  Premium Aside Menu -->
-        <PremAsideMenu :menu="menuAside" @menu-click="menuClick" />
+        
+         <PremAsideMenu
+        v-if="role === 'developer'"
+        :menu="menuAsideDeveloper"
+        @menu-click="menuClick"
+      />
+      <PremAsideMenu
+        v-else
+        :menu="menuAside"
+        @menu-click="menuClick"
+      />
+
+        <!-- <PremAsideMenu :menu="menuAside" @menu-click="menuClick" /> -->
         <slot />
         <!-- FooterBar-->
         <FooterBar>

@@ -65,7 +65,8 @@ const passwordForm = reactive({
 const submitProfile = () => {
   mainStore.setUser(profileForm);
 };
-
+const Profile = JSON.parse( localStorage.getItem("User-profile"))
+const role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"]
 const submitPass = () => {
   //
 };
@@ -169,7 +170,7 @@ const twoFactorEnabled = ref(true);
                 <div class="flex justify-between items-center">
                   <div class="flex justify-start items-center mb-3">
                     <h1 class="text-2xl mr-1.5">
-                      {{ mainStore.userName }}
+                     {{Profile.attributes.name}}
                     </h1>
                     <BaseIcon
                       :path="mdiCheckDecagram"
@@ -186,7 +187,7 @@ const twoFactorEnabled = ref(true);
                 </div>
 
                 <BaseButtons class="text-gray-500">
-                  <PillTagPlain label="Developer" :icon="mdiAccountCircle" />
+                  <PillTagPlain :label="role" :icon="mdiAccountCircle" />
                   <PillTagPlain label="Kiehn-Green" :icon="mdiDomain" />
                   <PillTagPlain label="Emelyside" :icon="mdiMapMarker" />
                 </BaseButtons>

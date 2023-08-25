@@ -5,7 +5,7 @@ import { useMainStore } from "@/stores/main.js";
 import "@/assets/css/main.css";
 import '@aws-amplify/ui-vue';
 import { Amplify, Auth } from "aws-amplify";
-import awsconfig from './aws-exports';
+import awsconfig from '@/aws-exports';
 
 Amplify.configure(awsconfig);
 

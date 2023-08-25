@@ -5,9 +5,9 @@ import { useMainStore } from "@/stores/main.js";
 import "@/assets/css/main.css";
 import '@aws-amplify/ui-vue';
 import { Amplify, Auth } from "aws-amplify";
-import awsconfig from '@/aws-exports';
+import awsmobile from '@/aws-exports';
 
-Amplify.configure(awsconfig);
+Amplify.configure(awsmobile);
 
 const mainStore = useMainStore();
 const styleStore = useStyleStore();

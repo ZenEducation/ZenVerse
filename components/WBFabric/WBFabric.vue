@@ -7,7 +7,7 @@
 
 <script setup>
 import { fabric } from "fabric";
-import applySettings from "./utils/customSettings";
+// import applySettings from "./utils/customSettings";
 // import DragToolbar from "./tools/drawing/DragToolbar.vue";
 import { useWBFabric } from "@/stores/wbFabric";
 
@@ -18,7 +18,7 @@ onMounted(() => {
   fabricStore.canvas = new fabric.Canvas(fabricJS.value.id);
 
   // To apply custom settings on canvas
-  applySettings(fabricStore.canvas);
+  // applySettings(fabricStore.canvas);
 });
 </script>
 

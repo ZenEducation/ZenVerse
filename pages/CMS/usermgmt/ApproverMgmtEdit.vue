@@ -1,9 +1,9 @@
 <script setup>
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import InformationTab from "@/components/cms/MgmtEdit/ApproverEditInformation.vue";
-import CoursesTab from "@/components/cms/MgmtEdit/LearnerEditCourses.vue";
-import PurchaseTab from "@/components/cms/MgmtEdit/LearnerEditPurchase.vue";
+import InformationTab from "@/components/CMS/MgmtEdit/ApproverEditInformation.vue";
+import CoursesTab from "@/components/CMS/MgmtEdit/LearnerEditCourses.vue";
+import PurchaseTab from "@/components/CMS/MgmtEdit/LearnerEditPurchase.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 
 import {

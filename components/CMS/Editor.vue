@@ -15,10 +15,12 @@ onMounted(() => {
 
 function applyBold() {
     document.execCommand('bold');
+    isEmojiClicked.value=false;
 }
 
 function applyItalic() {
     document.execCommand('italic');
+    isEmojiClicked.value=false;
 }
 
 let emojiIndex = new EmojiIndex(data);
@@ -47,6 +49,7 @@ const showEmoji = (emoji) => {
 };
 
 function insertCharacter(character) {
+    isEmojiClicked.value=false;
     const editor = document.querySelector('.text-output');
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
@@ -116,6 +119,14 @@ function insertCharacter(character) {
     position: absolute;
     top: 100%;
     z-index: 99;
+}
+
+@media(max-width:600px)
+{
+    .emoji-picker{
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .outerContainer{

@@ -45,14 +45,16 @@ import { UntitledModel } from "../../models";
             </div>
             <BaseDivider class="bg-white" />
             <div
-              class="flex justify-center grid-cols-2 gap-10 mb-0 xl:grid-cols-2"
+              class="flex flex-col justify-center grid-cols-1 gap-10 mb-0 xl:grid-cols-2 xl:flex-row"
             >
               <div>
                 <PremFormField label="Title">
                   <PremFormControl placeholder="" type="text" v-model="title" />
                 </PremFormField>
 
-                <div class="grid grid-cols-4 gap-6 mb-0 xl:grid-rows-1">
+                <div
+                  class="mt-3 mb-3 grid grid-cols-1 gap-6 xl:grid-rows-1 xl:grid-cols-4"
+                >
                   <PremFormField
                     label="Type :"
                     class="dark:text-white text-base"
@@ -107,27 +109,31 @@ import { UntitledModel } from "../../models";
                     </select>
                   </PremFormField>
                 </div>
-                <div class="grid grid-cols-2 gap-6 mb-0 xl:grid-rows-1">
+                <div
+                  class="grid grid-cols-1 gap-6 mb-0 xl:grid-rows-1 xl:grid-cols-2"
+                >
                   <PremFormField label="Category" v-if="!addCategory">
-                    <select
-                      v-model="selectedCategory"
-                      @change="handleCategory()"
-                    >
-                      <option class="text-xs" value="">--Select--</option>
-                      <option
-                        v-for="option in categoryOptions"
-                        :key="option.value"
-                        :value="option.value"
+                    <div class="flex">
+                      <select
+                        v-model="selectedCategory"
+                        @change="handleCategory()"
                       >
-                        {{ option.label }}
-                      </option>
-                    </select>
-                    <button
-                      @click="handleToggle"
-                      class="p-2 mx-3 border-2 border-slate-600"
-                    >
-                      add category
-                    </button>
+                        <option class="text-xs" value="">--Select--</option>
+                        <option
+                          v-for="option in categoryOptions"
+                          :key="option.value"
+                          :value="option.value"
+                        >
+                          {{ option.label }}
+                        </option>
+                      </select>
+                      <button
+                        @click="handleToggle"
+                        class="p-2 mx-3 border-2 border-slate-600"
+                      >
+                        add category
+                      </button>
+                    </div>
                   </PremFormField>
                   <PremFormField label="Category :" v-else>
                     <PremFormControl
@@ -144,7 +150,7 @@ import { UntitledModel } from "../../models";
                   </PremFormField>
                   <PremFormField label="Publish: ">
                     <input
-                      class="p-2 border-2 border-black dark:bg-gray-300"
+                      class="p-2 border-2 border-black dark:bg-gray-300 mb-3"
                       v-model="published"
                       placeholder="NO"
                       readonly
@@ -249,7 +255,7 @@ export default {
           assigned_to: this.assignie,
         })
       );
-      this.$router.push('/CMS/allContent')
+      this.$router.push("/CMS/allContent");
     },
   },
 };

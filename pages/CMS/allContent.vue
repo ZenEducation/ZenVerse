@@ -28,6 +28,9 @@ const startDate = ref('');
 const endDate = ref('');
 let items = reactive([]);
 
+onMounted(()=>{
+    fetchItems();
+});
 
 async function fetchItems() {
   try {

@@ -11,8 +11,8 @@ import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import { mdiEye, mdiPen } from "@mdi/js";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
-
-
+import { DataStore } from '@aws-amplify/datastore';
+import { UntitledModel } from "../../models";
 
 const searchquery = ref('');
 const statusFilter = ref('')
@@ -26,153 +26,167 @@ const beforeDate = ref('');
 const afterDate = ref('');
 const startDate = ref('');
 const endDate = ref('');
+let items = reactive([]);
 
 
+async function fetchItems() {
+  try {
+    const itemsFromDataStore = await DataStore.query(UntitledModel);
+    items=itemsFromDataStore;
+    console.log(itemsFromDataStore);
+    console.log(items);
+  } catch (error) {
+    // Handle the error
+    console.error('Error fetching items:', error);
+  }
+}
+await fetchItems();
 
-const items = reactive([
-    {
-        id: 1213,
-        title: 'Summer Batch',
-        type: 'Video',
-        category: 'Jee Coaching',
-        status: 'Initial approval Pending',
-        submittedOn: 'Mar 3 ,2021',
-        assigned_to: 'Ram',
-        published: 'Yes'
-    },
-    {
-        id: 1214,
-        title: 'Diwali Offer',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-        status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
-        assigned_to: 'Sam',
-        published: 'No'
-    },
-    {
-        id: 1215,
-        title: 'Winter Batch',
-        type: 'Text',
-        category: 'Neet Coaching ',
-        status: 'Final Approval Pending',
-        submittedOn: 'May 18, 2021',
-        assigned_to: 'Ram',
-        published: 'Yes'
-    },
-    {
-        id: 1216,
-        title: 'New Course',
-        type: 'ACC',
-        category: 'Jee coachin',
-        status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-        assigned_to: "Sam",
-        published: 'No'
-    },
-    {
-        id: 1217,
-        title: 'Web Dev Course',
-        type: 'Online',
-        category: 'Coursera',
-        status: 'Not verified',
-        submittedOn: 'May 19, 2021',
-        assigned_to: 'Shyam',
-        published: 'No'
-    },
-    {
-        id: 1218,
-        title: 'New Course',
-        type: 'ACC',
-        category: 'Jee coachin',
-        status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-        assigned_to: "Mahesh",
-        published: 'Yes'
-    },
-    {
-        id: 1219,
-        title: 'Web Dev Course',
-        type: 'Online',
-        category: 'Coursera',
-        status: 'Not verified',
-        submittedOn: 'May 19, 2021',
-        assigned_to: 'Ram',
-        published: 'No'
-    },
-    {
-        id: 1220,
-        title: 'New Course',
-        type: 'ACC',
-        category: 'Jee coachin',
-        status: 'Initial submission Pending',
-        submittedOn: 'May 4, 2021',
-        assigned_to: "Shyam",
-        published: 'No'
-    },
-    {
-        id: 1221,
-        title: 'Diwali Offer',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-        status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
-        assigned_to: "Yash",
-        published: 'Yes'
-    },
-    {
-        id: 1222,
-        title: 'Web Dev Course',
-        type: 'Online',
-        category: 'Coursera',
-        status: 'Not verified',
-        submittedOn: 'May 19, 2021',
-        assigned_to: 'Mahesh',
-        published: 'No',
-    },
 
-    {
-        id: 1223,
-        title: 'Web Dev Course',
-        type: 'Online',
-        category: 'Coursera',
-        status: 'Not verified',
-        submittedOn: 'May 19, 2021',
-        assigned_to: 'Ram',
-        published: 'Yes',
-    },
-    {
-        id: 1224,
-        title: 'Diwali Offer',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-        status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
-        assigned_to: 'Mukesh',
-        published: 'Yes'
-    },
-    {
-        id: 1225,
-        title: 'Summer Batch',
-        type: 'Video',
-        category: 'Jee Coaching',
-        status: 'Initial approval Pending',
-        submittedOn: 'Mar 3 ,2021',
-        assigned_to: 'Ram',
-        published: 'No'
-    },
-    {
-        id: 1226,
-        title: 'Diwali Offer',
-        type: 'Graphic',
-        category: 'Neet Coaching',
-        status: 'Editor Submission Pending',
-        submittedOn: 'Dec 1, 2021',
-        assigned_to: 'Sam',
-        published: 'No'
-    },
+// const items = reactive([
+//     {
+//         id: 1213,
+//         title: 'Summer Batch',
+//         type: 'Video',
+//         category: 'Jee Coaching',
+//         status: 'Initial approval Pending',
+//         submittedOn: 'Mar 3 ,2021',
+//         assigned_to: 'Ram',
+//         published: 'Yes'
+//     },
+//     {
+//         id: 1214,
+//         title: 'Diwali Offer',
+//         type: 'Graphic',
+//         category: 'Neet Coaching',
+//         status: 'Editor Submission Pending',
+//         submittedOn: 'Dec 1, 2021',
+//         assigned_to: 'Sam',
+//         published: 'No'
+//     },
+//     {
+//         id: 1215,
+//         title: 'Winter Batch',
+//         type: 'Text',
+//         category: 'Neet Coaching ',
+//         status: 'Final Approval Pending',
+//         submittedOn: 'May 18, 2021',
+//         assigned_to: 'Ram',
+//         published: 'Yes'
+//     },
+//     {
+//         id: 1216,
+//         title: 'New Course',
+//         type: 'ACC',
+//         category: 'Jee coachin',
+//         status: 'Initial submission Pending',
+//         submittedOn: 'May 4, 2021',
+//         assigned_to: "Sam",
+//         published: 'No'
+//     },
+//     {
+//         id: 1217,
+//         title: 'Web Dev Course',
+//         type: 'Online',
+//         category: 'Coursera',
+//         status: 'Not verified',
+//         submittedOn: 'May 19, 2021',
+//         assigned_to: 'Shyam',
+//         published: 'No'
+//     },
+//     {
+//         id: 1218,
+//         title: 'New Course',
+//         type: 'ACC',
+//         category: 'Jee coachin',
+//         status: 'Initial submission Pending',
+//         submittedOn: 'May 4, 2021',
+//         assigned_to: "Mahesh",
+//         published: 'Yes'
+//     },
+//     {
+//         id: 1219,
+//         title: 'Web Dev Course',
+//         type: 'Online',
+//         category: 'Coursera',
+//         status: 'Not verified',
+//         submittedOn: 'May 19, 2021',
+//         assigned_to: 'Ram',
+//         published: 'No'
+//     },
+//     {
+//         id: 1220,
+//         title: 'New Course',
+//         type: 'ACC',
+//         category: 'Jee coachin',
+//         status: 'Initial submission Pending',
+//         submittedOn: 'May 4, 2021',
+//         assigned_to: "Shyam",
+//         published: 'No'
+//     },
+//     {
+//         id: 1221,
+//         title: 'Diwali Offer',
+//         type: 'Graphic',
+//         category: 'Neet Coaching',
+//         status: 'Editor Submission Pending',
+//         submittedOn: 'Dec 1, 2021',
+//         assigned_to: "Yash",
+//         published: 'Yes'
+//     },
+//     {
+//         id: 1222,
+//         title: 'Web Dev Course',
+//         type: 'Online',
+//         category: 'Coursera',
+//         status: 'Not verified',
+//         submittedOn: 'May 19, 2021',
+//         assigned_to: 'Mahesh',
+//         published: 'No',
+//     },
 
-])
+//     {
+//         id: 1223,
+//         title: 'Web Dev Course',
+//         type: 'Online',
+//         category: 'Coursera',
+//         status: 'Not verified',
+//         submittedOn: 'May 19, 2021',
+//         assigned_to: 'Ram',
+//         published: 'Yes',
+//     },
+//     {
+//         id: 1224,
+//         title: 'Diwali Offer',
+//         type: 'Graphic',
+//         category: 'Neet Coaching',
+//         status: 'Editor Submission Pending',
+//         submittedOn: 'Dec 1, 2021',
+//         assigned_to: 'Mukesh',
+//         published: 'Yes'
+//     },
+//     {
+//         id: 1225,
+//         title: 'Summer Batch',
+//         type: 'Video',
+//         category: 'Jee Coaching',
+//         status: 'Initial approval Pending',
+//         submittedOn: 'Mar 3 ,2021',
+//         assigned_to: 'Ram',
+//         published: 'No'
+//     },
+//     {
+//         id: 1226,
+//         title: 'Diwali Offer',
+//         type: 'Graphic',
+//         category: 'Neet Coaching',
+//         status: 'Editor Submission Pending',
+//         submittedOn: 'Dec 1, 2021',
+//         assigned_to: 'Sam',
+//         published: 'No'
+//     },
+
+// ])
 
 
 

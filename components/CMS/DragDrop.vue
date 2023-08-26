@@ -8,6 +8,7 @@
       @dragover.prevent="onDragOver"
       @dragleave.prevent="onDragLeave"
       @drop.prevent="onDrop"
+      v-if="!isFileSelected"
     >
       <span v-if="!isDragging" class="text-xl">
         <span class="select" role="button" @click="selectFiles"> Click </span>
@@ -20,12 +21,13 @@
         type="file"
         class="file"
         ref="fileInput"
+        accept=".jpg, .jpeg, .png, .gif, .tiff,"
         multiple
         @change="onFileSelect"
       />
     </div>
     <div class="container">
-      <div class="image" v-for="(image, index) in images" :key="index">
+      <div class="imagePreview" v-for="(image, index) in images" :key="index">
         <span class="delete" @click="deleteImage(index)">&times;</span>
         <img :src="image.url" />
       </div>
@@ -45,6 +47,7 @@ export default {
     return {
       images: [],
       isDragging: false,
+      isFileSelected: false,
     };
   },
   methods: {
@@ -55,7 +58,7 @@ export default {
       const files = event.target.files;
       if (files.length === 0) return;
       for (let i = 0; i < files.length; i++) {
-        if (files[i].type.split("/")[0] != "image") continue;
+        // if (files[i].type.split("/")[0] != "image") continue;
         if (!this.images.some((e) => e.name === files[i].name)) {
           this.images.push({
             name: files[i].name,
@@ -63,9 +66,11 @@ export default {
           });
         }
       }
+      this.isFileSelected = !this.isFileSelected;
     },
     deleteImage(index) {
       this.images.splice(index, 1);
+      this.isFileSelected = !this.isFileSelected;
     },
     onDragOver(event) {
       event.preventDefault();
@@ -101,6 +106,7 @@ export default {
   box-shadow: 0 0 5px #ffdfdf;
   border-radius: 5px;
   overflow: hidden;
+  padding-bottom: 10px;
 }
 .card .top {
   text-align: center;
@@ -155,7 +161,6 @@ export default {
   max-height: 200px;
   position: relative;
   margin-bottom: 8px;
-  padding-top: 15px;
 }
 .card .container .image {
   width: 75px;
@@ -186,10 +191,21 @@ export default {
   color: pink;
 }
 
-.uploadBtn{
-    width: 100%;
-    /* border: none; */
-    display: flex;
-    justify-content: center;
+.uploadBtn {
+  width: 100%;
+  /* border: none; */
+  display: flex;
+  justify-content: center;
+}
+
+.imagePreview {
+  width: 250px;
+  height: 250px;
+  transform: translateX(-50%);
+  margin-left: 50%;
+}
+
+.imagePreview:hover{
+  cursor: pointer;
 }
 </style>

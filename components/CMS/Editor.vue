@@ -4,6 +4,10 @@ import PremFormField from "@/components/Forms/FormField.vue";
 
 import { onMounted } from 'vue';
 import { mdiFormatBold, mdiFormatItalic, mdiStickerEmoji, mdiPound, mdiAt } from "@mdi/js";
+import { ref } from 'vue';
+import data from 'emoji-mart-vue-fast/data/all.json';
+import 'emoji-mart-vue-fast/css/emoji-mart.css';
+import { Picker, EmojiIndex } from 'emoji-mart-vue-fast/src';
 
 onMounted(() => {
     document.execCommand('defaultParagraphSeparator', false, 'p');
@@ -11,33 +15,60 @@ onMounted(() => {
 
 function applyBold() {
     document.execCommand('bold');
+    isEmojiClicked.value=false;
 }
 
 function applyItalic() {
     document.execCommand('italic');
+    isEmojiClicked.value=false;
 }
 
+let emojiIndex = new EmojiIndex(data);
+const emojisOutput = ref('');
+
+
+const isEmojiClicked = ref(false);
+function applyEmoji(){
+    console.log("click");
+   isEmojiClicked.value= !isEmojiClicked.value;
+}
+
+const showEmoji = (emoji) => {
+    const editor = document.querySelector('.text-output');
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const emojiSpan = document.createElement('span');
+    emojiSpan.innerHTML = emoji.native;
+    range.insertNode(emojiSpan);
+    const newRange = document.createRange();
+    newRange.setStartAfter(emojiSpan);
+    newRange.setEndAfter(emojiSpan);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+    editor.focus();
+};
+
 function insertCharacter(character) {
+    isEmojiClicked.value=false;
     const editor = document.querySelector('.text-output');
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const node = document.createTextNode(character);
     range.insertNode(node);
-
     const newRange = document.createRange();
     newRange.setStartAfter(node);
     newRange.setEndAfter(node);
     selection.removeAllRanges();
     selection.addRange(newRange);
-
     editor.focus();
 }
 </script>
 
 <template>
-    <div>
+    <div class="outerContainer">
         <div @input="onInput" v-html="innerValue" :contenteditable="true"
             class="text-output p-4 border-none bg-blue-50 dark:bg-slate-800" placeholder />
+        <Picker :data="emojiIndex" v-if="isEmojiClicked" set="twitter" @select="showEmoji" class="emoji-picker" />
         <PremFormField class="mt-2">
             <div class="flex place-content-end flex-wrap">
                 <BaseButton @click="applyBold"
@@ -82,5 +113,23 @@ function insertCharacter(character) {
 .text-output ol {
     @apply ml-6;
     @apply list-decimal;
+}
+
+.emoji-picker{
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+}
+
+@media(max-width:600px)
+{
+    .emoji-picker{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.outerContainer{
+    position: relative;
 }
 </style>

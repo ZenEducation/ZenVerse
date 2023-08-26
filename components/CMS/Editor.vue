@@ -24,7 +24,6 @@ function applyItalic() {
 }
 
 let emojiIndex = new EmojiIndex(data);
-const emojisOutput = ref('');
 
 
 const isEmojiClicked = ref(false);

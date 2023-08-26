@@ -36,7 +36,7 @@ const transactionBarItems = computed(() => mainStore.history);
 
 <template>
   <div>
-    <NuxtLayout name="zen">
+    <NuxtLayout name="accounts">
       <SectionMain>
         <SectionTitleLineWithButton
           :icon="mdiChartTimelineVariant"

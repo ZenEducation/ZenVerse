@@ -27,8 +27,10 @@ definePageMeta({
 const router = useRouter();
 
 onBeforeMount(() => {
+  if(localStorage.getItem("User-profile")){
   const role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"];
   router.push({ path: `dashboard/${role}` })
+  }
 })
 const chartData = ref(null);
 

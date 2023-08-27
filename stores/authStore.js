@@ -66,6 +66,8 @@ export const actions = {
     this.user = null;
     if (!this.user) {
       console.log("User successfully logged out");
+      localStorage.removeItem("User-profile");
+      console.log("removed user-profile ");
     }
   },
 

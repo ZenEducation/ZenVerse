@@ -65,8 +65,12 @@ const passwordForm = reactive({
 const submitProfile = () => {
   mainStore.setUser(profileForm);
 };
-const Profile = JSON.parse( localStorage.getItem("User-profile"))
-const role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"]
+let Profile = "Profile";
+let role = "Role";
+if(localStorage.getItem("User-profile")){
+ Profile = JSON.parse( localStorage.getItem("User-profile")).attributes.name
+ role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"]
+}
 const submitPass = () => {
   //
 };
@@ -170,7 +174,7 @@ const twoFactorEnabled = ref(true);
                 <div class="flex justify-between items-center">
                   <div class="flex justify-start items-center mb-3">
                     <h1 class="text-2xl mr-1.5">
-                     {{Profile.attributes.name}}
+                     {{Profile}}
                     </h1>
                     <BaseIcon
                       :path="mdiCheckDecagram"

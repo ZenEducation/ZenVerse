@@ -29,11 +29,11 @@
               </div>
               <div class="mt-2">
                 <PremFormField label="Email" horizontal class="text-white ">
-                  <PremFormControl :icon-left="mdiMail" :icon-right="mdiCheck" type="email" help="Your e-mail"
-                    placeholder="Email" />
+                  <PremFormControl :icon-left="mdiMail" class="text-black" :icon-right="mdiCheck" type="email"
+                    help="Your e-mail" placeholder="Email" />
                 </PremFormField>
                 <PremFormField label="Password" horizontal class="text-white">
-                  <PremFormControl type="password" name="password" placeholder="Password" />
+                  <PremFormControl type="password" class="text-black" name="password" placeholder="Password" />
                 </PremFormField>
                 <div class="flex justify-between items-center password">
                   <FormCheckRadioGroup name="sample-checkbox-two" component-class="text-white" :options="checkboxOptions"

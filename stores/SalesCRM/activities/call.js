@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-
+import { DataStore } from "aws-amplify"
+import { Calls } from "../../../models/index"
 
 const tableData = [
     {
@@ -119,7 +120,7 @@ const tableData = [
 
 
 const state = () => ({
-allCalls:tableData,
+allCalls:[],
 formShow:false
 
 })
@@ -134,9 +135,46 @@ const actions = {
       this.formShow=false
      },
     
-     addNewItem(item){
-      this.allCalls.unshift(item)
-     }
+     async addNewCall(call){
+      try {
+        await DataStore.save(new Calls(call));
+        alert("Saved Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+     },
+
+     async getCalls() {
+      try {
+        const data = await DataStore.query(Calls);
+        this.allCalls = data
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async deleteCall(call) {
+      try {
+        await DataStore.delete(call);
+        alert("Deleted Succefully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async updateCall(original, update){
+      try {
+        await DataStore.save(Calls.copyOf(original, updated => {
+          updated.to_from = update.to_from;
+          updated.start_date = update.start_date;
+          updated.start_time = update.start_time;
+          updated.type = update.type;
+          updated.related_to = update.related_to;
+          updated.call_agenda = update.call_agenda;
+        }));
+        alert("Updated Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
 }
 
 const getters = {

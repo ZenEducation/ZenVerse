@@ -49,7 +49,7 @@
                 class="uppercase"
                 :style="[]"
                 :icon="mdiPlus"
-               @click="getContacts.showForm()"
+               @click="show"
               />
               <PremButtonMenu
           :options="downMenu"
@@ -74,9 +74,9 @@
       </div>
     </div>
 <div class="z-0 shadow mx-6">
-  <Table :heading="tableHeadingData" :data="getContacts.allContacts" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems"  type="contact"/>
 </div>
-<AddContactsForm v-if="getContacts.formShow" />
+<AddContactsForm v-if="addContact" @on-action="closePopup"/>
 </SectionMain>
 </NuxtLayout>
   </div>
@@ -88,10 +88,11 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
 import {contactStore} from "@/stores/SalesCRM/contacts/contacts"
+import { onMounted } from "vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import AddContactsForm from "@/components/SalesCRM/Sales/contacts/AddContactsForm.vue"
 const getContacts=contactStore()
-
+const addContact = ref(false)
 import {
   mdiMenuDown,
   mdiViewHeadline,
@@ -126,6 +127,7 @@ import {
 
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -250,27 +252,50 @@ const viewMenu = [
 const tableHeadingData=[
 {
     id: 1,
-    name: "Contact Name",
+    name: "First Name",
   },
   {
     id: 2,
-    name: "Company Name",
+    name: "Last Name",
   },
-
   {
     id: 3,
-    name: "Email",
+    name: "Title",
   },
   {
     id: 4,
-    name: "Phone",
+    name: "Email",
   },
   {
     id: 5,
-    name: "Contact Owner",
+    name: "Company Name",
+  },
+  {
+    id: 6,
+    name: "Phone",
+  },
+  {
+    id: 7,
+    name: "Description",
+  },
+  {
+    id: 8,
+    name: "Street",
+  },
+  {
+    id: 9,
+    name: "Country",
+  },
+  {
+    id: 10,
+    name: "Zip Code",
   }
 ]
-
+const deleteContact = async (index) => {
+  const contact = getContacts.allContacts[index]
+  console.log(contact);
+  await getContacts.deleteContact(contact);
+}
 
 const dotItems = [
   [
@@ -279,10 +304,37 @@ const dotItems = [
       id:1 ,
       icon: mdiDeleteOutline ,
       label: "Delete",
+      run: deleteContact
     },
   ],
 ]; 
-
+function show() {
+  addContact.value = true;
+}
+function closePopup() {
+  addContact.value = false;
+}
+const fetchData = async () => {
+  await getContacts.getContacts();
+  const data = getContacts.allContacts;
+  const fields = {"fname" : 1, "lname" : 2, "title" : 3, "email" : 4, "company_name" : 5, "phone" : 6, "description" : 7, "street" : 8, "city" : 9, "state" : 10, "country" : 11, "zip" : 12}
+  let contacts = [];
+        for(const deal in data) {
+          let contact = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            contact.values.push(field)
+          }
+          contacts.push(contact)
+        }
+        console.log(contacts);
+        tableData.value = contacts
+}
+onMounted(() => fetchData())
 
 
 </script>

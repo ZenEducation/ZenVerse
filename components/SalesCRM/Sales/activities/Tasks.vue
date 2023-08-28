@@ -49,7 +49,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getTasks.allTasks" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems" type="task" />
 </div>
 
 
@@ -61,7 +61,8 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
-import {taskStore} from "@/stores/SalesCRM/activities/tasks"
+import {taskStore} from "@/stores/SalesCRM/activities/tasks";
+import { onMounted } from "vue";
 const getTasks=taskStore()
 
 import {
@@ -91,6 +92,7 @@ import {
   mdiCheckCircleOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -181,9 +183,16 @@ const tableHeadingData=[
   }, {
     id:6,
     name:"Task Owner"
+  }, {
+    id:7,
+    name:"Description"
   }
 ]
-
+const deleteTask = async (index) => {
+  const task = getTasks.allTasks[index]
+  console.log(task);
+  await getTasks.deleteTask(task);
+}
 const dotItems =  [
   [
     {
@@ -195,10 +204,31 @@ const dotItems =  [
       id: 2,
       icon: mdiDeleteOutline,
       label: "Delete",
+      run: deleteTask
     },
   ],
 ]
-
+const fetchData = async () => {
+  await getTasks.getTasks();
+  const data = getTasks.allTasks;
+  const fields = {"name" : 1, "due_date" : 2, "status" : 3, "priority" : 4, "related_to" : 5, "task_owner" : 6, "description" : 7}
+  let tasks = [];
+        for(const deal in data) {
+          let task = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            task.values.push(field)
+          }
+          tasks.push(task)
+        }
+        console.log(tasks);
+        tableData.value = tasks
+}
+onMounted(() => fetchData())
 
 </script>
 

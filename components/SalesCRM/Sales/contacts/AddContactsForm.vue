@@ -49,7 +49,7 @@
             <PremFormControl
               type="text"
               placeholder="Some few word about the contact"
-              v-model="discription"
+              v-model="description"
             />
           </PremFormField>
           <div class="font-medium flex items-center cursor-pointer mb-5" @click="addressInfoShow= !addressInfoShow">
@@ -75,7 +75,7 @@
             <PremFormField
               label="Mailing Country"
             >
-              <PremFormControl type="text" placeholder="Mailing Country"  v-model="mCuntry" />
+              <PremFormControl type="text" placeholder="Mailing Country"  v-model="mCountry" />
             </PremFormField>
             <PremFormField
               label="Mailing Zip"
@@ -89,13 +89,13 @@
         <div class="">Customize Fields</div>
         <div class="flex justify-between items-center">
           <BaseButton
-            label="Cancle"
+            label="Cancel"
             type="button"
             color="info"
             class="uppercase mr-2"
             :style="[]"
             outline
-            @click="getContacts.hideForm()"
+            @click="closePopup"
           />
           <BaseButton
             label="Save"
@@ -103,7 +103,7 @@
             color="info"
             class="uppercase"
             :style="[]"
-            @click="saveItem()"
+            @click="saveContact()"
           />
         </div>
       </div>
@@ -151,93 +151,150 @@ import PremFormField from "@/components/Forms/FormField.vue";
 import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import {contactStore} from "@/stores/SalesCRM/contacts/contacts"
+const emit = defineEmits(["onAction"]);
 const getContacts=contactStore()
+const closePopup = () => {
+  emit("onAction");
+};
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+const original = getContacts.allContacts[props.index];
+console.log(original);
 const addressInfoShow=ref(false)
-
-
 const fName=ref(null)
 const lName=ref(null)
 const title=ref(null)
 const email=ref(null)
 const companyName=ref(null)
 const phone=ref(null)
-const discription=ref(null)
+const description=ref(null)
 const mStreet=ref(null)
 const mCity = ref(null)
 const mState = ref(null)
-const mCuntry = ref(null)
+const mCountry = ref(null)
 const mZip =ref(null)
 
+fName.value = props.data.fname
+lName.value = props.data.lname
+title.value = props.data.title
+email.value = props.data.email
+companyName.value = props.data.company_name
+if(props.data.phone) {
+  phone.value = props.data.phone.slice(3)
+}
+description.value = props.data.description
+mStreet.value = props.data.street
+mCity.value   = props.data.city
+mState.value   = props.data.state
+mCountry.value   = props.data.country
+mZip.value   =props.data.zip
 
-const saveItem = ()=>{
+
+
+
+const saveContact = async () => {
   
-    const allData = getContacts.allContacts
-    let id = 1
-    if(allData.length>0){
-        const lastItem = allData[allData.length-1]
-        id = lastItem.id+1
-    }
+    // const allData = getContacts.allContacts
+    // let id = 1
+    // if(allData.length>0){
+    //     const lastItem = allData[allData.length-1]
+    //     id = lastItem.id+1
+    // }
 
-    const newItem = {
-        id,
-        values:[ 
-              {
-                id:1,
-                value:fName.value + " " + lName.value,
-                icon:""
-              },
-              {
-                id:2,
-                value:companyName.value,
-                icon:""
-              },
-              {
-                id:3,
-                value:email.value,
-                icon:""
-              },
-              {
-                id:4,
-                value:phone.value,
-                icon:""
-              },
-              {
-                id:5,
-                value:title.value,
-                icon:""
-              },   
-            //               {
-            //     id:6,
-            //     value:discription.value,
-            //     icon:""
-            //   },     {
-            //     id:7,
-            //     value:mStreet.value,
-            //     icon:""
-            //   },     {
-            //     id:8,
-            //     value:mCity.value,
-            //     icon:""
-            //   },     {
-            //     id:9,
-            //     value:mState.value,
-            //     icon:""
-            //   },     {
-            //     id:10,
-            //     value:mCuntry.value,
-            //     icon:""
-            //   },
-            //   {
-            //     id:11,
-            //     value:mZip.value,
-            //     icon:""
-            //   }
-         ]
+    // const newItem = {
+    //     id,
+    //     values:[ 
+    //           {
+    //             id:1,
+    //             value:fName.value + " " + lName.value,
+    //             icon:""
+    //           },
+    //           {
+    //             id:2,
+    //             value:companyName.value,
+    //             icon:""
+    //           },
+    //           {
+    //             id:3,
+    //             value:email.value,
+    //             icon:""
+    //           },
+    //           {
+    //             id:4,
+    //             value:phone.value,
+    //             icon:""
+    //           },
+    //           {
+    //             id:5,
+    //             value:title.value,
+    //             icon:""
+    //           },   
+    //         //               {
+    //         //     id:6,
+    //         //     value:description.value,
+    //         //     icon:""
+    //         //   },     {
+    //         //     id:7,
+    //         //     value:mStreet.value,
+    //         //     icon:""
+    //         //   },     {
+    //         //     id:8,
+    //         //     value:mCity.value,
+    //         //     icon:""
+    //         //   },     {
+    //         //     id:9,
+    //         //     value:mState.value,
+    //         //     icon:""
+    //         //   },     {
+    //         //     id:10,
+    //         //     value:mCountry.value,
+    //         //     icon:""
+    //         //   },
+    //         //   {
+    //         //     id:11,
+    //         //     value:mZip.value,
+    //         //     icon:""
+    //         //   }
+    //      ]
+    // }
+    const contact = {
+      "fname" : fName.value,
+      "lname" : lName.value,
+      "title" : title.value,
+      "email" : email.value,
+      "company_name" : companyName.value,
+      "phone" : "+91" + phone.value,
+      "description" : description.value,
+      "street" : mStreet.value,
+      "city" : mCity.value,
+      "state" : mState.value,
+      "country" : mCountry.value,
+      "zip" : mZip.value
     }
-
+    if(props.new) {
+    await getContacts.addNewContact(contact);
+  }
+  else {
+    await getContacts.updateContact(original, contact);
+  }
+  await getContacts.getContacts();
+  closePopup()
 // console.log(newItem)
-    getContacts.addNewItem(newItem) 
-    getContacts.hideForm()
+    // getContacts.addNewItem(newItem) 
+    // getContacts.hideForm()
 }
 
 

@@ -44,7 +44,7 @@
               <PremFormControl
                 type="text"
                 placeholder="Some few word about the company"
-                v-model="discription"
+                v-model="description"
               />
             </PremFormField>
             <div class="font-medium flex items-center cursor-pointer mb-5 text-xl">
@@ -70,7 +70,7 @@
               <PremFormField
                 label="Biiling Country"
               >
-                <PremFormControl type="text"  v-model="Cuntry" />
+                <PremFormControl type="text"  v-model="Country" />
               </PremFormField>
               <PremFormField
                 label="Biiling Code"
@@ -84,13 +84,13 @@
           <div class="">Customize Fields</div>
           <div class="flex justify-between items-center">
             <BaseButton
-              label="Cancle"
+              label="Cancel"
               type="button"
               color="info"
               class="uppercase mr-2"
               :style="[]"
               outline
-              @click="getCompany.hideForm()"
+              @click="closePopup"
             />
             <BaseButton
               label="Save"
@@ -98,7 +98,7 @@
               color="info"
               class="uppercase"
               :style="[]"
-              @click="saveItem()"
+              @click="saveCompany()"
             />
           </div>
         </div>
@@ -145,92 +145,144 @@
   import PremFormField from "@/components/Forms/FormField.vue";
   import PremFormControl from "@/components/Forms/FormControl.vue";
   import BaseButton from "@/components/Buttons/BaseButton.vue";
-  import {companiesStore} from "@/stores/SalesCRM/companies/companies"
-  const getCompany=companiesStore()
+  import {companiesStore} from "@/stores/SalesCRM/companies/companies";
+  const emit = defineEmits(["onAction"]);
+  const getCompanies=companiesStore()
+  const closePopup = () => {
+  emit("onAction");
+};
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+console.log("Data", props.data);
+const original = getCompanies.allCompanies[props.index];
+console.log(original);
   const addressInfoShow=ref(false)
   
 
   const companyName=ref(null)
   const phone=ref(null)
   const website=ref(null)
-  const discription=ref(null)
+  const description=ref(null)
   const Street=ref(null)
   const City = ref(null)
   const State = ref(null)
-  const Cuntry = ref(null)
+  const Country = ref(null)
   const Zip =ref(null)
   
-  
-  const saveItem = ()=>{
+  companyName.value = props.data.name
+  if(props.data.phone) {
+    phone.value = props.data.phone.slice(3)
+  }
+  website.value= props.data.website
+  description.value= props.data.description
+  Street.value= props.data.street
+  City.value =  props.data.city
+  State.value =  props.data.state
+  Country.value =  props.data.country
+  Zip.value = props.data.zip
+
+
+  const saveCompany = async () => {
     
-      const allData = getCompany.allCompani
-      let id = 1
-      if(allData.length>0){
-          const lastItem = allData[allData.length-1]
-          id = lastItem.id+1
-      }
+      // const allData = getCompany.allCompani
+      // let id = 1
+      // if(allData.length>0){
+      //     const lastItem = allData[allData.length-1]
+      //     id = lastItem.id+1
+      // }
   
-      const newItem = {
-          id,
-          values:[ 
-                {
-                  id:1,
-                  value:companyName.value,
-                  icon:""
-                },
-                {
-                  id:2,
-                  value:phone.value,
-                  icon:""
-                },
-                {
-                  id:3,
-                  value:website.value,
-                  icon:""
-                },
-                {
-                  id:4,
-                  value:discription.value,
-                  icon:""
-                },
-                // {
-                //   id:5,
-                //   value:title.value,
-                //   icon:""
-                // },   
-              //               {
-              //     id:6,
-              //     value:discription.value,
-              //     icon:""
-              //   },     {
-              //     id:7,
-              //     value:mStreet.value,
-              //     icon:""
-              //   },     {
-              //     id:8,
-              //     value:mCity.value,
-              //     icon:""
-              //   },     {
-              //     id:9,
-              //     value:mState.value,
-              //     icon:""
-              //   },     {
-              //     id:10,
-              //     value:mCuntry.value,
-              //     icon:""
-              //   },
-              //   {
-              //     id:11,
-              //     value:mZip.value,
-              //     icon:""
-              //   }
-           ]
-      }
-  
+      // const newItem = {
+      //     id,
+      //     values:[ 
+      //           {
+      //             id:1,
+      //             value:companyName.value,
+      //             icon:""
+      //           },
+      //           {
+      //             id:2,
+      //             value:phone.value,
+      //             icon:""
+      //           },
+      //           {
+      //             id:3,
+      //             value:website.value,
+      //             icon:""
+      //           },
+      //           {
+      //             id:4,
+      //             value:description.value,
+      //             icon:""
+      //           },
+      //           // {
+      //           //   id:5,
+      //           //   value:title.value,
+      //           //   icon:""
+      //           // },   
+      //         //               {
+      //         //     id:6,
+      //         //     value:description.value,
+      //         //     icon:""
+      //         //   },     {
+      //         //     id:7,
+      //         //     value:mStreet.value,
+      //         //     icon:""
+      //         //   },     {
+      //         //     id:8,
+      //         //     value:mCity.value,
+      //         //     icon:""
+      //         //   },     {
+      //         //     id:9,
+      //         //     value:mState.value,
+      //         //     icon:""
+      //         //   },     {
+      //         //     id:10,
+      //         //     value:mCountry.value,
+      //         //     icon:""
+      //         //   },
+      //         //   {
+      //         //     id:11,
+      //         //     value:mZip.value,
+      //         //     icon:""
+      //         //   }
+      //      ]
+      // }
+      const company = {
+      "name" : companyName.value,
+      "phone" : "+91" + phone.value,
+      "website" : website.value,
+      "description" : description.value,
+      "street" : Street.value,
+      "city" : City.value,
+      "state" : State.value,
+      "country" : Country.value,
+      "zip" : Number(Zip.value),
+    }
+  if(props.new) {
+    await getCompanies.addNewCompany(company);
+  }
+  else {
+    await getCompanies.updateCompany(original, company);
+  }
+  await getCompanies.getCompanies();
+  closePopup()
   // console.log(newItem)
-  getCompany.addNewItem(newItem) 
-console.log(newItem)
-  getCompany.hideForm()
+//   getCompany.addNewItem(newItem) 
+// console.log(newItem)
+//   getCompany.hideForm()
   }
   
   

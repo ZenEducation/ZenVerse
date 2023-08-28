@@ -19,7 +19,7 @@
                 class="uppercase"
                 :style="[]"
                 :icon="mdiPlus"
-               @click="getTasks.showForm()"
+               @click="show('task')"
               />
               <PremButtonMenu
           :options="dotsMenu"
@@ -38,7 +38,7 @@
                 class="uppercase mx-2"
                 :style="[]"
                 :icon="mdiPlus"
-                @click="getEvents.showForm()"
+                @click="show('event')"
               />
               <BaseButton
                 label="Call"
@@ -47,7 +47,7 @@
                 class="uppercase"
                 :style="[]"
                 :icon="mdiPlus"
-                @click="getCalls.showForm()"
+                @click="show('call')"
               />
 </div>
  </div>
@@ -59,9 +59,9 @@
     </div>
     </div>
 
-    <AddTaskForm v-if="getTasks.formShow" />
-    <AddEventForm v-if="getEvents.formShow" />
-    <AddCallsForm v-if="getCalls.formShow" />
+    <AddTaskForm v-if="addTask" @on-action="closePopup('task')" />
+    <AddEventForm v-if="addEvent" @on-action="closePopup('event')"/>
+    <AddCallsForm v-if="addCall" @on-action="closePopup('call')"/>
         </SectionMain>
         </NuxtLayout>
    </div>
@@ -82,6 +82,9 @@ import {callStore} from "@/stores/SalesCRM/activities/call"
 const getTasks=taskStore()
 const getEvents = eventStore()
 const getCalls = callStore()
+const addTask = ref(false)
+const addEvent = ref(false)
+const addCall = ref(false)
 import {
   mdiMenuDown,
   mdiViewHeadline,
@@ -109,6 +112,29 @@ import {
 const activeItem=ref('Tasks')
 const currentTab=(tab)=>{
     activeItem.value=tab
+}
+function show(type) {
+  if(type == "task") {
+    addTask.value = true;
+  }
+  else if(type == "event") {
+    addEvent.value = true;
+  }
+  else {
+    addCall.value = true;
+  }
+}
+
+function closePopup(type) {
+  if(type == "task") {
+    addTask.value = false;
+  }
+  else if(type == "event") {
+    addEvent.value = false;
+  }
+  else {
+    addCall.value = false;
+  }
 }
 
 const dotsMenu = [

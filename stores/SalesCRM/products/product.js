@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-
+import { DataStore } from "aws-amplify"
+import { Products } from "../../../models/index"
 
 const tableData = [
     {
@@ -88,7 +89,7 @@ const tableData = [
 
 
 const state = () => ({
-allProducts:tableData,
+allProducts:[],
 formShow:false
 
 })
@@ -104,9 +105,45 @@ const actions = {
       this.formShow=false
      },
     
-     addNewItem(item){
-      this.allProducts.unshift(item)
-     }
+     async addNewProduct(product){
+      try {
+        await DataStore.save(new Products(product));
+        alert("Saved Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+     },
+
+     async getProducts() {
+      try {
+        const data = await DataStore.query(Products);
+        this.allProducts = data
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async deleteProduct(product) {
+      try {
+        await DataStore.delete(product);
+        alert("Deleted Succefully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async updateProduct(original, update){
+      try {
+        await DataStore.save(Products.copyOf(original, updated => {
+          updated.name = update.name;
+          updated.code = update.code;
+          updated.category = update.category;
+          updated.unit_price = update.unit_price;
+          updated.description = update.description;
+        }));
+        alert("Updated Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
 }
 
 const getters = {

@@ -67,8 +67,10 @@
                   size="20"
                   h="1"
                   w="16"
+                  @click="update(item, idx)"
                 />
                 <PremButtonMenu
+          :index="idx"
           :options="dotItems"
           color="info"
           outline
@@ -109,6 +111,12 @@
       </div> -->
       <!-- end pagination -->
     </div>
+    <AddTaskForm v-if="addTask" @on-action="closePopup('task')" :data="updateData" :new="false" :index="updateIndex"/>
+    <AddEventForm v-if="addEvent" @on-action="closePopup('event')" :data="updateData" :new="false" :index="updateIndex"/>
+    <AddCallsForm v-if="addCall" @on-action="closePopup('call')" :data="updateData" :new="false" :index="updateIndex"/>
+    <AddProductForm v-if="addProduct" @on-action="closePopup('product')" :data="updateData" :new="false" :index="updateIndex"/>
+    <AddCompanyForm v-if="addCompany" @on-action="closePopup('company')" :data="updateData" :new="false" :index="updateIndex"/>
+    <AddContactsForm v-if="addContact" @on-action="closePopup('contact')" :data="updateData" :new="false" :index="updateIndex"/>
   </template>
   
   <script setup>
@@ -133,7 +141,12 @@
   import PremFormControl from "@/components/Forms/FormControl.vue";
   import { useRouter } from "vue-router";
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
-  
+import AddTaskForm from "@/components/SalesCRM/Sales/activities/AddTaskForm.vue"
+import AddEventForm from "@/components/SalesCRM/Sales/activities/AddEventForm.vue"
+import AddCallsForm from "@/components/SalesCRM/Sales/activities/AddCallsForm.vue"
+import AddProductForm from "@/components/SalesCRM/Sales/products/AddProductForm.vue"
+import AddCompanyForm from "@/components/SalesCRM/Sales/companies/AddCompanyForm.vue"
+import AddContactsForm from "@/components/SalesCRM/Sales/contacts/AddContactsForm.vue"
   import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
   
   import {
@@ -157,6 +170,11 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
       required: true,
       default: [],
     },
+    type:{
+      type: String,
+      required : true,
+      default: ""
+    },
     dotItems:{
       type: Array,
       required: true,
@@ -178,7 +196,16 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
   });
   const router = useRouter();
   const items = props.data;
-  
+  const updateData = ref(null);
+  const updateIndex = ref(null);
+  const addTask = ref(false)
+const addEvent = ref(false)
+const addCall = ref(false)
+const addProduct = ref(false)
+const addCompany = ref(false)
+const addContact = ref(false)
+const type = props.type;
+console.log(type);
   // status list
   
   const listBoxOptions = [
@@ -190,7 +217,7 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
     "Offer Letter Received",
     "Visa Process Started",
   ];
-  
+
   const isModalActive = ref(false);
   
   const isModalDangerActive = ref(false);
@@ -227,6 +254,70 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
   const goToAction = (id) => {
     router.push("/salesCRM/actions/" + id);
   };
+
+function closePopup(type) {
+  if(type == "task") {
+    addTask.value = false;
+  }
+  else if(type == "event") {
+    addEvent.value = false;
+  }
+  else if(type == "call") {
+    addCall.value = false;
+  }
+  else if(type == "product") {
+    addProduct.value = false;
+  }
+  else if(type == "company") {
+    addCompany.value = false;
+  }
+  else if(type == "contact") {
+    addContact.value = false;
+  }
+}
+  const update = async (task, index) => {
+    const format = (fields) => {
+      let data = {}
+  for(const field in fields) {
+    let entry = task.values[field]
+    data[fields[field]] = entry["value"]
+  }
+  updateData.value = data;
+  console.log("data : ", data);
+  updateIndex.value = index;
+    }
+    let fields = {};
+    if(type == "task") {
+      fields = {0 : "name", 1 : "due_date", 2 : "status", 3 : "priority", 4 : "related_to", 5 : "task_owner", 6 : "description"}
+      format(fields)
+      addTask.value = true;
+    }
+    else if(type == "event") {
+      fields = {0 : "title", 1 : "from_date", 2 : "from_time", 3 : "to_date", 4 : "to_time", 5 : "location", 6 : "related_to", 7 : "participants", 8 : "description"}
+      format(fields)
+      addEvent.value = true;
+    }
+    else if(type == "call") {
+    fields = {0 : "to_from", 1 : "start_date", 2 : "start_time", 3 : "type", 4 : "related_to", 5 : "agenda"}
+    format(fields)
+    addCall.value = true;
+  }
+  else if(type == "product") {
+    fields = {0 : "name", 1 : "code", 2 : "category", 3 : "unit_price", 4 : "description"}
+    format(fields)
+    addProduct.value = true;
+  }
+  else if(type == "company") {
+    fields = {0 : "name", 1 : "phone", 2 : "website", 3 : "description", 4 : "street", 5 : "city", 6 : "state", 7 : "country", 8 : "zip"}
+    format(fields)
+    addCompany.value = true;
+  }
+  else if(type == "contact") {
+    fields = {0 : "fname", 1 : "lname", 2 : "title", 3 : "email", 4 : "company_name", 5 : "phone", 6 : "description", 7 : "street", 8 : "city", 9 : "state", 10 : "country", 11 : "zip"}
+    format(fields)
+    addContact.value = true;
+  }
+}
 
   const dotsMenu = [
   [

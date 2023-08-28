@@ -41,7 +41,7 @@
           
             <PremFormField label="Product Category"  horizontal>
               <PremFormControl
-               v-model="catagory"
+               v-model="category"
                 :options="selectFieldOptions"
               />
             </PremFormField>
@@ -58,7 +58,7 @@
               <PremFormControl
                 type="text"
                 placeholder="A few word about the Product"
-                v-model="discription"
+                v-model="description"
               />
             </PremFormField>
          
@@ -77,13 +77,13 @@
           <div class="">Customize Fields</div>
           <div class="flex justify-between items-center">
             <BaseButton
-              label="Cancle"
+              label="Cancel"
               type="button"
               color="info"
               class="uppercase mr-2"
               :style="[]"
               outline
-              @click="getProduct.hideForm()"
+              @click="closePopup"
             />
             <BaseButton
               label="Save"
@@ -91,7 +91,7 @@
               color="info"
               class="uppercase"
               :style="[]"
-              @click="saveItem()"
+              @click="saveProduct()"
             />
           </div>
         </div>
@@ -141,8 +141,29 @@
   import BaseButton from "@/components/Buttons/BaseButton.vue";
   import {productStore} from "@/stores/SalesCRM/products/product"
 import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
-
-  const getProduct=productStore()
+import { CategoryScale } from "chart.js";
+const emit = defineEmits(["onAction"]);
+  const getProducts=productStore();
+  const closePopup = () => {
+  emit("onAction");
+};
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+const original = getProducts.allProducts[props.index];
+console.log(original);
   const addressInfoShow=ref(false)
   const selectFieldOptions = [
  "Hardware",
@@ -153,9 +174,9 @@ const checkboxOptions = { lorem: "Product Active" };
 
   const productName=ref(null)
   const pCode=ref(null)
-  const catagory = ref(null)
+  const category = ref(null)
   const price=ref(null)
-  const discription=ref(null)
+  const description=ref(null)
   const productActive = ref(false)
   const productActiveInactive= ref('Inactive')
   const Street=ref(null)
@@ -164,16 +185,20 @@ const checkboxOptions = { lorem: "Product Active" };
   const Cuntry = ref(null)
   const Zip =ref(null)
   
-
+productName.value = props.data.name
+pCode.value = props.data.code
+category.value = props.data.category
+price.value = props.data.unit_price
+description.value = props.data.description
 
 
   const productStatus=()=>{
   
   }
   
-  const saveItem = ()=>{
+  const saveProduct = async () => {
     
-      const allData = getProduct.allProducts
+      const allData = getProducts.allProducts
       let id = 1
       if(allData.length>0){
           const lastItem = allData[allData.length-1]
@@ -201,7 +226,7 @@ const checkboxOptions = { lorem: "Product Active" };
                 },
                 {
                   id:3,
-                  value:catagory.value,
+                  value:category.value,
                   icon:""
                 },
                 {
@@ -212,7 +237,7 @@ const checkboxOptions = { lorem: "Product Active" };
                 },
                 // {
                 //   id:5,
-                //   value:discription.value,
+                //   value:description.value,
                 //   icon:""
                 // },
                 // {
@@ -222,7 +247,7 @@ const checkboxOptions = { lorem: "Product Active" };
                 // },   
               //               {
               //     id:6,
-              //     value:discription.value,
+              //     value:description.value,
               //     icon:""
               //   },     {
               //     id:7,
@@ -248,11 +273,25 @@ const checkboxOptions = { lorem: "Product Active" };
               //   }
            ]
       }
-  
+    const product = {
+      "name" : productName.value,
+      "code" : pCode.value,
+      "category" : category.value,
+      "unit_price" : price.value,
+      "description" : description.value
+    }
+  if(props.new) {
+    await getProducts.addNewProduct(product);
+  }
+  else {
+    await getProducts.updateProduct(original, product);
+  }
+  await getProducts.getProducts();
+  closePopup()
   // console.log(newItem)
-  getProduct.addNewItem(newItem) 
-// console.log(newItem)
-getProduct.hideForm()
+//   getProducts.addNewItem(newItem) 
+// // console.log(newItem)
+// getProducts.hideForm()
   }
   
   

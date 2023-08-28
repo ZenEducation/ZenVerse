@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-
+import { DataStore } from "aws-amplify"
+import { Companies } from "../../../models/index"
 
 const tableData = [
     {
@@ -88,7 +89,7 @@ const tableData = [
 
 
 const state = () => ({
-allCompani:tableData,
+allCompanies:[],
 formShow:false
 
 })
@@ -103,9 +104,49 @@ const actions = {
       this.formShow=false
      },
     
-     addNewItem(item){
-      this.allCompani.unshift(item)
-     }
+     async addNewCompany(company){
+      try {
+        await DataStore.save(new Companies(company));
+        alert("Saved Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+     },
+
+     async getCompanies() {
+      try {
+        const data = await DataStore.query(Companies);
+        this.allCompanies = data
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async deleteCompany(company) {
+      try {
+        await DataStore.delete(company);
+        alert("Deleted Succefully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async updateCompany(original, update){
+      try {
+        await DataStore.save(Companies.copyOf(original, updated => {
+          updated.name = update.name;
+          updated.phone = update.phone;
+          updated.website = update.website;
+          updated.description = update.description;
+          updated.street = update.street;
+          updated.city = update.city;
+          updated.state = update.state;
+          updated.country = update.country;
+          updated.zip = update.zip;
+        }));
+        alert("Updated Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
 }
 
 const getters = {

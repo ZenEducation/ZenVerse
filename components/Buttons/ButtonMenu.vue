@@ -22,6 +22,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  index: {
+    type: Number,
+    required: true
+  },
   modelValue: {
     type: Object,
     default: null,
@@ -49,7 +53,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:modelValue"]);
-
 computed({
   get: () => props.modelValue,
   set: (value) => {
@@ -104,6 +107,7 @@ const iconRightComputed = computed(() =>
           <MenuItem
             v-for="option in optionsGroup"
             :key="option.id"
+            @click="option.run(props.index)"
             v-slot="{ active }"
           >
             <button

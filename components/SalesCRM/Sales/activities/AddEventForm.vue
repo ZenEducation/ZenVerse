@@ -63,7 +63,7 @@
               <PremFormControl
                 type="text"
                 placeholder="A few word about the Product"
-                v-model="discription"
+                v-model="description"
               />
             </PremFormField>
   
@@ -75,13 +75,13 @@
           <div class="">Customize Fields</div>
           <div class="flex justify-between items-center">
             <BaseButton
-              label="Cancle"
+              label="Cancel"
               type="button"
               color="info"
               class="uppercase mr-2"
               :style="[]"
               outline
-              @click="getEvents.hideForm()"
+              @click="closePopup"
             />
             <BaseButton
               label="Save"
@@ -89,7 +89,7 @@
               color="info"
               class="uppercase"
               :style="[]"
-              @click="saveItem()"
+              @click="saveEvent()"
             />
           </div>
         </div>
@@ -140,9 +140,28 @@
   
   import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
   import { eventStore} from "@/stores/SalesCRM/activities/events"
-
+  const emit = defineEmits(["onAction"]);
   const getEvents = eventStore();
-  
+  const closePopup = () => {
+    emit("onAction");
+  };
+  const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+const original = getEvents.allEvents[props.index];
+console.log(original);
   const addressInfoShow = ref(false);
   const selectFieldOptions = ["Hardware", "Software", "CRM Applications"];
   const checkboxOptions = { Repeat: "Repeat" ,Reminder:"Reminder" };
@@ -155,17 +174,28 @@
   const location = ref(null)
   const RelatedTo = ref(null);
   const Participants = ref(null)
-  const discription = ref(null);
+  const description = ref(null);
   const productActive = ref(false);
   const Street = ref(null);
   const City = ref(null);
   const State = ref(null);
   const Cuntry = ref(null);
   const Zip = ref(null);
+
+  title.value = props.data.title;
+  fdate.value = props.data.from_date;
+  ftime.value = props.data.from_time;
+  tdate.value = props.data.to_date;
+  ttime.value = props.data.to_time;
+  location.value = props.data.location;
+  RelatedTo.value = props.data.related_to;
+  Participants.value = props.data.participants;
+  description.value = props.data.description;
+
   
   const productStatus = () => {};
   
-  const saveItem = () => {
+  const saveEvent = async () => {
     const allData = getEvents.allEvents;
     let id = 1;
     if (allData.length > 0) {
@@ -184,32 +214,52 @@
         },
         {
           id: 2,
-          value: fdate.value + ", " + ftime.value,
+          value: fdate.value,
           icon: "",
         },
         {
           id: 3,
-          value: tdate.value + ", " + ttime.value,
+          value: ftime.value,
           icon: "",
         },
         {
           id: 4,
+          value: tdate.value,
+          icon: "",
+        },
+        {
+          id: 5,
+          value: ttime.value,
+          icon: "",
+        },
+        {
+          id: 6,
+          value:location.value,
+          icon: "",
+        },
+        {
+          id: 7,
           value:RelatedTo.value,
           icon: "",
         },
         {
-          id:5,
-          value:RelatedTo.value,
+          id: 8,
+          value:Participants.value,
+          icon:""
+        },
+        {
+          id: 9,
+          value:description.value,
           icon:""
         },
         // {
         //   id:5,
-        //   value:discription.value,
+        //   value:description.value,
         //   icon:""
         // },
         //               {
         //     id:6,
-        //     value:discription.value,
+        //     value:description.value,
         //     icon:""
         //   },     {
         //     id:7,
@@ -235,11 +285,30 @@
         //   }
       ],
     };
-  
+    const event = {
+      "title" : title.value,
+      "from_date" : fdate.value,
+      "from_time" : ftime.value,
+      "to_date" : tdate.value,
+      "to_time" : ttime.value,
+      "location" : location.value,
+      "related_to" : RelatedTo.value,
+      "participants" : Participants.value,
+      "description" : description.value
+    }
+    console.log(event);
+    if(props.new) {
+    await getEvents.addNewEvent(event);
+    }
+    else {
+      await getEvents.updateEvent(original, event);
+    }
+    await getEvents.getEvents();
+    closePopup()
     // console.log(newItem)
-    getEvents.addNewItem(newItem);
-    // console.log(newItem)
-    getEvents.hideForm();
+    // getEvents.addNewItem(newItem);
+    // // console.log(newItem)
+    // getEvents.hideForm();
   };
   </script>
   

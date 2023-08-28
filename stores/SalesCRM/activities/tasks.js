@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-
+import { DataStore } from "aws-amplify"
+import { Tasks } from "../../../models/index"
 
 const tableData = [
     {
@@ -118,7 +119,7 @@ const tableData = [
 
 
 const state = () => ({
-allTasks:tableData,
+allTasks:[],
 formShow:false
 
 })
@@ -133,9 +134,47 @@ const actions = {
       this.formShow=false
      },
     
-     addNewItem(item){
-      this.allTasks.unshift(item)
-     }
+     async addNewTask(task){
+      try {
+        await DataStore.save(new Tasks(task));
+        alert("Saved Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+     },
+
+     async getTasks() {
+      try {
+        const data = await DataStore.query(Tasks);
+        this.allTasks = data
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async deleteTask(task) {
+      try {
+        await DataStore.delete(task);
+        alert("Deleted Succefully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
+    async updateTask(original, update){
+      try {
+        await DataStore.save(Tasks.copyOf(original, updated => {
+          updated.name = update.name;
+          updated.due_date = update.due_date;
+          updated.status = update.status;
+          updated.priority = update.priority;
+          updated.related_to = update.related_to;
+          updated.task_owner = update.task_owner;
+          updated.description = update.description;
+        }));
+        alert("Updated Successfully");
+    } catch (error) {
+        console.log("error : ", error);
+    }
+    },
 }
 
 const getters = {

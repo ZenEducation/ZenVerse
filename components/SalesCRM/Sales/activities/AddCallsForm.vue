@@ -26,7 +26,7 @@
           </div>
           <div class="mt-5">
             <PremFormField label="To/From">
-              <PremFormControl type="text" v-model="toForm" />
+              <PremFormControl type="text" v-model="toFrom" />
               
             </PremFormField>
   
@@ -68,13 +68,13 @@
           <div class="">Customize Fields</div>
           <div class="flex justify-between items-center">
             <BaseButton
-              label="Cancle"
+              label="Cancel"
               type="button"
               color="info"
               class="uppercase mr-2"
               :style="[]"
               outline
-              @click="getCalls.hideForm()"
+              @click="closePopup"
             />
             <BaseButton
               label="Save"
@@ -82,7 +82,7 @@
               color="info"
               class="uppercase"
               :style="[]"
-              @click="saveItem()"
+              @click="saveCall()"
             />
           </div>
         </div>
@@ -134,14 +134,32 @@
   import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
   import {callStore} from "@/stores/SalesCRM/activities/call"
 
-
+  const emit = defineEmits(["onAction"]);
   const getCalls = callStore();
-  
+  const closePopup = () => {
+  emit("onAction");
+};
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+const original = getCalls.allCalls[props.index];
   const addressInfoShow = ref(false);
   const selectFieldOptions = ["Hardware", "Software", "CRM Applications"];
   const checkboxOptions = { Reminder:"Reminder" };
   const checkboxOptions2 = { highPriority: "Mark as High Priority" ,compleated:"Mark as compleated" };
-  const toForm = ref(null);
+  const toFrom = ref(null);
   const fdate = ref(null);
   const ftime = ref(null);
 
@@ -150,8 +168,15 @@
   const callAgenda = ref(null)
 
   const productStatus = () => {};
+
+  toFrom.value = props.data.to_from
+  fdate.value = props.data.start_date
+  ftime.value = props.data.start_time
+  callType.value = props.data.type
+  RelatedTo.value = props.data.related_to
+  callAgenda.value = props.data.agenda
   
-  const saveItem = () => {
+  const saveCall = async () => {
     const allData = getCalls.allCalls;
     let id = 1;
     if (allData.length > 0) {
@@ -165,7 +190,7 @@
       values: [
         {
           id: 1,
-          value: toForm.value,
+          value: toFrom.value,
           icon: "",
         },
         {
@@ -226,11 +251,26 @@
         //   }
       ],
     };
-  
+    const call = {
+      "to_from" : toFrom.value,
+      "start_date" : fdate.value,
+      "start_time" : ftime.value,
+      "type" : callType.value,
+      "related_to" : RelatedTo.value,
+      "agenda" : callAgenda.value
+    }
+    if(props.new) {
+    await getCalls.addNewCall(call);
+  }
+  else {
+    await getCalls.updateCall(original, call);
+  }
+  await getCalls.getCalls();
+  closePopup()
     // console.log(newItem)
-    getCalls.addNewItem(newItem);
-    // console.log(newItem)
-    getCalls.hideForm();
+    // getCalls.addNewItem(newItem);
+    // // console.log(newItem)
+    // getCalls.hideForm();
   };
   </script>
   

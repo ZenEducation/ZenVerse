@@ -24,6 +24,14 @@ import TableCardClients from "@/components/Tables/TableCardClients.vue";
 definePageMeta({
   middleware: 'auth-check'
 })
+const router = useRouter();
+
+onBeforeMount(() => {
+  if(localStorage.getItem("User-profile")){
+  const role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"];
+  router.push({ path: `dashboard/${role}` })
+  }
+})
 const chartData = ref(null);
 
 const fillChartData = () => {

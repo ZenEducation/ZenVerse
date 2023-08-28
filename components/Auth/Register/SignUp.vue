@@ -17,7 +17,7 @@ const emit = defineEmits(["setEmail"]);
 
 const router = useRouter();
 const AuthStore = useAuthStore();
-
+const route = useRoute()
 const userSubmitted = ref(false);
 const errorMsg = ref("");
 const passwordFieldType = ref("password");
@@ -45,7 +45,9 @@ const form = reactive({
   address: "",
   pincode: ""
 });
-
+onMounted(() => {
+  console.log(route.params.profile, "params");
+})
 const handleSubmit = async () => {
   // call the login method from the Authstore
   try {
@@ -54,8 +56,17 @@ const handleSubmit = async () => {
       email: form.signUpEmail,
       password: form.password,
       address: form.address,
-      pincode: form.pincode.toString()
+      pincode: form.pincode.toString(),
+      role: route.params.profile
     });
+    console.log("sent data", {
+      name: form.name,
+      email: form.signUpEmail,
+      password: form.password,
+      address: form.address,
+      pincode: form.pincode.toString(),
+      role: route.params.profile
+    } );
     console.log("Sent user", user_to_register_in_amplify);
     
     
@@ -69,6 +80,7 @@ const handleSubmit = async () => {
     toggleNotificationModal(true)
     console.log("REGISTRATION ERROR ", err);
   }
+
 };
 </script>
 <template>

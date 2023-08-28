@@ -11,6 +11,7 @@ import FormCheckRadio from "@/components/Forms/FormCheckRadio.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import { useAuthStore } from "@/stores/authStore";
+import login from "@/components/Auth/login/login.vue"
 import { Auth } from 'aws-amplify'
 const getSession = () => {
     Auth.currentSession().then(() => navigateTo('/dashboard'))
@@ -53,7 +54,7 @@ const submit = async () => {
 <template>
   <div>
     <NuxtLayout>
-      <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
+      <!-- <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
         <CardBox :class="cardClass" is-form @submit.prevent="submit">
           <AuthNotificationBar :isVisible="notificationModal" @toggle="toggleNotificationModal" color="danger"
             :icon="mdiMail">
@@ -83,7 +84,8 @@ const submit = async () => {
               label="Login with Facebook" />
           </BaseButtons>
         </CardBox>
-      </SectionFullScreen>
+      </SectionFullScreen> -->
+   <login/>
     </NuxtLayout>
   </div>
 </template>

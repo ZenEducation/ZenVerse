@@ -159,7 +159,7 @@ import { UntitledModel } from "../../models";
                 </div>
                 <PremFormField label="Content :">
                   <div class="p-3 container border-2 border-slate-600">
-                    <DragDrop />
+                    <DragDrop ref="childComponentRef"/>
                     <Editor />
                     <PremFormField label="URL :">
                       <PremFormControl
@@ -255,6 +255,7 @@ export default {
           assigned_to: this.assignie,
         })
       );
+      this.$refs.childComponentRef.submitFiles();
       this.$router.push("/CMS/allContent");
     },
   },

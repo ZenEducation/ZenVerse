@@ -38,6 +38,7 @@
 
 <script>
 import driveUploadButton from "@/components/CMS/driveUploadButton.vue";
+import { Storage } from "@aws-amplify/storage";
 
 export default {
   components: {
@@ -48,13 +49,14 @@ export default {
       images: [],
       isDragging: false,
       isFileSelected: false,
+      file: null,
     };
   },
   methods: {
     selectFiles() {
       this.$refs.fileInput.click();
     },
-    onFileSelect(event) {
+    async onFileSelect(event) {
       const files = event.target.files;
       if (files.length === 0) return;
       for (let i = 0; i < files.length; i++) {
@@ -66,6 +68,7 @@ export default {
           });
         }
       }
+      this.file = event.target.files[0];
       this.isFileSelected = !this.isFileSelected;
     },
     deleteImage(index) {
@@ -95,6 +98,19 @@ export default {
         }
       }
     },
+    async submitFiles() {
+      console.log(this.file);
+      if (this.file) {
+        try {
+          await Storage.put(this.file.name, this.file);
+        } catch (error) {
+          console.log("Error uploading file: ", error);
+        }
+      }
+      else{
+        console.log("file not selected! ");
+      }
+    }
   },
 };
 </script>
@@ -205,7 +221,7 @@ export default {
   margin-left: 50%;
 }
 
-.imagePreview:hover{
+.imagePreview:hover {
   cursor: pointer;
 }
 </style>

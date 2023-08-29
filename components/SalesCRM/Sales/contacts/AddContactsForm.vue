@@ -282,7 +282,7 @@ const saveContact = async () => {
       "city" : mCity.value,
       "state" : mState.value,
       "country" : mCountry.value,
-      "zip" : mZip.value
+      "zip" : Number(mZip.value)
     }
     if(props.new) {
     await getContacts.addNewContact(contact);

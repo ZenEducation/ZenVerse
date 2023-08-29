@@ -284,6 +284,14 @@ const tableHeadingData=[
   },
   {
     id: 9,
+    name: "City",
+  },
+  {
+    id: 10,
+    name: "State",
+  },
+  {
+    id: 9,
     name: "Country",
   },
   {

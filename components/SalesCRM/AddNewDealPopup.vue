@@ -144,7 +144,7 @@
             <PremFormControl
               help=""
               placeholder=""
-              v-model="expectedCode"
+              v-model="expectedClose"
               type="date"
             />
           </PremFormField>
@@ -287,6 +287,19 @@ const closePopup = () => {
   emit("onAction");
 };
 
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  }
+});
+
+const original = props.data;
 // form data
 
 const dealName = ref(null);
@@ -294,7 +307,7 @@ const summary = ref(null);
 const companyName = ref(null);
 const primaryContact = ref(null);
 const amount = ref(null);
-const currency = ref("Indian Rupee");
+const currency = ref({ id: 1, label: "INR ₹ Indian Rupee", symbol: "₹" });
 const pipeline = ref(null);
 const stage = ref(null);
 const owner = ref(null);
@@ -306,13 +319,30 @@ const revenueType = ref(null);
 const dealPerformanceLane = ref(null);
 const productInterest = ref(null);
 
-const submitData = () => {
+dealName.value = props.data.dealName;
+summary.value = props.data.summary;
+companyName.value = props.data.companyName;
+primaryContact.value = props.data.primaryContact;
+amount.value = props.data.amount;
+currency.value = props.data.currency;
+pipeline.value = props.data.pipeline;
+stage.value = props.data.stage;
+owner.value = props.data.owner;
+probability.value = props.data.probability;
+source.value = props.data.source;
+status.value = props.data.status;
+expectedClose.value = props.data.expectedClose;
+revenueType.value = props.data.revenueType;
+dealPerformanceLane.value = props.data.dealPerformanceLane;
+productInterest.value = props.data.productInterest;
+
+const submitData = async () => {
   const data = {
     dealName: dealName.value,
     companyName: companyName.value,
     summary: summary.value,
-    amount: amount.value,
-    currency: currency.value,
+    amount: Number(amount.value),
+    currency: JSON.parse(JSON.stringify(currency.value)),
     status: status.value.toLowerCase(),
     pipeline: pipeline.value,
     stage: stage.value,
@@ -320,16 +350,22 @@ const submitData = () => {
     owner: owner.value,
 
     primaryContact: primaryContact.value,
-    weightedForecast: amount.value,
-    probability: probability.value,
+    weightedForecast: Number(amount.value),
+    probability: Number(probability.value),
     expectedClose: expectedClose.value,
     revenueType: revenueType.value,
     dealPerformanceLane: dealPerformanceLane.value,
     productInterest: productInterest.value,
   };
-
+  
   emit("getDealData", data);
-  getDeal.addNewDeal(data)
+  if(props.new) {
+    await getDeal.addNewDeal(data);
+  }
+  else {
+    await getDeal.updateDeal(original, data);
+  }
+  await getDeal.getDeals();
 };
 </script>
 

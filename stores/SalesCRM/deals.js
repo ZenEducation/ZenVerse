@@ -1,152 +1,75 @@
 import { defineStore } from "pinia";
+import { DataStore } from "aws-amplify"
+import { Deals } from "../../models/index"
 
 
-const tableData =[
-    {
-      dealName:"My deal",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"red",
-      pipeline:"somthing",
-      stage:"Qualified",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    },
-    {
-      dealName:"App Develop",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"green",
-      pipeline:"somthing",
-      stage:"Request for info",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    },
-    {
-      dealName:"Graphics Manager",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"red",
-      pipeline:"someting",
-      stage:"Presentation",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    },
-    {
-      dealName:"Potik",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"yellow",
-      pipeline:"somthing",
-      stage:"Won",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    },
-    {
-      dealName:"New Website Create",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"green",
-      pipeline:"somthing",
-      stage:"Lost",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    },
-    {
-      dealName:"New Website Create",
-      companyName:"Bymond",
-      summary:"Some text here",
-      amount:"1000",
-      currency:{
-        id:1,
-        level:"USD",
-        symbol:"$"
-      },
-      status:"green",
-      pipeline:"somthing",
-      stage:"Negotiation",
-      source:"Website",
-      owner:"Bhavya",
-      nextTask:"",
-      nextTaskDue:"",
-      lossresion:"",
-      lossresionNote:"",
-      weightedForecast:"25,150.00"
-      
-    }
-  ]
   
 
 
 
 const state = () => ({
-allDeals:tableData
+allDeals:[],
+totalDeals:0
 })
 
 const actions = {
     // add new deal 
-addNewDeal(item){
-this.allDeals.unshift(item)
+async addNewDeal(deal){
+  try {
+    await DataStore.save(new Deals(deal));
+    console.log("Saved");
+} catch (error) {
+    console.log("error : ", error);
+}
+},
+
+async updateDeal(original, update){
+  try {
+    await DataStore.save(Deals.copyOf(original, updated => {
+      updated.dealName = update.dealName;
+      updated.companyName = update.companyName;
+      updated.summary = update.summary;
+      updated.amount = update.amount;
+      updated.status = update.status;
+      updated.pipeline = update.pipeline;
+      updated.stage = update.stage;
+      updated.source = update.source;
+      updated.owner = update.owner;
+      updated.primaryContact = update.primaryContact;
+      updated.weightedForecast = update.weightedForecast;
+      updated.probability = update.probability;
+      updated.expectedClose = update.expectedClose;
+      updated.revenueType = update.revenueType;
+      updated.dealPerformanceLane = update.dealPerformanceLane;
+      updated.productInterest = update.productInterest;
+    }));
+    alert("Updated Successfully");
+} catch (error) {
+    console.log("error : ", error);
+}
+},
+
+async getDeals() {
+  try {
+    const data = await DataStore.query(Deals);
+    this.allDeals = data;
+    let total = 0;
+    for(const deal in data) {
+      total += Number(data[deal]["amount"]);
+    }
+    this.totalDeals = total
+} catch (error) {
+    console.log("error : ", error);
+}
+},
+
+async deleteDeal(deal) {
+  try {
+    await DataStore.delete(deal);
+    alert("Deleted Succefully");
+} catch (error) {
+    console.log("error : ", error);
+}
 }
 }
 

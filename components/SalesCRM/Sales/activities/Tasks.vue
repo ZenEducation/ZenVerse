@@ -49,7 +49,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getTasks.allTasks" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="getTasks.tableData" :dotItems="dotItems" type="task" />
 </div>
 
 
@@ -61,7 +61,7 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
-import {taskStore} from "@/stores/SalesCRM/activities/tasks"
+import {taskStore} from "@/stores/SalesCRM/activities/tasks";
 const getTasks=taskStore()
 
 import {
@@ -91,6 +91,7 @@ import {
   mdiCheckCircleOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -181,9 +182,16 @@ const tableHeadingData=[
   }, {
     id:6,
     name:"Task Owner"
+  }, {
+    id:7,
+    name:"Description"
   }
 ]
-
+const deleteTask = async (index) => {
+  const task = getTasks.allTasks[index]
+  console.log(task);
+  await getTasks.deleteTask(task);
+}
 const dotItems =  [
   [
     {
@@ -195,10 +203,10 @@ const dotItems =  [
       id: 2,
       icon: mdiDeleteOutline,
       label: "Delete",
+      run: deleteTask
     },
   ],
 ]
-
 
 </script>
 

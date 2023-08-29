@@ -1,5 +1,5 @@
 import { DataStore } from "@aws-amplify/datastore";
-import { Whiteboard } from "@/models";
+// import { Whiteboard } from "@/models";
 
 let models;
 

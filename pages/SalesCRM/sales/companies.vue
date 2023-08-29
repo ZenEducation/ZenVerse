@@ -49,7 +49,7 @@
                 class="uppercase"
                 :style="[]"
                 :icon="mdiPlus"
-                @click="getCompanies.showForm()"
+                @click="show"
             
               />
               <PremButtonMenu
@@ -75,9 +75,9 @@
       </div>
     </div>
 <div class="z-0  shadow mx-6">
-  <Table :heading="tableHeadingData" :data="getCompanies.allCompani" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="getCompanies.tableData" :dotItems="dotItems" type="company" />
 </div>
-<AddCompapanyForm v-if="getCompanies.formShow" />
+<AddCompapanyForm v-if="addCompany" @on-action="closePopup"/>
 </SectionMain>
 </NuxtLayout>
   </div>
@@ -89,10 +89,11 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
 import {companiesStore} from "@/stores/SalesCRM/companies/companies"
+import { onMounted } from "vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import AddCompapanyForm from "@/components/SalesCRM/Sales/companies/AddCompanyForm.vue"
 const getCompanies=companiesStore()
-
+const addCompany = ref(false)
 import {
   mdiMenuDown,
   mdiViewHeadline,
@@ -124,6 +125,7 @@ import {
   mdiPhoneOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(false)
 const searchDownItems = [
   {
     id: 1,
@@ -234,10 +236,35 @@ const tableHeadingData=[
   },
   {
     id: 4,
-    name: "Company Owner",
+    name: "Description",
+  },
+  {
+    id: 5,
+    name: "Street",
+  }
+  ,
+  {
+    id: 6,
+    name: "City",
+  },
+  {
+    id: 7,
+    name: "State",
+  },
+  {
+    id: 8,
+    name: "Country",
+  },
+  {
+    id: 9,
+    name: "Zip",
   }
 ]
-
+const deleteCompany = async (index) => {
+  const company = getCompanies.allCompanies[index]
+  console.log(company);
+  await getCompanies.deleteCompany(company);
+}
 
 const dotItems = [
   [
@@ -255,10 +282,17 @@ const dotItems = [
       id:1 ,
       icon: mdiDeleteOutline ,
       label: "Delete",
+      run: deleteCompany
     },
   ],
 ]; 
-
+function show() {
+  addCompany.value = true;
+}
+function closePopup() {
+  addCompany.value = false;
+}
+onMounted(async () => await getCompanies.getCompanies())
 
 </script>
 

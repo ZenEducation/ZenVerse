@@ -214,35 +214,42 @@ const shortDownItems=[
 const kanbanTableData = [
   {
     name: "Qualified",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
   {
     name: "Request for info",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
   {
     name: "Presentation",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
   {
     name: "Negotiation",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
   {
     name: "Won",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
   {
     name: "Lost",
-    amount: 10245,
+    amount: 0,
     deal: 0,
   },
 ];
+
+const categories = {"Qualified" : 0,"Request for info" : 1,"Presentation" : 2,"Negotiation" : 3,"Won" : 4,"Lost" : 5};
+
+for(const entry in tableData) {
+    kanbanTableData[categories[tableData[entry]["stage"]]]["deal"] += 1;
+    kanbanTableData[categories[tableData[entry]["stage"]]]["amount"] += Number(tableData[entry]["weightedForecast"]);
+}
 
 const searchDownItems = [
   {

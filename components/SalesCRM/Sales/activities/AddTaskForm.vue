@@ -49,7 +49,7 @@
             <PremFormControl
               type="text"
               placeholder="A few word about the Product"
-              v-model="discription"
+              v-model="description"
             />
           </PremFormField>
 
@@ -69,13 +69,13 @@
         <div class="">Customize Fields</div>
         <div class="flex justify-between items-center">
           <BaseButton
-            label="Cancle"
+            label="Cancel"
             type="button"
             color="info"
             class="uppercase mr-2"
             :style="[]"
             outline
-            @click="getTasks.hideForm()"
+            @click="closePopup"
           />
           <BaseButton
             label="Save"
@@ -83,7 +83,7 @@
             color="info"
             class="uppercase"
             :style="[]"
-            @click="saveItem()"
+            @click="saveTask()"
           />
         </div>
       </div>
@@ -134,7 +134,28 @@ import BaseButton from "@/components/Buttons/BaseButton.vue";
 
 import FormCheckRadioGroup from "@/components/Forms/FormCheckRadioGroup.vue";
 import { taskStore } from "@/stores/SalesCRM/activities/tasks";
+const emit = defineEmits(["onAction"]);
 const getTasks = taskStore();
+const closePopup = () => {
+  emit("onAction");
+};
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+    default: {},
+  },
+  new: {
+    type: Boolean,
+    default: true
+  },
+  index: {
+    type: Number,
+    default: null
+  }
+});
+const original = getTasks.allTasks[props.index];
+console.log(original);
 
 const addressInfoShow = ref(false);
 const selectFieldOptions = ["Hardware", "Software", "CRM Applications"];
@@ -143,7 +164,7 @@ const checkboxOptions2 = { highPriority: "Mark as High Priority" ,compleated:"Ma
 const taskName = ref(null);
 const date = ref(null);
 const RelatedTo = ref(null);
-const discription = ref(null);
+const description = ref(null);
 const productActive = ref(false);
 const Street = ref(null);
 const City = ref(null);
@@ -151,9 +172,14 @@ const State = ref(null);
 const Cuntry = ref(null);
 const Zip = ref(null);
 
+taskName.value = props.data.name
+date.value = props.data.due_date
+RelatedTo.value = props.data.related_to
+description.value = props.data.description
+
 const productStatus = () => {};
 
-const saveItem = () => {
+const saveTask = async () => {
   const allData = getTasks.allTasks;
   let id = 1;
   if (allData.length > 0) {
@@ -192,12 +218,12 @@ const saveItem = () => {
       },
       {
         id:5,
-        value:discription.value,
+        value:description.value,
         icon:""
       },
       //               {
       //     id:6,
-      //     value:discription.value,
+      //     value:description.value,
       //     icon:""
       //   },     {
       //     id:7,
@@ -223,11 +249,26 @@ const saveItem = () => {
       //   }
     ],
   };
-
+  const task = {
+    "name" : taskName.value,
+    "due_date" : date.value,
+    "status" : "Active",
+    "priority" : "Normal",
+    "related_to" : RelatedTo.value,
+    "task_owner" : "Me",
+    "description" : description.value
+  }
+  console.log(task);
+  if(props.new) {
+    await getTasks.addNewTask(task);
+  }
+  else {
+    await getTasks.updateTask(original, task);
+  }
+  closePopup()
+  // getTasks.addNewItem(newItem);
   // console.log(newItem)
-  getTasks.addNewItem(newItem);
-  // console.log(newItem)
-  getTasks.hideForm();
+  // getTasks.hideForm();
 };
 </script>
 

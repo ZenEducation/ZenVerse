@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getCalls.allCalls" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="getCalls.tableData" :dotItems="dotItems" type="call" />
 </div>
 
   </div>
@@ -83,6 +83,7 @@ import {
   mdiPhoneRemoveOutline 
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -160,23 +161,27 @@ const tableHeadingData=[
   },
   {
     id:2,
-    name:"Call Type"
+    name:"Call Start Date"
   }, {
     id:3,
     name:"Call Start Time"
   }, {
     id:4,
-    name:"Call Duration"
+    name:"Call Type"
   }, {
     id:5,
     name:"Related To"
   },
   {
     id:6,
-    name:"Call Owner"
+    name:"Call Agendas"
   }
 ]
-
+const deleteCall = async (index) => {
+  const call = getCalls.allCalls[index]
+  console.log(call);
+  await getCalls.deleteCall(call);
+}
 const dotItems= [
   [
     {
@@ -198,10 +203,10 @@ const dotItems= [
       id: 2,
       icon: mdiDeleteOutline,
       label: "Delete",
+      run: deleteCall
     },
   ],
 ]
-
 
 </script>
 

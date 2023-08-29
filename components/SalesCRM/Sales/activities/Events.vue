@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="getEvents.allEvents" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="getEvents.tableData" :dotItems="dotItems" type="event" />
 </div>
 
   </div>
@@ -52,8 +52,8 @@
 import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
-import Table from '@/components/SalesCRM/Sales/Table'
-import {eventStore} from "@/stores/SalesCRM/activities/events"
+import Table from '@/components/SalesCRM/Sales/Table';
+import {eventStore} from "@/stores/SalesCRM/activities/events";
 const getEvents=eventStore()
 
 import {
@@ -80,6 +80,7 @@ import {
   mdiTable,
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -157,19 +158,35 @@ const tableHeadingData=[
   },
   {
     id:2,
-    name:"From "
+    name:"From Date"
   }, {
     id:3,
-    name:"To"
-  }, {
+    name:"From Time"
+  },
+  {
     id:4,
-    name:"Related To"
+    name:"To Date"
   }, {
     id:5,
-    name:"Host"
+    name:"To Time"
+  }, {
+    id:6,
+    name:"Location"
+  }, {
+    id:7,
+    name:"Related To"
+  }, {
+    id:8,
+    name:"Participants"
+  }, {
+    id:9,
+    name:"Description"
   }
 ]
-
+const deleteEvent = async (index) => {
+  const event = getEvents.allEvents[index]
+  await getEvents.deleteEvent(event);
+}
 
 const dotItems =  [
   [
@@ -178,6 +195,7 @@ const dotItems =  [
       id: 1,
       icon: mdiDeleteOutline,
       label: "Delete",
+      run: deleteEvent
     },
   ],
 ]

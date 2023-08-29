@@ -221,8 +221,34 @@
           </th>
 
           <th class=" ">
-            <div class="text-center flex uppercase text-sm font-light w-5">
+            <div class="text-center flex uppercase text-sm font-light">
               Weighted forecast
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th class=" ">
+            <div class="text-center flex uppercase text-sm font-light">
+              Delete
+
+              <BaseIcon
+                :path="mdiChevronDown"
+                class="cursor-pointer ml-1 text-gray-600 dark:text-gray-100"
+                size="20"
+                h="20"
+                w="20"
+              />
+            </div>
+          </th>
+          <th class=" ">
+            <div class="text-center flex uppercase text-sm font-light">
+              Update
 
               <BaseIcon
                 :path="mdiChevronDown"
@@ -309,8 +335,30 @@
           <td>
       
           </td>
-          <td class="text-right">
+          <td class="">
             {{ item.currency.symbol}}{{ item.amount }}.00
+          
+          </td>
+          <td class="">
+            <BaseButton
+                label="Delete"
+                type="button"
+                color="info"
+                class="uppercase"
+                :style="[]"
+                @click="deleteDeal(item)"
+              />
+          
+          </td>
+          <td class="">
+            <BaseButton
+                label="Update"
+                type="button"
+                color="info"
+                class="uppercase"
+                :style="[]"
+                @click="updateDeal(item)"
+              />
           
           </td>
 
@@ -338,6 +386,11 @@
     </div> -->
     <!-- end pagination -->
   </div>
+  <AddNewDealPopup 
+class="add_new_deal_popup"
+ v-if="update"
+  @on-action="closePopup"
+  @get-deal-data="getDealItems" :data="updateData" :new="false"/>
 </template>
 
 <script setup>
@@ -350,6 +403,7 @@ import {
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import BaseButtons from "@/components/Buttons/BaseButtons.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
+import AddNewDealPopup from "@/components/SalesCRM/AddNewDealPopup.vue"
 import { defineProps, computed } from "vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
 import PremFormField from "@/components/Forms/FormField.vue";
@@ -366,6 +420,9 @@ import {
   mdiTable,
   mdiChevronDown,
 } from "@mdi/js";
+import {dealStore} from "@/stores/SalesCRM/deals"
+const getDeal=dealStore()
+
 const props = defineProps({
   data: {
     type: Array,
@@ -375,7 +432,8 @@ const props = defineProps({
 });
 const router = useRouter();
 const items = props.data;
-
+const update = ref(false);
+const updateData = ref(null);
 // status list
 
 const listBoxOptions = [
@@ -424,6 +482,25 @@ const pagesList = computed(() => {
 const goToAction = (id) => {
   router.push("/salesCRM/actions/" + id);
 };
+
+const closePopup =()=>{
+  update.value=false
+}
+
+const getDealItems =(item)=>{
+  update.value=false
+}
+
+const deleteDeal = async (deal) => {
+  await getDeal.deleteDeal(deal);
+  await getDeal.getDeals();
+}
+
+const updateDeal = async (deal) => {
+  updateData.value = deal;
+  update.value = true;
+  await getDeal.getDeals();
+}
 </script>
 
 <style scoped>
@@ -467,5 +544,11 @@ tr {
 }
 .yellow {
   background: rgb(255, 255, 34);
+}
+
+.add_new_deal_popup{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

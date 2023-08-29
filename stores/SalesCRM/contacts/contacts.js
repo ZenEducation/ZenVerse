@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-
+import { DataStore } from "aws-amplify"
+import { Contact } from "../../../models/index"
 
 const tableData = [
     {
@@ -105,7 +106,8 @@ const tableData = [
 
 
 const state = () => ({
-allContacts:tableData,
+allContacts:[],
+tableData:[],
 formShow:false
 })
 
@@ -118,10 +120,75 @@ const actions = {
  hideForm(){
   this.formShow=false
  },
+ gettableData() {
+  const data = this.allContacts;
+  const fields = {"fname" : 1, "lname" : 2, "title" : 3, "email" : 4, "company_name" : 5, "phone" : 6, "description" : 7, "street" : 8, "city" : 9, "state" : 10, "country" : 11, "zip" : 12}
+  let contacts = [];
+        for(const deal in data) {
+          let contact = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            contact.values.push(field)
+          }
+          contacts.push(contact)
+        }
+        console.log(contacts);
+        this.tableData = contacts
+},
+ async addNewContact(contact){
+  try {
+    await DataStore.save(new Contact(contact));
+    alert("Saved Successfully");
+    await this.getContacts()
+} catch (error) {
+    console.log("error : ", error);
+}
+ },
 
- addNewItem(item){
-  this.allContacts.unshift(item)
- }
+ async getContacts() {
+  try {
+    const data = await DataStore.query(Contact);
+    this.allContacts = data
+    this.gettableData()
+} catch (error) {
+    console.log("error : ", error);
+}
+},
+async deleteContact(contact) {
+  try {
+    await DataStore.delete(contact);
+    alert("Deleted Succefully");
+    await this.getContacts()
+} catch (error) {
+    console.log("error : ", error);
+}
+},
+async updateContact(original, update){
+  try {
+    await DataStore.save(Contact.copyOf(original, updated => {
+      updated.fname = update.fname;
+      updated.lname = update.lname;
+      updated.title = update.title;
+      updated.email = update.email;
+      updated.company_name = update.company_name;
+      updated.phone = update.phone;
+      updated.description = update.description;
+      updated.street = update.street;
+      updated.city = update.city;
+      updated.state = update.state;
+      updated.country = update.country;
+      updated.zip = update.zip;
+    }));
+    alert("Updated Successfully");
+    await this.getContacts()
+} catch (error) {
+    console.log("error : ", error);
+}
+},
 }
 
 const getters = {

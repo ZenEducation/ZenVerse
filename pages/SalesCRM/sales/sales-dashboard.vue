@@ -64,7 +64,7 @@
             <div class="">
                 <BaseButton
                 color="info"
-                label="Cancle"
+                label="Cancel"
                 class="inline mx-1 "
                 outline
                 @click="editSection=false"

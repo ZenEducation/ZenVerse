@@ -49,7 +49,7 @@
                 class="uppercase"
                 :style="[]"
                 :icon="mdiPlus"
-               @click="getProducts.showForm()"
+               @click="show"
               />
               <PremButtonMenu
           :options="downMenu"
@@ -74,9 +74,9 @@
       </div>
     </div>
 <div class="z-0  mx-6 shadow">
-  <Table :heading="tableHeadingData" :data="getProducts.allProducts" :dotItems="dotItems"  />
+  <Table :heading="tableHeadingData" :data="getProducts.tableData" :dotItems="dotItems"  type="product" />
 </div>
-<AddProductForm v-if="getProducts.formShow" />
+<AddProductForm v-if="addProduct" @on-action="closePopup"/>
 </SectionMain>
 </NuxtLayout>
   </div>
@@ -87,11 +87,12 @@ import PremButtonMenu from "@/components/Buttons/ButtonMenu.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
-import {productStore} from "@/stores/SalesCRM/products/product"
+import {productStore} from "@/stores/SalesCRM/products/product";
+import { onMounted } from "vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import AddProductForm from "@/components/SalesCRM/Sales/products/AddProductForm.vue"
 const getProducts=productStore()
-
+const addProduct = ref(false)
 import {
   mdiMenuDown,
   mdiViewHeadline,
@@ -119,6 +120,7 @@ import {
   mdiClipboardCheckOutline
 } from "@mdi/js";
 const overviewmenu = ref(false);
+const tableData = ref(null)
 const searchDownItems = [
   {
     id: 1,
@@ -187,7 +189,7 @@ const viewMenu = [
 const tableHeadingData=[
 {
     id: 1,
-    name: "Prooduct Name",
+    name: "Product Name",
   },
   {
     id: 2,
@@ -196,14 +198,22 @@ const tableHeadingData=[
 
   {
     id: 3,
-    name: "product Active",
+    name: "Category",
   },
   {
     id: 4,
-    name: "Product Owner",
+    name: "Unit Price",
+  },
+  {
+    id: 5,
+    name: "Description",
   }
 ]
-
+const deleteProduct = async (index) => {
+  const product = getProducts.allProducts[index]
+  console.log(product);
+  await getProducts.deleteProduct(product);
+}
 
 const dotItems = [
   [
@@ -215,16 +225,23 @@ const dotItems = [
     {
       id:1 ,
       icon: mdiClipboardCheckOutline ,
-      label: "Create a Task",
+      label: "Create a Product",
     },
     {
       id:1 ,
       icon: mdiDeleteOutline ,
       label: "Delete",
+      run: deleteProduct
     },
   ],
 ];
-
+function show() {
+  addProduct.value = true;
+}
+function closePopup() {
+  addProduct.value = false;
+}
+onMounted(async () => await getProducts.getProducts())
 </script>
 
 <style></style>

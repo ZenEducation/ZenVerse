@@ -120,6 +120,7 @@ const tableData = [
 
 const state = () => ({
 allTasks:[],
+tableData:[],
 formShow:false
 
 })
@@ -133,11 +134,30 @@ const actions = {
      hideForm(){
       this.formShow=false
      },
-    
+     gettableData() {
+      const data = this.allTasks;
+      const fields = {"name" : 1, "due_date" : 2, "status" : 3, "priority" : 4, "related_to" : 5, "task_owner" : 6, "description" : 7}
+      let tasks = [];
+            for(const deal in data) {
+              let task = {id : Number(deal)+1, values : []}
+              let entry = data[deal]
+              for(const value in fields) {
+                let field = {}
+                field["id"] = fields[value]
+                field["value"] = entry[value]
+                field["icon"] = ""
+                task.values.push(field)
+              }
+              tasks.push(task)
+            }
+            console.log(tasks);
+            this.tableData = tasks
+    },
      async addNewTask(task){
       try {
         await DataStore.save(new Tasks(task));
         alert("Saved Successfully");
+        await this.getTasks()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -147,6 +167,7 @@ const actions = {
       try {
         const data = await DataStore.query(Tasks);
         this.allTasks = data
+        this.gettableData()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -155,6 +176,7 @@ const actions = {
       try {
         await DataStore.delete(task);
         alert("Deleted Succefully");
+        await this.getTasks()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -171,6 +193,7 @@ const actions = {
           updated.description = update.description;
         }));
         alert("Updated Successfully");
+        await this.getTasks()
     } catch (error) {
         console.log("error : ", error);
     }

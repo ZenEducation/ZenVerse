@@ -74,7 +74,7 @@
       </div>
     </div>
 <div class="z-0  mx-6 shadow">
-  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems"  type="product" />
+  <Table :heading="tableHeadingData" :data="getProducts.tableData" :dotItems="dotItems"  type="product" />
 </div>
 <AddProductForm v-if="addProduct" @on-action="closePopup"/>
 </SectionMain>
@@ -241,27 +241,7 @@ function show() {
 function closePopup() {
   addProduct.value = false;
 }
-const fetchData = async () => {
-  await getProducts.getProducts();
-  const data = getProducts.allProducts;
-  const fields = {"name" : 1, "code" : 2, "category" : 3, "unit_price" : 4, "description" : 5}
-  let products = [];
-        for(const deal in data) {
-          let product = {id : Number(deal)+1, values : []}
-          let entry = data[deal]
-          for(const value in fields) {
-            let field = {}
-            field["id"] = fields[value]
-            field["value"] = entry[value]
-            field["icon"] = ""
-            product.values.push(field)
-          }
-          products.push(product)
-        }
-        console.log(products);
-        tableData.value = products
-}
-onMounted(() => fetchData())
+onMounted(async () => await getProducts.getProducts())
 </script>
 
 <style></style>

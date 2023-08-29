@@ -79,6 +79,7 @@ import AddCallsForm from "@/components/SalesCRM/Sales/activities/AddCallsForm.vu
 import {taskStore} from "@/stores/SalesCRM/activities/tasks"
 import { eventStore} from "@/stores/SalesCRM/activities/events"
 import {callStore} from "@/stores/SalesCRM/activities/call"
+import { onMounted } from "vue";
 const getTasks=taskStore()
 const getEvents = eventStore()
 const getCalls = callStore()
@@ -147,6 +148,11 @@ const dotsMenu = [
    
   ],
 ];
+onMounted(async () => {
+  await getTasks.getTasks()
+  await getEvents.getEvents()
+  await getCalls.getCalls()
+})
 </script>
 
 <style scoped>

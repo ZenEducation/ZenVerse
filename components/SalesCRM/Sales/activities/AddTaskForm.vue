@@ -265,7 +265,6 @@ const saveTask = async () => {
   else {
     await getTasks.updateTask(original, task);
   }
-  await getTasks.getTasks();
   closePopup()
   // getTasks.addNewItem(newItem);
   // console.log(newItem)

@@ -303,7 +303,6 @@ console.log(original);
     else {
       await getEvents.updateEvent(original, event);
     }
-    await getEvents.getEvents();
     closePopup()
     // console.log(newItem)
     // getEvents.addNewItem(newItem);

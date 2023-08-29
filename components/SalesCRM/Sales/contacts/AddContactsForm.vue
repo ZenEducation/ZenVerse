@@ -290,7 +290,6 @@ const saveContact = async () => {
   else {
     await getContacts.updateContact(original, contact);
   }
-  await getContacts.getContacts();
   closePopup()
 // console.log(newItem)
     // getContacts.addNewItem(newItem) 

@@ -90,6 +90,7 @@ const tableData = [
 
 const state = () => ({
 allCompanies:[],
+tableData:[],
 formShow:false
 
 })
@@ -103,11 +104,30 @@ const actions = {
      hideForm(){
       this.formShow=false
      },
-    
+     gettableData() {
+      const data = this.allCompanies;
+  const fields = {"name" : 1, "phone" : 2, "website" : 3, "description" : 4, "street" : 5, "city" : 6, "state" : 7, "country" : 8, "zip" : 9}
+  let companies = [];
+        for(const deal in data) {
+          let company = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            company.values.push(field)
+          }
+          companies.push(company)
+        }
+        console.log(companies);
+        this.tableData = companies
+    },
      async addNewCompany(company){
       try {
         await DataStore.save(new Companies(company));
         alert("Saved Successfully");
+        await this.getCompanies()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -117,6 +137,7 @@ const actions = {
       try {
         const data = await DataStore.query(Companies);
         this.allCompanies = data
+        this.gettableData()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -125,6 +146,7 @@ const actions = {
       try {
         await DataStore.delete(company);
         alert("Deleted Succefully");
+        await this.getCompanies()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -143,6 +165,7 @@ const actions = {
           updated.zip = update.zip;
         }));
         alert("Updated Successfully");
+        await this.getCompanies()
     } catch (error) {
         console.log("error : ", error);
     }

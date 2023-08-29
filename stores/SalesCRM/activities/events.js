@@ -106,6 +106,7 @@ const tableData = [
 
 const state = () => ({
 allEvents:[],
+tableData:[],
 formShow:false
 
 })
@@ -119,11 +120,30 @@ const actions = {
      hideForm(){
       this.formShow=false
      },
-    
+     gettableData() {
+      const data = this.allEvents;
+  const fields = {"title" : 1, "from_date" : 2, "from_time" : 3, "to_date" : 4, "to_time" : 5, "location" : 6, "related_to" : 7, "participants" : 8,"description" : 9}
+  let events = [];
+        for(const deal in data) {
+          let event = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            event.values.push(field)
+          }
+          events.push(event)
+        }
+        console.log(events);
+        this.tableData = events
+    },
      async addNewEvent(task){
       try {
         await DataStore.save(new Events(task));
         alert("Saved Successfully");
+        await this.getEvents()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -133,6 +153,7 @@ const actions = {
       try {
         const data = await DataStore.query(Events);
         this.allEvents = data
+        this.gettableData()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -141,6 +162,7 @@ const actions = {
       try {
         await DataStore.delete(task);
         alert("Deleted Succefully");
+        await this.getEvents()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -159,6 +181,7 @@ const actions = {
           updated.description = update.description;
         }));
         alert("Updated Successfully");
+        await this.getEvents()
     } catch (error) {
         console.log("error : ", error);
     }

@@ -277,7 +277,6 @@ console.log(original);
   else {
     await getCompanies.updateCompany(original, company);
   }
-  await getCompanies.getCompanies();
   closePopup()
   // console.log(newItem)
 //   getCompany.addNewItem(newItem) 

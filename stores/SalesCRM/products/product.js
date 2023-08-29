@@ -90,6 +90,7 @@ const tableData = [
 
 const state = () => ({
 allProducts:[],
+tableData : [],
 formShow:false
 
 })
@@ -104,11 +105,30 @@ const actions = {
      hideForm(){
       this.formShow=false
      },
-    
+     gettableData() {
+      const data = this.allProducts;
+  const fields = {"name" : 1, "code" : 2, "category" : 3, "unit_price" : 4, "description" : 5}
+  let products = [];
+        for(const deal in data) {
+          let product = {id : Number(deal)+1, values : []}
+          let entry = data[deal]
+          for(const value in fields) {
+            let field = {}
+            field["id"] = fields[value]
+            field["value"] = entry[value]
+            field["icon"] = ""
+            product.values.push(field)
+          }
+          products.push(product)
+        }
+        console.log(products);
+        this.tableData = products
+    },
      async addNewProduct(product){
       try {
         await DataStore.save(new Products(product));
         alert("Saved Successfully");
+        await this.getProducts()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -118,6 +138,7 @@ const actions = {
       try {
         const data = await DataStore.query(Products);
         this.allProducts = data
+        this.gettableData()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -126,6 +147,7 @@ const actions = {
       try {
         await DataStore.delete(product);
         alert("Deleted Succefully");
+        await this.getProducts()
     } catch (error) {
         console.log("error : ", error);
     }
@@ -140,6 +162,7 @@ const actions = {
           updated.description = update.description;
         }));
         alert("Updated Successfully");
+        await this.getProducts()
     } catch (error) {
         console.log("error : ", error);
     }

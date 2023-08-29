@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems" type="call" />
+  <Table :heading="tableHeadingData" :data="getCalls.tableData" :dotItems="dotItems" type="call" />
 </div>
 
   </div>
@@ -54,7 +54,6 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table'
 import {callStore} from "@/stores/SalesCRM/activities/call"
-import { onMounted } from "vue"
 const getCalls=callStore()
 
 import {
@@ -208,27 +207,6 @@ const dotItems= [
     },
   ],
 ]
-const fetchData = async () => {
-  await getCalls.getCalls();
-  const data = getCalls.allCalls;
-  const fields = {"to_from" : 1, "start_date" : 2, "start_time" : 3, "type" : 4, "related_to" : 5, "agenda" : 6}
-  let calls = [];
-        for(const deal in data) {
-          let call = {id : Number(deal)+1, values : []}
-          let entry = data[deal]
-          for(const value in fields) {
-            let field = {}
-            field["id"] = fields[value]
-            field["value"] = entry[value]
-            field["icon"] = ""
-            call.values.push(field)
-          }
-          calls.push(call)
-        }
-        console.log(calls);
-        tableData.value = calls
-}
-onMounted(() => fetchData())
 
 </script>
 

@@ -42,7 +42,7 @@
       </div>
     </div>
 <div class="z-0">
-  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems" type="event" />
+  <Table :heading="tableHeadingData" :data="getEvents.tableData" :dotItems="dotItems" type="event" />
 </div>
 
   </div>
@@ -54,7 +54,6 @@ import BaseIcon from "@/components/Display/BaseIcon.vue";
 import SearchDownMenu from "@/components/SalesCRM/Sales/SearchDownMenu.vue";
 import Table from '@/components/SalesCRM/Sales/Table';
 import {eventStore} from "@/stores/SalesCRM/activities/events";
-import { onMounted } from "vue";
 const getEvents=eventStore()
 
 import {
@@ -200,28 +199,6 @@ const dotItems =  [
     },
   ],
 ]
-const fetchData = async () => {
-  await getEvents.getEvents();
-  const data = getEvents.allEvents;
-  console.log("data : ", data);
-  const fields = {"title" : 1, "from_date" : 2, "from_time" : 3, "to_date" : 4, "to_time" : 5, "location" : 6, "related_to" : 7, "participants" : 8,"description" : 9}
-  let events = [];
-        for(const deal in data) {
-          let event = {id : Number(deal)+1, values : []}
-          let entry = data[deal]
-          for(const value in fields) {
-            let field = {}
-            field["id"] = fields[value]
-            field["value"] = entry[value]
-            field["icon"] = ""
-            event.values.push(field)
-          }
-          events.push(event)
-        }
-        console.log(events);
-        tableData.value = events
-}
-onMounted(() => fetchData())
 
 </script>
 

@@ -74,7 +74,7 @@
       </div>
     </div>
 <div class="z-0 shadow mx-6">
-  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems"  type="contact"/>
+  <Table :heading="tableHeadingData" :data="getContacts.tableData" :dotItems="dotItems"  type="contact"/>
 </div>
 <AddContactsForm v-if="addContact" @on-action="closePopup"/>
 </SectionMain>
@@ -314,27 +314,7 @@ function show() {
 function closePopup() {
   addContact.value = false;
 }
-const fetchData = async () => {
-  await getContacts.getContacts();
-  const data = getContacts.allContacts;
-  const fields = {"fname" : 1, "lname" : 2, "title" : 3, "email" : 4, "company_name" : 5, "phone" : 6, "description" : 7, "street" : 8, "city" : 9, "state" : 10, "country" : 11, "zip" : 12}
-  let contacts = [];
-        for(const deal in data) {
-          let contact = {id : Number(deal)+1, values : []}
-          let entry = data[deal]
-          for(const value in fields) {
-            let field = {}
-            field["id"] = fields[value]
-            field["value"] = entry[value]
-            field["icon"] = ""
-            contact.values.push(field)
-          }
-          contacts.push(contact)
-        }
-        console.log(contacts);
-        tableData.value = contacts
-}
-onMounted(() => fetchData())
+onMounted(async () => await getContacts.getContacts())
 
 
 </script>

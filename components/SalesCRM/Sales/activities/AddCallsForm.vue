@@ -265,7 +265,6 @@ const original = getCalls.allCalls[props.index];
   else {
     await getCalls.updateCall(original, call);
   }
-  await getCalls.getCalls();
   closePopup()
     // console.log(newItem)
     // getCalls.addNewItem(newItem);

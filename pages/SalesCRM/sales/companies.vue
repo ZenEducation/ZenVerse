@@ -75,7 +75,7 @@
       </div>
     </div>
 <div class="z-0  shadow mx-6">
-  <Table :heading="tableHeadingData" :data="tableData" :dotItems="dotItems" type="company" />
+  <Table :heading="tableHeadingData" :data="getCompanies.tableData" :dotItems="dotItems" type="company" />
 </div>
 <AddCompapanyForm v-if="addCompany" @on-action="closePopup"/>
 </SectionMain>
@@ -292,27 +292,7 @@ function show() {
 function closePopup() {
   addCompany.value = false;
 }
-const fetchData = async () => {
-  await getCompanies.getCompanies();
-  const data = getCompanies.allCompanies;
-  const fields = {"name" : 1, "phone" : 2, "website" : 3, "description" : 4, "street" : 5, "city" : 6, "state" : 7, "country" : 8, "zip" : 9}
-  let companies = [];
-        for(const deal in data) {
-          let company = {id : Number(deal)+1, values : []}
-          let entry = data[deal]
-          for(const value in fields) {
-            let field = {}
-            field["id"] = fields[value]
-            field["value"] = entry[value]
-            field["icon"] = ""
-            company.values.push(field)
-          }
-          companies.push(company)
-        }
-        console.log(companies);
-        tableData.value = companies
-}
-onMounted(() => fetchData())
+onMounted(async () => await getCompanies.getCompanies())
 
 </script>
 

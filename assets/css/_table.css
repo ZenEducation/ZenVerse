@@ -28,7 +28,7 @@
       @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-100
         lg:table-cell lg:text-left lg:p-3 lg:align-middle lg:border-b-0 dark:border-slate-800;
     }
-    
+  
     td:last-child {
       @apply border-b-0;
     }

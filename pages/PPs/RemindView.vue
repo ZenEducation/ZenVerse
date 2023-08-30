@@ -16,6 +16,10 @@ const form = reactive({
 
 const mainStore = useMainStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
+
 onMounted(() => {
   console.log();
 });

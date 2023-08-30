@@ -14,7 +14,9 @@ import * as chartConfig from "@/components/Charts/chart.config.js";
 import LineChart from "@/components/Charts/LineChart.vue";
 
 const chartData = ref(null);
-
+definePageMeta({
+  middleware: 'auth-check'
+})
 const fillChartData = () => {
   chartData.value = chartConfig.sampleChartData();
 };

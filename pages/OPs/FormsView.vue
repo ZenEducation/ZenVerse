@@ -20,6 +20,9 @@ import SectionTitle from "@/components/Sections/SectionTitle.vue";
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
 import NotificationBarInCard from "@/components/NotificationBars/NotificationBarInCard.vue";
 
+definePageMeta({
+  middleware: 'auth-check'
+})
 const selectOptions = [
   { id: 1, label: "Business development" },
   { id: 2, label: "Marketing" },

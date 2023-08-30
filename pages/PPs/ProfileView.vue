@@ -44,6 +44,10 @@ import PremSectionBannerProfile from "@/components/Sections/SectionBannerProfile
 
 const mainStore = useMainStore();
 
+definePageMeta({
+  middleware: 'auth-check'
+})
+
 const profileForm = reactive({
   name: mainStore.userName,
   email: mainStore.userEmail,
@@ -61,7 +65,12 @@ const passwordForm = reactive({
 const submitProfile = () => {
   mainStore.setUser(profileForm);
 };
-
+let Profile = "Profile";
+let role = "Role";
+if(localStorage.getItem("User-profile")){
+ Profile = JSON.parse( localStorage.getItem("User-profile")).attributes.name
+ role = JSON.parse(localStorage.getItem("User-profile")).attributes["custom:role"]
+}
 const submitPass = () => {
   //
 };
@@ -165,7 +174,7 @@ const twoFactorEnabled = ref(true);
                 <div class="flex justify-between items-center">
                   <div class="flex justify-start items-center mb-3">
                     <h1 class="text-2xl mr-1.5">
-                      {{ mainStore.userName }}
+                     {{Profile}}
                     </h1>
                     <BaseIcon
                       :path="mdiCheckDecagram"
@@ -182,7 +191,7 @@ const twoFactorEnabled = ref(true);
                 </div>
 
                 <BaseButtons class="text-gray-500">
-                  <PillTagPlain label="Developer" :icon="mdiAccountCircle" />
+                  <PillTagPlain :label="role" :icon="mdiAccountCircle" />
                   <PillTagPlain label="Kiehn-Green" :icon="mdiDomain" />
                   <PillTagPlain label="Emelyside" :icon="mdiMapMarker" />
                 </BaseButtons>

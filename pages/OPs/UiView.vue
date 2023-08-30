@@ -32,6 +32,10 @@ const modalOneActive = ref(false);
 
 const modalTwoActive = ref(false);
 
+definePageMeta({
+  middleware: 'auth-check'
+})
+
 const modalThreeActive = ref(false);
 
 const notificationSettingsModel = ref([]);

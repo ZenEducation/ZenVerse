@@ -20,7 +20,9 @@ import UserCard from "@/components/Avatars/UserCard.vue";
 import { Storage } from "@aws-amplify/storage";
 
 import SectionTitleLineWithButton from "@/components/Sections/SectionTitleLineWithButton.vue";
-
+definePageMeta({
+  middleware: 'auth-check'
+})
 const mainStore = useMainStore();
 
 const profileForm = reactive({

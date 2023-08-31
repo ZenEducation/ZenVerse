@@ -6,6 +6,8 @@ import {
     mdiChartLine,
     mdiDotsTriangle,
     mdiCogOutline,
+    mdiChartArc ,
+    mdiChartBar 
   } from "@mdi/js";
   
   export default [
@@ -137,27 +139,31 @@ import {
     },
     {
       label: "Reports",
-      icon: mdiMonitorDashboard,
+      icon: mdiChartBar  ,
       menu: [
         {
           label: "Balance Sheet",
-          to:"/"
+          to:"/accountancy/reports/balance-sheet"
         },
         {
           label: "Daybook",
-          to:"/"
+          to:"/accountancy/reports/daybook"
         },
         {
           label: "Profit and Loss",
-          to:"/"
+          to:"/accountancy/reports/profit-and-loss"
         },
         {
           label: "Sales Bifurcation",
-          to:"/"
+          to:"/accountancy/reports/sale-bifurcation"
         },
         {
-          label: "Trail Balance",
-          to:"/"
+          label: "Trial Balance",
+          to:"/accountancy/reports/trial-balance"
+        },
+        {
+          label: "Columnar Report ",
+          to:"/accountancy/reports/columnar-report"
         },
       ],
     },

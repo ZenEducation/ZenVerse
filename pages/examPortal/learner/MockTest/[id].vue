@@ -179,7 +179,11 @@ const fetchExamData = async () => {
     examData.value.publishingStatus = response?.MockTest?.publishingStatus;
     examData.value.examTitle = response?.title;
     examData.value.mockTestTitle = response?.MockTest?.name;
-    examData.value.attempts = response?.Attempts?.items
+    examData.value.attempts = response?.Attempts?.items;
+
+    examData.value.attempts = examData.value.attempts.sort((a, b) => {
+      if (new Date(b["updatedAt"]) > new Date(a['updatedAt'])) return -1
+    })
 
     let questions = 0;
     let marks = 0;

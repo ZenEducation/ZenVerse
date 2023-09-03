@@ -38,7 +38,6 @@
 
             <BaseIcon :path="mdiCloseCircleOutline" class="cursor-pointer" />
             <p class="border-l px-3 py-2">{{ test.title }}</p>
-            <p>{{lastQuestionTime}}</p>
           </div>
           <div class="">
             <BaseIcon :path="mdiFullscreen" @click="startExam" class="cursor-pointer" />
@@ -59,6 +58,14 @@
           <BaseIcon :path="mdiChevronRight" v-if="isMainSidebarOpen" />
           <BaseIcon :path="mdiChevronLeft" v-if="!isMainSidebarOpen" />
         </div>
+
+        <div v-if="currentQuestion?.groupID">
+          Group : {{ currentQuestion?.Group?.title }}
+        </div>
+        <div v-if="currentQuestion?.groupID" v-html="'Instructions : ' + currentQuestion?.Group?.instruction">
+
+        </div>
+        <div v-else v-html="'Instructions : ' + currentQuestion?.instruction"></div>
         <p class="">
           {{
             "Q." +
@@ -67,7 +74,7 @@
             test.Sections.items[current.sectionIndex].Questions.items.length
           }}
         </p>
-        <div v-html="'Instructions : ' + currentQuestion?.instruction"></div>
+
 
         <div class="font-bold mb-6" v-html="currentQuestion?.titleHTML"></div>
         <template v-if="currentQuestion?.type == 'MCQ'">
@@ -221,7 +228,6 @@ import { useRouter, useRoute } from "vue-router";
 import { getAttempt, getExam } from "~~/src/graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { updateAttempt } from "~~/src/graphql/mutations";
-import { createResponceList } from "~~/src/graphql/mutations";
 import { createResponce } from "~~/src/graphql/mutations";
 const route = useRoute();
 const attemptId = route.params.attemptId;
@@ -284,6 +290,11 @@ onMounted(async () => {
           Questions(filter: {_deleted: {ne: true}}) {
             items {
               groupID
+              Group{
+                title
+                id
+                instruction
+              }
               id
               _version
               _deleted
@@ -383,7 +394,7 @@ const currentQuestion = computed(() => {
   ];
 });
 
-const lastQuestionTime = ref(); 
+const lastQuestionTime = ref();
 
 const changeQuestion = (temp, toIndex) => {
 
@@ -437,7 +448,7 @@ const submitTest = async () => {
 
     let finalResponse = response.value;
 
-    finalResponse.forEach((section) => {
+    for(let section of finalResponse){
       section.forEach((question) => {
         console.log(question.responce);
         if (typeof (question.responce) === 'object') {
@@ -448,30 +459,33 @@ const submitTest = async () => {
           question.responce = str.toUpperCase();
         }
       })
-    })
+    }
 
-    finalResponse =  finalResponse.flatMap(item => item)
+    finalResponse = finalResponse.flatMap(item => item)
 
 
     // Execute the batch mutation
 
 
-    finalResponse.forEach(async (item) => {
+    for( let item of finalResponse){
       let temp = await API.graphql({
         query: createResponce,
-        variables:{input:item}
+        variables: { input: item }
       })
       console.log(temp.data.createResponce);
-    })
+    }
 
     await API.graphql({
       query: updateAttempt,
-      variables:{input:{id:attemptId , status : 'DONE'}}
+      variables: { input: { id: attemptId, status: 'DONE' } }
     })
 
 
     // console.log(finalResponse);
-    window.alert("successfully submitted data ");    
+    window.alert("successfully submitted data ");
+      isModalSubmitActive.value = false;
+    window.close();
+    let newWindow = window.open('/examportal/learner/examResult/' + attemptId);
   } catch (error) {
     console.error(error);
   }

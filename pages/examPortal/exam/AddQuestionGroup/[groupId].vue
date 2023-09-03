@@ -109,16 +109,22 @@ const addHandler = async()=>{
   try {
     let selectedIds = [];
     list.value.forEach((item)=>{
-      item["isSelected"] ? selectedIds.push(item.id) : null  ;
+      if (item["isSelected"]) {
+        selectedIds.push({
+          id: item.id,
+          version:item._version
+        });
+      }
     } )
 
-    selectedIds.forEach( async(id)=>{
+    for (const item of selectedIds) {
       const response = await API.graphql({
-        query:updateQuestion,
-        variables:{input:{id:id , groupID:groupId }}
-      })
+        query: updateQuestion,
+        variables: { input: { id: item.id, _version: item.version, groupID: groupId } }
+      });
       console.log(response.data.updateQuestion);
-    })
+    }
+
     window.location.href = '/examportal/Exam/editGroup/'+groupId;
   } catch (error) {
     console.error(error)

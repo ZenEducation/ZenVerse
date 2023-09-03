@@ -21,9 +21,10 @@ const Difficuilty = {
   "HARD": "HARD"
 };
 
-const { Responce, Attempt, Question, Group, Section, Exam, VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor, MockTestLearner, MockTestAffiliate, MockTestAdmin, MockTestInstructor, Criteria, Option, Range } = initSchema(schema);
+const { Topic, Responce, Attempt, Question, Group, Section, Exam, VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor, MockTestLearner, MockTestAffiliate, MockTestAdmin, MockTestInstructor, Criteria, Option, Range } = initSchema(schema);
 
 export {
+  Topic,
   Responce,
   Attempt,
   Question,

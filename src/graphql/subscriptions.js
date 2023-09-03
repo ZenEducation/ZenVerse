@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateTopic = /* GraphQL */ `
+  subscription OnCreateTopic($filter: ModelSubscriptionTopicFilterInput) {
+    onCreateTopic(filter: $filter) {
+      id
+      title
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateTopic = /* GraphQL */ `
+  subscription OnUpdateTopic($filter: ModelSubscriptionTopicFilterInput) {
+    onUpdateTopic(filter: $filter) {
+      id
+      title
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteTopic = /* GraphQL */ `
+  subscription OnDeleteTopic($filter: ModelSubscriptionTopicFilterInput) {
+    onDeleteTopic(filter: $filter) {
+      id
+      title
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const onCreateResponce = /* GraphQL */ `
   subscription OnCreateResponce($filter: ModelSubscriptionResponceFilterInput) {
     onCreateResponce(filter: $filter) {
@@ -9,6 +51,91 @@ export const onCreateResponce = /* GraphQL */ `
       time
       responce
       attemptID
+      Question {
+        id
+        title
+        titleHTML
+        type
+        answer
+        range {
+          is
+          start
+          end
+          __typename
+        }
+        isPartial
+        isNegative
+        maxMarks
+        ifCorrect
+        ifWrong
+        options {
+          text
+          html
+          isCorrectAnswer
+          __typename
+        }
+        ismultipleChoice
+        criterias {
+          text
+          percentage
+          __typename
+        }
+        explanation
+        instruction
+        topic
+        difficuilty
+        sectionID
+        groupID
+        order
+        guidelineTime
+        examID
+        Responces {
+          items {
+            id
+            questionID
+            time
+            responce
+            attemptID
+            sectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Group {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      sectionID
       createdAt
       updatedAt
       _version
@@ -26,6 +153,91 @@ export const onUpdateResponce = /* GraphQL */ `
       time
       responce
       attemptID
+      Question {
+        id
+        title
+        titleHTML
+        type
+        answer
+        range {
+          is
+          start
+          end
+          __typename
+        }
+        isPartial
+        isNegative
+        maxMarks
+        ifCorrect
+        ifWrong
+        options {
+          text
+          html
+          isCorrectAnswer
+          __typename
+        }
+        ismultipleChoice
+        criterias {
+          text
+          percentage
+          __typename
+        }
+        explanation
+        instruction
+        topic
+        difficuilty
+        sectionID
+        groupID
+        order
+        guidelineTime
+        examID
+        Responces {
+          items {
+            id
+            questionID
+            time
+            responce
+            attemptID
+            sectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Group {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      sectionID
       createdAt
       updatedAt
       _version
@@ -43,6 +255,91 @@ export const onDeleteResponce = /* GraphQL */ `
       time
       responce
       attemptID
+      Question {
+        id
+        title
+        titleHTML
+        type
+        answer
+        range {
+          is
+          start
+          end
+          __typename
+        }
+        isPartial
+        isNegative
+        maxMarks
+        ifCorrect
+        ifWrong
+        options {
+          text
+          html
+          isCorrectAnswer
+          __typename
+        }
+        ismultipleChoice
+        criterias {
+          text
+          percentage
+          __typename
+        }
+        explanation
+        instruction
+        topic
+        difficuilty
+        sectionID
+        groupID
+        order
+        guidelineTime
+        examID
+        Responces {
+          items {
+            id
+            questionID
+            time
+            responce
+            attemptID
+            sectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Group {
+          id
+          title
+          instruction
+          order
+          difficuilty
+          sectionID
+          Questions {
+            nextToken
+            startedAt
+            __typename
+          }
+          examID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      sectionID
       createdAt
       updatedAt
       _version
@@ -64,6 +361,35 @@ export const onCreateAttempt = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -77,6 +403,166 @@ export const onCreateAttempt = /* GraphQL */ `
       }
       marks
       status
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -98,6 +584,35 @@ export const onUpdateAttempt = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -111,6 +626,166 @@ export const onUpdateAttempt = /* GraphQL */ `
       }
       marks
       status
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -132,6 +807,35 @@ export const onDeleteAttempt = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -145,6 +849,166 @@ export const onDeleteAttempt = /* GraphQL */ `
       }
       marks
       status
+      Exam {
+        id
+        title
+        description
+        instructions
+        Sections {
+          items {
+            id
+            title
+            examID
+            description
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        MockTest {
+          id
+          name
+          shortId
+          isFree
+          publishingDate
+          publishingStatus
+          description
+          shortDescription
+          price
+          discount
+          isValidityDays
+          validityDays
+          expiryDate
+          VariablePricings {
+            nextToken
+            startedAt
+            __typename
+          }
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
+          Learners {
+            nextToken
+            startedAt
+            __typename
+          }
+          Affiliates {
+            nextToken
+            startedAt
+            __typename
+          }
+          Admin {
+            nextToken
+            startedAt
+            __typename
+          }
+          Instructors {
+            nextToken
+            startedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          mockTestExamId
+          __typename
+        }
+        Groups {
+          items {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        Attempts {
+          items {
+            id
+            examID
+            marks
+            status
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        examMockTestId
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -201,6 +1065,35 @@ export const onCreateQuestion = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -210,6 +1103,54 @@ export const onCreateQuestion = /* GraphQL */ `
         }
         nextToken
         startedAt
+        __typename
+      }
+      Group {
+        id
+        title
+        instruction
+        order
+        difficuilty
+        sectionID
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        examID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
@@ -268,6 +1209,35 @@ export const onUpdateQuestion = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -277,6 +1247,54 @@ export const onUpdateQuestion = /* GraphQL */ `
         }
         nextToken
         startedAt
+        __typename
+      }
+      Group {
+        id
+        title
+        instruction
+        order
+        difficuilty
+        sectionID
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        examID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
@@ -335,6 +1353,35 @@ export const onDeleteQuestion = /* GraphQL */ `
           time
           responce
           attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
           createdAt
           updatedAt
           _version
@@ -344,6 +1391,54 @@ export const onDeleteQuestion = /* GraphQL */ `
         }
         nextToken
         startedAt
+        __typename
+      }
+      Group {
+        id
+        title
+        instruction
+        order
+        difficuilty
+        sectionID
+        Questions {
+          items {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          nextToken
+          startedAt
+          __typename
+        }
+        examID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
@@ -406,6 +1501,21 @@ export const onCreateGroup = /* GraphQL */ `
           Responces {
             nextToken
             startedAt
+            __typename
+          }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             __typename
           }
           createdAt
@@ -482,6 +1592,21 @@ export const onUpdateGroup = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -556,6 +1681,21 @@ export const onDeleteGroup = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -627,6 +1767,21 @@ export const onCreateSection = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -664,6 +1819,53 @@ export const onCreateSection = /* GraphQL */ `
         __typename
       }
       description
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -723,6 +1925,21 @@ export const onUpdateSection = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -760,6 +1977,53 @@ export const onUpdateSection = /* GraphQL */ `
         __typename
       }
       description
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -819,6 +2083,21 @@ export const onDeleteSection = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -856,6 +2135,53 @@ export const onDeleteSection = /* GraphQL */ `
         __typename
       }
       description
+      Responces {
+        items {
+          id
+          questionID
+          time
+          responce
+          attemptID
+          Question {
+            id
+            title
+            titleHTML
+            type
+            answer
+            isPartial
+            isNegative
+            maxMarks
+            ifCorrect
+            ifWrong
+            ismultipleChoice
+            explanation
+            instruction
+            topic
+            difficuilty
+            sectionID
+            groupID
+            order
+            guidelineTime
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
+          sectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       createdAt
       updatedAt
       _version
@@ -888,6 +2214,11 @@ export const onCreateExam = /* GraphQL */ `
             __typename
           }
           description
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1127,6 +2458,21 @@ export const onCreateExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1149,6 +2495,19 @@ export const onCreateExam = /* GraphQL */ `
           }
           marks
           status
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1193,6 +2552,11 @@ export const onUpdateExam = /* GraphQL */ `
             __typename
           }
           description
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1432,6 +2796,21 @@ export const onUpdateExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1454,6 +2833,19 @@ export const onUpdateExam = /* GraphQL */ `
           }
           marks
           status
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1498,6 +2890,11 @@ export const onDeleteExam = /* GraphQL */ `
             __typename
           }
           description
+          Responces {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1737,6 +3134,21 @@ export const onDeleteExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          Group {
+            id
+            title
+            instruction
+            order
+            difficuilty
+            sectionID
+            examID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
@@ -1759,6 +3171,19 @@ export const onDeleteExam = /* GraphQL */ `
           }
           marks
           status
+          Exam {
+            id
+            title
+            description
+            instructions
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            examMockTestId
+            __typename
+          }
           createdAt
           updatedAt
           _version

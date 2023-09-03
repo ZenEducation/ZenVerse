@@ -54,7 +54,7 @@ const addNewFormData = async() => {
 const fetchGroupData = async () => {
   const response = await API.graphql({
     query:listGroups,
-    variables: { examID: examId , filter: { _deleted: { ne: true } }},
+    variables: { filter: { _deleted: { ne: true }, examID: { eq: examId }  }},
   });
   console.log("response", response.data.listGroups.items);
   list.value = response.data.listGroups.items;

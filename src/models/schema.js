@@ -1,5 +1,64 @@
 export const schema = {
     "models": {
+        "Topic": {
+            "name": "Topic",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "title": {
+                    "name": "title",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Topics",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Responce": {
             "name": "Responce",
             "fields": {
@@ -33,6 +92,28 @@ export const schema = {
                 },
                 "attemptID": {
                     "name": "attemptID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Question": {
+                    "name": "Question",
+                    "isArray": false,
+                    "type": {
+                        "model": "Question"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "questionID"
+                        ]
+                    }
+                },
+                "sectionID": {
+                    "name": "sectionID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -77,6 +158,15 @@ export const schema = {
                         "name": "byAttempt",
                         "fields": [
                             "attemptID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "bySection",
+                        "fields": [
+                            "sectionID"
                         ]
                     }
                 },
@@ -146,6 +236,21 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
+                },
+                "Exam": {
+                    "name": "Exam",
+                    "isArray": false,
+                    "type": {
+                        "model": "Exam"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "examID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -386,7 +491,22 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "questionID"
+                            "Question"
+                        ]
+                    }
+                },
+                "Group": {
+                    "name": "Group",
+                    "isArray": false,
+                    "type": {
+                        "model": "Group"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "groupID"
                         ]
                     }
                 },
@@ -518,7 +638,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "groupID"
+                            "Group"
                         ]
                     }
                 },
@@ -651,6 +771,22 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "Responces": {
+                    "name": "Responces",
+                    "isArray": true,
+                    "type": {
+                        "model": "Responce"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "sectionID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -809,7 +945,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "examID"
+                            "Exam"
                         ]
                     }
                 },
@@ -2368,5 +2504,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "a5406f6074719fd9a5fd5bda992f6984"
+    "version": "05140dc5a4b69f8c9c4eeed07b571ca3"
 };

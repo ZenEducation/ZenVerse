@@ -83,7 +83,7 @@
                   <BaseButton
                     :icon="mdiTrashCan"
                     color="danger"
-                    @click="removequestion(item.id)"
+                    @click="removequestion(item.id , item._version)"
                   />
                 </td>
               </tr>
@@ -183,17 +183,22 @@ const deleteHandler = async () => {
   }
 };
 
-const removequestion = async (id) => {
+const removequestion = async (id,version) => {
   try {    
-    let input = { id: id, groupID: null }
+    let input = { id: id, groupID: null , _version:version }
     console.log(input);
     const response = await API.graphql({
       query:updateQuestion,
       variables: { input: input},
     });
     console.log(response.data.updateQuestion);
+    console.log(groupData.value);
+    groupData.value.Questions.items = await groupData.value.Questions.items.filter(item => item.id != id )
+    window.alert("updation sucessful");
+
   } catch (error) {
-    console.error(error)
+    console.error(error);
+    window.alert("error in deleting question from group");
   }
 };
 </script>

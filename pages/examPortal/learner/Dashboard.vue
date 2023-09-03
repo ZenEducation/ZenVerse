@@ -100,7 +100,7 @@ const colors = computed(() => {
 const fetchMockTests = async()=>{
   const response = await API.graphql({
     query:listMockTests,
-    variables: { filter: { _deleted: {ne: true} }}
+    variables: { filter: { _deleted: {ne: true} , publishingStatus : {eq : "Live"} }}
   })
   console.log(response.data.listMockTests.items);
   items.value = response.data.listMockTests.items;

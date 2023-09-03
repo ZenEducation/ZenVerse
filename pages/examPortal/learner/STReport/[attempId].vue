@@ -8,7 +8,10 @@ import CardBoxModal from "~~/components/Cards/CardBoxModal.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import VerticalBarChart from "~~/components/Charts/VerticalBarChart.vue";
 import HorizontalBarChart from "~~/components/Charts/HorizontalBarChart.vue";
-
+import { useRouter, useRoute } from "vue-router";
+const route = useRoute();
+const attemptId = route.params.attemptId;
+console.log(attemptId);
 
 const list = ref([
   {

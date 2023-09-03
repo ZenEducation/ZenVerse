@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
 
 export enum AttemptStatus {
   NOTSTARTED = "NOTSTARTED",
@@ -67,6 +67,34 @@ export declare type Range = LazyLoading extends LazyLoadingDisabled ? EagerRange
 
 export declare const Range: (new (init: ModelInit<Range>) => Range)
 
+type EagerTopic = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Topic, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTopic = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Topic, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly title?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Topic = LazyLoading extends LazyLoadingDisabled ? EagerTopic : LazyTopic
+
+export declare const Topic: (new (init: ModelInit<Topic>) => Topic) & {
+  copyOf(source: Topic, mutator: (draft: MutableModel<Topic>) => MutableModel<Topic> | void): Topic;
+}
+
 type EagerResponce = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Responce, 'id'>;
@@ -77,6 +105,8 @@ type EagerResponce = {
   readonly time?: number | null;
   readonly responce?: string | null;
   readonly attemptID: string;
+  readonly Question?: Question | null;
+  readonly sectionID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -91,6 +121,8 @@ type LazyResponce = {
   readonly time?: number | null;
   readonly responce?: string | null;
   readonly attemptID: string;
+  readonly Question: AsyncItem<Question | undefined>;
+  readonly sectionID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -111,6 +143,7 @@ type EagerAttempt = {
   readonly Responces?: (Responce | null)[] | null;
   readonly marks?: number | null;
   readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly Exam?: Exam | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -125,6 +158,7 @@ type LazyAttempt = {
   readonly Responces: AsyncCollection<Responce>;
   readonly marks?: number | null;
   readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly Exam: AsyncItem<Exam | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -164,6 +198,7 @@ type EagerQuestion = {
   readonly guidelineTime?: number | null;
   readonly examID: string;
   readonly Responces?: (Responce | null)[] | null;
+  readonly Group?: Group | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -197,6 +232,7 @@ type LazyQuestion = {
   readonly guidelineTime?: number | null;
   readonly examID: string;
   readonly Responces: AsyncCollection<Responce>;
+  readonly Group: AsyncItem<Group | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -258,6 +294,7 @@ type EagerSection = {
   readonly Questions?: (Question | null)[] | null;
   readonly Groups?: (Group | null)[] | null;
   readonly description?: string | null;
+  readonly Responces?: (Responce | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -273,6 +310,7 @@ type LazySection = {
   readonly Questions: AsyncCollection<Question>;
   readonly Groups: AsyncCollection<Group>;
   readonly description?: string | null;
+  readonly Responces: AsyncCollection<Responce>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

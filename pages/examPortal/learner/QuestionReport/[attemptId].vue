@@ -8,7 +8,10 @@ import CardBoxModal from "~~/components/Cards/CardBoxModal.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import VerticalBarChart from "~~/components/Charts/VerticalBarChart.vue";
 import HorizontalBarChart from "~~/components/Charts/HorizontalBarChart.vue";
-
+import { useRouter, useRoute } from "vue-router";
+const route = useRoute();
+const attemptId = route.params.attemptId;
+console.log(attemptId);
 
 const list = ref([
   {
@@ -442,103 +445,153 @@ const sectionIndex = computed(()=>{
           <p class="p-2.5">JEE Main | FSTs </p>
         </div>
       </NuxtLink>
-      <div class="pr-14"></div>
+      <div class="pr-16"></div>
     </div>
   </div>
-  <div class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
-    <div class="flex justify-between items-center p-8">
-      <p class="text-2xl font-semibold">Topic Report</p>
-      <NuxtLink to="/examportal/learner/examSolution">
-        <BaseButton label="View Solution" color="info" />
-      </NuxtLink>
-
-    </div>
-    <div class="flex justify-between items-center p-8">
-      <div class="flex gap-2">
-        <span>Total Topics <b>1 </b> </span> <li> Score <b>1.5</b></li>accuracy <b>40.0%</b> <li> </li>
-      </div>
-      <BaseButton label="Compare with Topper" />
-    </div>
-
-    <div class="flex justify-between items-center p-8">
-      <div>
-        <p class="font-bold">others</p>
-        <div class="flex gap-2">
-          <p class="flex justify-center rounded-[50%]  items-center bg-pink-300 h-9 w-9 ">
-             1
-          </p>
-          <p class="flex justify-center rounded-[50%] items-center bg-pink-300  h-9 w-9 ">
-            2
-         </p>
-         <p class="flex justify-center rounded-[50%] items-center bg-green-300 h-9 w-9 ">
-          4
-       </p>
-        </div>
-      </div>
-      <div class="flex gap-2">
-        <span>Total Topics <b>1 </b> </span> <li> Score <b>1.5</b></li>accuracy <b>40.0%</b> <li> </li>
-      </div>
-    </div>
-
-
-    <p class="font-bold">Score Vs Topics</p>
-    <div class="w-2/3 mx-auto">
-
-      <VerticalBarChart :labels='["Topic1", "Topic2"]' x_label="Topic" y_label="score" :datasets='[
-        {
-          label:"total Score",
-                            data: [55 , 34 ],
-                            backgroundColor: "rgba(68, 119, 170, 0.75)",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          },
-                          {
-                            label:"my Score",
-                            data: [32 , 17 ],
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
-                      </div>
-
-    <p class="font-bold">Accuracy Vs Topics</p>
-    <div class="w-2/3 mx-auto">
-
-      <VerticalBarChart :labels='["Topic1", "Topic2"]' x_label="Topic" y_label="accuracy" :datasets='[
-        {
-                            data: [55 , 34 ],
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
-                      </div>
-                      <p class="font-bold">Time Vs Topics</p>
-    <div class="w-2/3 mx-auto">
-
-      <VerticalBarChart :labels='["Topic1", "Topic2"]' x_label="Topic" y_label="Time (Minutes)" :datasets='[
-        {
-                            data: [5.5 , 3 ],
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
-    </div>
-
-
-
-
+  <div class="px-8 pb-4 pt-16 border-b-2 text-xl font-semibold ">
+    <p>Question Report </p>
   </div>
 
 
 
+  <CardBoxModal v-model="isAddDataActive" :showFooter="false" title="">
+    <header
+      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
+    >
+      <div class="flex flex-col ml-5 mx-auto">
+        <h1 class="font-bold">Add New Group</h1>
+      </div>
+      <div
+        class="text-gray-500 cursor-pointer"
+        @click="isAddDataActive = false"
+      >
+        <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
+      </div>
+    </header>
 
+    <CardBox class="" is-form @submit.prevent="submitProfile">
+      <PremFormField label="Name">
+        <PremFormControl v-model="NewFormData.title" />
+      </PremFormField>
+      <PremFormField label="Difficulty Level">
+        <PremFormControl
+          v-model="NewFormData.level"
+          :options="['easy', 'moderate', 'hard']"
+        />
+      </PremFormField>
+
+      <div class="flex justify-end py-2">
+        <BaseButtons>
+          <BaseButton color="info" label="Submit" @click="addNewFormData" />
+        </BaseButtons>
+      </div>
+    </CardBox>
+  </CardBoxModal>
+
+  <CardBox
+    class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3 pt-1"
+    is-form
+    @submit.prevent="submit"
+  >
+  <div>
+    <PremFormControl :options="sectionOptions" v-model="selectedSection" class="max-w-sm" />
+  </div>
+  <div class="grid grid-cols-6  max-sm:grid-cols-2 gap-3 text-center rounded-lg py-5 px-4  max-w-xl">
+    <div>
+        <p class="font-semibold text-xl">90</p>
+        <p class=" text-base">Questions</p>
+    </div>
+    <div>
+        <p class="font-semibold text-xl">0</p>
+        <p class="text-base">Correct</p>
+    </div>
+    <div>
+        <p class="font-semibold text-xl">0</p>
+        <p class="text-base">Incorrect</p>
+    </div>
+    <div>
+        <p class="font-semibold text-xl">90</p>
+        <p class="text-base">Skipped</p>
+    </div>
+    <div>
+        <p class="font-semibold text-xl">0</p>
+        <p class="text-base">Score</p>
+    </div>
+    <div>
+        <p class="font-semibold text-xl">2m10s</p>
+        <p class="text-base">Time Taken</p>
+    </div>
+    
+</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Question</th>
+          <th>Your Answer</th>
+          <th>Correct answer</th>
+          <th>Marks</th>
+          <th>Time taken</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr
+            v-for="(item , index) in test.sections[sectionIndex].questions"
+            :key="index"
+            class="cursor-pointer text-base font-light"
+          >
+            <th data-label="#" class="cursor-pointer text-base font-light">
+              {{ index + 1 }}
+            </th>
+            <th
+              data-label="Question"
+              class="cursor-pointer text-base font-semibold"
+            >
+              <p class="p-1 border-1 bg-slate-300 w-min rounded-md">{{item.type}}</p>
+              <div v-html="item.titleHtml">
+              </div>
+              <template v-if="item.type == 'MCQ'">
+                <div
+                  v-for="(opt, index) in item.options"
+                  class="max-w-md my-2 p-1"
+                >
+                  <span
+                    class="ml-2"
+                    v-html="String.fromCharCode(65 + index) + '. ' + opt.html"
+                  >
+                  </span>
+                </div>
+              </template>
+            </th>
+            <th
+              data-label="Your Answer"
+              class="cursor-pointer text-base font-light"
+            >
+              {{ item.myAns  }}
+            </th>
+            <th
+              data-label="Correct answer"
+              class="cursor-pointer text-base font-light"
+            >
+              {{ item.answer }}
+            </th>
+            <th
+            data-label="Marks"
+            class="cursor-pointer text-base font-light"
+          >
+            0
+          </th>
+          <th
+          data-label="Time taken"
+          class="cursor-pointer text-base font-light"
+        >
+          2m17s
+        </th>
+          </tr>
+        </tbody>
+    </table>
+  </CardBox>
 </template>
 
 <style>

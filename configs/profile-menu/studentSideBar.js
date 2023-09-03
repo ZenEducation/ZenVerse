@@ -21,9 +21,9 @@ import {
 
 export default [
   {
-    to: "/pps/profileView",
-    label: "student_link1",
-    icon: mdiAccountCircle,
+    to: "/academicsAndKCRs/academicPlan",
+    label: "Academics",
+    icon: mdiMonitor,
   },
   {
     to: "/pps/profileView",

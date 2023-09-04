@@ -13,10 +13,12 @@
                     <div class="flex mainBody">
 
                         <div class="w-1/4 relative px-16 imageBody">
-                            <div v-for=" (image, imageIndex) in profilePics " :key="imageIndex">
-                                <img v-if="imageIndex == index" :src="image"
-                                    class="rounded-full h-40 w-full mx-auto mt-5  top-0 left-0" alt="">
-                            </div>
+                            <NuxtLink :to="'/Testimonial/SingleTestimonial/' + testimonial.id">
+                                <div v-for=" (image, imageIndex) in profilePics " :key="imageIndex">
+                                    <img v-if="imageIndex == index" :src="image"
+                                        class="rounded-full h-40 w-full mx-auto mt-5  top-0 left-0" alt="">
+                                </div>
+                            </NuxtLink>
                         </div>
                         <!-- <div v-for="(image, imageIndex) in blogImages" :key="imageIndex">
                             <img v-if="imageIndex == blogIndex" :src="image" class="w-full" alt="" />
@@ -27,11 +29,13 @@
                                 <p class="text-slate-400 font-semibold"> {{ testimonial.sub_title }} </p>
 
                                 <div class="my-5 content" v-html="testimonial.content"></div>
+
                                 <div v-for="(url, index) in testimonial.youtubeURL">
                                     <iframe width="640" height="360" :src="`https://www.youtube.com/embed/${url}`"
                                         frameborder="0" :key="index"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         allowfullscreen></iframe>
+
                                 </div>
                             </div>
                         </div>

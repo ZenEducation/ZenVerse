@@ -271,9 +271,9 @@ const clearResult = () => {
             <SectionMain>
                 <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="All Testimonial" main>
 
-                    <NuxtLink to="/AA/blog/createblog"><button
+                    <NuxtLink to="/Testimonial/createtestimonial"><button
                             class="w-36 h-[40px] text-sm px-1 bg-gray-800 text-white dark:bg-white dark:text-black "> Create
-                            Content
+                            Testimonial
                         </button>
                     </NuxtLink>
 

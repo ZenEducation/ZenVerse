@@ -34,14 +34,18 @@
                     </PremFormField>
                     <PremFormField label="Youtube Link" horizontal>
                         <PremFormField horizontal>
-                            <!-- <div class="flex flex-col">
-                                <input type="text" placeholder="Click to Add URLs" class="w-full">
 
-                            </div> -->
                             <div class="flex flex-col">
-                                <input type="text" placeholder="Click to Add URLs"
-                                    class="w-full dark:bg-slate-800 rounded-[0.25rem] border border-slate-700"
-                                    v-model="urlToAdd" @keydown.enter="addUrl" />
+                                <div class="flex">
+                                    <input type="text" placeholder="Click to Add URLs"
+                                        class="w-full dark:bg-slate-800 rounded-[0.25rem] border border-slate-700"
+                                        v-model="urlToAdd" />
+                                    <button v-on:click="addUrl"
+                                        class="w-24 ml-5 p-1 dark:bg-slate-800 dark:border dark:border-slate-700">Add
+                                        URL</button>
+                                </div>
+                                <h4>https://youtu.be/<b class="text-red-700">8GmVNb_6Ckk</b> Please add only bold part of
+                                    link</h4>
                                 <div v-for="(url, index) in urls" :key="index" class="flex items-center">
                                     <span>{{ url }}</span>
                                     <button @click="removeUrl(index)" class="ml-2 text-red-500">Remove</button>
@@ -338,12 +342,14 @@ onMounted(async () => {
         const { student_name, sub_title, category, content, testiminial_no, youtubeURL } = SingleTestimonial.value
         titleText.value = student_name
         subtitleText.value = sub_title
+        console.log({ name: category, value: category.toLowerCase() })
+        categorySelect.value.push({ name: category, value: category })
         value.value = category
         console.log(value.value);
         editorContent.value = content
         publishDate.value = SingleTestimonial.value.publishDate
         oldTestimonialNo.value = testiminial_no
-        urls.value = youtubeURL
+        urls.value = youtubeURL.map(item => item)
         uploadedFile.value = SingleTestimonialImg.value
 
     } catch (err) {
@@ -406,7 +412,7 @@ const saveReview = async () => {
             alert("Saved Successfully")
             uploadingFile.value = false;
 
-            router.push("/Testimonial/alltestimonial")
+
         } catch (error) {
             console.error(error);
         }

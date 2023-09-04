@@ -237,6 +237,16 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "sectionMarks": {
+                    "name": "sectionMarks",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "SectionMarks"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "Exam": {
                     "name": "Exam",
                     "isArray": false,
@@ -2501,8 +2511,27 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "SectionMarks": {
+            "name": "SectionMarks",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "marks": {
+                    "name": "marks",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "05140dc5a4b69f8c9c4eeed07b571ca3"
+    "version": "3a64f315a40846cb7772ef06745c3b33"
 };

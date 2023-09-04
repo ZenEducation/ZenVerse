@@ -424,6 +424,11 @@ export const createAttempt = /* GraphQL */ `
       }
       marks
       status
+      sectionMarks {
+        id
+        marks
+        __typename
+      }
       Exam {
         id
         title
@@ -650,6 +655,11 @@ export const updateAttempt = /* GraphQL */ `
       }
       marks
       status
+      sectionMarks {
+        id
+        marks
+        __typename
+      }
       Exam {
         id
         title
@@ -876,6 +886,11 @@ export const deleteAttempt = /* GraphQL */ `
       }
       marks
       status
+      sectionMarks {
+        id
+        marks
+        __typename
+      }
       Exam {
         id
         title
@@ -2552,6 +2567,11 @@ export const createExam = /* GraphQL */ `
           }
           marks
           status
+          sectionMarks {
+            id
+            marks
+            __typename
+          }
           Exam {
             id
             title
@@ -2893,6 +2913,11 @@ export const updateExam = /* GraphQL */ `
           }
           marks
           status
+          sectionMarks {
+            id
+            marks
+            __typename
+          }
           Exam {
             id
             title
@@ -3234,6 +3259,11 @@ export const deleteExam = /* GraphQL */ `
           }
           marks
           status
+          sectionMarks {
+            id
+            marks
+            __typename
+          }
           Exam {
             id
             title

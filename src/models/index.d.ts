@@ -67,6 +67,20 @@ export declare type Range = LazyLoading extends LazyLoadingDisabled ? EagerRange
 
 export declare const Range: (new (init: ModelInit<Range>) => Range)
 
+type EagerSectionMarks = {
+  readonly id?: string | null;
+  readonly marks?: number | null;
+}
+
+type LazySectionMarks = {
+  readonly id?: string | null;
+  readonly marks?: number | null;
+}
+
+export declare type SectionMarks = LazyLoading extends LazyLoadingDisabled ? EagerSectionMarks : LazySectionMarks
+
+export declare const SectionMarks: (new (init: ModelInit<SectionMarks>) => SectionMarks)
+
 type EagerTopic = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Topic, 'id'>;
@@ -143,6 +157,7 @@ type EagerAttempt = {
   readonly Responces?: (Responce | null)[] | null;
   readonly marks?: number | null;
   readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly sectionMarks?: (SectionMarks | null)[] | null;
   readonly Exam?: Exam | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -158,6 +173,7 @@ type LazyAttempt = {
   readonly Responces: AsyncCollection<Responce>;
   readonly marks?: number | null;
   readonly status?: AttemptStatus | keyof typeof AttemptStatus | null;
+  readonly sectionMarks?: (SectionMarks | null)[] | null;
   readonly Exam: AsyncItem<Exam | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

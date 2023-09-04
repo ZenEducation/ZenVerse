@@ -1,6 +1,12 @@
 <template>
-  <div class="absolute top-0 h-16 z-30 bg-slate-50 border-b px-4 flex items-center w-full">
-    <p class="text-xl">{{ finalData.title }}</p>
+  <div v-if="loaded" class="absolute top-0 h-16 z-30 bg-slate-50 border-b px-4 flex items-center w-full">
+    <NuxtLink :to="'/examportal/learner/mocktest/' + finalData.examID">
+      <div class="text-[13px] flex items-center justify-center cursor-pointer">
+        <img class="w-[14px] h-[14px]"
+          src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
+        <p class="p-2.5">{{ finalData.title }}</p>
+      </div>
+    </NuxtLink>
   </div>
   <div v-if="loaded" class="w-4/5 pt-20 mx-auto h-screen overflow-y-scroll scrollbar-none">
     <p class="font-semibold text-4xl pb-4">{{ finalData.title }}</p>
@@ -14,7 +20,7 @@
         <p class="font-light text-lg pb-6">{{ `out of ${finalData.marks.max}` }}</p>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Percentile</p>
-          <p>N/A</p>
+          <p>{{ Math.round(finalData.questions.percentile) }} %</p>
         </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Accuracy</p>
@@ -23,7 +29,8 @@
         </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Percentage</p>
-          <p>{{ `${Math.round((finalData.questions.score * 100) / (finalData.marks.correct + finalData.marks.incorrect))} %`
+          <p>{{ `${Math.round((finalData.questions.score * 100) / (finalData.marks.correct + finalData.marks.incorrect))}
+            %`
           }}</p>
         </div>
         <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
@@ -52,7 +59,7 @@
           </div>
         </div>
         <p class="">
-          You have scored <span class="font-semibold">{{ finalData.marks.correct  }}
+          You have scored <span class="font-semibold">{{ finalData.marks.correct }}
             marks</span> for correct
           answers, missed <span class="font-semibold">{{ finalData.marks.incorrect }} marks</span> on
           incorrect answers , lost
@@ -79,7 +86,7 @@
         <p class="font-light text-lg pb-6">out of {{ item.totalMarks }}</p>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold border-t-2">
           <p>Percentile</p>
-          <p>N/A</p>
+          <p>{{ Math.round(item.percentile) }} %</p>
         </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Accuracy</p>
@@ -153,7 +160,7 @@
         </div>
 
         <p class="font-semibold text-2xl">{{ `${Math.floor(finalData.questions.timeTaken / 60)}m
-                            ${finalData.questions.timeTaken % 60}s` }}</p>
+                  ${finalData.questions.timeTaken % 60}s` }}</p>
         <p class="font-light text-lg pb-6">total time spent</p>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>On Correct Answers</p>
@@ -169,24 +176,24 @@
         </div>
       </div>
       <div class="w-2/3 max-md:w-5/6 my-3 max-md:mx-auto border-2 rounded-lg py-10 px-4">
-        <p class="">total Marks: <span class="font-semibold">{{finalData.marks.max}}</span></p>
+        <p class="">total Marks: <span class="font-semibold">{{ finalData.marks.max }}</span></p>
         <div class="flex justify-center">
           <HorizontalBarChart :labels="['correct', 'Incorrect', 'Skipped']" :datasets="[
             {
-              data: [finalData.marks.correct, finalData.marks.incorrect , finalData.marks.skipped ],
+              data: [finalData.marks.correct, finalData.marks.incorrect, finalData.marks.skipped],
               backgroundColor: ['green', 'red', 'yellow'],
             },
           ]" />
         </div>
-          <p class="">
-            You have scored <span class="font-semibold">{{ finalData.marks.correct  }}
-              marks</span> for correct
-            answers, missed <span class="font-semibold">{{ finalData.marks.incorrect }} marks</span> on
-            incorrect answers , lost
-            <span class="font-semibold">{{ -finalData.marks.negative }} marks</span> due to negative marking and
-            <span class="font-semibold">{{ finalData.marks.skipped }} marks</span>
-            by skipping questions.
-          </p>
+        <p class="">
+          You have scored <span class="font-semibold">{{ finalData.marks.correct }}
+            marks</span> for correct
+          answers, missed <span class="font-semibold">{{ finalData.marks.incorrect }} marks</span> on
+          incorrect answers , lost
+          <span class="font-semibold">{{ -finalData.marks.negative }} marks</span> due to negative marking and
+          <span class="font-semibold">{{ finalData.marks.skipped }} marks</span>
+          by skipping questions.
+        </p>
       </div>
     </div>
 
@@ -224,7 +231,7 @@
               datasets: [
                 {
                   label: 'My First Dataset',
-                  data: [finalData.time.EASY, finalData.time.MODERATE , finalData.time.HARD],
+                  data: [finalData.time.EASY, finalData.time.MODERATE, finalData.time.HARD],
                   backgroundColor: ['green', 'red', 'yellow'],
                   hoverOffset: 4,
                 },
@@ -233,20 +240,20 @@
           </div>
         </div>
         <p class="font-semibold text-2xl">{{ `${Math.floor(finalData.questions.timeTaken / 60)}m
-                                      ${finalData.questions.timeTaken % 60}s` }}</p>
+                  ${finalData.questions.timeTaken % 60}s` }}</p>
         <p class="font-light text-lg pb-6">total time spent</p>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>On Easy Questions</p>
-            <p>{{ `${Math.round((finalData.time.EASY * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
-          </div>
+          <p>{{ `${Math.round((finalData.time.EASY * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
+        </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>On Medium Questions</p>
-            <p>{{ `${Math.round((finalData.time.MODERATE * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
-          </div>
+          <p>{{ `${Math.round((finalData.time.MODERATE * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
+        </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>On Intense Questions</p>
-            <p>{{ `${Math.round((finalData.time.HARD * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
-          </div>
+          <p>{{ `${Math.round((finalData.time.HARD * 100) / (finalData.questions.timeTaken)) || 0} %` }}</p>
+        </div>
       </div>
       <div class="w-2/3 max-md:w-5/6 my-3 max-md:mx-auto border-2 rounded-lg py-10 px-4">
         <div class="flex justify-center">
@@ -257,15 +264,15 @@
             },
           ]" />
         </div>
-            <p class="">
-              You have scored <span class="font-semibold">{{ finalData.marks.EASY }}
-                marks</span> for easy
-              answers,<span class="font-semibold">{{ finalData.marks.MODERATE }}
-                  marks</span> for Moderate
-                answers,<span class="font-semibold">{{ finalData.marks.HARD }}
-                  marks</span> for Intense
-                answers.
-            </p>
+        <p class="">
+          You have scored <span class="font-semibold">{{ finalData.marks.EASY }}
+            marks</span> for easy
+          answers,<span class="font-semibold">{{ finalData.marks.MODERATE }}
+            marks</span> for Moderate
+          answers,<span class="font-semibold">{{ finalData.marks.HARD }}
+            marks</span> for Intense
+          answers.
+        </p>
       </div>
     </div>
   </div>
@@ -296,6 +303,7 @@ const route = useRoute();
 const attemptId = route.params.attemptId;
 console.log(attemptId);
 import { API, graphqlOperation } from "aws-amplify";
+import { updateAttempt } from "~~/src/graphql/mutations";
 
 let loaded = ref(false)
 
@@ -497,6 +505,15 @@ query MyQuery($id: ID!) {
           title
         }
       }
+      Attempts {
+        items {
+          marks
+          sectionMarks {
+            id
+            marks
+          }
+        }
+      }
     }
     Responces {
       items {
@@ -548,6 +565,11 @@ query MyQuery($id: ID!) {
     status
     examID
     id
+    _version
+    sectionMarks {
+      id
+      marks
+    }
   }
 }
 
@@ -649,7 +671,7 @@ query MyQuery($id: ID!) {
     }
 
     if (!(responce.topic in data.topics)) {
-      data.topics[responce.topic] = 0 ;
+      data.topics[responce.topic] = 0;
     }
 
     if (responce.isCorrect) {
@@ -731,15 +753,69 @@ query MyQuery($id: ID!) {
 
   data.topicsList = [];
   data.topicsValues = [];
-  for( let item in data.topics){
+  for (let item in data.topics) {
     data.topicsList.push(item);
     data.topicsValues.push(data.topics[item])
-  } 
+  }
 
   console.log(sectionIdtoIndex);
 
   console.log(data);
+
+  let updateInput = {
+    id: attempt.id,
+    _version: attempt._version,
+    marks: data.questions.score,
+    sectionMarks: [
+    ]
+
+  }
+
+  data.sections.forEach((section) => {
+    updateInput.sectionMarks.push({
+      id: section.id,
+      marks: section.score,
+    })
+  })
+
+  console.log(updateInput);
+
+  await API.graphql({
+    query: updateAttempt,
+    variables: { input: updateInput }
+  })
+
+  let allMarks = [];
+  let sectionMarks = [];
+
+  attempt?.Exam?.Attempts.items.forEach((item) => {
+    allMarks.push(item.marks);
+    item?.sectionMarks?.forEach((sect) => {
+      if (sectionMarks[sectionIdtoIndex[sect.id]]) {
+        sectionMarks[sectionIdtoIndex[sect.id]]?.push(sect.marks);
+      } else {
+        sectionMarks[sectionIdtoIndex[sect.id]] = [sect.marks];
+      }
+    })
+  })
+
+
+
+  console.log(calculatePercentile(data.questions.score, allMarks));
+
+  console.log(allMarks, sectionMarks)
+
+  data.questions.percentile = calculatePercentile(data.questions.score, allMarks);
+  for (let i = 0; i < data?.sections?.length; i++) {
+    console.log(data.sections[i].score, sectionMarks[i]);
+    data.sections[i].percentile = calculatePercentile(data.sections[i].score, sectionMarks[i])
+  }
+
+
+  data.examID = attempt.examID;
+
   finalData.value = data;
+
 
   graph_data.value = {
     //4 doughnuts
@@ -747,7 +823,7 @@ query MyQuery($id: ID!) {
       labels: ["correct", "other"],
       datasets: [
         {
-          data: [finalData.value.marks.correct, finalData.value.marks.max - finalData.value.marks.correct ],
+          data: [finalData.value.marks.correct, finalData.value.marks.max - finalData.value.marks.correct],
           backgroundColor: ["rgb(54, 162, 235)", "rgb(243, 236, 234)"],
           hoverOffset: 4,
         },
@@ -794,10 +870,19 @@ query MyQuery($id: ID!) {
 
   };
 
+  
 
   loaded.value = true;
 
 })
+
+const calculatePercentile = (marks, attemptMarks) => {
+  const sortedMarks = [...attemptMarks].sort((a, b) => a - b);
+  const rank = sortedMarks.indexOf(marks) + 1;
+  const percentile = (rank / attemptMarks.length) * 100;
+  return percentile;
+};
+
 </script>
 
 <style lang="scss" scoped></style>

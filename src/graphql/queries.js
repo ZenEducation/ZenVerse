@@ -713,6 +713,11 @@ export const getAttempt = /* GraphQL */ `
       }
       marks
       status
+      sectionMarks {
+        id
+        marks
+        __typename
+      }
       Exam {
         id
         title
@@ -913,6 +918,11 @@ export const listAttempts = /* GraphQL */ `
         }
         marks
         status
+        sectionMarks {
+          id
+          marks
+          __typename
+        }
         Exam {
           id
           title
@@ -1018,6 +1028,11 @@ export const syncAttempts = /* GraphQL */ `
         }
         marks
         status
+        sectionMarks {
+          id
+          marks
+          __typename
+        }
         Exam {
           id
           title
@@ -1125,6 +1140,11 @@ export const attemptsByExamID = /* GraphQL */ `
         }
         marks
         status
+        sectionMarks {
+          id
+          marks
+          __typename
+        }
         Exam {
           id
           title
@@ -2974,6 +2994,11 @@ export const getExam = /* GraphQL */ `
           }
           marks
           status
+          sectionMarks {
+            id
+            marks
+            __typename
+          }
           Exam {
             id
             title

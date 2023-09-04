@@ -39,8 +39,9 @@
 
                             </div> -->
                             <div class="flex flex-col">
-                                <input type="text" placeholder="Click to Add URLs" class="w-full" v-model="urlToAdd"
-                                    @keydown.enter="addUrl" />
+                                <input type="text" placeholder="Click to Add URLs"
+                                    class="w-full dark:bg-slate-800 rounded-[0.25rem] border border-slate-700 "
+                                    v-model="urlToAdd" @keydown.enter="addUrl" />
                                 <div v-for="(url, index) in urls" :key="index" class="flex items-center">
                                     <span>{{ url }}</span>
                                     <button @click="removeUrl(index)" class="ml-2 text-red-500">Remove</button>
@@ -52,31 +53,36 @@
                         <div class="flex gap-3 items-center w-full">
                             <label class="block mb-2">Category</label>
 
-                            <select name="category" id="category" required v-model="value">
+                            <select name="category" id="category"
+                                class="dark:bg-slate-800 rounded-[0.25rem] border border-slate-700" required
+                                v-model="value">
                                 <option v-for="option in categorySelect" :value="option.value" :key="option.value"> {{
                                     option.name }} </option>
 
                             </select>
-                            <button v-on:click="handleCreateCategory" class="text-sm w-40 border-2 h-full  border-black">
+                            <button v-on:click="handleCreateCategory"
+                                class="text-sm w-40 border-2 h-full  border-black dark:border-white">
                                 Create Category
                             </button>
                         </div>
 
                     </div>
                     <div class="flex" v-if="showCreateCategory">
-                        <input v-model="newType" placeholder="Enter Category" class="border border-gray-300 p-2 w-4/5"
-                            type="text" />
+                        <input v-model="newType" placeholder="Enter Category"
+                            class="p-2 w-4/5 dark:bg-slate-800 rounded-[0.25rem] border border-slate-700" type="text" />
                         <button @click="addNewType" class="bg-blue-500 text-white px-4 py-2 ml-2 w-1/6">
                             Add Category
                         </button>
                     </div>
                     <PremFormField label="Publish Date" horizontal>
                         <PremFormField horizontal>
-                            <input type="date" name="publishDate" id="publishDate" v-model="publishDate" required />
+                            <input type="date" class="dark:bg-slate-800 rounded-[0.25rem] border border-slate-700"
+                                name="publishDate" id="publishDate" v-model="publishDate" required />
                         </PremFormField>
                     </PremFormField>
                     <PremFormField label="Add Image" horizontal>
-                        <div class="flex border border-black rounded-md p-4 justify-center items-center gap-4">
+                        <div
+                            class="flex border border-black dark:border-slate-700 dark:bg-slate-800 rounded-md p-4 justify-center items-center gap-4">
 
                             <div v-if="uploadedFile">
                                 <img v-if="uploadedFile.file" width="500" :src="uploadedFile.file.url" alt="Image" />

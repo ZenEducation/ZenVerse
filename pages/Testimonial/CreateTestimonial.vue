@@ -135,7 +135,7 @@ import { DataStore } from "@aws-amplify/datastore"
 import { TestimonialData } from "@/src/models/index.js"
 import { useRouter } from 'vue-router';
 import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 
 const router = useRouter()
 
@@ -406,6 +406,7 @@ const discardBtn = () => {
     }
 
 };
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 
 </script>
@@ -418,5 +419,3 @@ const discardBtn = () => {
     }
 }
 </style>
-
-<!-- <iframe width="640" height="360" src="https://www.youtube.com/embed/8GmVNb_6Ckk" title="Aadya Deshpande | MBBS | A Paathshala Ascension Exclusive" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->

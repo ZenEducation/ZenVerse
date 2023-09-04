@@ -108,6 +108,8 @@ const saveHandler = async () => {
         },
       },
     });
+    window.alert("changes saved successfully");
+    
   } catch (error) {
     console.error(error);
   }

@@ -16,25 +16,7 @@ import { listMockTests } from "~~/src/graphql/queries";
 
 const items = ref([
 
-  {
-    shortId: "BCD123",
-    name: "Thermodynamics: Heat and Temperature",
-    publishingStatus: "Unpublished",
-    type: "Tests",
-    quantity: 2,
-    isFree: false,
-    category: "Mock test",
-  },
 
-  {
-    shortId: "EFG456",
-    name: "Electricity and Magnetism: Electric Circuits",
-    publishingStatus: "Scheduled",
-    type: "Tests",
-    quantity: 3,
-    isFree: false,
-    category: "test series",
-  },
 
 ]);
 

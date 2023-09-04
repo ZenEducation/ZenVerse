@@ -2,10 +2,7 @@
   <NuxtLayout name="lmsstudent">
     <div class="flex max-md:block">
       <div class="w-2/3 max-md:w-full max-md:h-auto h-screen p-10 pb-30">
-        <p class="uppercase cursor-pointer mb-8">
-          <span class="text-blue-600">store</span>/ <span> bundle </span> /
-          <span> fst | jee Main | pcm </span>
-        </p>
+
         <p class="capitalize font-bold text-2xl">
           {{ examData.mockTestTitle }}
         </p>
@@ -35,7 +32,7 @@
             <p class="text-lg font-medium">
               Test Attempts : {{ examData.attempts.length }}
             </p>
-            <BaseButton label="New Test" color="info" @click="takeNewExam" />
+            <BaseButton label="Retake Test" color="info" @click="takeNewExam" />
           </div>
           <div class="flex flex-wrap justify-between px-6 py-2 my-4 items-center"
             v-for="(attempt, index) in examData.attempts">
@@ -51,7 +48,7 @@
 
         <div v-else class="flex flex-wrap border rounded justify-between px-6 py-2 my-4 items-center">
           <p class="text-lg font-medium">Start your Exam Now</p>
-          <BaseButton label="Take Exam" color="info" @click="takeNewExam" />
+          <BaseButton label="Take Test" color="info" @click="takeNewExam" />
         </div>
       </div>
       <div class="w-1/3 max-md:w-full max-md:h-auto h-screen pt-20 text-xs px-4">

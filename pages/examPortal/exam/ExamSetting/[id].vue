@@ -139,9 +139,9 @@ const handleSave = async () => {
     if(validityDays == undefined || validityDays == null || validityDays < 0 || !validityDays){
       validityDays = 0;
     }
-    if(!expiryDate){
+    if (!isValidityDays && !expiryDate) {
       window.alert("Expiry date can not be null");
-      console.error("Expiry date can not be null")
+      console.error("title and shortID can not be empty")
       return
     }
 

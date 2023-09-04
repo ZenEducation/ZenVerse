@@ -204,7 +204,6 @@ const saveHandler = async () => {
         input: {
           id: examData?.value?.id,
           _version: examData?.value?._version,
-          title:examData?.value?.title,
           description:examData?.value?.description
         },
       },

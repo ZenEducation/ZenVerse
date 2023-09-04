@@ -415,6 +415,7 @@ const addSection = async (temp) => {
       variables: { input: { title: newsectionName.value, examID: examId } },
     });
     console.log("newSection", newSection?.data?.createSection);
+    newsectionName.value = "";
 
     examData.value.Sections.items.push(newSection?.data?.createSection);
     isAddModalActive.value = false;

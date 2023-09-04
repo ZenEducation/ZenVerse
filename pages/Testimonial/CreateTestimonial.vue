@@ -89,7 +89,7 @@
                     </PremFormField>
                     <PremFormField label="Add Image" horizontal>
                         <div
-                            class="flex border border-black dark:border-slate-700 dark:bg-slate-800 rounded-md p-4 justify-center items-center gap-4">
+                            class="flex flexImage border border-black dark:border-slate-700 dark:bg-slate-800 rounded-md p-4 justify-center items-center gap-4">
 
                             <div v-if="uploadedFile">
                                 <img v-if="uploadedFile.file" width="500" :src="uploadedFile.file.url" alt="Image" />
@@ -424,5 +424,11 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
     .resDis {
         display: none;
     }
+
+    .flexImage {
+        flex-direction: column;
+    }
+
+
 }
 </style>

@@ -1,18 +1,13 @@
 <template>
   <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
+    <header class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded">
       <div class="text-gray-500">
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Add Tag</h1>
       </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddModalActive = false"
-      >
+      <div class="text-gray-500 cursor-pointer" @click="isAddModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
@@ -26,20 +21,12 @@
       </div>
     </CardBox>
   </CardBoxModal>
-  <div
-    v-if="isLoaded"
-    class="absolute z-20 top-0 left-0 w-full min-h-[48px] bg-white"
-  >
+  <div v-if="isLoaded" class="absolute z-20 top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink :to="'/examportal/Exam/edit-page/' + question?.examID">
-        <div
-          class="text-[13px] flex items-center justify-center cursor-pointer"
-        >
-          <img
-            class="w-[14px] h-[14px]"
-            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
-            alt=""
-          />
+        <div class="text-[13px] flex items-center justify-center cursor-pointer">
+          <img class="w-[14px] h-[14px]"
+            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
           <p class="p-2.5">Back</p>
         </div>
       </NuxtLink>
@@ -49,19 +36,9 @@
     </div>
     <div class="border-b w-full flex justify-between items-center px-16 py-2">
       <div class="flex justify-center items-center">
-        <BaseButton
-          v-if="isPreview"
-          :icon="mdiCloseCircleMultipleOutline"
-          label="Preview"
-          color="danger"
-          @click="isPreview = !isPreview"
-        />
-        <BaseButton
-          v-else
-          label="Preview"
-          color="info"
-          @click="isPreview = !isPreview"
-        />
+        <BaseButton v-if="isPreview" :icon="mdiCloseCircleMultipleOutline" label="Preview" color="danger"
+          @click="isPreview = !isPreview" />
+        <BaseButton v-else label="Preview" color="info" @click="isPreview = !isPreview" />
       </div>
       <div class="flex justify-center items-center gap-5">
         <BaseButton :icon="mdiTrashCan" color="danger" />
@@ -69,73 +46,46 @@
       </div>
     </div>
   </div>
-  <div
-    v-if="isLoaded"
-    class="pt-28 h-screen w-full flex max-md:block max-md:overflow-y-scroll scrollbar-none"
-  >
+  <div v-if="isLoaded" class="pt-28 h-screen w-full flex max-md:block max-md:overflow-y-scroll scrollbar-none">
     <!-- sidebar -->
-    <div
-      class="w-1/4 max-md:w-5/6 max-md:mx-auto px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1"
-    >
+    <div class="w-1/4 max-md:w-5/6 max-md:mx-auto px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <template v-if="!isPreview">
         <p class="font-semibold text-lg">Question Settings</p>
         <PremFormField label="Difficulty Level">
-          <PremFormControl
-            :options="['EASY', 'MODERATE', 'HARD']"
-            v-model="question.difficuilty"
-          />
+          <PremFormControl :options="['EASY', 'MODERATE', 'HARD']" v-model="question.difficuilty" />
         </PremFormField>
         <div class="flex gap-5 items-start">
           <PremFormField label="Marks (+)">
-            <PremFormControl
-              placeholder="Correct"
-              v-model="question.ifCorrect"
-            />
+            <PremFormControl placeholder="Correct" v-model="question.ifCorrect"  type="number" />
           </PremFormField>
           <PremFormField label="Marks (-)">
-            <PremFormControl placeholder="Wrong" v-model="question.ifWrong" />
+            <PremFormControl placeholder="Wrong" v-model="question.ifWrong" type="number" />
           </PremFormField>
         </div>
-        <p
-          @click="addTag(true)"
-          class="text-blue-400 underline pb-2 cursor-pointer"
-        >
+        <p @click="addTag(true)" class="text-blue-400 underline pb-2 cursor-pointer">
           Create Tag
         </p>
         <br />
 
         <PremFormField label="Tag Question">
-          <PremFormControl
-            :options="tags"
-            placeholder="Enter Tags..."
-            v-model="question.topic"
-          />
+          <PremFormControl :options="tags" placeholder="Enter Tags..." v-model="question.topic" />
         </PremFormField>
         <PremFormField class="flex" label="Guideline Time">
-          <PremFormControl
-            type="number"
-            placeholder="sec"
-            v-model="question.guidelineTime"
-          />
+          <PremFormControl type="number" placeholder="sec" v-model="question.guidelineTime" />
           <p>Seconds</p>
         </PremFormField>
         <div class="flex gap-4">
-          <div
-            @click="handleMCQOptionChange"
-            class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
-            :class="{ 'bg-green-200': question.ismultipleChoice }"
-          >
+          <div @click="handleMCQOptionChange" class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
+            :class="{ 'bg-green-200': question.ismultipleChoice }">
             <BaseIcon v-if="question.ismultipleChoice" :path="mdiCheck" />
 
             <p>Multiple Answer</p>
           </div>
 
-          <div
-            @click="question.isPartial = !question.isPartial"
+          <div @click="question.isPartial = !question.isPartial"
             class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
-            :class="{ 'bg-green-200': question.isPartial }"
-          >
+            :class="{ 'bg-green-200': question.isPartial }">
             <BaseIcon v-if="question.isPartial" :path="mdiCheck" />
             <p>Partial marking</p>
           </div>
@@ -155,10 +105,8 @@
           <div v-for="(item, index) in question.options" class="border my-2">
             <div class="flex grid-cols-2 py-2">
               <div class="w-12 h-full flex items-center justify-center">
-                <p
-                  class="p-4 h-3 w-3 rounded-[50%] bg-slate-200 flex items-center justify-center"
-                  :class="{ 'bg-green-300': item.isCorrectAnswer }"
-                >
+                <p class="p-4 h-3 w-3 rounded-[50%] bg-slate-200 flex items-center justify-center"
+                  :class="{ 'bg-green-300': item.isCorrectAnswer }">
                   {{ String.fromCharCode(65 + index) }}
                 </p>
               </div>
@@ -172,75 +120,36 @@
         </CardBox>
       </template>
     </div>
-    <div
-      class="w-3/4 max-md:w-5/6 max-md:mx-auto p-4 overflow-y-auto scroll-m-0 scrollbar-w-1"
-    >
+    <div class="w-3/4 max-md:w-5/6 max-md:mx-auto p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
       <div class="flex flex-col">
         <CardBox>
-          <BaseButton
-            @click="isInstruction = !isInstruction"
-            v-if="!isInstruction"
-            :icon="mdiPlusCircleOutline"
-            label="Instruction"
-          />
-          <BaseButton
-            @click="isInstruction = !isInstruction"
-            v-if="isInstruction"
-            :icon="mdiMinusCircleOutline"
-            label="Instruction"
-          />
-          <QuilEditor
-            class="py-2"
-            v-if="isInstruction"
-            v-model="question.instruction"
-          ></QuilEditor>
+          <BaseButton @click="isInstruction = !isInstruction" v-if="!isInstruction" :icon="mdiPlusCircleOutline"
+            label="Instruction" />
+          <BaseButton @click="isInstruction = !isInstruction" v-if="isInstruction" :icon="mdiMinusCircleOutline"
+            label="Instruction" />
+          <QuilEditor class="py-2" v-if="isInstruction" v-model="question.instruction"></QuilEditor>
 
           <PremFormField label="Question">
-            <QuilEditor
-              v-model="question.titleHTML"
-              v-model:text="question.title"
-            ></QuilEditor>
+            <QuilEditor v-model="question.titleHTML" v-model:text="question.title"></QuilEditor>
           </PremFormField>
 
-          <div
-            class="my-2"
-            v-for="(totaloption, index) in question.options"
-            :key="totaloption.id"
-          >
+          <div class="my-2" v-for="(totaloption, index) in question.options" :key="totaloption.id">
             <div class="flex justify-between px-3 py-2">
               <h3 class="font-bold">
                 {{ "Choice #" + String.fromCharCode(65 + index) }}
               </h3>
-              <BaseButton
-                class="cursor-pointer"
-                :icon="mdiTrashCanOutline"
-                color="danger"
-                @click="deleteChoice(index)"
-              />
+              <BaseButton class="cursor-pointer" :icon="mdiTrashCanOutline" color="danger" @click="deleteChoice(index)" />
             </div>
-            <QuilEditor
-              v-model="totaloption.html"
-              v-model:text="totaloption.text"
-            />
+            <QuilEditor v-model="totaloption.html" v-model:text="totaloption.text" />
             <div @click="handleclick(index)">
-              <input
-                type="checkBox"
-                name="option"
-                id="'option' + totaloption.id"
-                :checked="totaloption.isCorrectAnswer"
-                :disabled="true"
-              />
-              <label for="'option' + totaloption.id" class="ml-2 cursor-pointer"
-                >This is the Correct Answer</label
-              >
+              <input type="checkBox" name="option" id="'option' + totaloption.id" :checked="totaloption.isCorrectAnswer"
+                :disabled="true" />
+              <label for="'option' + totaloption.id" class="ml-2 cursor-pointer">This is the Correct Answer</label>
             </div>
             <br />
           </div>
-          <button
-            @click="AddChoice"
-            class="bg-blue-700 p-3 rounded-md text-white"
-          >
+          <button @click="AddChoice" class="bg-blue-700 p-3 rounded-md text-white">
             Add Choice
           </button>
           <PremFormField label="Explanation">
@@ -412,7 +321,7 @@ const saveHandler = async () => {
       guidelineTime,
     } = question.value;
 
-    options = options.map(entry => ({ text: entry.text, html: entry.html , isCorrectAnswer:entry.isCorrectAnswer }));
+    options = options.map(entry => ({ text: entry.text, html: entry.html, isCorrectAnswer: entry.isCorrectAnswer }));
 
 
     let input = {
@@ -433,13 +342,55 @@ const saveHandler = async () => {
       guidelineTime,
       options
     };
+
     console.log(input);
+
+    if (!input.titleHTML || input.titleHTML == "<p><br></p>" || input.titleHTML == "<p></p>") {
+      window.alert("Question title must be present !")
+      return
+    }
+
+    if (input.options.length < 2) {
+      window.alert("add at least two choices !")
+      return
+    }
+
+    let temp = false;
+    input.options.forEach(element => {
+      if (element.isCorrectAnswer) {
+        temp = true;
+      }
+      if (!element.html || element.html == "<p><br></p>" || element.html == "<p></p>") {
+        window.alert("option title can not be empty !")
+        return
+      }
+
+    });
+    if (!temp) {
+      window.alert("mark at least one choice correct !")
+      return
+    }
+
+    if (!input.ifCorrect || !input.ifWrong) {
+      window.alert("correct/incorrect must be present !")
+      return
+    }
+    if (!input.difficuilty) {
+      window.alert("Set Difficulty level !")
+      return
+    }
+    if (!input.topic) {
+      window.alert("Set topic !")
+      return
+    }
+
+
     await API.graphql({
       query: updateQuestion,
       variables: { input: input },
     });
     window.alert("changes saved sucessfully");
-    window.location.href  = '/examportal/Exam/edit-page/' + question.value?.examID ;
+    window.location.href = '/examportal/Exam/edit-page/' + question.value?.examID;
   } catch (error) {
     console.error(error);
   }
@@ -463,7 +414,7 @@ const deleteHandler = async () => {
       variables: { input: input },
     });
     window.alert("deleted successfully");
-    window.location.href  = '/examportal/Exam/edit-page/' + question.value?.examID ;
+    window.location.href = '/examportal/Exam/edit-page/' + question.value?.examID;
   } catch (error) {
     console.error(error);
   }

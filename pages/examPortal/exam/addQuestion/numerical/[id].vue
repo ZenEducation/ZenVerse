@@ -1,18 +1,13 @@
 <template>
   <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
+    <header class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded">
       <div class="text-gray-500">
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Add Tag</h1>
       </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddModalActive = false"
-      >
+      <div class="text-gray-500 cursor-pointer" @click="isAddModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
@@ -26,20 +21,12 @@
       </div>
     </CardBox>
   </CardBoxModal>
-  <div
-    v-if="isLoaded"
-    class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white"
-  >
+  <div v-if="isLoaded" class="absolute z-30 top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink :to="'/examportal/Exam/edit-page/' + question?.examID">
-        <div
-          class="text-[13px] flex items-center justify-center cursor-pointer"
-        >
-          <img
-            class="w-[14px] h-[14px]"
-            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
-            alt=""
-          />
+        <div class="text-[13px] flex items-center justify-center cursor-pointer">
+          <img class="w-[14px] h-[14px]"
+            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
           <p class="p-2.5">Back</p>
         </div>
       </NuxtLink>
@@ -49,19 +36,9 @@
     </div>
     <div class="border-b w-full flex justify-between items-center px-16 py-2">
       <div class="flex justify-center items-center">
-        <BaseButton
-          v-if="isPreview"
-          :icon="mdiCloseCircleMultipleOutline"
-          label="Preview"
-          color="danger"
-          @click="isPreview = !isPreview"
-        />
-        <BaseButton
-          v-else
-          label="Preview"
-          color="info"
-          @click="isPreview = !isPreview"
-        />
+        <BaseButton v-if="isPreview" :icon="mdiCloseCircleMultipleOutline" label="Preview" color="danger"
+          @click="isPreview = !isPreview" />
+        <BaseButton v-else label="Preview" color="info" @click="isPreview = !isPreview" />
       </div>
       <div class="flex justify-center items-center gap-5">
         <BaseButton :icon="mdiTrashCan" color="danger" />
@@ -69,37 +46,24 @@
       </div>
     </div>
   </div>
-  <div
-    v-if="isLoaded"
-    class="pt-28 h-screen max-md:overflow-y-scroll scrollbar-none w-full flex max-md:block"
-  >
+  <div v-if="isLoaded" class="pt-28 h-screen max-md:overflow-y-scroll scrollbar-none w-full flex max-md:block">
     <!-- sidebar -->
-    <div
-      class="w-1/4 max-md:w-5/6 max-md:mx-auto px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1"
-    >
+    <div class="w-1/4 max-md:w-5/6 max-md:mx-auto px-4 py-6 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- if Settings  -->
       <template v-if="!isPreview">
         <p class="font-semibold text-lg">Question Settings</p>
         <PremFormField label="Difficulty Level">
-          <PremFormControl
-            :options="['EASY', 'MODERATE', 'HARD']"
-            v-model="question.difficuilty"
-          />
+          <PremFormControl :options="['EASY', 'MODERATE', 'HARD']" v-model="question.difficuilty" />
         </PremFormField>
         <div class="flex gap-5 items-start">
           <PremFormField label="Marks (+)">
-            <PremFormControl placeholder="Correct" 
-            v-model="question.ifCorrect"
-            />
+            <PremFormControl placeholder="Correct" v-model="question.ifCorrect" type="number" />
           </PremFormField>
           <PremFormField label="Marks (-)">
-            <PremFormControl placeholder="Wrong" v-model="question.ifWrong" />
+            <PremFormControl placeholder="Wrong" v-model="question.ifWrong" type="number" />
           </PremFormField>
         </div>
-        <p
-          @click="addTag(true)"
-          class="text-blue-400 underline pb-2 cursor-pointer"
-        >
+        <p @click="addTag(true)" class="text-blue-400 underline pb-2 cursor-pointer">
           Create Tag
         </p>
         <br />
@@ -112,11 +76,9 @@
           <p>Seconds</p>
         </PremFormField>
         <div class="flex gap-4">
-          <div
-            @click="question.range.is = !question.range.is"
+          <div @click="question.range.is = !question.range.is"
             class="max-w-max flex gap-2 p-2 m-2 border rounded-sm cursor-pointer"
-            :class="{ 'bg-green-400': question.range.is }"
-          >
+            :class="{ 'bg-green-400': question.range.is }">
             <BaseIcon v-if="question.range.is" :path="mdiCheck" />
             <p>Enable Range Ans</p>
           </div>
@@ -149,34 +111,17 @@
         </CardBox>
       </template>
     </div>
-    <div
-      class="w-3/4 max-md:w-5/6 max-md:mx-auto p-4 overflow-y-auto scroll-m-0 scrollbar-w-1"
-    >
+    <div class="w-3/4 max-md:w-5/6 max-md:mx-auto p-4 overflow-y-auto scroll-m-0 scrollbar-w-1">
       <!-- Main Content -->
       <div class="flex flex-col">
         <CardBox>
-          <BaseButton
-            @click="isInstruction = !isInstruction"
-            v-if="!isInstruction"
-            :icon="mdiPlusCircleOutline"
-            label="Instruction"
-          />
-          <BaseButton
-            @click="isInstruction = !isInstruction"
-            v-if="isInstruction"
-            :icon="mdiMinusCircleOutline"
-            label="Instruction"
-          />
-          <QuilEditor
-            class="py-2"
-            v-if="isInstruction"
-            v-model="question.instruction"
-          ></QuilEditor>
+          <BaseButton @click="isInstruction = !isInstruction" v-if="!isInstruction" :icon="mdiPlusCircleOutline"
+            label="Instruction" />
+          <BaseButton @click="isInstruction = !isInstruction" v-if="isInstruction" :icon="mdiMinusCircleOutline"
+            label="Instruction" />
+          <QuilEditor class="py-2" v-if="isInstruction" v-model="question.instruction"></QuilEditor>
           <PremFormField label="Question">
-            <QuilEditor
-              v-model="question.titleHTML"
-              v-model:text="question.title"
-            ></QuilEditor>
+            <QuilEditor v-model="question.titleHTML" v-model:text="question.title"></QuilEditor>
           </PremFormField>
 
           <PremFormField label="Answer">
@@ -185,18 +130,10 @@
             </template>
             <template v-else>
               <PremFormField label="Start">
-                <PremFormControl
-                  type="number"
-                  v-model="question.range.start"
-                  placeholder="Start value"
-                />
+                <PremFormControl type="number" v-model="question.range.start" placeholder="Start value" />
               </PremFormField>
               <PremFormField label="End">
-                <PremFormControl
-                  type="number"
-                  v-model="question.range.end"
-                  placeholder="End value"
-                />
+                <PremFormControl type="number" v-model="question.range.end" placeholder="End value" />
               </PremFormField>
             </template>
           </PremFormField>
@@ -300,7 +237,7 @@ const saveHandler = async () => {
       guidelineTime,
       answer
     } = question.value;
-    range = {is:range?.is , end:range?.end , start:range?.start}
+    range = { is: range?.is, end: range?.end, start: range?.start }
 
 
 
@@ -321,6 +258,30 @@ const saveHandler = async () => {
       answer
     };
     console.log(input);
+
+    if (!input.titleHTML || input.titleHTML == "<p><br></p>" || input.titleHTML == "<p></p>") {
+      window.alert("Question title must be present !")
+      return
+    }
+
+    if (!input.ifCorrect || !input.ifWrong) {
+      window.alert("correct/incorrect must be present !")
+      return
+    }
+    if (!input.difficuilty) {
+      window.alert("Set Difficulty level !")
+      return
+    }
+    if (!input.topic) {
+      window.alert("Set topic !")
+      return
+    }
+    if (!input.answer) {
+      window.alert("Set answer !")
+      return
+    }
+
+
     await API.graphql({
       query: updateQuestion,
       variables: { input: input },

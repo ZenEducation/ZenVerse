@@ -386,7 +386,7 @@ const fetchExamData = async () => {
 
 onMounted(async () => {
   await fetchExamData();
-  selected.value = examData.value.Sections.items[0].id
+  selected.value = examData.value.Sections.items[0].id 
   console.log(examData.value);
 });
 
@@ -425,6 +425,9 @@ const addSection = async (temp) => {
 const isAddQueModalActive = ref(false);
 const newQueName = ref("");
 const addQue = async (type) => {
+
+
+
   const newQueInput = {
     sectionID: selected.value,
     examID: examId,

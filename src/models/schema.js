@@ -224,7 +224,7 @@ export const schema = {
                 "marks": {
                     "name": "marks",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -2525,7 +2525,7 @@ export const schema = {
                 "marks": {
                     "name": "marks",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -2533,5 +2533,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "3a64f315a40846cb7772ef06745c3b33"
+    "version": "10ad8e793587dcbfb12524d1e32ea526"
 };

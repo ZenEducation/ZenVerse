@@ -2,7 +2,13 @@
   <NuxtLayout name="lmsstudent">
     <div class="flex max-md:block">
       <div class="w-2/3 max-md:w-full max-md:h-auto h-screen p-10 pb-30">
-
+        <NuxtLink to="/examportal/learner/Dashboard">
+          <div class="text-[13px] flex items-center cursor-pointer">
+            <img class="w-[14px] h-[14px]"
+              src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
+            <p class="p-2.5">Back</p>
+          </div>
+        </NuxtLink>
         <p class="capitalize font-bold text-2xl">
           {{ examData.mockTestTitle }}
         </p>

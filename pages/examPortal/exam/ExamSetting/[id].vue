@@ -22,7 +22,7 @@ import {
   mdiMenu,
   mdiPublish,
 } from "@mdi/js";
-import { deleteMockTest, updateMockTest } from "~~/src/graphql/mutations";
+import { deleteMockTest, updateMockTest , updateExam } from "~~/src/graphql/mutations";
 import { MenuItems } from "@headlessui/vue";
 import { Item } from "paper/dist/paper-core";
 
@@ -151,6 +151,10 @@ const handleSave = async () => {
       variables: { input: input },
     });
     console.log(response.data.updateMockTest);
+    await API.graphql({
+      query: updateExam,
+      variables: { input: { id: response.data.updateMockTest.mockTestExamId, _version: response.data.updateMockTest.Exam._version, title: input.name } },
+    });
     console.log(item.value);
     window.alert("changes are saved Successfully");
   } catch (error) {

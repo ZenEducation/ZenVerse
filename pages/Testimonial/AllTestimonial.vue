@@ -45,7 +45,7 @@ onMounted(() => {
 const handleGetData = async () => {
     try {
         const testimonial = await DataStore.query(TestimonialData);
-        items.value = testimonial.sort((a, b) => a.testiminial_no - b.testiminial_no); // Sort by blogNo in increasing order
+        items.value = testimonial.sort((a, b) => b.testiminial_no - a.testiminial_no); // Sort by blogNo in increasing order
         const uniqueCategories = [...new Set(items.value.map(item => item.category))];
         category.value = uniqueCategories;
 

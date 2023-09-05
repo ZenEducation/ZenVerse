@@ -85,11 +85,10 @@
                     </PremFormField>
                     <PremFormField label="Add Image" horizontal>
                         <div
-                            class="flex border border-black dark:border-slate-700 dark:bg-slate-800 rounded-md p-4 justify-center items-center gap-4">
+                            class="flex flexImage border border-black dark:border-slate-700 dark:bg-slate-800 rounded-md p-4 justify-center items-center gap-4">
 
                             <div v-if="uploadedFile">
                                 <img v-if="uploadedFile.file" width="500" :src="uploadedFile.file.url" alt="Image" />
-                                <img v-else width="500" :src="SingleTestimonialImg" alt="Image" />
                             </div>
 
                             <img v-else src="@/images/download.png" alt="Image" />
@@ -447,6 +446,10 @@ const discardBtn = () => {
 @media screen and (max-width: 1024px) {
     .resDis {
         display: none;
+    }
+
+    .flexImage {
+        flex-direction: column;
     }
 }
 </style>

@@ -120,6 +120,15 @@ query MyQuery($id: ID!) {
           title
         }
       }
+      Attempts {
+        items {
+          marks
+          sectionMarks {
+            id
+            marks
+          }
+        }
+      }
     }
     Responces {
       items {
@@ -171,6 +180,11 @@ query MyQuery($id: ID!) {
     status
     examID
     id
+    _version
+    sectionMarks {
+      id
+      marks
+    }
   }
 }
 
@@ -352,37 +366,86 @@ query MyQuery($id: ID!) {
     // data.sections[sectionIdtoIndex[item.Question.sectionID]].questions.push(responce);
   })
 
-  data.SectionValues = {
-    names:[],
-    scores: [],
-    maxMarks: [],
-    accuracy: [],
-    time:[],
-  }
-  for (let item of data.sections) {
-    data.SectionValues.names.push(item.title);
-    data.SectionValues.scores.push(item.score)
+  data.topicsList = [];
+  data.topicsValues = [];
+  for (let item in data.topics) {
+    data.topicsList.push(item);
+    data.topicsValues.push(data.topics[item])
   }
 
   console.log(sectionIdtoIndex);
 
   console.log(data);
+
+  let updateInput = {
+    id: attempt.id,
+    _version: attempt._version,
+    marks: data.questions.score,
+    sectionMarks: [
+    ]
+
+  }
+
+  data.sections.forEach((section) => {
+    updateInput.sectionMarks.push({
+      id: section.id,
+      marks: section.score,
+    })
+  })
+
+  console.log(updateInput);
+
+
+
+  let allMarks = [];
+  let sectionMarks = [];
+
+  attempt?.Exam?.Attempts.items.forEach((item) => {
+    allMarks.push(item.marks);
+    item?.sectionMarks?.forEach((sect) => {
+      if (sectionMarks[sectionIdtoIndex[sect.id]]) {
+        sectionMarks[sectionIdtoIndex[sect.id]]?.push(sect.marks);
+      } else {
+        sectionMarks[sectionIdtoIndex[sect.id]] = [sect.marks];
+      }
+    })
+  })
+
+
+
+
+  console.log(allMarks, sectionMarks);
+  data.sectionMarksList = []; 
+  data.sectionMaxMarksList = [];
+  data.sectionAccuracyList = [];
+  data.sectionTimeList = [];
+  data.sectionNameList = [];
+  for (let i = 0; i < data?.sections?.length ; i++) {
+    data.sectionMarksList.push(data.sections[i].score);
+    data.sectionMaxMarksList.push(data.sections[i].totalMarks);
+    data.sectionAccuracyList.push( Math.round((data.sections[i].isCorrect * 100) / (data.sections[i].isCorrect + data.sections[i].isIncorrect)) || 0 );
+    data.sectionTimeList.push(data.sections[i].time);
+    data.sectionNameList.push(data.sections[i].title)
+  }
+
+
+  data.examID = attempt.examID;
+
   finalData.value = data;
+
   loaded.value = true;
 
 })
 
-
-
 </script>
 <template>
-  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+  <div v-if="loaded" class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
       <NuxtLink :to="'/examportal/learner/examResult/'+attemptId">
         <div class="text-[13px] flex items-center justify-center cursor-pointer">
           <img class="w-[14px] h-[14px]"
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
-          <p class="p-2.5">JEE Main | FSTs </p>
+          <p class="p-2.5">{{finalData.title}} </p>
         </div>
       </NuxtLink>
       <div class="pr-14"></div>
@@ -403,15 +466,15 @@ query MyQuery($id: ID!) {
           finalData.questions.incorrect))} %` }}</b>
         <li> </li>
       </div>
-      <BaseButton label="Compare with Topper" />
+      <!-- <BaseButton label="Compare with Topper" /> -->
     </div>
     <p class="font-bold">Score Vs Sections</p>
     <div class="w-2/3 mx-auto">
 
-      <VerticalBarChart :labels='["section1", "section2"]' x_label="section" y_label="score" :datasets='[
+      <VerticalBarChart :labels='finalData.sectionNameList' x_label="section" y_label="score" :datasets='[
         {
           label: "total Score",
-          data: [55, 34],
+          data: finalData.sectionMaxMarksList,
           backgroundColor: "rgba(68, 119, 170, 0.75)",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
@@ -419,7 +482,7 @@ query MyQuery($id: ID!) {
         },
         {
           label: "my Score",
-          data: [32, 17],
+          data: finalData.sectionMarksList,
           backgroundColor: "green",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
@@ -431,9 +494,9 @@ query MyQuery($id: ID!) {
     <p class="font-bold">Accuracy Vs Sections</p>
     <div class="w-2/3 mx-auto">
 
-      <VerticalBarChart :labels='["section1", "section2"]' x_label="section" y_label="accuracy" :datasets='[
+      <VerticalBarChart :labels='finalData.sectionNameList' x_label="section" y_label="accuracy" :datasets='[
         {
-          data: [55, 34],
+          data: finalData.sectionAccuracyList,
           backgroundColor: "green",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
@@ -444,9 +507,9 @@ query MyQuery($id: ID!) {
     <p class="font-bold">Time Vs Sections</p>
     <div class="w-2/3 mx-auto">
 
-      <VerticalBarChart :labels='["section1", "section2"]' x_label="section" y_label="Time (Minutes)" :datasets='[
+      <VerticalBarChart :labels='finalData.sectionNameList' x_label="section" y_label="Time (Minutes)" :datasets='[
         {
-          data: [5.5, 3],
+          data: finalData.sectionTimeList,
           backgroundColor: "green",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width

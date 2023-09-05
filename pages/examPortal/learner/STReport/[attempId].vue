@@ -224,7 +224,7 @@ query MyQuery($id: ID!) {
   data.colorList = [];
   data.labelsList = [];
 
-  await attempt.Responces.items.forEach((item , index) => {
+  await attempt.Responces.items.forEach((item, index) => {
     let responce = {
       ...item.Question,
       myAns: item.responce,
@@ -293,7 +293,7 @@ query MyQuery($id: ID!) {
     }
 
     data.timeList.push(item.time)
-    data.labelsList.push("Q"+(index + 1))
+    data.labelsList.push("Q" + (index + 1))
 
 
     if (responce.isCorrect) {
@@ -323,7 +323,7 @@ query MyQuery($id: ID!) {
 
       data.colorList.push('green');
 
-    } else if (responce.myAns || responce.myAns == 0) {
+    } else if (responce.myAns.length || responce.myAns === 0 || responce.myAns === '0') {
       // incorrect
       data.sections[sectionIdtoIndex[item.Question.sectionID]].questions++;
       data.sections[sectionIdtoIndex[item.Question.sectionID]].isIncorrect++;
@@ -474,11 +474,12 @@ query MyQuery($id: ID!) {
     </div>
     <div class="flex justify-between items-center p-8">
       <div class="flex gap-2">
-        <span>Questions <b>{{finalData.questions.total}} </b> </span>
+        <span>Questions <b>{{ finalData.questions.total }} </b> </span>
         <li>Correct <b>{{ finalData.questions.correct }}</b></li>Incorrect <b>{{ finalData.questions.incorrect }}</b>
         <li> Skipped <b>{{ finalData.questions.skipped }}</b></li>
         <li> Score <b>{{ finalData.questions.score }}</b></li>
-        <li> Time Taken <b>{{ Math.floor(finalData.questions.timeTaken/60) }} Min {{ Math.floor(finalData.questions.timeTaken % 60) }} Sec</b></li>
+        <li> Time Taken <b>{{ Math.floor(finalData.questions.timeTaken / 60) }} Min {{
+          Math.floor(finalData.questions.timeTaken % 60) }} Sec</b></li>
       </div>
       <!-- <BaseButton label="Compare with Topper" /> -->
     </div>

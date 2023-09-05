@@ -1,7 +1,7 @@
 <script setup>
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import VerticalBarChart from "~~/components/Charts/VerticalBarChart.vue";
-import { API,graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { useRoute } from "vue-router";
 
 const loaded = ref(false)
@@ -314,7 +314,7 @@ query MyQuery($id: ID!) {
 
       data.topics[responce.topic] += responce.ifCorrect;
 
-    } else if (responce.myAns || responce.myAns == 0) {
+    } else if (responce.myAns.length || responce.myAns === 0 || responce.myAns === '0') {
       // incorrect
       data.sections[sectionIdtoIndex[item.Question.sectionID]].questions++;
       data.sections[sectionIdtoIndex[item.Question.sectionID]].isIncorrect++;
@@ -415,15 +415,15 @@ query MyQuery($id: ID!) {
 
 
   console.log(allMarks, sectionMarks);
-  data.sectionMarksList = []; 
+  data.sectionMarksList = [];
   data.sectionMaxMarksList = [];
   data.sectionAccuracyList = [];
   data.sectionTimeList = [];
   data.sectionNameList = [];
-  for (let i = 0; i < data?.sections?.length ; i++) {
+  for (let i = 0; i < data?.sections?.length; i++) {
     data.sectionMarksList.push(data.sections[i].score);
     data.sectionMaxMarksList.push(data.sections[i].totalMarks);
-    data.sectionAccuracyList.push( Math.round((data.sections[i].isCorrect * 100) / (data.sections[i].isCorrect + data.sections[i].isIncorrect)) || 0 );
+    data.sectionAccuracyList.push(Math.round((data.sections[i].isCorrect * 100) / (data.sections[i].isCorrect + data.sections[i].isIncorrect)) || 0);
     data.sectionTimeList.push(data.sections[i].time);
     data.sectionNameList.push(data.sections[i].title)
   }
@@ -441,11 +441,11 @@ query MyQuery($id: ID!) {
 <template>
   <div v-if="loaded" class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
-      <NuxtLink :to="'/examportal/learner/examResult/'+attemptId">
+      <NuxtLink :to="'/examportal/learner/examResult/' + attemptId">
         <div class="text-[13px] flex items-center justify-center cursor-pointer">
           <img class="w-[14px] h-[14px]"
             src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
-          <p class="p-2.5">{{finalData.title}} </p>
+          <p class="p-2.5">{{ finalData.title }} </p>
         </div>
       </NuxtLink>
       <div class="pr-14"></div>
@@ -454,16 +454,17 @@ query MyQuery($id: ID!) {
   <div v-if="loaded" class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
     <div class="flex justify-between items-center p-8">
       <p class="text-2xl font-semibold">Section Report</p>
-      <NuxtLink :to="'/examportal/learner/examSolution/'+attemptId">
+      <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
         <BaseButton label="View Solution" color="info" />
       </NuxtLink>
 
     </div>
     <div class="flex justify-between items-center p-8">
       <div class="flex gap-2">
-        <span>Total Sections <b>{{finalData.sections.length}} </b> </span>
-        <li>Total Score <b>{{ finalData.marks.correct + finalData.marks.negative }}</b></li>accuracy <b>{{ `${Math.round((finalData.questions.correct * 100) / (finalData.questions.correct +
-          finalData.questions.incorrect))} %` }}</b>
+        <span>Total Sections <b>{{ finalData.sections.length }} </b> </span>
+        <li>Total Score <b>{{ finalData.marks.correct + finalData.marks.negative }}</b></li>accuracy <b>{{
+          `${Math.round((finalData.questions.correct * 100) / (finalData.questions.correct +
+            finalData.questions.incorrect)) || 0} %` }}</b>
         <li> </li>
       </div>
       <!-- <BaseButton label="Compare with Topper" /> -->

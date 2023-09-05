@@ -49,7 +49,7 @@
           </div>
 
         </div>
-        <div v-if="!currentQuestion.isCorrect && currentQuestion.myAns && currentQuestion.type != 'PARA'"
+        <div v-if="!currentQuestion.isCorrect && currentQuestion.myAns.length && currentQuestion.type != 'PARA'"
           class="border-red-500 border-1 bg-red-100 flex  justify-between items-center py-2 px-4 ">
           <div class="flex">
             <BaseIcon :path="mdiClose" />
@@ -639,7 +639,8 @@ const findstyle = (section, question) => {
   ) {
     return ["bg-green-400", false];
   }
-  if (test.value.sections[section].questions[question].myAns) {
+  // console.log(test.value.sections[section].questions[question].myAns.length);
+  if (test.value.sections[section].questions[question].myAns.length) {
     return ["bg-red-200", false];
   }
   return ["bg-slate-400", false];

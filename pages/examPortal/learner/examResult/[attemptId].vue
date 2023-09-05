@@ -25,11 +25,11 @@
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Accuracy</p>
           <p>{{ `${Math.round((finalData.questions.correct * 100) / (finalData.questions.correct +
-            finalData.questions.incorrect))} %` }}</p>
+            finalData.questions.incorrect)) || 0} %` }}</p>
         </div>
         <div class="w-5/6 mx-auto h-6 flex items-center justify-between font-semibold">
           <p>Percentage</p>
-          <p>{{ `${Math.round((finalData.questions.score * 100) / (finalData.marks.correct + finalData.marks.incorrect))}
+          <p>{{ `${Math.round((finalData.questions.score * 100) / (finalData.marks.correct + finalData.marks.incorrect)) || 0}
             %`
           }}</p>
         </div>
@@ -699,7 +699,7 @@ query MyQuery($id: ID!) {
 
       data.topics[responce.topic] += responce.ifCorrect;
 
-    } else if (responce.myAns || responce.myAns == 0) {
+    } else if (responce.myAns.length || responce.myAns === 0 || responce.myAns === '0') {
       // incorrect
       data.sections[sectionIdtoIndex[item.Question.sectionID]].questions++;
       data.sections[sectionIdtoIndex[item.Question.sectionID]].isIncorrect++;
@@ -870,7 +870,7 @@ query MyQuery($id: ID!) {
 
   };
 
-  
+
 
   loaded.value = true;
 

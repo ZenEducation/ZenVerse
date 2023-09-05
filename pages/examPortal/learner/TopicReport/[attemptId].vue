@@ -222,7 +222,7 @@ query MyQuery($id: ID!) {
   let count = 1;
 
   data.topicsMaxScore = {
-    
+
   }
   data.topicsObtainedScore = {
 
@@ -350,7 +350,7 @@ query MyQuery($id: ID!) {
       data.topicsQueCorrect[responce.topic]++;
       data.topicsObtainedScore[responce.topic] += responce.ifCorrect;
 
-    } else if (responce.myAns || responce.myAns == 0) {
+    } else if (responce.myAns.length || responce.myAns === 0 || responce.myAns === '0') {
       // incorrect
       data.sections[sectionIdtoIndex[item.Question.sectionID]].questions++;
       data.sections[sectionIdtoIndex[item.Question.sectionID]].isIncorrect++;
@@ -408,12 +408,12 @@ query MyQuery($id: ID!) {
   data.topicsValues = [];
   data.topicData = {
     topicsMaxScore: [],
-    topicsObtainedScore:[],
-    topicsQueCount:[],
-    topicsQueCorrect:[],
+    topicsObtainedScore: [],
+    topicsQueCount: [],
+    topicsQueCorrect: [],
     topicsQueIncorrect: [],
-    topicAccuracy:[],
-    topicTime:[],
+    topicAccuracy: [],
+    topicTime: [],
   }
   for (let item in data.topics) {
     data.topicsList.push(item);
@@ -423,7 +423,7 @@ query MyQuery($id: ID!) {
     data.topicData.topicsQueCount.push(data.topicsQueCount[item])
     data.topicData.topicsQueCorrect.push(data.topicsQueCorrect[item])
     data.topicData.topicsQueIncorrect.push(data.topicsQueIncorrect[item])
-    data.topicData.topicAccuracy.push(Math.floor(data.topicsQueCorrect[item]*100 /(data.topicsQueCorrect[item] + data.topicsQueIncorrect[item]) || 0))
+    data.topicData.topicAccuracy.push(Math.floor(data.topicsQueCorrect[item] * 100 / (data.topicsQueCorrect[item] + data.topicsQueIncorrect[item]) || 0))
     data.topicData.topicTime.push(data.topicTime[item])
   }
 
@@ -471,28 +471,31 @@ query MyQuery($id: ID!) {
 <template>
   <div v-if="loaded" class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
     <div class="border-b w-full flex justify-between items-center px-5 py-2">
-        <NuxtLink :to="'/examportal/learner/examResult/' + attemptId">
-          <div class="text-[13px] flex items-center justify-center cursor-pointer">
-            <img class="w-[14px] h-[14px]"
-              src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
-            <p class="p-2.5">{{ finalData.title }} </p>
-          </div>
-        </NuxtLink>
+      <NuxtLink :to="'/examportal/learner/examResult/' + attemptId">
+        <div class="text-[13px] flex items-center justify-center cursor-pointer">
+          <img class="w-[14px] h-[14px]"
+            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
+          <p class="p-2.5">{{ finalData.title }} </p>
+        </div>
+      </NuxtLink>
       <div class="pr-14"></div>
     </div>
   </div>
-  <div  v-if="loaded"  class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
+  <div v-if="loaded" class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
     <div class="flex justify-between items-center p-8">
       <p class="text-2xl font-semibold">Topic Report</p>
-        <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
-          <BaseButton label="View Solution" color="info" />
+      <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
+        <BaseButton label="View Solution" color="info" />
       </NuxtLink>
 
     </div>
     <div class="flex justify-between items-center p-8">
       <div class="flex gap-2">
-        <span>Total Topics <b>{{ finalData.topicsList.length }} </b> </span> <li> Score <b>{{finalData.questions.score}}</b></li>accuracy <b>{{ `${Math.round((finalData.questions.correct * 100) / (finalData.questions.correct +
-          finalData.questions.incorrect))} %` }}</b> <li> </li>
+        <span>Total Topics <b>{{ finalData.topicsList.length }} </b> </span>
+        <li> Score <b>{{ finalData.questions.score }}</b></li>accuracy <b>{{ `${Math.round((finalData.questions.correct *
+          100) / (finalData.questions.correct +
+            finalData.questions.incorrect)) || 0} %` }}</b>
+        <li> </li>
       </div>
       <!-- <BaseButton label="Compare with Topper" /> -->
     </div>
@@ -523,71 +526,70 @@ query MyQuery($id: ID!) {
 
       <VerticalBarChart :labels='finalData.topicsList' x_label="Topic" y_label="score" :datasets='[
         {
-          label:"total Score",
-                            data: finalData.topicData.topicsMaxScore,
-                            backgroundColor: "rgba(68, 119, 170, 0.75)",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          },
-                          {
-                            label:"my Score",
-                            data: finalData.topicData.topicsObtainedScore,
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
-                      </div>
+          label: "total Score",
+          data: finalData.topicData.topicsMaxScore,
+          backgroundColor: "rgba(68, 119, 170, 0.75)",
+          barPercentage: 0.4, // Set the bar width as a percentage of available space
+          categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
+
+        },
+        {
+          label: "my Score",
+          data: finalData.topicData.topicsObtainedScore,
+          backgroundColor: "green",
+          barPercentage: 0.4, // Set the bar width as a percentage of available space
+          categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
+
+        }
+      ]' />
+    </div>
 
     <p class="font-bold">Accuracy Vs Topics</p>
     <div class="w-2/3 mx-auto">
 
       <VerticalBarChart :labels='finalData.topicsList' x_label="Topic" y_label="accuracy" :datasets='[
         {
-                            data:finalData.topicData.topicAccuracy,
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
-                      </div>
-                      <p class="font-bold">Time Vs Topics</p>
+          data: finalData.topicData.topicAccuracy,
+          backgroundColor: "green",
+          barPercentage: 0.4, // Set the bar width as a percentage of available space
+          categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
+
+        }
+      ]' />
+    </div>
+    <p class="font-bold">Time Vs Topics</p>
     <div class="w-2/3 mx-auto">
 
       <VerticalBarChart :labels='finalData.topicsList' x_label="Topic" y_label="Time (Seconds)" :datasets='[
         {
-                            data: finalData.topicData.topicTime,
-                            backgroundColor: "green",
-                            barPercentage: 0.4, // Set the bar width as a percentage of available space
-                            categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
-                      
-                          }
-                        ]'   />
+          data: finalData.topicData.topicTime,
+          backgroundColor: "green",
+          barPercentage: 0.4, // Set the bar width as a percentage of available space
+          categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
+
+        }
+      ]' />
     </div>
 
 
 
 
   </div>
-
-
-
-
 </template>
 
 <style>
 thead {
   display: table-header-group;
 }
+
 tr {
   display: table-row;
 }
+
 td {
   display: table-cell;
 }
+
 tbody {
   display: table-row-group;
 }

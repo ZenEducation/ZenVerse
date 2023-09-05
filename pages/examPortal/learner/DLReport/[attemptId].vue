@@ -340,7 +340,7 @@ query MyQuery($id: ID!) {
       data.topics[responce.topic] += responce.ifCorrect;
       data.correct[responce.difficuilty]++;
 
-    } else if (responce.myAns || responce.myAns == 0) {
+    } else if (responce.myAns.length || responce.myAns === 0 || responce.myAns === '0') {
       // incorrect
       data.sections[sectionIdtoIndex[item.Question.sectionID]].questions++;
       data.sections[sectionIdtoIndex[item.Question.sectionID]].isIncorrect++;

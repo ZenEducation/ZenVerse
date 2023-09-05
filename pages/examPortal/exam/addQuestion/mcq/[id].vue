@@ -57,7 +57,7 @@
         </PremFormField>
         <div class="flex gap-5 items-start">
           <PremFormField label="Marks (+)">
-            <PremFormControl placeholder="Correct" v-model="question.ifCorrect"  type="number" />
+            <PremFormControl placeholder="Correct" v-model="question.ifCorrect" type="number" />
           </PremFormField>
           <PremFormField label="Marks (-)">
             <PremFormControl placeholder="Wrong" v-model="question.ifWrong" type="number" />
@@ -372,7 +372,7 @@ const saveHandler = async () => {
     }
 
     if (!input.ifCorrect || !input.ifWrong) {
-      window.alert("correct/incorrect must be present !")
+      window.alert("Please enter the Marks")
       return
     }
     if (!input.difficuilty) {

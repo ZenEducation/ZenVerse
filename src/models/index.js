@@ -21,7 +21,7 @@ const Difficuilty = {
   "HARD": "HARD"
 };
 
-const { Topic, Responce, Attempt, Question, Group, Section, Exam, VariablePricing, MockTest, Learner, Affiliate, Admin, Instructor, MockTestLearner, MockTestAffiliate, MockTestAdmin, MockTestInstructor, Criteria, Option, Range, SectionMarks } = initSchema(schema);
+const { Topic, Responce, Attempt, Question, Group, Section, Exam, VariablePricing, TestSeries, MockTest, Learner, Affiliate, Admin, Instructor, TestSeriesLearner, TestSeriesAffiliate, TestSeriesAdmin, TestSeriesInstructor, TestSeriesMockTest, MockTestLearner, MockTestAffiliate, MockTestAdmin, MockTestInstructor, Criteria, Option, Range, SectionMarks, Dripping, Order } = initSchema(schema);
 
 export {
   Topic,
@@ -32,11 +32,17 @@ export {
   Section,
   Exam,
   VariablePricing,
+  TestSeries,
   MockTest,
   Learner,
   Affiliate,
   Admin,
   Instructor,
+  TestSeriesLearner,
+  TestSeriesAffiliate,
+  TestSeriesAdmin,
+  TestSeriesInstructor,
+  TestSeriesMockTest,
   MockTestLearner,
   MockTestAffiliate,
   MockTestAdmin,
@@ -47,5 +53,7 @@ export {
   Criteria,
   Option,
   Range,
-  SectionMarks
+  SectionMarks,
+  Dripping,
+  Order
 };

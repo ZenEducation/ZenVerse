@@ -234,7 +234,7 @@ const saveHandler = async () => {
     }
 
     if (!input.ifCorrect || !input.ifWrong) {
-      window.alert("correct/incorrect must be present !")
+      window.alert("Please enter the Marks")
       return
     }
     if (!input.difficuilty) {

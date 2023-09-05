@@ -959,6 +959,20 @@ export const schema = {
                         ]
                     }
                 },
+                "attachmentTitle": {
+                    "name": "attachmentTitle",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "attachmentDesc": {
+                    "name": "attachmentDesc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1043,7 +1057,14 @@ export const schema = {
                     "name": "mocktestID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testseriesID": {
+                    "name": "testseriesID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -1078,6 +1099,288 @@ export const schema = {
                             "mocktestID"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testseriesID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeries": {
+            "name": "TestSeries",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "shortId": {
+                    "name": "shortId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isFree": {
+                    "name": "isFree",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "publishingDate": {
+                    "name": "publishingDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "publishingStatus": {
+                    "name": "publishingStatus",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "shortDescription": {
+                    "name": "shortDescription",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "price": {
+                    "name": "price",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "discount": {
+                    "name": "discount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isValidityDays": {
+                    "name": "isValidityDays",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "validityDays": {
+                    "name": "validityDays",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "expiryDate": {
+                    "name": "expiryDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isDripping": {
+                    "name": "isDripping",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isDrippingFixedDate": {
+                    "name": "isDrippingFixedDate",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "drippingFixedDate": {
+                    "name": "drippingFixedDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "drippings": {
+                    "name": "drippings",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Dripping"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "orders": {
+                    "name": "orders",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Order"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "VariablePricing": {
+                    "name": "VariablePricing",
+                    "isArray": true,
+                    "type": {
+                        "model": "VariablePricing"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testseriesID"
+                        ]
+                    }
+                },
+                "Learners": {
+                    "name": "Learners",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesLearner"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testSeries"
+                        ]
+                    }
+                },
+                "Affiliates": {
+                    "name": "Affiliates",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesAffiliate"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testSeries"
+                        ]
+                    }
+                },
+                "Admin": {
+                    "name": "Admin",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesAdmin"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testSeries"
+                        ]
+                    }
+                },
+                "Instructors": {
+                    "name": "Instructors",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesInstructor"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testSeries"
+                        ]
+                    }
+                },
+                "MockTests": {
+                    "name": "MockTests",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesMockTest"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "testSeries"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeries",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -1289,6 +1592,22 @@ export const schema = {
                         ]
                     }
                 },
+                "testseriess": {
+                    "name": "testseriess",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesMockTest"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "mockTest"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1452,6 +1771,22 @@ export const schema = {
                     "isArray": true,
                     "type": {
                         "model": "MockTestLearner"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "learner"
+                        ]
+                    }
+                },
+                "testseriess": {
+                    "name": "testseriess",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesLearner"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -1644,6 +1979,22 @@ export const schema = {
                         ]
                     }
                 },
+                "testseriess": {
+                    "name": "testseriess",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesAffiliate"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "affiliate"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1800,6 +2151,22 @@ export const schema = {
                     "isArray": true,
                     "type": {
                         "model": "MockTestAdmin"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "admin"
+                        ]
+                    }
+                },
+                "testseriess": {
+                    "name": "testseriess",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesAdmin"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -1978,6 +2345,22 @@ export const schema = {
                         ]
                     }
                 },
+                "testseriess": {
+                    "name": "testseriess",
+                    "isArray": true,
+                    "type": {
+                        "model": "TestSeriesInstructor"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "instructor"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -2015,6 +2398,496 @@ export const schema = {
                                     "read"
                                 ]
                             }
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeriesLearner": {
+            "name": "TestSeriesLearner",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "testSeriesId": {
+                    "name": "testSeriesId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "learnerId": {
+                    "name": "learnerId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testSeries": {
+                    "name": "testSeries",
+                    "isArray": false,
+                    "type": {
+                        "model": "TestSeries"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                "learner": {
+                    "name": "learner",
+                    "isArray": false,
+                    "type": {
+                        "model": "Learner"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "learnerId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeriesLearners",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byLearner",
+                        "fields": [
+                            "learnerId"
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeriesAffiliate": {
+            "name": "TestSeriesAffiliate",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "testSeriesId": {
+                    "name": "testSeriesId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "affiliateId": {
+                    "name": "affiliateId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testSeries": {
+                    "name": "testSeries",
+                    "isArray": false,
+                    "type": {
+                        "model": "TestSeries"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                "affiliate": {
+                    "name": "affiliate",
+                    "isArray": false,
+                    "type": {
+                        "model": "Affiliate"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "affiliateId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeriesAffiliates",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byAffiliate",
+                        "fields": [
+                            "affiliateId"
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeriesAdmin": {
+            "name": "TestSeriesAdmin",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "testSeriesId": {
+                    "name": "testSeriesId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "adminId": {
+                    "name": "adminId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testSeries": {
+                    "name": "testSeries",
+                    "isArray": false,
+                    "type": {
+                        "model": "TestSeries"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                "admin": {
+                    "name": "admin",
+                    "isArray": false,
+                    "type": {
+                        "model": "Admin"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "adminId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeriesAdmins",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byAdmin",
+                        "fields": [
+                            "adminId"
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeriesInstructor": {
+            "name": "TestSeriesInstructor",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "testSeriesId": {
+                    "name": "testSeriesId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "instructorId": {
+                    "name": "instructorId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testSeries": {
+                    "name": "testSeries",
+                    "isArray": false,
+                    "type": {
+                        "model": "TestSeries"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                "instructor": {
+                    "name": "instructor",
+                    "isArray": false,
+                    "type": {
+                        "model": "Instructor"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "instructorId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeriesInstructors",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byInstructor",
+                        "fields": [
+                            "instructorId"
+                        ]
+                    }
+                }
+            ]
+        },
+        "TestSeriesMockTest": {
+            "name": "TestSeriesMockTest",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "testSeriesId": {
+                    "name": "testSeriesId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "mockTestId": {
+                    "name": "mockTestId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "testSeries": {
+                    "name": "testSeries",
+                    "isArray": false,
+                    "type": {
+                        "model": "TestSeries"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                "mockTest": {
+                    "name": "mockTest",
+                    "isArray": false,
+                    "type": {
+                        "model": "MockTest"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "mockTestId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "TestSeriesMockTests",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTestSeries",
+                        "fields": [
+                            "testSeriesId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byMockTest",
+                        "fields": [
+                            "mockTestId"
                         ]
                     }
                 }
@@ -2530,8 +3403,46 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "Dripping": {
+            "name": "Dripping",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "days": {
+                    "name": "days",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "Order": {
+            "name": "Order",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "order": {
+                    "name": "order",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "10ad8e793587dcbfb12524d1e32ea526"
+    "version": "36feaa7548577ac4d2b28f7143c3301b"
 };

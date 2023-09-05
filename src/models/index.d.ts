@@ -81,6 +81,34 @@ export declare type SectionMarks = LazyLoading extends LazyLoadingDisabled ? Eag
 
 export declare const SectionMarks: (new (init: ModelInit<SectionMarks>) => SectionMarks)
 
+type EagerDripping = {
+  readonly id?: string | null;
+  readonly days?: number | null;
+}
+
+type LazyDripping = {
+  readonly id?: string | null;
+  readonly days?: number | null;
+}
+
+export declare type Dripping = LazyLoading extends LazyLoadingDisabled ? EagerDripping : LazyDripping
+
+export declare const Dripping: (new (init: ModelInit<Dripping>) => Dripping)
+
+type EagerOrder = {
+  readonly id?: string | null;
+  readonly order?: number | null;
+}
+
+type LazyOrder = {
+  readonly id?: string | null;
+  readonly order?: number | null;
+}
+
+export declare type Order = LazyLoading extends LazyLoadingDisabled ? EagerOrder : LazyOrder
+
+export declare const Order: (new (init: ModelInit<Order>) => Order)
+
 type EagerTopic = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Topic, 'id'>;
@@ -351,6 +379,8 @@ type EagerExam = {
   readonly Groups?: (Group | null)[] | null;
   readonly Questions?: (Question | null)[] | null;
   readonly Attempts?: (Attempt | null)[] | null;
+  readonly attachmentTitle?: string | null;
+  readonly attachmentDesc?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;
@@ -370,6 +400,8 @@ type LazyExam = {
   readonly Groups: AsyncCollection<Group>;
   readonly Questions: AsyncCollection<Question>;
   readonly Attempts: AsyncCollection<Attempt>;
+  readonly attachmentTitle?: string | null;
+  readonly attachmentDesc?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;
@@ -390,7 +422,8 @@ type EagerVariablePricing = {
   readonly days?: number | null;
   readonly price?: number | null;
   readonly discountPrice?: number | null;
-  readonly mocktestID: string;
+  readonly mocktestID?: string | null;
+  readonly testseriesID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -404,7 +437,8 @@ type LazyVariablePricing = {
   readonly days?: number | null;
   readonly price?: number | null;
   readonly discountPrice?: number | null;
-  readonly mocktestID: string;
+  readonly mocktestID?: string | null;
+  readonly testseriesID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -413,6 +447,78 @@ export declare type VariablePricing = LazyLoading extends LazyLoadingDisabled ? 
 
 export declare const VariablePricing: (new (init: ModelInit<VariablePricing>) => VariablePricing) & {
   copyOf(source: VariablePricing, mutator: (draft: MutableModel<VariablePricing>) => MutableModel<VariablePricing> | void): VariablePricing;
+}
+
+type EagerTestSeries = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeries, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name?: string | null;
+  readonly shortId?: string | null;
+  readonly isFree?: boolean | null;
+  readonly publishingDate?: string | null;
+  readonly publishingStatus?: string | null;
+  readonly description?: string | null;
+  readonly shortDescription?: string | null;
+  readonly price?: number | null;
+  readonly discount?: number | null;
+  readonly isValidityDays?: boolean | null;
+  readonly validityDays?: number | null;
+  readonly expiryDate?: string | null;
+  readonly isDripping?: boolean | null;
+  readonly isDrippingFixedDate?: boolean | null;
+  readonly drippingFixedDate?: string | null;
+  readonly drippings?: (Dripping | null)[] | null;
+  readonly orders?: (Order | null)[] | null;
+  readonly VariablePricing?: (VariablePricing | null)[] | null;
+  readonly Learners?: (TestSeriesLearner | null)[] | null;
+  readonly Affiliates?: (TestSeriesAffiliate | null)[] | null;
+  readonly Admin?: (TestSeriesAdmin | null)[] | null;
+  readonly Instructors?: (TestSeriesInstructor | null)[] | null;
+  readonly MockTests?: (TestSeriesMockTest | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeries = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeries, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name?: string | null;
+  readonly shortId?: string | null;
+  readonly isFree?: boolean | null;
+  readonly publishingDate?: string | null;
+  readonly publishingStatus?: string | null;
+  readonly description?: string | null;
+  readonly shortDescription?: string | null;
+  readonly price?: number | null;
+  readonly discount?: number | null;
+  readonly isValidityDays?: boolean | null;
+  readonly validityDays?: number | null;
+  readonly expiryDate?: string | null;
+  readonly isDripping?: boolean | null;
+  readonly isDrippingFixedDate?: boolean | null;
+  readonly drippingFixedDate?: string | null;
+  readonly drippings?: (Dripping | null)[] | null;
+  readonly orders?: (Order | null)[] | null;
+  readonly VariablePricing: AsyncCollection<VariablePricing>;
+  readonly Learners: AsyncCollection<TestSeriesLearner>;
+  readonly Affiliates: AsyncCollection<TestSeriesAffiliate>;
+  readonly Admin: AsyncCollection<TestSeriesAdmin>;
+  readonly Instructors: AsyncCollection<TestSeriesInstructor>;
+  readonly MockTests: AsyncCollection<TestSeriesMockTest>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeries = LazyLoading extends LazyLoadingDisabled ? EagerTestSeries : LazyTestSeries
+
+export declare const TestSeries: (new (init: ModelInit<TestSeries>) => TestSeries) & {
+  copyOf(source: TestSeries, mutator: (draft: MutableModel<TestSeries>) => MutableModel<TestSeries> | void): TestSeries;
 }
 
 type EagerMockTest = {
@@ -439,6 +545,7 @@ type EagerMockTest = {
   readonly Affiliates?: (MockTestAffiliate | null)[] | null;
   readonly Admin?: (MockTestAdmin | null)[] | null;
   readonly Instructors?: (MockTestInstructor | null)[] | null;
+  readonly testseriess?: (TestSeriesMockTest | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly mockTestExamId?: string | null;
@@ -468,6 +575,7 @@ type LazyMockTest = {
   readonly Affiliates: AsyncCollection<MockTestAffiliate>;
   readonly Admin: AsyncCollection<MockTestAdmin>;
   readonly Instructors: AsyncCollection<MockTestInstructor>;
+  readonly testseriess: AsyncCollection<TestSeriesMockTest>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly mockTestExamId?: string | null;
@@ -500,6 +608,7 @@ type EagerLearner = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests?: (MockTestLearner | null)[] | null;
+  readonly testseriess?: (TestSeriesLearner | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -525,6 +634,7 @@ type LazyLearner = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests: AsyncCollection<MockTestLearner>;
+  readonly testseriess: AsyncCollection<TestSeriesLearner>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -558,6 +668,7 @@ type EagerAffiliate = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests?: (MockTestAffiliate | null)[] | null;
+  readonly testseriess?: (TestSeriesAffiliate | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -585,6 +696,7 @@ type LazyAffiliate = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests: AsyncCollection<MockTestAffiliate>;
+  readonly testseriess: AsyncCollection<TestSeriesAffiliate>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -616,6 +728,7 @@ type EagerAdmin = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests?: (MockTestAdmin | null)[] | null;
+  readonly testseriess?: (TestSeriesAdmin | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -641,6 +754,7 @@ type LazyAdmin = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests: AsyncCollection<MockTestAdmin>;
+  readonly testseriess: AsyncCollection<TestSeriesAdmin>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -672,6 +786,7 @@ type EagerInstructor = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests?: (MockTestInstructor | null)[] | null;
+  readonly testseriess?: (TestSeriesInstructor | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -697,6 +812,7 @@ type LazyInstructor = {
   readonly language?: string | null;
   readonly userNote?: string | null;
   readonly mocktests: AsyncCollection<MockTestInstructor>;
+  readonly testseriess: AsyncCollection<TestSeriesInstructor>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -705,6 +821,176 @@ export declare type Instructor = LazyLoading extends LazyLoadingDisabled ? Eager
 
 export declare const Instructor: (new (init: ModelInit<Instructor>) => Instructor) & {
   copyOf(source: Instructor, mutator: (draft: MutableModel<Instructor>) => MutableModel<Instructor> | void): Instructor;
+}
+
+type EagerTestSeriesLearner = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesLearner, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly learnerId?: string | null;
+  readonly testSeries: TestSeries;
+  readonly learner: Learner;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeriesLearner = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesLearner, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly learnerId?: string | null;
+  readonly testSeries: AsyncItem<TestSeries>;
+  readonly learner: AsyncItem<Learner>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeriesLearner = LazyLoading extends LazyLoadingDisabled ? EagerTestSeriesLearner : LazyTestSeriesLearner
+
+export declare const TestSeriesLearner: (new (init: ModelInit<TestSeriesLearner>) => TestSeriesLearner) & {
+  copyOf(source: TestSeriesLearner, mutator: (draft: MutableModel<TestSeriesLearner>) => MutableModel<TestSeriesLearner> | void): TestSeriesLearner;
+}
+
+type EagerTestSeriesAffiliate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesAffiliate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly affiliateId?: string | null;
+  readonly testSeries: TestSeries;
+  readonly affiliate: Affiliate;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeriesAffiliate = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesAffiliate, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly affiliateId?: string | null;
+  readonly testSeries: AsyncItem<TestSeries>;
+  readonly affiliate: AsyncItem<Affiliate>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeriesAffiliate = LazyLoading extends LazyLoadingDisabled ? EagerTestSeriesAffiliate : LazyTestSeriesAffiliate
+
+export declare const TestSeriesAffiliate: (new (init: ModelInit<TestSeriesAffiliate>) => TestSeriesAffiliate) & {
+  copyOf(source: TestSeriesAffiliate, mutator: (draft: MutableModel<TestSeriesAffiliate>) => MutableModel<TestSeriesAffiliate> | void): TestSeriesAffiliate;
+}
+
+type EagerTestSeriesAdmin = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesAdmin, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly adminId?: string | null;
+  readonly testSeries: TestSeries;
+  readonly admin: Admin;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeriesAdmin = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesAdmin, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly adminId?: string | null;
+  readonly testSeries: AsyncItem<TestSeries>;
+  readonly admin: AsyncItem<Admin>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeriesAdmin = LazyLoading extends LazyLoadingDisabled ? EagerTestSeriesAdmin : LazyTestSeriesAdmin
+
+export declare const TestSeriesAdmin: (new (init: ModelInit<TestSeriesAdmin>) => TestSeriesAdmin) & {
+  copyOf(source: TestSeriesAdmin, mutator: (draft: MutableModel<TestSeriesAdmin>) => MutableModel<TestSeriesAdmin> | void): TestSeriesAdmin;
+}
+
+type EagerTestSeriesInstructor = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesInstructor, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly instructorId?: string | null;
+  readonly testSeries: TestSeries;
+  readonly instructor: Instructor;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeriesInstructor = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesInstructor, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly instructorId?: string | null;
+  readonly testSeries: AsyncItem<TestSeries>;
+  readonly instructor: AsyncItem<Instructor>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeriesInstructor = LazyLoading extends LazyLoadingDisabled ? EagerTestSeriesInstructor : LazyTestSeriesInstructor
+
+export declare const TestSeriesInstructor: (new (init: ModelInit<TestSeriesInstructor>) => TestSeriesInstructor) & {
+  copyOf(source: TestSeriesInstructor, mutator: (draft: MutableModel<TestSeriesInstructor>) => MutableModel<TestSeriesInstructor> | void): TestSeriesInstructor;
+}
+
+type EagerTestSeriesMockTest = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesMockTest, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly mockTestId?: string | null;
+  readonly testSeries: TestSeries;
+  readonly mockTest: MockTest;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyTestSeriesMockTest = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TestSeriesMockTest, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly testSeriesId?: string | null;
+  readonly mockTestId?: string | null;
+  readonly testSeries: AsyncItem<TestSeries>;
+  readonly mockTest: AsyncItem<MockTest>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type TestSeriesMockTest = LazyLoading extends LazyLoadingDisabled ? EagerTestSeriesMockTest : LazyTestSeriesMockTest
+
+export declare const TestSeriesMockTest: (new (init: ModelInit<TestSeriesMockTest>) => TestSeriesMockTest) & {
+  copyOf(source: TestSeriesMockTest, mutator: (draft: MutableModel<TestSeriesMockTest>) => MutableModel<TestSeriesMockTest> | void): TestSeriesMockTest;
 }
 
 type EagerMockTestLearner = {

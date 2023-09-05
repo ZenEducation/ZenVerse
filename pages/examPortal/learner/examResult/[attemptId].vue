@@ -204,12 +204,14 @@
       </NuxtLink>
     </div>
     <div class="flex justify-center w-4/6">
-      <VerticalBarChart :labels="finalData.topicsList" x_label="Topic" y_label="Topic marks distribution And score"
+      <VerticalBarChart :labels="finalData.topicsList" x_label="Topic" y_label="Topic wise marks scored"
         :datasets="[
           {
             barPercentage: 0.4, // Set the bar width as a percentage of available space
             categoryPercentage: 0.5, // Set the width of each category as a percentage of the total axis width
             data: finalData.topicsValues,
+            backgroundColor: ['green'],
+
           },
         ]" />
     </div>

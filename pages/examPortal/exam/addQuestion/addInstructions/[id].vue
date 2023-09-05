@@ -119,5 +119,44 @@ import '@/assets/css/basic.css'
 </script>
 <style scoped>
 
-
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  h4 {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  
+  h5 {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  
+  h6 {
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  
+  /* Styles for paragraphs */
+  p {
+    font-size: 1em;
+    line-height: 1.4;
+  }
+  
+  /* Styles for strong text */
+  strong {
+    font-weight: bold;
+  }
 </style>

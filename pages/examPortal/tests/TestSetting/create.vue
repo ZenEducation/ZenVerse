@@ -1,14 +1,17 @@
 <script setup>
-import SectionMain from "@/components/Sections/SectionMain.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";
 import BasicSettings from "~~/components/LMS/Bundle/BasicSettings.vue";
-import pricingValidity from "~~/components/LMS/Bundle/pricingValidity.vue";
+import pricingValidity from "~~/components/LMS/Bundle/pricingValidityCreate.vue";
 import Publish from "~~/components/LMS/Bundle/Publish.vue";
-import ManageUser from "~~/components/LMS/Bundle/ManageUser.vue";
-import AddProducts from "~~/components/LMS/Bundle/AddProducts.vue";
-import ManageOrder from "~~/components/LMS/Bundle/ManageOrder.vue";
-import Dripping from "~~/components/LMS/Bundle/dripping.vue";
+import { API } from "aws-amplify";
+import {
+  createMockTest,
+  createExam,
+  updateExam,
+  createTestSeries
+} from "~~/src/graphql/mutations";
+
 
 import {
   mdiAccountCog,
@@ -35,6 +38,122 @@ const isModalSaveActive = ref(false);
 const isModalDeleteActive = ref(false);
 
 const isActive = ref(0);
+const item = ref({
+  isValidityDays: true,
+  isFree: true,
+  publishingStatus: "Unpublished",
+  price: 0,
+  discount: 0,
+});
+
+const handleFormDataChangesBasic = (formData) => {
+  console.log("FormData1 : ", formData);
+  item.value.name = formData?.name;
+  item.value.shortId = formData?.shortId;
+  item.value.description = formData?.description;
+  item.value.shortDescription = formData?.shortDescription;
+};
+
+const handleFormDataChangesPricing = (formData) => {
+  console.log("FormData2 : ", formData);
+  item.value.isFree = formData?.isFree;
+  item.value.price = formData?.price;
+  item.value.discount = formData?.discount;
+  item.value.isValidityDays = formData?.isValidityDays;
+  item.value.validityDays = formData?.validityDays;
+  item.value.expiryDate = formData?.expiryDate;
+};
+
+const handleFormDataChangesPublish = (formData) => {
+  console.log("FormData3 : ", formData);
+  item.value.publishingDate = formData?.publishingDate;
+  item.value.publishingStatus = formData?.publishingStatus;
+};
+
+const handleSave = async () => {
+  try {
+    let {
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    } = item.value;
+
+    if (validityDays === undefined || validityDays?.length == 0) {
+      validityDays = 0;
+    }
+
+
+
+
+    if (!(name?.length > 0 && shortId?.length > 0)) {
+      window.alert("Mock Test Name and Mock test ID can not be empty");
+      console.error("title and shortID can not be empty")
+      return
+    }
+
+    if (price == undefined || price == null || price < 0 || !price) {
+      price = 0;
+    }
+    if (discount == undefined || discount == null || discount < 0 || !discount) {
+      discount = 0;
+    }
+    if (validityDays == undefined || validityDays == null || validityDays < 0 || !validityDays) {
+      validityDays = 0;
+    }
+    if (!isValidityDays && !expiryDate) {
+      window.alert("Expiry date can not be null");
+      console.error("title and shortID can not be empty")
+      return
+    }
+
+
+    let input = {
+      name,
+      shortId,
+      description,
+      shortDescription,
+      isFree,
+      price,
+      discount,
+      isValidityDays,
+      validityDays,
+      expiryDate,
+      publishingDate,
+      publishingStatus,
+    };
+    console.log(input);
+
+
+
+    console.log(input);
+
+    const mock = await API.graphql({
+      query: createTestSeries,
+      variables: {
+        input: { ...input },
+      },
+    });
+    console.log("new mock : ", mock.data.createTestSeries);
+
+
+    window.alert("changes are saved Successfully");
+    // window.location.href = "/ExamPortal/tests/TestDashboard";
+  } catch (error) {
+    console.error(error);
+    window.alert("could not save the data :", error);
+  }
+};
+
+
 </script>
 
 <template>
@@ -46,6 +165,7 @@ const isActive = ref(0);
     has-cancel
     @confirm="
       () => {
+        handleSave();
         isModalSaveActive = false;
       }
     "
@@ -82,7 +202,7 @@ const isActive = ref(0);
           <div class="">
             <ul>
               <NuxtLink
-                to="/ExamPortal/tests/TestSingle"
+                to="/ExamPortal/tests/TestDashboard"
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300"
               >
                 <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />
@@ -112,44 +232,7 @@ const isActive = ref(0);
                 <BaseIcon :path="mdiPublish" class="cursor-pointer" />
                 <p>Publish Test Series</p>
               </li>
-              <li
-                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 3 }"
-                @click="() => (isActive = 3)"
-              >
-                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
-                <p>Manage Users</p>
-              </li>
-              <li
-                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 4 }"
-                @click="() => (isActive = 4)"
-              >
-                <BaseIcon :path="mdiFilePlus" class="cursor-pointer" />
-                <p>Add Products</p>
-              </li>
-              <li
-                class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 5 }"
-                @click="() => (isActive = 5)"
-              >
-                <BaseIcon
-                  :path="mdiDatabaseCogOutline"
-                  class="cursor-pointer"
-                />
-                <p>Manage Order</p>
-              </li>
-              <li
-              class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-              :class="{ 'bg-slate-500': isActive == 6 }"
-              @click="() => (isActive = 6)"
-            >
-              <BaseIcon
-                :path="mdiDatabaseCogOutline"
-                class="cursor-pointer"
-              />
-              <p>Content Dripping</p>
-            </li>
+              
             </ul>
           </div>
         </div>
@@ -190,25 +273,32 @@ const isActive = ref(0);
               "
               class="cursor-pointer rounded-md py-2 px-3 text-white bg-black"
             >
-              Save
+              Create
             </p>
-            <p
-              @click="() => (isModalDeleteActive = true)"
-              class="cursor-pointer rounded-md py-2 px-3 text-white bg-red-500"
-            >
-              Delete Test Series
-            </p>
+
           </div>
         </div>
-        <div class="md:p-12 p-3">
-          <BasicSettings v-if="isActive == 0" />
-          <pricingValidity v-if="isActive == 1" />
-          <Publish v-if="isActive == 2" />
-          <ManageUser v-if="isActive == 3" />
-          <AddProducts v-if="isActive == 4" />
-          <ManageOrder v-if="isActive == 5" />
-          <Dripping v-if="isActive == 6"/>
-        </div>
+          <div class="md:p-12 p-3">
+            <BasicSettings :data="{
+              name: item.name,
+              shortId: item.shortId,
+              description: item.description,
+              shortDescription: item.shortDescription,
+            }" @form-data-changes-basic="handleFormDataChangesBasic" v-if="isActive == 0" />
+            <pricingValidity :data="{
+              id: item.id,
+              isFree: item.isFree,
+              price: item.price,
+              discount: item.discount,
+              isValidityDays: item.isValidityDays,
+              validityDays: item.validityDays,
+              expiryDate: item.expiryDate,
+            }" @form-data-changes-pricing="handleFormDataChangesPricing" v-if="isActive == 1" />
+            <Publish :data="{
+              publishingDate: item.publishingDate,
+              publishingStatus: item.publishingStatus,
+            }" @form-data-changes-publish="handleFormDataChangesPublish" v-if="isActive == 2" />
+          </div>
       </div>
     </div>
 

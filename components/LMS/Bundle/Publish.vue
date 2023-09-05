@@ -15,36 +15,51 @@ const publishOptions = ref([
 
 const selectedPublish = ref(publishOptions.value[0].label);
 
+const props = defineProps({
+  data: Object,
+});
+const emit = defineEmits(["form-data-changes-publish"]);
+
+const formData = ref(props.data);
+console.log(formData.value);
+let { publishingDate, publishingStatus } = formData.value;
+selectedPublish.value = publishingStatus;
+
+
+
+const emitFormDataChanges = () => {
+  console.log("selected pub ", selectedPublish.value);
+  emit("form-data-changes-publish", {
+    publishingStatus: selectedPublish.value,
+    publishingDate,
+  });
+};
 
 </script>
 <template>
   <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
-    <CardBox
-      class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3"
-      is-form
-      @submit.prevent="submit"
-    >
+    <CardBox class="mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3" is-form @submit.prevent="submit">
       <p class="font-bold text-lg">Publish Test Series</p>
       <p class="text-xs mb-4">
         Publish/Unpublish the Test Series for your learners
       </p>
       <template v-for="i in publishOptions">
-        <div class="border rounded-md my-2 p-3" :class="{'border-green-400 border-2' : i.label == selectedPublish}">
-            <input type="radio" v-model="selectedPublish" :value="i.label" />
-            <p class="inline p-4 font-semibold leading-8">
-                {{ i.label }}
-            </p>
-            <p  class="text-xs mb-4">
-                {{ i.info }}
-            </p>
-            <p v-if="i.id==2">
-                Set Release Date 
-                <PremFormControl type="Date" class=" max-w-sm" />
-            </p>
+        <div class="border rounded-md my-2 p-3" :class="{ 'border-green-400 border-2': i.label == selectedPublish }">
+          <input type="radio" v-model="selectedPublish" :value="i.label" @change="emitFormDataChanges" />
+          <p class="inline p-4 font-semibold leading-8">
+            {{ i.label }}
+          </p>
+          <p class="text-xs mb-4">
+            {{ i.info }}
+          </p>
+          <p v-if="i.id == 2">
+            Set Release Date
+            <PremFormControl type="Date" class=" max-w-sm" v-model="publishingDate" @input="emitFormDataChanges" />
+          </p>
         </div>
       </template>
 
-     
+
 
 
     </CardBox>

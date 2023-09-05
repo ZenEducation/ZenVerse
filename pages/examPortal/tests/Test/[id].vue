@@ -6,23 +6,44 @@ import PremFormControl from "@/components/Forms/FormControl.vue";
 import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import CardBoxComponentTitle from "@/components/Cards/CardBoxComponentTitle.vue";
-import { useLayoutStore } from "@/stores/layout.js";
 import {
   mdiDancePole,
-  mdiGrid,
   mdiInformationBoxOutline,
-  mdiFormatListBulleted,
   mdiPlus,
+  mdiArrowLeft,
 } from "@mdi/js";
+import { mdiGrid, mdiFormatListBulleted } from "@mdi/js";
 import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
-import { listTestSeries } from "@/src/graphql/queries";
+import { useLayoutStore } from "@/stores/layout.js";
+import { useRouter, useRoute } from "vue-router";
 import { API } from "aws-amplify";
+import { getTestSeries } from "~~/src/graphql/queries";
+const route = useRoute();
+const testId = route.params.id;
 
-const items = ref([
+onMounted(async () => {
+  try {
+    let resp = await API.graphql({
+      query: getTestSeries,
+      variables: { id: testId }
+    })
+    console.log(resp.data.getTestSeries.MockTests.items);
+    items.value = resp.data.getTestSeries.MockTests.items.map((item) => item.mockTest);
+    console.log(items.value);
+    title.value = resp.data.getTestSeries.name
 
-]);
+  } catch (error) {
+    window.alert("Error fetching Mock Tests:", error?.errors?.[0]?.message);
+
+  }
+
+})
+
+
+const items = ref([]);
+const title = ref("Test Series")
 
 const publishDateOptions = ["all", "before", "on", "after", "between"];
 const statusOptions = [
@@ -139,37 +160,21 @@ const colors = computed(() => {
   }
   return ["info", "lightDark"];
 });
-
-// fetch all mocktests
-const FetchTestSeriess = async () => {
-  try {
-    const response = await API.graphql({
-      query: listTestSeries,
-      variables: { filter: { _deleted: { ne: true } } },
-    });
-    console.log("response", response.data.listTestSeries.items);
-    items.value = response.data.listTestSeries.items;
-  } catch (error) {
-
-    window.alert("Error fetching learners:", error?.errors?.[0]?.message);
-  }
-};
-onMounted(() => {
-  FetchTestSeriess();
-
-});
-
 </script>
 <template>
   <NuxtLayout name="lmsadmin">
-    <div class="p-6">
-      <CardBox>
+    <div class="px-6">
+      <NuxtLink to="/examPortal/tests/TestDashboard" class="h-10 flex items-center border-b">
+        <BaseIcon :path="mdiArrowLeft" />
+        Back
+      </NuxtLink>
+      <div class="p-5">
         <div class="flex flex-wrap justify-between items-center">
           <div>
-            <p class="font-bold text-xl">Test Series</p>
-            <p class="text-sm">Welcome to your Test Series dashboard</p>
+            <p class="font-bold text-xl">{{title}}</p>
+            <p class="text-sm">Manage and add products to your Test Series</p>
           </div>
-          <div class="flex flex-wrap gap-4 items-center">
+          <div class="flex flex-wrap gap-4 mt-4 items-center">
             <div class="flex flex-wrap gap-0 items-center">
               <BaseButton :icon="mdiFormatListBulleted" :color="colors[0]" @click="() => {
                   isGrid = false;
@@ -181,9 +186,21 @@ onMounted(() => {
                 " />
             </div>
             <div class="flex flex-wrap gap-4 items-center">
-              <BaseButton color="lightDark" label="Re order" small />
-              <NuxtLink to="/ExamPortal/tests/testSetting/create">
-                <BaseButton color="info" :icon="mdiPlus" label="Create" small />
+              <a :href="'/examportal/tests/TestSetting/' + testId">
+
+                <BaseButton color="lightDark" label="Edit" small />
+              </a>
+              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=5'">
+
+                <BaseButton color="lightDark" label="Re order" small />
+              </NuxtLink>
+              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=4'">
+
+                <BaseButton color="info" :icon="mdiPlus" label="Add Product" small />
+              </NuxtLink>
+              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=3'">
+
+                <BaseButton color="info" icon="" label="Manage User" small />
               </NuxtLink>
             </div>
           </div>
@@ -192,7 +209,7 @@ onMounted(() => {
         <form class="relative my-4" @submit.prevent="submit">
           <label for="msg-search" class="sr-only">Search</label>
           <input id="msg-search" class="form-input w-full pl-9 focus:border-slate-300" type="search" v-model="searchQuery"
-            placeholder="Search by name or Test Series ID " />
+            placeholder="Search by Title or test ID" />
           <button class="absolute inset-0 right-auto group" aria-label="Search">
             <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 ml-3 mr-2"
               viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -209,40 +226,12 @@ onMounted(() => {
             <div class="relative mr-4">
               <p>filter by:</p>
             </div>
-            <div class="relative mr-4">
-              <div @click="
-                publishedOnFilterModelActive = !publishedOnFilterModelActive
-                " class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white">
-                <p role="" tabindex="-1" class="break-words text-body text-darkSlate01 false flex-grow leading-none">
-                  Publishing Date
-                </p>
-              </div>
-              <div class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
-                v-if="publishedOnFilterModelActive">
-                <PremFormField class="xl:mb-0 min-w-[50%] xl:min-w-[20%]">
-                  <PremFormControl :options="publishDateOptions" v-model="publishedFilterOption" />
-                </PremFormField>
-                <PremFormField class="min-w-[50%] xl:min-w-[20%] mt-3" v-if="publishedFilterOption != 'all' &&
-                  publishedFilterOption != 'between'
-                  ">
-                  <PremFormControl v-model="publishedFilterDate" type="date" />
-                </PremFormField>
-                <PremFormField class="min-w-[50%] xl:min-w-[20%] mb-0" v-if="publishedFilterOption == 'between'"
-                  label="From">
-                  <PremFormControl v-model="publishedFilterStartDate" type="date" />
-                </PremFormField>
-                <PremFormField class="min-w-[50%] xl:min-w-[20%] mb-0" v-if="publishedFilterOption == 'between'"
-                  label="To">
-                  <PremFormControl v-model="publishedFilterEndDate" type="date" />
-                </PremFormField>
-              </div>
-            </div>
 
             <div class="relative mr-4">
               <div @click="statusFilterModelActive = !statusFilterModelActive"
                 class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white">
                 <p role="" tabindex="-1" class="break-words text-body text-darkSlate01 false flex-grow leading-none">
-                  Publishing Status
+                  Status
                 </p>
               </div>
               <div class="p-[0.5rem] mt-2 transition-all flex flex-col border border-black"
@@ -250,7 +239,6 @@ onMounted(() => {
                 <PremFormControl :options="statusOptions" v-model="statusSelectedFilter" />
               </div>
             </div>
-
             <div class="relative mr-4">
               <div @click="isFreeFilterActive = !isFreeFilterActive" :class="{ 'bg-green-100': isFreeFilterActive }"
                 class="flex item-center justify-center p-3 cursor-pointer border border-black dark:border-white">
@@ -271,11 +259,11 @@ onMounted(() => {
         <BaseDivider />
 
         <div class="text-gray-500 mb-7 dark:text-white">
-          <span>{{ filteredItems.length }} Items </span>
+          <span>{{ filteredItems?.length }} Mock Tests </span>
         </div>
         <template v-if="!isFinalGrid">
           <div class="grid grid-cols-1 gap-4">
-            <NuxtLink :to="'/ExamPortal/tests/Test/' + item.id"
+            <NuxtLink :to="'/ExamPortal/exam/ExamSetting/' + item.id"
               class="rounded-md overflow-hidden flex justify-between border border-[rgba(0,0,0,0.2)]"
               v-for="item in filteredItems">
               <div class="flex">
@@ -297,7 +285,7 @@ onMounted(() => {
 
               <div class="flex justify-between items-center px-3">
                 <div class="flex flex-wrap justify-center gap-2">
-                  <BaseButton color="lightDark" label="Test Series" small />
+                  <BaseButton color="lightDark" label="Mock Test" small />
                   <BaseButton color="" :label="item.publishingStatus" small />
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
@@ -307,7 +295,7 @@ onMounted(() => {
         </template>
         <template v-else>
           <div class="grid max-sm:grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <NuxtLink :to="'/ExamPortal/tests/test/' + item.id"
+            <NuxtLink :to="'/ExamPortal/exam/ExamSetting/' + item.id"
               class="rounded-md overflow-hidden border border-[rgba(0,0,0,0.2)] max-w-xs" v-for="item in filteredItems">
               <div class="h-44 w-full bg-cover bg-center bg-no-repeat" :style="'background-image: url(' + image + ')'">
               </div>
@@ -329,7 +317,7 @@ onMounted(() => {
               <div class="w-full my-1 border-t"></div>
               <div class="flex justify-between items-center h-12 px-3">
                 <div class="flex flex-wrap gap-2">
-                  <BaseButton color="lightDark" label="Test Series" small />
+                  <BaseButton color="lightDark" label="Mock Test" small />
                   <BaseButton color="" :label="item.publishingStatus" small />
                 </div>
                 <BaseIcon :path="mdiInformationBoxOutline" />
@@ -346,7 +334,7 @@ onMounted(() => {
             <small>Page {{ currentPage + 1 }} of {{ totalPages }}</small>
           </BaseLevel>
         </div>
-      </CardBox>
+      </div>
     </div>
   </NuxtLayout>
 </template>

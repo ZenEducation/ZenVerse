@@ -312,7 +312,7 @@ query MyQuery($id: ID!) {
     }
 
 
-    data.totalScore[responce.difficuilty]+= responce.ifCorrect; 
+    data.totalScore[responce.difficuilty] += responce.ifCorrect;
 
     if (responce.isCorrect) {
       // correct
@@ -458,7 +458,7 @@ query MyQuery($id: ID!) {
   <div v-if="loaded" class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
     <div class="flex justify-between items-center p-8 flex-wrap">
       <p class="text-2xl font-semibold">Difficulty Level Analysis</p>
-      <NuxtLink to="/examportal/learner/examSolution">
+      <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
         <BaseButton label="View Solution" color="info" />
       </NuxtLink>
 
@@ -545,7 +545,7 @@ query MyQuery($id: ID!) {
       <VerticalBarChart :labels='["Easy", "Moderate", "Hard"]' x_label="Difficuilty" y_label="score" :datasets='[
         {
           label: "total Score",
-          data: [finalData.totalScore.EASY , finalData.totalScore.MODERATE , finalData.totalScore.HARD],
+          data: [finalData.totalScore.EASY, finalData.totalScore.MODERATE, finalData.totalScore.HARD],
           backgroundColor: "rgba(68, 119, 170, 0.75)",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
@@ -567,7 +567,7 @@ query MyQuery($id: ID!) {
 
       <VerticalBarChart :labels='["Easy", "Moderate", "Hard"]' x_label="Difficuilty" y_label="accuracy" :datasets='[
         {
-          data: [((finalData.correct.EASY * 100)/(finalData.correct.EASY + finalData.incorrect.EASY)) || 0, ((finalData.correct.MODERATE * 100) / (finalData.correct.MODERATE + finalData.incorrect.MODERATE)) || 0 , ((finalData.correct.HARD * 100) / (finalData.correct.HARD + finalData.incorrect.HARD)) || 0],
+          data: [((finalData.correct.EASY * 100) / (finalData.correct.EASY + finalData.incorrect.EASY)) || 0, ((finalData.correct.MODERATE * 100) / (finalData.correct.MODERATE + finalData.incorrect.MODERATE)) || 0, ((finalData.correct.HARD * 100) / (finalData.correct.HARD + finalData.incorrect.HARD)) || 0],
           backgroundColor: "green",
           barPercentage: 0.4, // Set the bar width as a percentage of available space
           categoryPercentage: 0.5 // Set the width of each category as a percentage of the total axis width
@@ -610,4 +610,5 @@ td {
 
 tbody {
   display: table-row-group;
-}</style>
+}
+</style>

@@ -484,8 +484,8 @@ query MyQuery($id: ID!) {
   <div  v-if="loaded"  class="pt-20 h-screen overflow-y-scroll scrollbar-none px-8 pb-10">
     <div class="flex justify-between items-center p-8">
       <p class="text-2xl font-semibold">Topic Report</p>
-      <NuxtLink to="/examportal/learner/examSolution">
-        <BaseButton label="View Solution" color="info" />
+        <NuxtLink :to="'/examportal/learner/examSolution/' + attemptId">
+          <BaseButton label="View Solution" color="info" />
       </NuxtLink>
 
     </div>
@@ -494,7 +494,7 @@ query MyQuery($id: ID!) {
         <span>Total Topics <b>{{ finalData.topicsList.length }} </b> </span> <li> Score <b>{{finalData.questions.score}}</b></li>accuracy <b>{{ `${Math.round((finalData.questions.correct * 100) / (finalData.questions.correct +
           finalData.questions.incorrect))} %` }}</b> <li> </li>
       </div>
-      <BaseButton label="Compare with Topper" />
+      <!-- <BaseButton label="Compare with Topper" /> -->
     </div>
 
     <!-- <div class="flex justify-between items-center p-8">

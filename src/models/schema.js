@@ -798,6 +798,13 @@ export const schema = {
                         ]
                     }
                 },
+                "sectionDeadline": {
+                    "name": "sectionDeadline",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -970,6 +977,36 @@ export const schema = {
                     "name": "attachmentDesc",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "deadlineType": {
+                    "name": "deadlineType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "ExamDeadline"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "overallDeadline": {
+                    "name": "overallDeadline",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isDefaultQuestionTime": {
+                    "name": "isDefaultQuestionTime",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "defaultQuestionTime": {
+                    "name": "defaultQuestionTime",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -3287,6 +3324,15 @@ export const schema = {
         }
     },
     "enums": {
+        "ExamDeadline": {
+            "name": "ExamDeadline",
+            "values": [
+                "QUESTION",
+                "SECTION",
+                "NONE",
+                "OVERALL"
+            ]
+        },
         "AttemptStatus": {
             "name": "AttemptStatus",
             "values": [
@@ -3444,5 +3490,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "36feaa7548577ac4d2b28f7143c3301b"
+    "version": "835acbddc24e91a69274affed6296591"
 };

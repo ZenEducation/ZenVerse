@@ -147,6 +147,9 @@
             <a href="">Import</a>
           </li>
           <li class="bottom-side-nav">
+            <a :href="'/ExamPortal/exam/TimeSetting/' + examId">Time Settings</a>
+          </li>
+          <li class="bottom-side-nav">
             <a :href="'/ExamPortal/exam/ExamSetting/' + examData?.examMockTestId">Settings</a>
           </li>
           <li class="bottom-side-nav">
@@ -177,10 +180,10 @@
           <div class="section-add m-3 pb-[1px]" v-for="(i, index) in examData?.Sections?.items" :key="index"
             :class="{ 'border-2 border-violet-400': selected == i.id }">
             <div @click="() => {
-                dropdown[i.id] = !dropdown[i.id];
+              dropdown[i.id] = !dropdown[i.id];
 
-                selected = i.id;
-              }
+              selected = i.id;
+            }
               " class="p-5 flex justify-between">
               <template v-if="editsection[i.id]">
                 <PremFormControl v-model="editSectionName" type="text" />
@@ -236,7 +239,7 @@
 
                 <div v-if="dropdown[i.id]"
                   class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]">
-                  Drag and Drop new question
+                  Select a tab first then add question
                 </div>
               </div>
             </Transition>
@@ -244,7 +247,7 @@
         </VueDraggableNext>
 
         <div class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#f0f8e8] text-center m-3">
-          Drag and Drop new question
+          Select a tab first then add question
         </div>
       </div>
     </div>
@@ -386,7 +389,7 @@ const fetchExamData = async () => {
 
 onMounted(async () => {
   await fetchExamData();
-  selected.value = examData.value.Sections.items[0].id 
+  selected.value = examData.value.Sections.items[0].id
   console.log(examData.value);
 });
 

@@ -29,6 +29,36 @@
 
     </div>
   </CardBoxModal>
+  <CardBoxModal v-model="isModalSureSubmitActive" v-if="!isLoading" title="Submit Quiz" button="danger" buttonLabel="Yes"
+    @confirm="submitTest">
+    <p class="font-normal text-center text-sm">Before You Submit the Test , please make sure you have attended all the
+      questions</p>
+    <div class="w-5/6 mx-auto">
+      <div class="flex items-center justify-between border-b">
+        <p class="font-semibold">Total Question</p>
+        <p class="font-semibold">
+          {{ submitData().total }}
+        </p>
+
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="font-semibold">Answered</p>
+        <p class="font-semibold">{{ submitData().answered }}</p>
+
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="font-semibold">Skipped/Unattempted</p>
+        <p class="font-semibold">{{ submitData().skipped }}</p>
+
+      </div>
+      <div class="flex items-center justify-between">
+        <p class="font-semibold">Mark For Review</p>
+        <p class="font-semibold">{{ submitData().review }}</p>
+
+      </div>
+
+    </div>
+  </CardBoxModal>
   <div v-if="!isLoading" class="w-full h-screen flex">
     <!-- main section -->
     <div class="w-3/4 border-r-2 relative" :class="{ 'w-full': !isMainSidebarOpen }">
@@ -39,7 +69,13 @@
             <BaseIcon :path="mdiCloseCircleOutline" class="cursor-pointer" />
             <p class="border-l px-3 py-2">{{ test.title }}</p>
           </div>
-          <div class="">
+          <div class="flex items-center gap-4">
+            <ExamPortalStopwatch
+              :key="deadType == 'QUESTION' && stopCountQuestion || deadType == 'SECTION' && stopCountSection"
+              :initial="response[current.sectionIndex][current.questionIndex].time"
+              :max="(deadType == 'QUESTION' && isDefaultQuestionTime && defaultQuestionTime) || (deadType == 'QUESTION' && (!isDefaultQuestionTime) && currentQuestion.guidelineTime) || (deadType == 'QUESTION' && 180 ) || (deadType == 'SECTION' && test?.Sections?.items?.[current.sectionIndex]?.sectionDeadline * 60 ) || (deadType == 'SECTION' && 60 * 60) || (deadType == 'OVERALL' && overallDeadline) || Infinity"
+              @activate-next="handleStopWatchNext" />
+            
             <BaseIcon :path="mdiFullscreen" @click="startExam" class="cursor-pointer" />
           </div>
         </div>
@@ -142,10 +178,10 @@
               " />
         </div>
         <div class="flex gap-4">
-          <BaseButton @click="changeQuestion('+1', -1)" small :icon="mdiArrowRight" v-if="current.questionIndex + 1 <
+          <BaseButton @click="changeQuestion('+1', -1, true)" small :icon="mdiArrowRight" v-if="current.questionIndex + 1 <
             test.Sections.items[current.sectionIndex].Questions.items.length
             " label="Next" color="info" />
-          <BaseButton @click="changeSection(current.sectionIndex + 1, -1)" small :icon="mdiArrowRight"
+          <BaseButton @click="changeSection(current.sectionIndex + 1, true)" small :icon="mdiArrowRight"
             v-else-if="current.sectionIndex + 1 < test.Sections.items.length" label="Next Section" color="info" />
         </div>
       </div>
@@ -234,6 +270,8 @@ const attemptId = route.params.attemptId;
 
 const isMainSidebarOpen = ref(true);
 const isModalSubmitActive = ref(false);
+const isModalSureSubmitActive = ref(false);
+
 const isLoading = ref(true);
 
 
@@ -287,6 +325,7 @@ onMounted(async () => {
           id
           title
           description
+          sectionDeadline
           Questions(filter: {_deleted: {ne: true}}) {
             items {
               groupID
@@ -341,6 +380,10 @@ onMounted(async () => {
       examMockTestId
       description
       _version
+      overallDeadline
+      isDefaultQuestionTime
+      defaultQuestionTime
+      deadlineType
     }
   }
 `;
@@ -352,6 +395,9 @@ onMounted(async () => {
   // console.log(test.value, exam.data.getExam);
   test.value = exam.data.getExam;
 
+  console.log(test.value);
+
+  test.value.Sections.items = test.value.Sections.items.filter((item) => item.Questions.items.length > 0)
 
   await test.value.Sections.items.forEach((element, i) => {
     response.value.push([]);
@@ -371,12 +417,25 @@ onMounted(async () => {
     });
 
     isLoading.value = false;
-    changeSection(0);
+    changeSection(0, true);
 
   });
 
   lastQuestionTime.value = new Date();
+
+  deadType.value = test.value.deadlineType || "NONE";
+  overallDeadline.value = test.value.overallDeadline *60 || (180 * 60);
+  isDefaultQuestionTime.value = test.value.isDefaultQuestionTime || true;
+  defaultQuestionTime.value = test.value.defaultQuestionTime || 180;
 })
+
+// for max
+const deadType = ref('NONE');
+const overallDeadline = ref(180 * 60);
+const isDefaultQuestionTime = ref(true);
+const defaultQuestionTime = ref(180);
+
+
 
 const response = ref([]);
 const MarkedForReview = ref([]);
@@ -394,10 +453,21 @@ const currentQuestion = computed(() => {
   ];
 });
 
+
+
 const lastQuestionTime = ref();
 
-const changeQuestion = (temp, toIndex) => {
+const stopCountQuestion = ref(0)
+const stopCountSection = ref(0)
 
+
+const changeQuestion = (temp, toIndex, permission = false) => {
+
+  console.log("change question", deadType.value, permission);
+  if (deadType.value == 'QUESTION' && !permission) {
+
+    return;
+  }
   const now = new Date(); // Get the current time when the question changes
 
   if (lastQuestionTime.value) {
@@ -415,20 +485,35 @@ const changeQuestion = (temp, toIndex) => {
     current.value.questionIndex = toIndex;
   }
   viewed.value[current.value.sectionIndex][current.value.questionIndex] = true;
+  stopCountQuestion.value++;
   return;
 };
 
-const changeSection = (toSection) => {
-  changeQuestion(false, 0);
+const changeSection = (toSection, permission = false) => {
+
+
+  if (toSection >= test.value.Sections.items.length) {
+    return;
+  }
+
+  if (deadType.value == 'QUESTION' && !permission) {
+
+    return;
+  }
+  if (deadType.value == 'SECTION' && !permission) {
+
+    return;
+  }
+  changeQuestion(false, 0, permission);
+  stopCountSection.value++;
   current.value.sectionIndex = toSection;
 };
 
 const clearResp = () => {
-  if (typeof (response.value[current.value.sectionIndex][current.value.questionIndex]) === 'object') {
-    response.value[current.value.sectionIndex][current.value.questionIndex] = [];
+  if (typeof (response.value[current.value.sectionIndex][current.value.questionIndex].responce) === 'object') {
+    response.value[current.value.sectionIndex][current.value.questionIndex].responce = [];
   } else {
-    response.value[current.value.sectionIndex][current.value.questionIndex] =
-      null;
+    response.value[current.value.sectionIndex][current.value.questionIndex].responce = "";
   }
 };
 
@@ -443,12 +528,11 @@ const submitTest = async () => {
       // Calculate the time spent on the current question in seconds
       let timeSpent = Math.floor((now - lastQuestionTime.value) / 1000); // Convert milliseconds to seconds
       response.value[current.value.sectionIndex][current.value.questionIndex].time += timeSpent;
-      lastQuestionTime.value = now;
     }
 
     let finalResponse = response.value;
 
-    for(let section of finalResponse){
+    for (let section of finalResponse) {
       section.forEach((question) => {
         console.log(question.responce);
         if (typeof (question.responce) === 'object') {
@@ -467,7 +551,7 @@ const submitTest = async () => {
     // Execute the batch mutation
 
 
-    for( let item of finalResponse){
+    for (let item of finalResponse) {
       let temp = await API.graphql({
         query: createResponce,
         variables: { input: item }
@@ -483,9 +567,9 @@ const submitTest = async () => {
 
     // console.log(finalResponse);
     window.alert("successfully submitted data ");
-      isModalSubmitActive.value = false;
-    window.close();
+    isModalSubmitActive.value = false;
     let newWindow = window.open('/examportal/learner/examResult/' + attemptId);
+    window.close();
   } catch (error) {
     console.error(error);
   }
@@ -554,6 +638,40 @@ const submitData = () => {
 
 
 }
+
+// deadline mgmt
+
+const handleStopWatchNext = async () => {
+  console.log("stopwatch alert");
+  if (deadType.value == "NONE") {
+
+  } else if (deadType.value == "OVERALL") {
+    isModalSureSubmitActive.value = true;
+  }
+  else if (deadType.value == "SECTION") {
+    if (current.value.sectionIndex + 1 >= test.value.Sections.items.length) {
+      isModalSureSubmitActive.value = true;
+      // return;
+    } else {
+      changeSection(current.value.sectionIndex + 1, true);
+    }
+  } else if (deadType.value == "QUESTION" && current.value.questionIndex + 1 <
+    test.value.Sections.items[current.value.sectionIndex].Questions.items.length) {
+    changeQuestion('+1', -1, true);
+  }
+  else if (deadType.value == "QUESTION" && current.value.questionIndex + 1 >=
+    test.value.Sections.items[current.value.sectionIndex].Questions.items.length) {
+    if (current.value.sectionIndex + 1 >= test.value.Sections.items.length) {
+      isModalSureSubmitActive.value = true;
+      return;
+    }
+    else {
+
+      changeSection(current.value.sectionIndex + 1, true);
+    }
+  }
+}
+
 </script>
 
 <style lang="scss" scoped></style>

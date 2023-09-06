@@ -2,6 +2,13 @@ import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
 
+export enum ExamDeadline {
+  QUESTION = "QUESTION",
+  SECTION = "SECTION",
+  NONE = "NONE",
+  OVERALL = "OVERALL"
+}
+
 export enum AttemptStatus {
   NOTSTARTED = "NOTSTARTED",
   INPROGRESS = "INPROGRESS",
@@ -339,6 +346,7 @@ type EagerSection = {
   readonly Groups?: (Group | null)[] | null;
   readonly description?: string | null;
   readonly Responces?: (Responce | null)[] | null;
+  readonly sectionDeadline?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -355,6 +363,7 @@ type LazySection = {
   readonly Groups: AsyncCollection<Group>;
   readonly description?: string | null;
   readonly Responces: AsyncCollection<Responce>;
+  readonly sectionDeadline?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -381,6 +390,10 @@ type EagerExam = {
   readonly Attempts?: (Attempt | null)[] | null;
   readonly attachmentTitle?: string | null;
   readonly attachmentDesc?: string | null;
+  readonly deadlineType?: ExamDeadline | keyof typeof ExamDeadline | null;
+  readonly overallDeadline?: number | null;
+  readonly isDefaultQuestionTime?: boolean | null;
+  readonly defaultQuestionTime?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;
@@ -402,6 +415,10 @@ type LazyExam = {
   readonly Attempts: AsyncCollection<Attempt>;
   readonly attachmentTitle?: string | null;
   readonly attachmentDesc?: string | null;
+  readonly deadlineType?: ExamDeadline | keyof typeof ExamDeadline | null;
+  readonly overallDeadline?: number | null;
+  readonly isDefaultQuestionTime?: boolean | null;
+  readonly defaultQuestionTime?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly examMockTestId?: string | null;

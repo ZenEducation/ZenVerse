@@ -419,6 +419,7 @@ export const onCreateAttempt = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -456,6 +457,10 @@ export const onCreateAttempt = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -569,6 +574,10 @@ export const onCreateAttempt = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -656,6 +665,7 @@ export const onUpdateAttempt = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -693,6 +703,10 @@ export const onUpdateAttempt = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -806,6 +820,10 @@ export const onUpdateAttempt = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -893,6 +911,7 @@ export const onDeleteAttempt = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -930,6 +949,10 @@ export const onDeleteAttempt = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -1043,6 +1066,10 @@ export const onDeleteAttempt = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -1908,6 +1935,7 @@ export const onCreateSection = /* GraphQL */ `
         startedAt
         __typename
       }
+      sectionDeadline
       createdAt
       updatedAt
       _version
@@ -2066,6 +2094,7 @@ export const onUpdateSection = /* GraphQL */ `
         startedAt
         __typename
       }
+      sectionDeadline
       createdAt
       updatedAt
       _version
@@ -2224,6 +2253,7 @@ export const onDeleteSection = /* GraphQL */ `
         startedAt
         __typename
       }
+      sectionDeadline
       createdAt
       updatedAt
       _version
@@ -2261,6 +2291,7 @@ export const onCreateExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          sectionDeadline
           createdAt
           updatedAt
           _version
@@ -2354,6 +2385,10 @@ export const onCreateExam = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -2568,6 +2603,10 @@ export const onCreateExam = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -2589,6 +2628,10 @@ export const onCreateExam = /* GraphQL */ `
       }
       attachmentTitle
       attachmentDesc
+      deadlineType
+      overallDeadline
+      isDefaultQuestionTime
+      defaultQuestionTime
       createdAt
       updatedAt
       _version
@@ -2627,6 +2670,7 @@ export const onUpdateExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          sectionDeadline
           createdAt
           updatedAt
           _version
@@ -2720,6 +2764,10 @@ export const onUpdateExam = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -2934,6 +2982,10 @@ export const onUpdateExam = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -2955,6 +3007,10 @@ export const onUpdateExam = /* GraphQL */ `
       }
       attachmentTitle
       attachmentDesc
+      deadlineType
+      overallDeadline
+      isDefaultQuestionTime
+      defaultQuestionTime
       createdAt
       updatedAt
       _version
@@ -2993,6 +3049,7 @@ export const onDeleteExam = /* GraphQL */ `
             startedAt
             __typename
           }
+          sectionDeadline
           createdAt
           updatedAt
           _version
@@ -3086,6 +3143,10 @@ export const onDeleteExam = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -3300,6 +3361,10 @@ export const onDeleteExam = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -3321,6 +3386,10 @@ export const onDeleteExam = /* GraphQL */ `
       }
       attachmentTitle
       attachmentDesc
+      deadlineType
+      overallDeadline
+      isDefaultQuestionTime
+      defaultQuestionTime
       createdAt
       updatedAt
       _version
@@ -4562,6 +4631,7 @@ export const onCreateMockTest = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -4599,6 +4669,10 @@ export const onCreateMockTest = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -4712,6 +4786,10 @@ export const onCreateMockTest = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -5084,6 +5162,7 @@ export const onUpdateMockTest = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -5121,6 +5200,10 @@ export const onUpdateMockTest = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -5234,6 +5317,10 @@ export const onUpdateMockTest = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -5606,6 +5693,7 @@ export const onDeleteMockTest = /* GraphQL */ `
             title
             examID
             description
+            sectionDeadline
             createdAt
             updatedAt
             _version
@@ -5643,6 +5731,10 @@ export const onDeleteMockTest = /* GraphQL */ `
             instructions
             attachmentTitle
             attachmentDesc
+            deadlineType
+            overallDeadline
+            isDefaultQuestionTime
+            defaultQuestionTime
             createdAt
             updatedAt
             _version
@@ -5756,6 +5848,10 @@ export const onDeleteMockTest = /* GraphQL */ `
         }
         attachmentTitle
         attachmentDesc
+        deadlineType
+        overallDeadline
+        isDefaultQuestionTime
+        defaultQuestionTime
         createdAt
         updatedAt
         _version
@@ -10613,6 +10709,10 @@ export const onCreateTestSeriesMockTest = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -10941,6 +11041,10 @@ export const onUpdateTestSeriesMockTest = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -11269,6 +11373,10 @@ export const onDeleteTestSeriesMockTest = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -11464,6 +11572,10 @@ export const onCreateMockTestLearner = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -11714,6 +11826,10 @@ export const onUpdateMockTestLearner = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -11964,6 +12080,10 @@ export const onDeleteMockTestLearner = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -12214,6 +12334,10 @@ export const onCreateMockTestAffiliate = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -12466,6 +12590,10 @@ export const onUpdateMockTestAffiliate = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -12718,6 +12846,10 @@ export const onDeleteMockTestAffiliate = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -12970,6 +13102,10 @@ export const onCreateMockTestAdmin = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -13220,6 +13356,10 @@ export const onUpdateMockTestAdmin = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -13470,6 +13610,10 @@ export const onDeleteMockTestAdmin = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -13720,6 +13864,10 @@ export const onCreateMockTestInstructor = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -13970,6 +14118,10 @@ export const onUpdateMockTestInstructor = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version
@@ -14220,6 +14372,10 @@ export const onDeleteMockTestInstructor = /* GraphQL */ `
           }
           attachmentTitle
           attachmentDesc
+          deadlineType
+          overallDeadline
+          isDefaultQuestionTime
+          defaultQuestionTime
           createdAt
           updatedAt
           _version

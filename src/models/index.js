@@ -2,6 +2,13 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const ExamDeadline = {
+  "QUESTION": "QUESTION",
+  "SECTION": "SECTION",
+  "NONE": "NONE",
+  "OVERALL": "OVERALL"
+};
+
 const AttemptStatus = {
   "NOTSTARTED": "NOTSTARTED",
   "INPROGRESS": "INPROGRESS",
@@ -47,6 +54,7 @@ export {
   MockTestAffiliate,
   MockTestAdmin,
   MockTestInstructor,
+  ExamDeadline,
   AttemptStatus,
   QuestionType,
   Difficuilty,

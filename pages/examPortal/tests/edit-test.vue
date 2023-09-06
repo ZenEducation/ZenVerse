@@ -1,28 +1,19 @@
 <template>
   <CardBoxModal v-model="isEditModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
+    <header class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded">
       <div class="text-gray-500">
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Edit Section</h1>
       </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isEditModalActive = false"
-      >
+      <div class="text-gray-500 cursor-pointer" @click="isEditModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
     <CardBox is-form @submit.prevent="EditSectionControl(0, false)">
       <FormField label="Section Name">
-        <FormControl
-          required
-          v-model="editSectionName"
-          placeholder="New Name"
-        />
+        <FormControl required v-model="editSectionName" placeholder="New Name" />
       </FormField>
 
       <div class="flex justify-end py-2">
@@ -32,19 +23,14 @@
   </CardBoxModal>
 
   <CardBoxModal v-model="isAddModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
+    <header class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded">
       <div class="text-gray-500">
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Add Section</h1>
       </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddModalActive = false"
-      >
+      <div class="text-gray-500 cursor-pointer" @click="isAddModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
@@ -60,19 +46,14 @@
   </CardBoxModal>
 
   <CardBoxModal v-model="isAddTestModalActive" title="" :show-footer="false">
-    <header
-      class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded"
-    >
+    <header class="flex justify-between p-3 border-b border-gray-300 items-center bg-gray-100 dark:bg-gray-700 rounded">
       <div class="text-gray-500">
         <BaseIcon v-if="mdiAccountPlus" :path="mdiAccountPlus" :size="32" />
       </div>
       <div class="flex flex-col ml-5 mx-auto">
         <h1 class="font-bold">Add Test</h1>
       </div>
-      <div
-        class="text-gray-500 cursor-pointer"
-        @click="isAddTestModalActive = false"
-      >
+      <div class="text-gray-500 cursor-pointer" @click="isAddTestModalActive = false">
         <BaseIcon v-if="mdiWindowClose" :path="mdiWindowClose" :size="32" />
       </div>
     </header>
@@ -87,76 +68,44 @@
     </CardBox>
   </CardBoxModal>
 
-  <CardBoxModal
-    v-model="isModalDangerActive"
-    title="Are you sure you want to delete this tab?"
-    button="danger"
-    buttonLabel="Yes"
-    has-cancel
-    @confirm="deleteSection(false)"
-  />
+  <CardBoxModal v-model="isModalDangerActive" title="Are you sure you want to delete this tab?" button="danger"
+    buttonLabel="Yes" has-cancel @confirm="deleteSection(false)" />
 
-  <CardBoxModal
-    v-model="isModalTestDangerActive"
-    title="Are you sure you want to delete this test?"
-    button="danger"
-    buttonLabel="Yes"
-    has-cancel
-    @confirm="deleteTest(-1,-1,false)"
-  />
+  <CardBoxModal v-model="isModalTestDangerActive" title="Are you sure you want to delete this test?" button="danger"
+    buttonLabel="Yes" has-cancel @confirm="deleteTest(-1, -1, false)" />
 
   <div class="text-[#7d7d7d]">
-  <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
-    <div class="border-b w-full flex justify-between items-center px-5 py-2">
-      <a href="/examportal/tests/TestDashboard">
-        <div
-          class="text-[13px] flex items-center justify-center cursor-pointer"
-        >
-          <img
-            class="w-[14px] h-[14px]"
-            src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg"
-            alt=""
-          />
-          <p class="p-2.5">Test Dashboard</p>
+    <div class="absolute top-0 left-0 w-full min-h-[48px] bg-white">
+      <div class="border-b w-full flex justify-between items-center px-5 py-2">
+        <a href="/examportal/tests/TestDashboard">
+          <div class="text-[13px] flex items-center justify-center cursor-pointer">
+            <img class="w-[14px] h-[14px]"
+              src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_back.svg" alt="" />
+            <p class="p-2.5">Test Dashboard</p>
+          </div>
+        </a>
+        <div class="pr-16 flex gap-3 items-center">
         </div>
-      </a>
-      <div class="pr-16 flex gap-3 items-center">
       </div>
     </div>
-  </div>    <div
-      class="side-bar pt-[60px] h-[100vh] float-left flex flex-col justify-between"
-    >
+    <div class="side-bar pt-[60px] h-[100vh] float-left flex flex-col justify-between">
       <div class="max-h-[418px]">
-        <header
-          class="uppercase text-[16px] text-[#808080] font-semibold py-2.5 px-5"
-        >
+        <header class="uppercase text-[16px] text-[#808080] font-semibold py-2.5 px-5">
           Quiz Maker
         </header>
 
         <ul>
-          <li
-            class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow"
-            @click="addSection(true)"
-          >
-            <span class="mr-2.5"
-              ><img
-                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
-                alt=""
-            /></span>
+          <li class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow" @click="addSection(true)">
+            <span class="mr-2.5"><img
+                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png" alt="" /></span>
             Add Set
           </li>
 
           <!-- groups -->
           <p class="list-lable">Tests</p>
-          <li
-            class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow"
-            @click="addTest(true)"
-          >
-            <span class="mr-2.5"
-              ><img
-                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
-                alt=""
-            /></span>
+          <li class="border-l-[3px] border-[#47B9F8] rounded-sm box-shadow" @click="addTest(true)">
+            <span class="mr-2.5"><img
+                src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png" alt="" /></span>
             Add New Test
           </li>
         </ul>
@@ -175,44 +124,26 @@
         </ul>
       </div>
     </div>
-    <div
-      class="pt-[88px] px-[15px] ml-[200px] h-screen overflow-y-scroll scroll-m-0 aside-scrollbars-light bg-[#ededed]"
-    >
+    <div class="pt-[88px] px-[15px] ml-[200px] h-screen overflow-y-scroll scroll-m-0 aside-scrollbars-light bg-[#ededed]">
       <div class="mt-5 flex justify-between">
-        <p
-          class="text-[16px] text-[#808080] lowercase font-semibold ml-[9.5px]"
-        >
+        <p class="text-[16px] text-[#808080] lowercase font-semibold ml-[9.5px]">
           Tedy
         </p>
-        <p
-          class="text-[14px] text-[#b7b9be] lowercase font-semibold mr-[9.5px]"
-        >
+        <p class="text-[14px] text-[#b7b9be] lowercase font-semibold mr-[9.5px]">
           {{ sections }} sections {{ questions }} tests
         </p>
       </div>
 
       <div>
-        <VueDraggableNext
-          :list="items"
-          tag="body"
-          class="dragArea list-group w-full"
-        >
-          <div
-            class="section-add m-3 pb-[1px]"
-            v-for="(i, index) in items"
-            :key="index"
-            :class="{ 'border-2 border-violet-400': selected == i.id }"
-          >
-            <div
-              @click="
-                () => {
-                  dropdown[i.id] = !dropdown[i.id];
+        <VueDraggableNext :list="items" tag="body" class="dragArea list-group w-full">
+          <div class="section-add m-3 pb-[1px]" v-for="(i, index) in items" :key="index"
+            :class="{ 'border-2 border-violet-400': selected == i.id }">
+            <div @click="() => {
+                dropdown[i.id] = !dropdown[i.id];
 
-                  selected = i.id;
-                }
-              "
-              class="p-5 flex justify-between"
-            >
+                selected = i.id;
+              }
+              " class="p-5 flex justify-between">
               <template v-if="editsection[i.id]">
                 <PremFormControl v-model="editSectionName" type="text" />
               </template>
@@ -221,82 +152,55 @@
               </template>
               <div class="flex items-center">
                 <template v-if="editsection[i.id]">
-                  <button
-                    @click="EditSectionControl(i.id, false)"
-                    class="lr-btn px-5"
-                  >
+                  <button @click="EditSectionControl(i.id, false)" class="lr-btn px-5">
                     Done
                   </button>
                 </template>
                 <template v-else>
-                  <button
-                    @click="EditSectionControl(i.id, true)"
-                    class="lr-btn px-5"
-                  >
+                  <button @click="EditSectionControl(i.id, true)" class="lr-btn px-5">
                     EDIT
                   </button>
                 </template>
                 <!-- add delete btn -->
-                <BaseButton
-                  class="pl-4"
-                  color="danger"
-                  :icon="mdiTrashCan"
-                  @click="deleteSection(i.id, true)"
-                />
-                <img
-                  class="w-[16px] h-[18px] ml-5"
-                  src="@/images/others/delete.svg"
-                  alt=""
-                />
+                <BaseButton class="pl-4" color="danger" :icon="mdiTrashCan" @click="deleteSection(i.id, true)" />
+                <img class="w-[16px] h-[18px] ml-5" src="@/images/others/delete.svg" alt="" />
 
                 <p class="text-[13px] px-5">{{ sectionquestions }} questions</p>
                 <!-- add arror -->
-                <img
-                  class="collapse-status-668700"
-                  id="collapse-status"
-                  style="margin: 2px 20px 0 15px; width: 8px"
-                  src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_collapse.svg"
-                />
+                <img class="collapse-status-668700" id="collapse-status" style="margin: 2px 20px 0 15px; width: 8px"
+                  src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/cb_collapse.svg" />
               </div>
             </div>
 
             <Transition name="slider">
               <div v-if="dropdown[i.id]">
                 <div>
-                  <div
-                    class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow w-lg flex py-2 justify-between"
-                    v-for="(test,index) in i.tests"
-                  >
+                  <div class="border-l-[3px] border-[#3a79df] rounded-sm box-shadow w-lg flex py-2 justify-between"
+                    v-for="(test, index) in i.tests">
 
                     <NuxtLink to="/examportal/exam/createExam" class="flex">
-                      <span class="mr-2.5"
-                        ><img
+                      <span class="mr-2.5"><img
                           src="https://res-cdn.learnyst.com/pro/admin/coursebuilder/styles/images/grippy_large.png"
-                          alt=""
-                      /></span>
+                          alt="" /></span>
                       <span>{{ test.testname }}</span>
                     </NuxtLink>
                     <div class="pr-8 flex gap-2">
                       <p>{{ test.status }}</p>
-                      <BaseIcon :path="mdiTrashCan" @click="deleteTest(index,i.id,true)" />
+                      <BaseIcon :path="mdiTrashCan" @click="deleteTest(index, i.id, true)" />
                     </div>
                   </div>
                 </div>
-                <div
-                  v-if="dropdown[i.id]"
-                  class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]"
-                >
-                  Drag and Drop new question
+                <div v-if="dropdown[i.id]"
+                  class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#fff8e0] text-center m-[3px]">
+                  Select a tab first then add question
                 </div>
               </div>
             </Transition>
           </div>
         </VueDraggableNext>
 
-        <div
-          class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#f0f8e8] text-center m-3"
-        >
-          Drag and Drop new question
+        <div class="w-12/12 border-[2px] border-[#82abfc] border-dashed p-10 text-[#7abfd1] bg-[#f0f8e8] text-center m-3">
+          Select a tab first then add question
         </div>
       </div>
     </div>

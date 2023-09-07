@@ -33,7 +33,10 @@ const tabs = [
   "Basic Settings",
   "Pricing & Validity",
   "Publish Test Series",
-  "Manage Users",
+  "Manage Learners",
+  "Manage Admins",
+  "Manage Affiliates",
+  "Manage Instructors",
   "Add Products",
   "Manage Order",
   "Content Dripping"
@@ -89,6 +92,14 @@ const handleFormDataChangesPublish = (formData) => {
   item.value.publishingStatus = formData?.publishingStatus;
 };
 
+const handleFormDataChangesDripping = (formData) => {
+  console.log("FormData4 : ", formData);
+  item.value.isDripping = formData?.isDripping;
+  item.value.isDrippingFixedDate = formData?.isDrippingFixedDate;
+  item.value.drippingFixedDate = formData?.drippingFixedDate;
+  item.value.drippings = formData?.drippings;
+};
+
 const handleSave = async () => {
   try {
     let {
@@ -106,6 +117,11 @@ const handleSave = async () => {
       expiryDate,
       publishingDate,
       publishingStatus,
+      isDripping,
+      isDrippingFixedDate,
+      drippingFixedDate,
+      drippings,
+
     } = item.value;
     let input = {
       id,
@@ -122,6 +138,10 @@ const handleSave = async () => {
       expiryDate,
       publishingDate,
       publishingStatus,
+      isDripping,
+      isDrippingFixedDate,
+      drippingFixedDate,
+      drippings,
     };
 
     if (!(name?.length > 0 && shortId?.length > 0)) {
@@ -142,6 +162,11 @@ const handleSave = async () => {
     if (!isValidityDays && !expiryDate) {
       window.alert("Expiry date can not be null");
       console.error("title and shortID can not be empty")
+      return
+    }
+    if (isDripping && isDrippingFixedDate && !drippingFixedDate) {
+      window.alert("Enter Fixed Start Date in Dripping");
+      console.error("Enter Fixed Start Date in Dripping")
       return
     }
 
@@ -180,16 +205,16 @@ const handleDelete = async () => {
 <template>
   <CardBoxModal v-model="isModalSaveActive" title="Are you sure you want to Save Current Changes ?" button="danger"
     buttonLabel="Yes" has-cancel @confirm="() => {
-        handleSave();
+      handleSave();
 
-        isModalSaveActive = false;
-      }
+      isModalSaveActive = false;
+    }
       " />
   <CardBoxModal v-model="isModalDeleteActive" title="Are you sure you want to delete this Test Series ?" button="danger"
     buttonLabel="Yes" has-cancel @confirm="() => {
-        handleDelete();
-        isModalDeleteActive = false;
-      }
+      handleDelete();
+      isModalDeleteActive = false;
+    }
       " />
   <NuxtLayout name="lmsadmin">
     <!-- <SectionMain> -->
@@ -203,7 +228,7 @@ const handleDelete = async () => {
         <div class="">
           <div class="">
             <ul>
-              <NuxtLink :to="'/ExamPortal/tests/test/'+postId"
+              <NuxtLink :to="'/ExamPortal/tests/test/' + postId"
                 class="w-full min-w-60 pl-8 h-12 flex gap-1 align-middle justify-start items-center bg-slate-300">
                 <BaseIcon :path="mdiArrowLeft" class="cursor-pointer" />
                 <p>Back To Test Series</p>
@@ -226,20 +251,35 @@ const handleDelete = async () => {
               <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
                 :class="{ 'bg-slate-500': isActive == 3 }" @click="() => (isActive = 3)">
                 <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
-                <p>Manage Users</p>
+                <p>Manage Learners</p>
               </li>
               <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
                 :class="{ 'bg-slate-500': isActive == 4 }" @click="() => (isActive = 4)">
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Admins</p>
+              </li>
+              <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 5 }" @click="() => (isActive = 5)">
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Affiliates</p>
+              </li>
+              <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 6 }" @click="() => (isActive = 6)">
+                <BaseIcon :path="mdiAccountCog" class="cursor-pointer" />
+                <p>Manage Instructors</p>
+              </li>
+              <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
+                :class="{ 'bg-slate-500': isActive == 7 }" @click="() => (isActive = 7)">
                 <BaseIcon :path="mdiFilePlus" class="cursor-pointer" />
                 <p>Add Products</p>
               </li>
               <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 5 }" @click="() => (isActive = 5)">
+                :class="{ 'bg-slate-500': isActive == 8 }" @click="() => (isActive = 8)">
                 <BaseIcon :path="mdiDatabaseCogOutline" class="cursor-pointer" />
                 <p>Manage Order</p>
               </li>
               <li class="cursor-pointer w-full pl-8 h-12 flex gap-1 align-middle justify-start items-center"
-                :class="{ 'bg-slate-500': isActive == 6 }" @click="() => (isActive = 6)">
+                :class="{ 'bg-slate-500': isActive == 9 }" @click="() => (isActive = 9)">
                 <BaseIcon :path="mdiDatabaseCogOutline" class="cursor-pointer" />
                 <p>Content Dripping</p>
               </li>
@@ -258,16 +298,16 @@ const handleDelete = async () => {
           <div class="flex items-center">
             <div class="p-2 bg-red-300 rounded-[50%] mr-4">
               <BaseIcon :path="mdiMenu" class="cursor-pointer" @click="() => {
-                  isSidebarActive = !isSidebarActive;
-                }
+                isSidebarActive = !isSidebarActive;
+              }
                 " />
             </div>
             <p class="text-2xl">{{ tabs[isActive] }}</p>
           </div>
           <div class="flex flex-wrap items-center gap-4 px-4 py-4">
             <p @click="() => {
-                isModalSaveActive = true;
-              }
+              isModalSaveActive = true;
+            }
               " class="cursor-pointer rounded-md py-2 px-3 text-white bg-black">
               Save
             </p>
@@ -297,10 +337,19 @@ const handleDelete = async () => {
             publishingDate: item.publishingDate,
             publishingStatus: item.publishingStatus,
           }" @form-data-changes-publish="handleFormDataChangesPublish" v-if="isActive == 2" />
-          <ManageUser v-if="isActive == 3" />
-          <AddProducts v-if="isActive == 4" />
-          <ManageOrder v-if="isActive == 5" />
-          <Dripping v-if="isActive == 6" />
+          <ExamPortalTestManageLearner :postId="postId" v-if="isActive == 3" />
+          <ExamPortalTestManageAdmin :postId="postId" v-if="isActive == 4" />
+          <ExamPortalTestManageAffiliate :postId="postId" v-if="isActive == 5" />
+          <ExamPortalTestManageInstructor :postId="postId" v-if="isActive == 6" />
+          <AddProducts :post-id="postId" v-if="isActive == 7" />
+          <ManageOrder :post-id="postId" v-if="isActive == 8" />
+          <Dripping :data="{
+            id: item.id,
+            isDripping: item.isDripping,
+            isDrippingFixedDate: item.isDrippingFixedDate,
+            drippingFixedDate: item.drippingFixedDate,
+            drippings: item.drippings,
+          }" @form-data-changes-dripping="handleFormDataChangesDripping" v-if="isActive == 9" />
         </div>
       </div>
     </div>

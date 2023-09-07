@@ -190,11 +190,11 @@ const colors = computed(() => {
 
                 <BaseButton color="lightDark" label="Edit" small />
               </a>
-              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=5'">
+              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=8'">
 
                 <BaseButton color="lightDark" label="Re order" small />
               </NuxtLink>
-              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=4'">
+              <NuxtLink :to="'/examportal/tests/TestSetting/'+ testId + '/?tab=7'">
 
                 <BaseButton color="info" :icon="mdiPlus" label="Add Product" small />
               </NuxtLink>

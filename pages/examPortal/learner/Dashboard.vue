@@ -11,7 +11,7 @@ import BaseButtons from "~~/components/Buttons/BaseButtons.vue";
 import BaseIcon from "~~/components/Display/BaseIcon.vue";
 import image from "@/assets/img/bundleImage.png";
 import { API } from "aws-amplify";
-import { listMockTests } from "~~/src/graphql/queries";
+import { listMockTests, listTestSeries } from "~~/src/graphql/queries";
 
 
 const items = ref([
@@ -79,20 +79,54 @@ const colors = computed(() => {
   return ["info", "lightDark"];
 });
 
+let Mocks = ref([]);
 const fetchMockTests = async()=>{
   const response = await API.graphql({
     query:listMockTests,
     variables: { filter: { _deleted: {ne: true} , publishingStatus : {eq : "Live"} }}
   })
   console.log(response.data.listMockTests.items);
-  items.value = response.data.listMockTests.items;
-  items.value.map((item)=>{
-    item.category = "Mock test"
+  Mocks.value = response.data.listMockTests.items;
+  Mocks.value = Mocks.value.map((item) => {
+    return {
+      id: item.id,
+      name: item.name,
+      isFree: item.isFree,
+      type: item.type,
+      mockTestExamId: item.mockTestExamId,
+      category : "Mock test"
+    }
   })
+  console.log(Mocks.value);
+}
+const Tests = ref([]);
+const fetchTestSeries = async () => {
+  let temp;
+  const response = await API.graphql({
+    query: listTestSeries,
+    variables: { filter: { _deleted: { ne: true }, publishingStatus: { eq: "Live" } } }
+  })
+  console.log(response.data.listTestSeries.items);
+  temp = response.data.listTestSeries.items;
+  temp = temp.map((item) => {
+    return {
+      id: item.id,
+      name: item.name,
+      isFree: item.isFree,
+      type: "Tests",
+      quantity: item.MockTests.items.length,
+      mockTestExamId: item.id,
+      category: "test series"
+    }
+  })
+  console.log(temp);
+  Tests.value = [...temp];
 }
 
-onMounted(()=>{
-  fetchMockTests();
+onMounted(async ()=>{
+  await fetchMockTests();
+  await fetchTestSeries();
+  items.value = [...Tests.value, ...Mocks.value];
 })
 
 

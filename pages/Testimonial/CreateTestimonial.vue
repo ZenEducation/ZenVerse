@@ -96,10 +96,13 @@
                             </div>
 
                             <img v-else src="@/images/download.png" alt="Image" />
-                            <form>
-                                <input type="file" @change="handleFileChange" accept=".jpg, .jpeg, .png" />
+                            <div class="flex justify-center">
+                                <form>
+                                    <input type="file" class=" w-[250px] " @change="handleFileChange"
+                                        accept=".jpg, .jpeg, .png" />
 
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </PremFormField>
                     <PremFormField label="Content" horizontal>
@@ -209,6 +212,7 @@ const status = ref("Uploading Data...")
 const savedTestimonial = ref()
 const urlToAdd = ref('');
 const urls = ref([]);
+const fileKey = ref("")
 
 const addUrl = () => {
     if (urlToAdd.value.trim() !== '') {
@@ -267,8 +271,8 @@ const publishBtn = async () => {
                 if (uploadedFile.value && uploadedFile.value.file) {
                     uploadingFile.value = true;
 
-                    const fileKey = uploadedFile.value.key;
-                    await Storage.put(fileKey, uploadedFile.value.file, {
+                    fileKey.value = uploadedFile.value.key;
+                    await Storage.put(fileKey.value, uploadedFile.value.file, {
                         contentType: uploadedFile.value.file.type,
                     });
 
@@ -282,7 +286,7 @@ const publishBtn = async () => {
                             "sub_title": subtitleText.value,
                             "category": value.value,
                             "publishDate": publishDate.value,
-                            "profilePicKey": fileKey,
+                            "profilePicKey": fileKey.value,
                             "content": editorContent.value,
                             "isPublished": true,
                             "youtubeURL": urls.value.map(item => item)
@@ -302,6 +306,7 @@ const publishBtn = async () => {
                     uploadedFile.value = null;
                     savedTestimonial.value = ""
                     urls.value = []
+
                     localStorage.removeItem('formData');
 
 
@@ -312,7 +317,7 @@ const publishBtn = async () => {
                 console.log(error);
             } finally {
                 uploadingFile.value = false;
-                router.push("/Testimonial/alltestimonial")
+                // router.push("/Testimonial/alltestimonial")
             }
         } else {
             window.alert("Fill All Fields Properly")
@@ -328,7 +333,9 @@ onMounted(() => {
         savedTestimonial.value = formData.id
         titleText.value = formData.titleText;
         subtitleText.value = formData.sub_title
-        value.value = formData.value;
+        // value.value = formData.value;
+        categorySelect.value.push({ name: formData.value, value: formData.value })
+        value.value = formData.value
         publishDate.value = formData.publishDate;
         editorContent.value = formData.editorContent;
         uploadedFile.value = formData.uploadedFile;
@@ -353,10 +360,12 @@ const saveReview = async () => {
         status.value = "Saving Data..."
         uploadingFile.value = true;
 
-        const fileKey = uploadedFile.value.key;
-        await Storage.put(fileKey, uploadedFile.value.file, {
-            contentType: uploadedFile.value.file.type,
-        });
+        if (uploadedFile.value) {
+            fileKey.value = uploadedFile.value.key;
+            await Storage.put(fileKey.value, uploadedFile.value.file, {
+                contentType: uploadedFile.value.file.type,
+            });
+        }
 
 
 
@@ -364,14 +373,21 @@ const saveReview = async () => {
         const dataLength = data.length + 1;
         console.log(dataLength);
 
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1; // Note: Month is zero-based, so we add 1.
+        const day = today.getDate();
+
+        const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
         const newModel = await DataStore.save(
             new TestimonialData({
                 "testiminial_no": dataLength.toString(),
                 "student_name": titleText.value,
                 "sub_title": subtitleText.value,
                 "category": value.value,
-                "publishDate": publishDate.value,
-                "profilePicKey": fileKey,
+                "publishDate": publishDate.value ?? new Date(formattedDate),
+                "profilePicKey": fileKey.value ?? "",
                 "content": editorContent.value,
                 "isPublished": false,
                 "youtubeURL": urls.value.map((item) => item)
@@ -387,7 +403,7 @@ const saveReview = async () => {
             value: value.value,
             publishDate: publishDate.value,
             editorContent: editorContent.value,
-            uploadedFile: uploadedFile.value.file,
+            uploadedFile: uploadedFile.value.file ?? null,
             urlArray: urls.value.map(item => item),
         };
         localStorage.setItem('formData', JSON.stringify(formData));
@@ -427,7 +443,10 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
     .flexImage {
         flex-direction: column;
+
     }
+
+
 
 
 }

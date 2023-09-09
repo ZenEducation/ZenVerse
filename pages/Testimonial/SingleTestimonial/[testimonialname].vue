@@ -28,6 +28,7 @@
                                         frameborder="0" :key="index"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         allowfullscreen></iframe>
+
                                 </div>
                             </div>
                         </div>

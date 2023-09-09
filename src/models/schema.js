@@ -14,49 +14,49 @@ export const schema = {
                     "name": "testiminial_no",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "student_name": {
                     "name": "student_name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "sub_title": {
                     "name": "sub_title",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "category": {
                     "name": "category",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "content": {
                     "name": "content",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "profilePicKey": {
                     "name": "profilePicKey",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "publishDate": {
                     "name": "publishDate",
                     "isArray": false,
                     "type": "AWSDate",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "isPublished": {
@@ -120,5 +120,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "8bd2f3ece4234ec0acafde927de16b83"
+    "version": "4ac26982317445b1d1c132921cc7f33e"
 };

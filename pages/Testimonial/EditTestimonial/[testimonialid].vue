@@ -89,13 +89,18 @@
 
                             <div v-if="uploadedFile">
                                 <img v-if="uploadedFile.file" width="500" :src="uploadedFile.file.url" alt="Image" />
+                                <img v-else width="500" :src="uploadedFile" alt="Image" />
                             </div>
 
                             <img v-else src="@/images/download.png" alt="Image" />
-                            <form>
-                                <input type="file" @change="handleFileChange" accept=".jpg, .jpeg, .png" />
 
-                            </form>
+                            <div class="flex justify-center">
+                                <form>
+                                    <input type="file" class="w-[250px]" @change="handleFileChange"
+                                        accept=".jpg, .jpeg, .png" />
+
+                                </form>
+                            </div>
                         </div>
                     </PremFormField>
                     <PremFormField label="Content" horizontal>
@@ -318,6 +323,7 @@ const publishBtn = async () => {
             } catch (error) {
                 console.log(error);
             } finally {
+                localStorage.removeItem('formData');
                 uploadingFile.value = false;
                 router.push("/Testimonial/alltestimonial")
             }
@@ -341,15 +347,14 @@ onMounted(async () => {
         const { student_name, sub_title, category, content, testiminial_no, youtubeURL } = SingleTestimonial.value
         titleText.value = student_name
         subtitleText.value = sub_title
-        console.log({ name: category, value: category.toLowerCase() })
         categorySelect.value.push({ name: category, value: category })
         value.value = category
-        console.log(value.value);
         editorContent.value = content
         publishDate.value = SingleTestimonial.value.publishDate
         oldTestimonialNo.value = testiminial_no
         urls.value = youtubeURL.map(item => item)
         uploadedFile.value = SingleTestimonialImg.value
+        console.log(uploadedFile.value);
 
     } catch (err) {
         console.error(err);

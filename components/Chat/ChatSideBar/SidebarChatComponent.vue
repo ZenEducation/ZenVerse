@@ -1,4 +1,5 @@
 <template>
+  <div :onclick="handleOnclick" class="flex justify-around w-full">
   <div class="avatar h-10 w-10">
     <img class="rounded-full" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="avatar" />
     <div
@@ -37,11 +38,23 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script setup>
 import { getDateTime } from '@/components/helpers/helpers'
+import { useMyStore } from '@/stores/chatName';
+
+const myStore = useMyStore();
+
 const props = defineProps(["chat"]);
 const getDateTimeforChat = computed(()=> {
     return getDateTime(props.chat.date)
 })
+const handleOnclick=()=>{
+  console.log("hello");
+  // console.log("clicked on " + myStore.name);
+  myStore.setName(props.chat.name);
+  console.log("clicked on " + myStore.name );
+  console.log("data :" + myStore.data);
+}
 </script>

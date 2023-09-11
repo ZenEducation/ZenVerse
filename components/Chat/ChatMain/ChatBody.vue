@@ -174,10 +174,22 @@ import {
   areSameDays,
 } from "@/components/helpers/helpers";
 import { storeToRefs } from "pinia";
+import { useMyStore } from '@/stores/chatName';
 
 const store = useChatStore();
-const { getUserMessages } = storeToRefs(store);
+// const { getUserMessages } = storeToRefs(store);
 const {} = store;
+const myStore = useMyStore();
+
+const getUserMessages = ref(myStore.data);
+
+// Watch for changes in myStore.data and update getUserMessages
+watchEffect(() => {
+  getUserMessages.value = myStore.data;
+  console.log(getUserMessages.value);
+});
+
+
 const getTime = (index) => {
   if (
     index + 1 === getUserMessages.value.length ||
@@ -194,6 +206,7 @@ const getTime = (index) => {
 };
 const getDay = (index) => {
   let date = getUserMessages.value[index].date;
+  console.log(date);
   if (!index || !areSameDays(date, getUserMessages.value[index - 1].date)) {
     return getFullDay(date);
   } else {
@@ -201,12 +214,13 @@ const getDay = (index) => {
   }
 };
 const isAvatarVisible = (index) => {
-  if (
-    index === 0 ||
-    getUserMessages.value[index].sender !==
-      getUserMessages.value[index - 1].sender
-  )
-    return true;
-  return false;
+  // if (
+  //   index === 0 ||
+  //   getUserMessages.value[index].sender !==
+  //     getUserMessages.value[index - 1].sender
+  // )
+  //   return true;
+  // return false;
+  return true;
 };
 </script>

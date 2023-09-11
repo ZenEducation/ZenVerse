@@ -1,4 +1,9 @@
 import { defineStore } from "pinia";
+import { DataStore } from '@aws-amplify/datastore';
+import { Messsage } from '@/src/models/index';
+import { useMyStore } from '@/stores/chatName';
+
+const myStore = useMyStore();
 
 const sampleUserChats = [
     {
@@ -169,7 +174,8 @@ export const useChatStore = defineStore("chat", {
         rightSidebar: false,
         userChats: [...sampleUserChats],
         messages: [...sampleChat],
-        stories: [...sampleStories]
+        stories: [...sampleStories],
+        data: [...myStore.data]
     }),
     getters: {
         getSidebarStatus: (state) => state.sidebar,

@@ -65,6 +65,8 @@
             <input
               class="form-input peer h-8 w-full rounded-lg bg-slate-150 py-2 pl-9 text-xs+ ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
               placeholder="Search chats"
+              v-model="searchQuery"
+              @input="handleSearch"
               type="text"
             />
             <span
@@ -110,7 +112,7 @@
           
           <div
             class="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
-            v-for="chat in getUserChats" :key="chat.id"
+            v-for="chat in filteredUserMessages" :key="chat.id"
           >
             <SidebarChatComponent :chat="chat"/>
           </div>
@@ -130,5 +132,16 @@ import SidebarHistoryComponent from './SidebarHistoryComponent'
 
 const store = useChatStore()
 const { getUserChats } = storeToRefs(store)
+const searchQuery=ref("");
+const filteredUserMessages = ref(getUserChats.value);
 const { toggleSidebar } = store
+const handleSearch = () => {
+    filteredUserMessages.value = getUserChats.value.filter((message) =>
+      message.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+};
+watch(searchQuery, () => {
+  handleSearch();
+  console.log(filteredUserMessages.value);
+});
 </script>

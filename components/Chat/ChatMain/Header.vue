@@ -60,7 +60,7 @@
         </div>
         <div>
           <p class="font-medium text-slate-700 line-clamp-1 dark:text-navy-100">
-            Konnor Guzman
+            {{ name }}
           </p>
           <p class="mt-0.5 text-xs">Last seen recently</p>
         </div>
@@ -273,11 +273,19 @@ import { ref } from "vue";
 import { useChatStore } from "@/stores/chat";
 import { storeToRefs } from "pinia";
 import { onClickOutside } from "@vueuse/core";
+import { useMyStore } from '@/stores/chatName';
+
 
 const store = useChatStore();
+const myStore = useMyStore();
 const { getSidebarStatus, getRightSidebarStatus } = storeToRefs(store);
 const { toggleSidebar, toggleRightSidebar } = store;
 const chatMenu = ref(false);
+const name =ref(myStore.name);
+watchEffect(() => {
+  name.value = myStore.name;
+  console.log(name.value);
+});
 
 const menu = ref(null);
 onClickOutside(menu, (event) => {

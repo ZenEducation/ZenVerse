@@ -34,10 +34,7 @@
                     </PremFormField>
                     <PremFormField label="Youtube Link" horizontal>
                         <PremFormField horizontal>
-                            <!-- <div class="flex flex-col">
-                                <input type="text" placeholder="Click to Add URLs" class="w-full">
-
-                            </div> -->
+                            
                             <div class="flex flex-col">
                                 <div class="flex">
                                     <input type="text" placeholder="Click to Add URLs"

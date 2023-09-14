@@ -34,7 +34,7 @@
                     </PremFormField>
                     <PremFormField label="Youtube Link" horizontal>
                         <PremFormField horizontal>
-                            
+
                             <div class="flex flex-col">
                                 <div class="flex">
                                     <input type="text" placeholder="Click to Add URLs"
@@ -432,7 +432,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 </script>
 
   
-<style>
+<style scoped>
 @media screen and (max-width: 1024px) {
     .resDis {
         display: none;

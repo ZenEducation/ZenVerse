@@ -89,11 +89,17 @@ const items = ref([
 
 ]);
 const orders = ref([])
+const dripps = ref([])
 
 const testTitle = ref("");
 const isValidityDays = ref();
 const validityDays = ref();
 const expiryDate = ref();
+
+const isDripping = ref(false);
+const isDrippingFixedDate= ref(false);
+const drippingFixedDate = ref(null);
+
 
 
 onMounted(async () => {
@@ -122,6 +128,13 @@ onMounted(async () => {
       isValidityDays
       validityDays
       expiryDate
+      isDripping
+      isDrippingFixedDate
+      drippingFixedDate
+      drippings{
+        id
+        days
+      }
     }
   }
 `;
@@ -135,14 +148,25 @@ onMounted(async () => {
   isValidityDays.value = response.data.getTestSeries.isValidityDays;
   validityDays.value = response.data.getTestSeries.validityDays;
   expiryDate.value = response.data.getTestSeries.expiryDate;
+  isDripping.value = response.data.getTestSeries.isDripping || false;
+  isDrippingFixedDate.value = response.data.getTestSeries.isDrippingFixedDate || false;
+  drippingFixedDate.value = response.data.getTestSeries.drippingFixedDate ;
+
 
   orders.value = response?.data?.getTestSeries?.orders || [];
+  dripps.value = response?.data?.getTestSeries?.drippings || [];
 
-  items.value = response.data.getTestSeries.MockTests.items.map((element) => { return { ...element.mockTest, order: null } });
+
+  items.value = response.data.getTestSeries.MockTests.items.map((element) => { return { ...element.mockTest, order: null , dripDays : 0 } });
 
   orders.value.forEach((order) => {
     let index = items.value.findIndex(item => item.id == order.id)
     items.value[index].order = order.order;
+  })
+
+  dripps.value.forEach((order) => {
+    let index = items.value.findIndex(item => item.id == order.id)
+    items.value[index].dripDays = order.days;
   })
 
   items.value.sort((a, b) => {
@@ -179,6 +203,18 @@ const filteredItems = computed(() => {
         ? item.name.match(search)
         : true;
     });
+  }
+
+  if (isDripping.value && isDrippingFixedDate.value) {
+    filtered = filtered.filter((item) => {
+      let fixedDate = new Date(drippingFixedDate.value)
+      let desired = new Date(drippingFixedDate.value);
+      console.log( "desired :" ,  desired);
+      desired.setDate(fixedDate.getDate() + item.dripDays);
+      const today = new Date()
+      console.log( "filter date : " , today , desired);
+      return today >= desired
+    })
   }
 
 

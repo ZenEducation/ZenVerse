@@ -176,7 +176,7 @@ const handleSave = async () => {
       variables: { input: input },
     });
     console.log(response.data.updateTestSeries);
-
+    item.value = response.data.updateTestSeries;
     console.log(item.value);
     window.alert("changes are saved Successfully");
   } catch (error) {

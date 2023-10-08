@@ -1,4 +1,12 @@
 export default defineNuxtConfig({
+  head: {
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://themes.googleusercontent.com/fonts/css?kit=cz1jpBwGM3olgm6yAbYiUmFNHreHjGDULiILnCQaL3AhwzbRXCq9VLiKmr71AM0EhmorhrP7WPNHD-c8XM5pw2aJKlHrtewGmHjl3ZIvTIgs-BimimGMd68Ci4l6bz476lboFduP1IjgyK1FWy3UUh9IGyTIcG1GYguEjgy0uV4GouCgZ0IK-dUppgFJ9gaADb1dvSgxp-370RvRJtjBEqyztD1g4QMI0P111Piq098',
+      },
+    ],
+  },
   ssr: false,
   srcDir: "./",
   css: ["@/assets/css/main.css"],
@@ -30,7 +38,7 @@ export default defineNuxtConfig({
         ],
       },
     ],
-    ["@vueuse/nuxt"],
+    ["@vueuse/nuxt", {}],
   ],
   //buildModules: ["@pinia/nuxt"],
   alias: {

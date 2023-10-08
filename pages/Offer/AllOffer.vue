@@ -332,7 +332,7 @@ const clearResult = () => {
                         </thead>
                         <tbody>
                             <tr v-for="(client, index) in filteredItems" :key="client.id"
-                                class="border-b-0 lg:w-6 before:hidden">
+                                class="border-b-0 lg:w-6 before:hidden my-2">
                                 <td data-label="Client ID" class="border-b-0 lg:w-6 before:hidden text-center">
                                     {{ client.OfferLaterNo }}
                                 </td>

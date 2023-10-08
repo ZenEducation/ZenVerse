@@ -853,6 +853,7 @@
                         </p>
                         <br>
                         <br>
+
                     </div>
                 </div>
 
@@ -985,11 +986,11 @@ onMounted(() => {
 
 const saveReview = async () => {
     if (confirm("Do You Want to Save This Testimonials") == true) {
-        // if (savedOfferLater.value) {
+        if (savedOfferLater.value) {
 
-        //     const modelToDelete = await DataStore.query(OfferLater, savedOfferLater.value);
-        //     DataStore.delete(modelToDelete);
-        // }
+            const modelToDelete = await DataStore.query(OfferLater, savedOfferLater.value);
+            DataStore.delete(modelToDelete);
+        }
 
 
         status.value = "Saving Data..."

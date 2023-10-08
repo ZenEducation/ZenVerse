@@ -208,7 +208,7 @@ const saveReview = async () => {
 
         console.log(typeof salaryText.value)
 
-        const taskHour = totalTaskHour.value > 1 ? totalTaskHour.value + " " + value.value + "s" : totalTaskHour.value + " " + value.value
+        const taskHour = totalTaskHour.value + " " + value.value
         const data = await DataStore.query(OfferLater);
         const dataLength = data.length + 1;
         console.log(dataLength);

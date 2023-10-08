@@ -24,3 +24,6 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+  auth:
+  headless:
+    identityPoolId: ap-south-1:6c679887-778c-4767-a7f2-c3f9b3857131

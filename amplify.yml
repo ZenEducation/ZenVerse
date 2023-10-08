@@ -26,4 +26,4 @@ frontend:
       - node_modules/**/*
   auth:
   headless:
-    identityPoolId: ap-south-1:6c679887-778c-4767-a7f2-c3f9b3857131
+    identityPoolId: ap-south-1:6270b7bc-d912-4c51-8527-a8a1614638a8

@@ -1,7 +1,7 @@
 <script setup>
 import SectionMain from "@/components/Sections/SectionMain.vue";
 import BaseIcon from "@/components/Display/BaseIcon.vue";
-import InformationTab from "@/components/CNS/MgmtEdit/AdminEditInformation.vue";
+import InformationTab from "@/components/CMS/MgmtEdit/AdminEditInformation.vue";
 import CoursesTab from "@/components/CMS/MgmtEdit/LearnerEditCourses.vue";
 import PurchaseTab from "@/components/CMS/MgmtEdit/LearnerEditPurchase.vue";
 import CardBoxModal from "@/components/Cards/CardBoxModal.vue";

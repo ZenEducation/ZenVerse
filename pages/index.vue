@@ -142,7 +142,7 @@ const handleSubmit = async () => {
                 to="/auth/register"
                 class="text-sm bg-gray-800 text-white p-3 rounded-md hover:bg-gray-600"
               >
-                Don't have an account? Sign Up
+                Register
               </NuxtLink>
             </div>
           </template>

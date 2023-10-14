@@ -1,18 +1,12 @@
 <template>
   <div class="">
     <NuxtLayout>
-      <div class="bg-slate-900 grid grid-cols-2  w-screen h-screen ">
-        <div class="flex justify-center items-center left_section">
+      <div class="bg-slate-900 flex mainSec  w-screen h-screen ">
+        <div class="flex flex-1 justify-center items-center left_section">
           <div class="p-12 rounded  w-12/12 md:w-8/12  left_text_container">
             <div class="mb-6 ">
               <div class="flex justify-start items-center ">
-                <!-- <BaseIcon
-          :path="mdiMenuRight "
-          size="60"
-          h=""
-          w=""
-          class=" cursor-pointer text-left"
-        /> -->
+
                 <div class="text-4xl font-bold">Digital</div>
               </div>
               <div class="text-4xl font-bold mt-1">Platform</div>
@@ -23,93 +17,56 @@
             </div>
           </div>
         </div>
-        <div class="dark:bg-slate-800 flex justify-start items-center ">
+        <div class="dark:bg-slate-800 flex justify-center flex-1 right_section items-center ">
           <div class="w-8/12 mx-auto px-2">
             <div class="w-full">
-              <div class="text-2xl font-bold">Hay, hello  <BaseIcon
-          :path="mdiHandWaveOutline  "
-          size="20"
-          h=""
-          w=""
-          class=" cursor-pointer text-left text-yellow-400"
-        /></div>
-              <div class="">
+              <div class="text-2xl font-bold text-white text-center">Hay, hello
+                <BaseIcon :path="mdiHandWaveOutline" size="20" h="" w=""
+                  class=" cursor-pointer text-left text-yellow-400" />
+              </div>
+              <div class="text-[#ccc] text-center">
                 Enter the information yo entered while registering
               </div>
               <div class="mt-2">
-                <PremFormField label="Email" horizontal>
-                  <PremFormControl
-                    :icon-left="mdiMail"
-                    :icon-right="mdiCheck"
-                    type="email"
-                    help="Your e-mail"
-                    placeholder="Email"
-                  />
+                <PremFormField label="Email" horizontal class="text-white ">
+                  <PremFormControl :icon-left="mdiMail" class="text-black" :icon-right="mdiCheck" type="email"
+                    help="Your e-mail" placeholder="Email" />
                 </PremFormField>
-                <PremFormField label="Password" horizontal>
-                  <PremFormControl
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                  />
+                <PremFormField label="Password" horizontal class="text-white">
+                  <PremFormControl type="password" class="text-black" name="password" placeholder="Password" />
                 </PremFormField>
-                <div class="flex justify-between items-center">
-                  <FormCheckRadioGroup
-                    name="sample-checkbox-two"
-                    :options="checkboxOptions"
-                    is-column
-                  />
+                <div class="flex justify-between items-center password">
+                  <FormCheckRadioGroup name="sample-checkbox-two" component-class="text-white" :options="checkboxOptions"
+                    is-column />
 
                   <div class="text-blue-500 cursor-pointer">
                     Forget Password ?
                   </div>
                 </div>
-                <BaseButton
-                  label="Login"
-                  type="button"
-                  color="info"
-                  class="uppercase mt-3"
-                  :style="[]"
-                  :icon="mdiPlus"
-                  widthFull
-                />
+                <BaseButton label="Login" type="button" color="info" class="uppercase mt-3" :style="[]" :icon="mdiPlus"
+                  widthFull />
                 <div class="flex justify-center items-center">
                   <BaseDivider />
-                  <div class="">or</div>
+                  <div class=" text-[#ccc] ">or</div>
                   <BaseDivider />
                 </div>
-                <BaseButton
-                  label="Sign in with google"
-                  type="button"
-                  color="info"
-                  class="uppercase  text-center"
-                  :style="[]"
-                 
-                  outline
-                />
+                <BaseButton label="Sign in with google" type="button" color="info" class="uppercase  text-center"
+                  :style="[]" outline />
 
-<div class="flex items-center justify-start mt-2">
-  Don’ t have an account? Register
-  <div class=""></div>
-            <BaseIcon
-          :path="mdiArrowDownThin "
-          size="20"
-          h=""
-          w=""
-          class=" cursor-pointer text-left"
-        />
-</div>
-                <div class="grid grid-cols-3 gap-2 mt-3 text-center">
-                  <div class=" bottomBtn rounded" v-for="(item,idx) in catagories" :key="idx"
-                  :class="'bg'+idx"
-                  >
-               
-                  <div class=" p-5 layer uppercase rounded font-bold ">
-                   {{ item.name }}
+                <div class=" mt-2 mb-4 text-sm text-[#ccc] text-center ">
+                  Don’ t have an account? Register
+                  <!-- <div class=""></div> -->
+                  <BaseIcon :path="mdiArrowDownThin" size="20" class=" cursor-pointer text-left" />
+                </div>
+                <div class="grid grid-cols-3 registerBtns gap-2 mt-3 text-center">
+                  <div class=" bottomBtn rounded h-16" v-for="(item, idx) in catagories" :key="idx" :class="'bg' + idx">
+
+                    <div class="layer uppercase rounded font-bold text-[#ccc] flex items-center justify-center ">
+                      {{ item.name }}
+                    </div>
+
                   </div>
-                  
-                  </div>
-             
+
 
                 </div>
               </div>
@@ -131,105 +88,148 @@ import BaseDivider from "@/components/NavBar/BaseDivider.vue";
 
 const checkboxOptions = { remember: "Remember Me" };
 
-import { mdiMenuRight,mdiArrowDownThin,mdiHandWaveOutline    } from "@mdi/js";
+import { mdiMenuRight, mdiArrowDownThin, mdiHandWaveOutline } from "@mdi/js";
 const passShowHideClicked = ref(false);
 
 const catagories = [
-{
-  id:1,
-  name:"Educator",
-  link:"",
-  img:"eductor.jpg"
-},
-{
-  id:2,
-  name:"Educarer",
-  link:"",
-  img:"teacher2.jpg"
+  {
+    id: 1,
+    name: "Educator",
+    link: "",
+    img: "eductor.jpg"
+  },
+  {
+    id: 2,
+    name: "Educarer",
+    link: "",
+    img: "teacher2.jpg"
 
-},{
-  id:3,
-  name:"Student",
-  link:"",
-  img:"Student.jpg"
+  }, {
+    id: 3,
+    name: "Student",
+    link: "",
+    img: "Student.jpg"
 
-},{
-  id:4,
-  name:"Guardian",
-  link:"",
-  img:"guardian.jpg"
+  }, {
+    id: 4,
+    name: "Guardian",
+    link: "",
+    img: "guardian.jpg"
 
-},{
-  id:5,
-  name:"Admin",
-  link:"",
-  img:"admin.jpg"
+  }, {
+    id: 5,
+    name: "Admin",
+    link: "",
+    img: "admin.jpg"
 
-},{
-  id:6,
-  name:"Development",
-  link:"",
-  img:"dev.jpg"
+  }, {
+    id: 6,
+    name: "Development",
+    link: "",
+    img: "dev.jpg"
 
-},
+  },
 
 ]
 
 
 
-const backgroundImage = (name)=>{
-  return `url("${'@/assets/img/MultiUserAuthentication/'+name}")`
+const backgroundImage = (name) => {
+  return `url("${'@/assets/img/MultiUserAuthentication/' + name}")`
 }
 
 
 </script>
 
 <style scoped>
-
-
-.bottomBtn{
+.bottomBtn {
   background-image: url('@/assets/img/MultiUserAuthentication/dev.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   cursor: pointer;
 }
-.layer{
+
+.layer {
   background: rgba(0, 0, 0, 0.685);
+  height: 100%;
+
 }
-.bg0{
+
+.bg0 {
   background-image: url('@/assets/img/MultiUserAuthentication/eductor.jpg');
 
 }
-.bg1{
+
+.bg1 {
   background-image: url('@/assets/img/MultiUserAuthentication/teacher2.jpg');
 
 }
-.bg2{
+
+.bg2 {
   background-image: url('@/assets/img/MultiUserAuthentication/Student.jpg');
 
 }
-.bg3{
+
+.bg3 {
   background-image: url('@/assets/img/MultiUserAuthentication/guardian.jpg');
 
 }
-.bg4{
+
+.bg4 {
   background-image: url('@/assets/img/MultiUserAuthentication/admin.jpg');
 
 }
-.bg5{
+
+.bg5 {
   background-image: url('@/assets/img/MultiUserAuthentication/dev.jpg');
 
 }
 
-.left_section{
+
+
+.left_section {
   background-image: url('@/assets/img/MultiUserAuthentication/login-background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
-.left_text_container{
+
+.left_text_container {
   background: rgba(218, 211, 211, 0.253);
-  
+
+}
+
+@media screen and (max-width: 900px) {
+  .mainSec {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .left_section {
+    padding: 10px;
+  }
+
+  .right_section {
+    padding: 10px;
+  }
+
+  .password {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .layer {
+    font-size: 13px;
+    padding: 2px;
+  }
+
+  .registerBtns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 </style>

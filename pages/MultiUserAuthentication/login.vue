@@ -25,14 +25,14 @@
                   class=" cursor-pointer text-left text-yellow-400" />
               </div>
               <div class="text-[#ccc] text-center">
-                Enter the information yo entered while registering
+                Enter the information you entered while registering
               </div>
-              <div class="mt-2">
+              <div class="">
                 <PremFormField label="Email" horizontal class="text-white ">
                   <PremFormControl :icon-left="mdiMail" class="text-black" :icon-right="mdiCheck" type="email"
                     help="Your e-mail" placeholder="Email" />
                 </PremFormField>
-                <PremFormField label="Password" horizontal class="text-white">
+                <PremFormField label="Password" horizontal class="text-white mt-0">
                   <PremFormControl type="password" class="text-black" name="password" placeholder="Password" />
                 </PremFormField>
                 <div class="flex justify-between items-center password">
@@ -43,7 +43,7 @@
                     Forget Password ?
                   </div>
                 </div>
-                <BaseButton label="Login" type="button" color="info" class="uppercase mt-3" :style="[]" :icon="mdiPlus"
+                <BaseButton label="Login" type="button" color="info" class="uppercase mt-1" :style="[]" :icon="mdiPlus"
                   widthFull />
                 <div class="flex justify-center items-center">
                   <BaseDivider />
@@ -53,15 +53,16 @@
                 <BaseButton label="Sign in with google" type="button" color="info" class="uppercase  text-center"
                   :style="[]" outline />
 
-                <div class=" mt-2 mb-4 text-sm text-[#ccc] text-center ">
+                <div class=" mt-2 mb-2 text-sm text-[#ccc] text-center ">
                   Don’ t have an account? Register
                   <!-- <div class=""></div> -->
                   <BaseIcon :path="mdiArrowDownThin" size="20" class=" cursor-pointer text-left" />
                 </div>
-                <div class="grid grid-cols-3 registerBtns gap-2 mt-3 text-center">
-                  <div class=" bottomBtn rounded h-16" v-for="(item, idx) in catagories" :key="idx" :class="'bg' + idx">
+                <div class="grid grid-cols-3 registerBtns gap-2 my-1 text-center">
+                  <div class=" bottomBtn rounded text-sm" v-for="(item, idx) in catagories" :key="idx"
+                    :class="'bg' + idx">
 
-                    <div class="layer uppercase rounded font-bold text-[#ccc] flex items-center justify-center ">
+                    <div class="layer uppercase rounded py-3 font-bold text-[#ccc] flex items-center justify-center ">
                       {{ item.name }}
                     </div>
 
@@ -206,26 +207,26 @@ const backgroundImage = (name) => {
   .mainSec {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: max-content;
   }
 
   .left_section {
-    padding: 10px;
+    padding: 0.7em;
   }
 
   .right_section {
-    padding: 10px;
+    padding: 0.7em;
   }
 
   .password {
     flex-direction: column;
     align-items: start;
-    gap: 10px;
+    gap: 0.7em;
   }
 
   .layer {
-    font-size: 13px;
-    padding: 2px;
+    font-size: 0.8rem;
+
   }
 
   .registerBtns {

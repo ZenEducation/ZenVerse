@@ -1,9 +1,10 @@
 <!-- component -->
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="zen" style="margin: 0;padding: 0;height: 
+  100%;">
 
     <div id="main_bar"
-      class="flex items-center  relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+      class="flex items-center  relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
       <div class="">
         <div class="">
           Filter by Status :
@@ -41,9 +42,11 @@
       </div>
     </div>
     <div
-      class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 overflow-x-auto">
+      class="flex items-center sm:bg-slate-900 relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50  overflow-y-auto dark:text-slate-100"
+      style="overflow: auto !important; max-height: 100%;margin: 30px;">
       <table
-        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800 table-auto overflow-x-auto">
+        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800  overflow-y-auto"
+        style="display: block!important;overflow:scroll; height: 72vh;">
 
         <tr class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b">
           <th v-for="(value, key) in tableHeadings" class="p-3 text-center" :key="key">
@@ -52,7 +55,10 @@
         </tr>
 
 
-        <tr v-for="(row, index) in studentTasks"
+        <tr v-for="(row, index) in state.selectedArray === 1 ? state.array1 :
+          state.selectedArray === 2 ? state.array2 :
+            state.selectedArray === 3 ? state.array3 :
+              state.selectedArray === 4 ? state.array4 : []"
           class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
           :key="index">
           <td v-for="(colm, id) in row" class="border-grey-light dark:border-gray-300 border  " :key="id">
@@ -60,7 +66,7 @@
               {{ colm }}
             </div>
             <div class=" " v-else>
-              <!-- teaching status  -->
+
               <div class="" v-if="colm.type == 'teachingStatus'">
                 <select v-model="colm.status" id="underline_select"
                   class="w-full pb-2.5 px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
@@ -77,7 +83,7 @@
                 </select>
               </div>
 
-              <!-- Module drop down  -->
+
               <div class=" " v-else>
                 <div v-if="colm.status == filterValue" class="flex items-center justify-center">
                   <select v-model="colm.status" id="underline_select"
@@ -120,9 +126,21 @@
         </tr>
 
       </table>
+
+      <!-- <div style="width:auto; height:auto; overflow:auto;margin: auto; background: steelblue;">
+        <table style="width:1000px; height:1px; color:#fff;">
+         
+        </table>
+      </div> -->
+      <template>
+
+      </template>
+
     </div>
 
-    <ModuleOpenPopup class="absolute openPopup" @close="closePopup" v-if="openPopup" :value="currentpopupValue" />
+    <ModuleOpenPopup class="absolute openPopup" @close="closePopup" v-if="openPopup" :value="currentpopupValue"
+      @details-updated="handleDetailsUpdated" />
+
   </NuxtLayout>
 </template>
 <script setup>
@@ -142,18 +160,60 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Academics } from "~/src/models";
 
 const has_change = ref("0")
+
 const handleChange = () => {
-  console.log("hello", studentTasks._value.data);
+  // console.log("hello", studentTasks._value.data);
   has_change.value = "1"
 }
 const username = JSON.parse(localStorage.getItem("User-profile")).attributes.email
-
+const handleDetailsUpdated = (itm) => {
+  // This function is called when the subcomponent emits the 'details-updated' event
+  console.log('Details updated in subcomponent:', itm);
+  const moduleIndex = 0;
+  if (moduleIndex >= 0) {
+    // Update the status of the module based on itm.id
+    const propertyName = `module${itm.props.id}`;
+    const id = itm.row_id - 1;
+    // const proxyArray = toRef(itm, 'comments');
+    const normalArray = Array.from(itm.comments);
+    console.log(propertyName, "is updated with", itm.comments, "and id is", id);
+    console.log(toRaw(state.array1)[id][propertyName], "testing testi ng");
+    console.log("normal array is ", normalArray);
+    if (state.selectedArray == 1) {
+      toRaw(state.array1)[id][propertyName].status = itm.status;
+      toRaw(state.array1)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array1)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array1)[id][propertyName].comments = normalArray;
+    } else if (state.selectedArray == 2) {
+      toRaw(state.array2)[id][propertyName].status = itm.status;
+      toRaw(state.array2)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array2)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array2)[id][propertyName].comments = normalArray;
+    }
+    else if (state.selectedArray == 3) {
+      toRaw(state.array3)[id][propertyName].status = itm.status;
+      toRaw(state.array3)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array3)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array3)[id][propertyName].comments = normalArray;
+    }
+    else if (state.selectedArray == 4) {
+      toRaw(state.array4)[id][propertyName].status = itm.status;
+      toRaw(state.array4)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array4)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array4)[id][propertyName].comments = normalArray;
+    }
+    has_change.value = "1"
+    closePopup();
+  } else {
+    console.error('Invalid itm.id:', itm.props.id);
+  }
+};
 const state = reactive({
-  array1: PhysicsChapters().data,
+  array1: ref([]),
   array2: ref([]),
   array3: ref([]),
   array4: ref([]),
-  selectedArray: null
+  selectedArray: 1
 });
 const tableHeadings = [
   "Chapter",
@@ -200,31 +260,34 @@ const reorderDataBasedOnHeadings = (data, tableHeadings) => {
     return reorderedItem;
   });
 };
+async function createArticle() {
+  try {
+    const newArticle = await DataStore.save(new Academics({ username: username, biology: JSON.stringify(BiologyChapters().data.data), chemistry: JSON.stringify(ChemistryChapters().data.data), mathematics: JSON.stringify(MathematicsChapters().data.data), physics: JSON.stringify(PhysicsChapters().data.data) }));
+    console.log("created entry sucussfully", newArticle);
+  } catch (error) {
+    console.error("Error creating article:", error);
+    throw error;
+  }
+}
 onBeforeMount(async () => {
   console.log(username, "this is username");
+  // createArticle();
   const res = await findAacedemicsByUsername(username);
-  console.log(res);
+  // console.log(res);
   console.log(JSON.parse(res[0].biology), "biology");
   console.log(JSON.parse(res[0].chemistry), "chemistry");
   console.log(JSON.parse(res[0].mathematics), "mathematics");
   console.log(JSON.parse(res[0].physics), "physics");
-  console.log("this is correct", PhysicsChapters().data);
-  console.log("this is reordered adat", reorderDataBasedOnHeadings(JSON.parse(res[0].physics), Headings));
+  // console.log("this is correct", PhysicsChapters().data);
+  // console.log("this is reordered adat", reorderDataBasedOnHeadings(JSON.parse(res[0].physics), Headings));
   state.array1 = reorderDataBasedOnHeadings(JSON.parse(res[0].physics), Headings);
   state.array2 = reorderDataBasedOnHeadings(JSON.parse(res[0].biology), Headings);
   state.array3 = reorderDataBasedOnHeadings(JSON.parse(res[0].chemistry), Headings);
   state.array4 = reorderDataBasedOnHeadings(JSON.parse(res[0].mathematics), Headings);
-  console.log(toRaw(state.array1), "this is my sree");
+  // console.log(toRaw(state.array1), "this is my sree");
 })
-//  async function createArticle() {
-//   try {
-//     const newArticle = await DataStore.save(new Academics({username: username, biology: JSON.stringify(BiologyChapters().data).data, chemistry: JSON.stringify(ChemistryChapters().data.data), mathematics: JSON.stringify(MathematicsChapters().data.data), physics: JSON.stringify(PhysicsChapters().data.data) }));
-//     return newArticle;
-//   } catch (error) {
-//     console.error("Error creating article:", error);
-//     throw error;
-//   }
-// }
+
+
 async function findAacedemicsByUsername(username) {
   try {
     const allAcademics = await DataStore.query(Academics);
@@ -257,7 +320,8 @@ async function updateAcademicsByUsername(username, physics, chemistry, biology, 
       );
     }));
     has_change.value = "0"
-    console.log(updatedAcademics);
+    window.alert("Details Updated Successfully")
+    // console.log(updatedAcademics);
   } catch (error) {
     console.error(`Error updating academics for username ${username}:`, error);
     throw error;
@@ -269,7 +333,7 @@ const currentpopupValue = ref(null);
 const openPopupItem = (item) => {
   openPopup.value = true;
   currentpopupValue.value = item;
-  console.log(item);
+  // console.log(item);
 };
 const closePopup = () => {
   openPopup.value = false;
@@ -281,7 +345,7 @@ const closePopup = () => {
 
 const renderArray = (arrayIndex) => {
   state.selectedArray = arrayIndex;
-  // console.log(studentTasks.value);
+  console.log(state.selectedArray, "current index is ");
 };
 
 const studentTasks = computed(() => {

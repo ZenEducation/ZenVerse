@@ -1,9 +1,9 @@
 <template>
   <div class="">
     <NuxtLayout>
-      <div class="bg-slate-900 grid grid-cols-2  w-screen h-screen ">
-        <div class="flex justify-center items-center left_section">
-          <div class="p-12 rounded  w-12/12 md:w-8/12  left_text_container">
+      <div class="bg-slate-900 grid grid-cols-1 md:grid-cols-2 w-screen h-screen ">
+        <div class="hidden md:flex justify-center items-center left_section">
+          <div class="p-12 rounded  w-12/12 md:w-9/12  left_text_container">
             <div class="mb-6 ">
               <div class="flex justify-start items-center ">
                 <!-- <BaseIcon
@@ -24,9 +24,9 @@
           </div>
         </div>
 
-        <div class="dark:bg-slate-800 flex justify-start items-center  ">
+        <div class="dark:bg-slate-800 flex justify-start items-center p-3 ">
 
-          <div class="w-8/12 mx-auto px-1">
+          <div class="w-10/12 mx-auto px-1">
             <AuthNotificationBar class="p-1" :isVisible="notificationModal" @toggle="toggleNotificationModal"
               color="danger" :icon="mdiMail">
               {{ errorMsg }}
@@ -56,32 +56,37 @@
                     Forget Password ?
                   </div>
                 </div>
-                <BaseButton label="Login" type="button" @click="submit()" color="info" class="uppercase mt-3" :style="[]"
-                  :icon="mdiPlus" widthFull />
+                <BaseButton label="Login" type="button" @click="submit()" color="info"
+                  class="uppercase mt-4 w-9/12 mx-auto rounded" :style="[]" :icon="mdiPlus" widthFull />
                 <div class="flex justify-center items-center">
                   <BaseDivider />
                   <div class="">or</div>
                   <BaseDivider />
                 </div>
                 <div class="flex justify-center items-center">
-                  <BaseButton label="Sign in with google" @click="() => Auth.federatedSignIn({ provider: 'Google' })"
-                    type="button" color="info" class="uppercase  text-center m-2" :style="[]" outline />
-                  <BaseButton label="Sign in with facebook" @click="() => Auth.federatedSignIn({ provider: 'Facebook' })"
-                    type="button" color="info" class="uppercase  text-center m-2" :style="[]" outline />
+                  <BaseButton label="Google" @click="() => Auth.federatedSignIn({ provider: 'Google' })" type="button"
+                    color="info" class="uppercase text-center m-1" :style="[]" outline>
+                    <i class="fab fa-google"></i> Google
+                  </BaseButton>
+
+                  <BaseButton label="Facebook" @click="() => Auth.federatedSignIn({ provider: 'Facebook' })" type="button"
+                    color="info" class="uppercase text-center m-1" :style="[]" outline>
+                    <i class="fab fa-facebook"></i> Facebook
+                  </BaseButton>
                 </div>
                 <div class="flex items-center justify-start mt-2">
                   Don’ t have an account? Register
                   <div class=""></div>
                   <BaseIcon :path="mdiArrowDownThin" size="20" h="" w="" class=" cursor-pointer text-left" />
                 </div>
-                <div class="grid grid-cols-3 gap-2 mt-3 text-center">
-                  
+                <div class="grid grid-cols-2 md:grid-cols-3 p-1 gap-1 mt-2 text-center">
+
                   <div class=" bottomBtn rounded" v-for="(item, idx) in catagories" :key="idx" :class="'bg' + idx">
-  <NuxtLink :to="item.link" >
-                    <div class=" p-5 layer uppercase rounded font-bold ">
-                      {{ item.name }}
-                    </div>
-  </NuxtLink>
+                    <NuxtLink :to="item.link">
+                      <div class=" p-5 layer uppercase rounded font-bold ">
+                        {{ item.name }}
+                      </div>
+                    </NuxtLink>
                   </div>
 
 

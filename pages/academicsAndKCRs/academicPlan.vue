@@ -1,168 +1,146 @@
 <!-- component -->
 <template>
-  <NuxtLayout name="zen">
+  <NuxtLayout name="zen" style="margin: 0;padding: 0;height: 
+  100%;">
 
-    <div
-    id="main_bar"
-      class="flex items-center  relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+    <div id="main_bar"
+      class="flex items-center  relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
       <div class="">
-      <div class="">
-        Filter by Status :
-      </div>
-      <div class="ml-2">
-        <PremFormControl help="" placeholder="None" type="list" :options="filterItems" v-model="filterValue"
-          @change="filterTable" />
-      </div>
-    </div>
-     <div class=" mx-auto flex justify-center items-end grid lg:grid-cols-4 xl:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-3" id="Inside_main_bar">
-          <div class="p-2">
-            <BaseButton label="Physics" type="button" class="uppercase px-0 py-0" small rounded-full
-              @click="renderArray(1)" />
-          </div>
-          <div class="p-2">
-            <BaseButton label="Biology" type="button" class="uppercase px-0 py-0" small rounded-full
-              @click="renderArray(2)" />
-          </div>
-          <div class="p-2">
-            <BaseButton label="Chemistry" type="button" class="uppercase px-0 py-0" small rounded-full
-              @click="renderArray(3)" />
-          </div>
-          <div class="p-2">
-            <BaseButton label="Mathematics" type="button" class="uppercase px-0 py-0" small rounded-full
-              @click="renderArray(4)" />
-          </div>
+        <div class="">
+          Filter by Status :
         </div>
+        <div class="ml-2">
+          <PremFormControl help="" placeholder="None" type="list" :options="filterItems" v-model="filterValue"
+            @change="filterTable" />
+        </div>
+      </div>
+      <div
+        class=" mx-auto flex justify-center items-end grid lg:grid-cols-4 xl:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 grid-cols-3"
+        id="Inside_main_bar">
+        <div class="p-2">
+          <BaseButton label="Physics" type="button" class="uppercase px-0 py-0" small rounded-full
+            @click="renderArray(1)" />
+        </div>
+        <div class="p-2">
+          <BaseButton label="Biology" type="button" class="uppercase px-0 py-0" small rounded-full
+            @click="renderArray(2)" />
+        </div>
+        <div class="p-2">
+          <BaseButton label="Chemistry" type="button" class="uppercase px-0 py-0" small rounded-full
+            @click="renderArray(3)" />
+        </div>
+        <div class="p-2">
+          <BaseButton label="Mathematics" type="button" class="uppercase px-0 py-0" small rounded-full
+            @click="renderArray(4)" />
+        </div>
+
+      </div>
+      <div class="m-2">
+        <BaseButton v-if="has_change == '0'" disabled color="info" type="submit" label="Save Changes" />
+        <BaseButton v-else color="info" type="submit" label="Save Changes"
+          @click="updateAcademicsByUsername(username, toRaw(state.array1), toRaw(state.array2), toRaw(state.array3), toRaw(state.array4))" />
+      </div>
     </div>
     <div
-        class="flex items-center sm:bg-slate-900 relative overflow-x-auto aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50 dark:text-slate-100 overflow-x-auto"
-      >
-        <table
-          class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800 table-auto overflow-x-auto"
-        >
-       
-            <tr
-              class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b"
-            >
-              <th
-                v-for="(value, key) in tableHeadings"
-                class="p-3 text-center"
-                :key="key"
-              >
-                {{ value }}
-              </th>
-            </tr>
-    
- 
-            <tr
-              v-for="(row, index) in studentTasks.data"
-              class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-              :key="index"
-            >
-              <td
-                v-for="(colm, id) in row"
-                class="border-grey-light dark:border-gray-300 border  "
-                :key="id"
-              >
-                <div
-                  v-if="typeof colm == 'string'"
-                  class="flex items-center justify-center "
-                  style="width: 200px;"
-                >
-                  {{ colm }}
-                </div>
-                <div class=" " v-else>
-                  <!-- teaching status  -->
-                  <div class="" v-if="colm.type == 'teachingStatus'">
-                    <select
-                      v-model="colm.status"
-                      id="underline_select"
-                      class="w-full pb-2.5 px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
-                      :class="colm.status"
-                    >
-                      <option value="Unassigned" class="text-red-500 Unassigned">
-                        Unassigned
-                      </option>
-                      <option value="In Progress" class="redText Progress">
-                        In Progress
-                      </option>
-                      <option value="Completed" class="blueText Completed">
-                        Completed
-                      </option>
-                    </select>
-                  </div>
+      class="flex items-center sm:bg-slate-900 relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10 bg-gray-50  overflow-y-auto dark:text-slate-100"
+      style="overflow: auto !important; max-height: 100%;margin: 30px;">
+      <table
+        class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg sm:shadow-lg text-gray-500 dark:text-gray-400 dark:bg-slate-800  overflow-y-auto"
+        style="display: block!important;overflow:scroll; height: 72vh;">
 
-                  <!-- Module drop down  -->
-                  <div class=" " v-else>
-                    <div  v-if="colm.status == filterValue" class="flex items-center justify-center">
-                    <select
-                      v-model="colm.status"
-                      id="underline_select"
-                      class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
-                      :class="colm.status"
-                    >
-                      <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
-                      <option value="Completed" class="Completed">Completed</option>
-                      <option value="on it" class="on">On It</option>
-                      <option
-                        value="Assigned-Not Started"
-                        class="Assigned"
-                      >
-                        Assigned - Not Started
-                      </option>
-                      <option value="Unassigned" class="Unassigned">Unassigned</option>
-                    </select>
-                    <div class=" pl-1">
-                      <BaseButton
-                        label="Open"
-                        type="button"
-                        color=""
-                        class="uppercase px-0 "
-                        :style="[]"
-                        small
-                        @click="openPopupItem(colm)"
-                      />
-                    </div>
-                  </div>
-                  <div  v-if="filterValue == 'All'" class="flex items-center justify-center">
-                    <select
-                      v-model="colm.status"
-                      id="underline_select"
-                      class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
-                      :class="colm.status"
-                    >
-                      <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
-                      <option value="Completed" class="Completed">Completed</option>
-                      <option value="on it" class="on">On It</option>
-                      <option
-                        value="Assigned-Not Started"
-                        class="Assigned"
-                      >
-                        Assigned - Not Started
-                      </option>
-                      <option value="Unassigned" class="Unassigned">Unassigned</option>
-                    </select>
-                    <div class=" pl-1">
-                      <BaseButton
-                        label="Open"
-                        type="button"
-                        color=""
-                        class="uppercase px-0 "
-                        :style="[]"
-                        small
-                        @click="openPopupItem(colm)"
-                      />
-                    </div>
-                  </div>
-              
-                </div>
-                </div>
-              </td>
-            </tr>
+        <tr class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 border-b">
+          <th v-for="(value, key) in tableHeadings" class="p-3 text-center" :key="key">
+            {{ value }}
+          </th>
+        </tr>
 
+
+        <tr v-for="(row, index) in state.selectedArray === 1 ? state.array1 :
+          state.selectedArray === 2 ? state.array2 :
+            state.selectedArray === 3 ? state.array3 :
+              state.selectedArray === 4 ? state.array4 : []"
+          class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+          :key="index">
+          <td v-for="(colm, id) in row" class="border-grey-light dark:border-gray-300 border  " :key="id">
+            <div v-if="typeof colm == 'string'" class="flex items-center justify-center " style="width: 200px;">
+              {{ colm }}
+            </div>
+            <div class=" " v-else>
+
+              <div class="" v-if="colm.type == 'teachingStatus'">
+                <select v-model="colm.status" id="underline_select"
+                  class="w-full pb-2.5 px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer teachingDropdown"
+                  :class="colm.status" @change="handleChange">
+                  <option value="Unassigned" class="text-red-500 Unassigned">
+                    Unassigned
+                  </option>
+                  <option value="In Progress" class="redText Progress">
+                    In Progress
+                  </option>
+                  <option value="Completed" class="blueText Completed">
+                    Completed
+                  </option>
+                </select>
+              </div>
+
+
+              <div class=" " v-else>
+                <div v-if="colm.status == filterValue" class="flex items-center justify-center">
+                  <select v-model="colm.status" id="underline_select"
+                    class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                    :class="colm.status" @change="handleChange">
+                    <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                    <option value="Completed" class="Completed">Completed</option>
+                    <option value="on it" class="on">On It</option>
+                    <option value="Assigned-Not Started" class="Assigned">
+                      Assigned - Not Started
+                    </option>
+                    <option value="Unassigned" class="Unassigned">Unassigned</option>
+                  </select>
+                  <div class=" pl-1">
+                    <BaseButton label="Open" type="button" color="" class="uppercase px-0 " :style="[]" small
+                      @click="openPopupItem(colm)" />
+                  </div>
+                </div>
+                <div v-if="filterValue == 'All'" class="flex items-center justify-center">
+                  <select v-model="colm.status" id="underline_select"
+                    class="w-[175px]  px-0 text-sm text-gray-500 bg-transparent border-0  appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer module"
+                    :class="colm.status" @change="handleChange">
+                    <option value="Revising" class="px-3  text-red-500 Revising">Revising</option>
+                    <option value="Completed" class="Completed">Completed</option>
+                    <option value="on it" class="on">On It</option>
+                    <option value="Assigned-Not Started" class="Assigned">
+                      Assigned - Not Started
+                    </option>
+                    <option value="Unassigned" class="Unassigned">Unassigned</option>
+                  </select>
+                  <div class=" pl-1">
+                    <BaseButton label="Open" type="button" color="" class="uppercase px-0 " :style="[]" small
+                      @click="openPopupItem(colm)" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+
+      <!-- <div style="width:auto; height:auto; overflow:auto;margin: auto; background: steelblue;">
+        <table style="width:1000px; height:1px; color:#fff;">
+         
         </table>
-      </div>
+      </div> -->
+      <template>
 
-    <ModuleOpenPopup class="absolute openPopup" @close="closePopup" v-if="openPopup" :value="currentpopupValue" />
+      </template>
+
+    </div>
+
+    <ModuleOpenPopup class="absolute openPopup" @close="closePopup" v-if="openPopup" :value="currentpopupValue"
+      @details-updated="handleDetailsUpdated" />
+
   </NuxtLayout>
 </template>
 <script setup>
@@ -177,19 +155,66 @@ import { PhysicsChapters } from "../../store/academicsAndKCRs/physicsChapters"
 import { BiologyChapters } from "../../store/academicsAndKCRs/biologyChapters"
 import { MathematicsChapters } from "../../store/academicsAndKCRs/mathematicsChapters"
 import { ChemistryChapters } from "../../store/academicsAndKCRs/chemistryChapters"
+import { Predicates } from "@aws-amplify/datastore";
+import { DataStore } from "@aws-amplify/datastore";
+import { Academics } from "~/src/models";
 
+const has_change = ref("0")
 
-const openPopup = ref(false);
-const currentpopupValue = ref(null);
-const openPopupItem = (item) => {
-  openPopup.value = true;
-  currentpopupValue.value = item;
-  console.log(item);
+const handleChange = () => {
+  // console.log("hello", studentTasks._value.data);
+  has_change.value = "1"
+}
+const username = JSON.parse(localStorage.getItem("User-profile")).attributes.email
+const handleDetailsUpdated = (itm) => {
+  // This function is called when the subcomponent emits the 'details-updated' event
+  console.log('Details updated in subcomponent:', itm);
+  const moduleIndex = 0;
+  if (moduleIndex >= 0) {
+    // Update the status of the module based on itm.id
+    const propertyName = `module${itm.props.id}`;
+    const id = itm.row_id - 1;
+    // const proxyArray = toRef(itm, 'comments');
+    const normalArray = Array.from(itm.comments);
+    console.log(propertyName, "is updated with", itm.comments, "and id is", id);
+    console.log(toRaw(state.array1)[id][propertyName], "testing testi ng");
+    console.log("normal array is ", normalArray);
+    if (state.selectedArray == 1) {
+      toRaw(state.array1)[id][propertyName].status = itm.status;
+      toRaw(state.array1)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array1)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array1)[id][propertyName].comments = normalArray;
+    } else if (state.selectedArray == 2) {
+      toRaw(state.array2)[id][propertyName].status = itm.status;
+      toRaw(state.array2)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array2)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array2)[id][propertyName].comments = normalArray;
+    }
+    else if (state.selectedArray == 3) {
+      toRaw(state.array3)[id][propertyName].status = itm.status;
+      toRaw(state.array3)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array3)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array3)[id][propertyName].comments = normalArray;
+    }
+    else if (state.selectedArray == 4) {
+      toRaw(state.array4)[id][propertyName].status = itm.status;
+      toRaw(state.array4)[id][propertyName].assignedOn = itm.AssignedOn;
+      toRaw(state.array4)[id][propertyName].dueOn = itm.DueOn;
+      toRaw(state.array4)[id][propertyName].comments = normalArray;
+    }
+    has_change.value = "1"
+    closePopup();
+  } else {
+    console.error('Invalid itm.id:', itm.props.id);
+  }
 };
-const closePopup = () => {
-  openPopup.value = false;
-
-};
+const state = reactive({
+  array1: ref([]),
+  array2: ref([]),
+  array3: ref([]),
+  array4: ref([]),
+  selectedArray: 1
+});
 const tableHeadings = [
   "Chapter",
   "Teaching Status",
@@ -208,20 +233,119 @@ const tableHeadings = [
   "module 13",
   "module 14",
 ];
+const Headings = [
+  "Chapter",
+  "teachingStatus",
+  "module1",
+  "module2",
+  "module3",
+  "module4",
+  "module5",
+  "module6",
+  "module7",
+  "module8",
+  "module9",
+  "module10",
+  "module11",
+  "module12",
+  "module13",
+  "module14",
+];
+const reorderDataBasedOnHeadings = (data, tableHeadings) => {
+  return data.map((item) => {
+    const reorderedItem = {};
+    tableHeadings.forEach((key) => {
+      reorderedItem[key] = item[key];
+    });
+    return reorderedItem;
+  });
+};
+async function createArticle() {
+  try {
+    const newArticle = await DataStore.save(new Academics({ username: username, biology: JSON.stringify(BiologyChapters().data.data), chemistry: JSON.stringify(ChemistryChapters().data.data), mathematics: JSON.stringify(MathematicsChapters().data.data), physics: JSON.stringify(PhysicsChapters().data.data) }));
+    console.log("created entry sucussfully", newArticle);
+  } catch (error) {
+    console.error("Error creating article:", error);
+    throw error;
+  }
+}
+onBeforeMount(async () => {
+  console.log(username, "this is username");
+  // createArticle();
+  const res = await findAacedemicsByUsername(username);
+  // console.log(res);
+  console.log(JSON.parse(res[0].biology), "biology");
+  console.log(JSON.parse(res[0].chemistry), "chemistry");
+  console.log(JSON.parse(res[0].mathematics), "mathematics");
+  console.log(JSON.parse(res[0].physics), "physics");
+  // console.log("this is correct", PhysicsChapters().data);
+  // console.log("this is reordered adat", reorderDataBasedOnHeadings(JSON.parse(res[0].physics), Headings));
+  state.array1 = reorderDataBasedOnHeadings(JSON.parse(res[0].physics), Headings);
+  state.array2 = reorderDataBasedOnHeadings(JSON.parse(res[0].biology), Headings);
+  state.array3 = reorderDataBasedOnHeadings(JSON.parse(res[0].chemistry), Headings);
+  state.array4 = reorderDataBasedOnHeadings(JSON.parse(res[0].mathematics), Headings);
+  // console.log(toRaw(state.array1), "this is my sree");
+})
+
+
+async function findAacedemicsByUsername(username) {
+  try {
+    const allAcademics = await DataStore.query(Academics);
+    console.log(allAcademics, "complete data");
+    // Filter the results to find academics with the matching username
+    const academicsByUsername = allAcademics.filter(academic => academic.username === username);
+    console.log(academicsByUsername, "data");
+    return academicsByUsername;
+  } catch (error) {
+    console.error(`Error finding articles by username ${username}:`, error);
+    throw error;
+  }
+}
+async function updateAcademicsByUsername(username, physics, chemistry, biology, mathematics) {
+  try {
+    // console.log("given input", username, physics);
+    const allAcademics = await DataStore.query(Academics);
+    const filteredAcademics = allAcademics.filter(academic => academic.username === username);
+    if (!filteredAcademics || filteredAcademics.length === 0) {
+      throw new Error(`No academics found for username ${username}`);
+    }
+    const updatedAcademics = await Promise.all(filteredAcademics.map(async (academic) => {
+      return DataStore.save(
+        Academics.copyOf(academic, (updated) => {
+          updated.physics = physics;
+          updated.chemistry = chemistry;
+          updated.mathematics = mathematics;
+          updated.biology = biology;
+        })
+      );
+    }));
+    has_change.value = "0"
+    window.alert("Details Updated Successfully")
+    // console.log(updatedAcademics);
+  } catch (error) {
+    console.error(`Error updating academics for username ${username}:`, error);
+    throw error;
+  }
+}
+
+const openPopup = ref(false);
+const currentpopupValue = ref(null);
+const openPopupItem = (item) => {
+  openPopup.value = true;
+  currentpopupValue.value = item;
+  // console.log(item);
+};
+const closePopup = () => {
+  openPopup.value = false;
+
+};
 
 
 
-const state = reactive({
-  array1: PhysicsChapters().data,
-  array2: BiologyChapters().data,
-  array3: ChemistryChapters().data,
-  array4: MathematicsChapters().data,
-  selectedArray: null
-});
 
 const renderArray = (arrayIndex) => {
   state.selectedArray = arrayIndex;
-  // console.log(studentTasks.value);
+  console.log(state.selectedArray, "current index is ");
 };
 
 const studentTasks = computed(() => {
@@ -241,8 +365,9 @@ const studentTasks = computed(() => {
 
 
 
+
 const filterTable = () => {
- console.log(studentTasks.data);
+  console.log(studentTasks.data);
 }
 
 
@@ -298,19 +423,22 @@ td .grid {
   top: 0;
   padding-left: 6px;
 }
- @media (max-width: 767px) {
-    #main_bar {
-      flex-direction: column !important;
-    }
-    #Inside_main_bar{
-      padding: 30px !important;
-    }
+
+@media (max-width: 767px) {
+  #main_bar {
+    flex-direction: column !important;
   }
+
+  #Inside_main_bar {
+    padding: 30px !important;
+  }
+}
+
 @media (min-width: 640px) {
   table {
     display: inline-table !important;
   }
-  
+
 
   thead tr:not(:first-child) {
     display: none;

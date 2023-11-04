@@ -9,9 +9,15 @@ import FormField from "@/components/Forms/FormField.vue";
 import FormControl from "@/components/Forms/FormControl.vue";
 import BaseButton from "@/components/Buttons/BaseButton.vue";
 import BaseLevel from "@/components/Buttons/BaseLevel.vue";
+import { PhysicsChapters } from "../../../store/academicsAndKCRs/physicsChapters"
+import { BiologyChapters } from "../../../store/academicsAndKCRs/biologyChapters"
+import { MathematicsChapters } from "../../../store/academicsAndKCRs/mathematicsChapters"
+import { ChemistryChapters } from "../../../store/academicsAndKCRs/chemistryChapters"
 import AuthNotificationBar from "@/components/NotificationBars/AuthNotificationBar.vue";
 import { useMainStore } from "@/stores/main.js";
 import PremSectionFormScreen from "@/components/Sections/SectionFormScreen.vue";
+import { DataStore } from "@aws-amplify/datastore";
+import { Academics } from "~/src/models";
 
 import { Auth } from "aws-amplify";
 const props = defineProps({
@@ -39,6 +45,16 @@ const form = reactive({
   otp_code: "",
 });
 
+async function createArticle() {
+  try {
+    const newArticle = await DataStore.save(new Academics({ username: props.email, biology: JSON.stringify(BiologyChapters().data.data), chemistry: JSON.stringify(ChemistryChapters().data.data), mathematics: JSON.stringify(MathematicsChapters().data.data), physics: JSON.stringify(PhysicsChapters().data.data) }));
+    console.log("created entry sucussfully", newArticle);
+  } catch (error) {
+    console.error("Error creating article:", error);
+    throw error;
+  }
+}
+
 const handleSubmit = async () => {
   console.log(
     "form.otp_code:",
@@ -52,7 +68,8 @@ const handleSubmit = async () => {
     });
 
     if (registrationConfirmed) {
-      console.log(registrationConfirmed);
+      console.log(registrationConfirmed, "thsi is data");
+     const res = await createArticle();
       router.push("/");
     }
   } catch (err) {

@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/configs/config";
 import { useMainStore } from "@/stores/main.js";
@@ -41,7 +41,7 @@ useHead({
     return titleChunk ? `${titleChunk} - ${titleBase}` : titleBase;
   },
 });
-</script>
+</script> -->
 
 <template>
   <div>

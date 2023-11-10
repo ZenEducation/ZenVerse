@@ -10,6 +10,7 @@ module.exports = {
     "./nuxt.config.{js,ts}",
     "./configs/**.{vue,js,ts,jsx,tsx}",
     "./app.vue",
+    "./node_modules/flowbite/**/*.js"
   ],
   darkMode: "class", // or 'media' or 'class'
   theme: {
@@ -50,6 +51,7 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
+    require('flowbite/plugin'),
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {

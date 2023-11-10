@@ -1,18 +1,19 @@
 <template>
-    <NuxtLayout name="zen" style="margin: 0;padding: 0;height: 
-  100%;" class="relative ">
+    <NuxtLayout name="zen" style="margin: 0;padding: 0" class="relative h-screen">
         <div id="main_bar"
-            class=" bg-[#F5FAFF] p-2 flex-col flex items-center justify-center  relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
+            class=" bg-[#F5FAFF] h-full flex-col flex items-center justify-center  relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   py-5 px-1">
             <h5 class="text-4xl text-[#424242] font-bold">Welcome To Vidyalai</h5>
             <p class="text-center mt-5"> To Start Learning, Submit a Classroom request with your requirements here: </p>
-            <button
-                class="flex justify-center items-center gap-3 bg-[#0052cc] text-white pl-3 pr-2 py-2 mt-5 rounded-full ">REQUEST
-                <svg xmlns="http://www.w3.org/2000/svg" class="bg-[#4480DA] rounded-full p-1" width="30" height="30"
-                    viewBox="0 0 24 24">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6" />
-                </svg>
-            </button>
+            <NuxtLink to="/academicsAndKCRs/requestLesson">
+                <button
+                    class="flex justify-center items-center gap-3 bg-[#0052cc] text-white pl-3 pr-2 py-2 mt-5 rounded-full ">REQUEST
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bg-[#4480DA] rounded-full p-1" width="30" height="30"
+                        viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6" />
+                    </svg>
+                </button>
+            </NuxtLink>
             <p class="text-center mt-5">if you have questions, give us call at <strong>+91-80751-02591</strong></p>
             <p class="text-center mt-5">While you are here, take a look at our classroom to see how you can attend lessons
                 online</p>
@@ -22,7 +23,7 @@
                 <div class="w-2/3 relative">
                     <p class="font-bold mt-2 ml-2 text-sm lg:text-base">Demo Classroom</p>
                     <p class="mt-2 ml-2 text-[12px] ">Mathematics</p>
-                    <button
+                    <button v-on:click="() => requestToggle = !requestToggle"
                         class="absolute bottom-2 flex w-2/3 justify-center items-center gap-3 bg-[#45CFE3] text-white py-1 px-2  ml-2 rounded-full lg:text-[15px] text-[10px] "><svg
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -31,9 +32,33 @@
                         Classroom
 
                     </button>
+
                 </div>
             </div>
         </div>
+
+        <div v-if="requestToggle"
+            class="absolute top-0 bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.5)] flex justify-center items-center">
+            <div class="w-1/4 h-1/3 bg-white opacity-100 relative">
+                <div class="flex justify-end items-center border-b-2">
+                    <button v-on:click="() => requestToggle = !requestToggle"><svg xmlns="http://www.w3.org/2000/svg"
+                            class="my-2 mr-2" width="30" height="30" viewBox="0 0 20 20">
+                            <path fill="currentColor"
+                                d="M2.93 17.07A10 10 0 1 1 17.07 2.93A10 10 0 0 1 2.93 17.07zm1.41-1.41A8 8 0 1 0 15.66 4.34A8 8 0 0 0 4.34 15.66zm9.9-8.49L11.41 10l2.83 2.83l-1.41 1.41L10 11.41l-2.83 2.83l-1.41-1.41L8.59 10L5.76 7.17l1.41-1.41L10 8.59l2.83-2.83l1.41 1.41z" />
+                        </svg></button>
+                </div>
+                <div class="p-2">
+                    <h3 class="text-xl font-bold mb-2">Request Submitted Successfully!</h3>
+                    <p>We have received your request. Our academic team will call you soon to match you with a good teacher
+                        & schedule the first class</p>
+                </div>
+                <div class="absolute bottom-0 flex justify-end w-full">
+                    <button class="bg-[#1973F5] text-white h-10 w-20 mb-2 mr-2 rounded-lg"
+                        v-on:click="() => requestToggle = !requestToggle">OK</button>
+                </div>
+            </div>
+        </div>
+
         <div class="fixed bottom-2 right-2 bg-[#1972F5] w-11 flex justify-center items-center h-10 rounded-full ">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                 <path fill="white" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" />
@@ -42,5 +67,11 @@
     </NuxtLayout>
 </template>
 
+<script setup>
+import { ref } from "vue"
+
+const requestToggle = ref(false)
+
+</script>
 
 <style lang="scss" scoped></style>

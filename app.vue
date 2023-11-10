@@ -43,6 +43,10 @@ useHead({
 });
 </script> -->
 
+<script>
+import "flowbite"
+</script>
+
 <template>
   <div>
     <NuxtLayout v-if="!loading">

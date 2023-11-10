@@ -2,14 +2,14 @@
     <NuxtLayout name="zen" style="margin: 0;padding: 0" class="relative h-screen">
         <div id="main_bar"
             class=" bg-[#F5FAFF] h-[40rem] flex-col flex items-center justify-center  relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   p-5 px-1">
-            <div class="flex w-full justify-center items-center">
-                <div class=" bg-[#042E7F] h-72 w-[20%] p-4 relative">
+            <div class="flex lg:flex-row flex-col w-screen justify-center items-center">
+                <div class=" bg-[#042E7F] lg:h-72 h-56 lg:w-[20%] lg:mt-0 mt-10 w-full lg:p-4 p-4 relative">
                     <div>
-                        <p class=" font-semibold text-white ">Request a Lesson</p>
+                        <p class=" font-semibold text-white  ">Request a Lesson</p>
                         <p class="text-[#dddddd] pt-5 ">Tell us more about what you want to learn</p>
                         <p class="text-[#dddddd] pt-3 text-[9px] ">We will match you to an expert teacher who will guide
                             you one-to-one. complete the request to start learning.</p>
-                        <p class="text-[#dddddd] pt-3 text-[9px] flex absolute bottom-3 ">
+                        <p class="text-[#dddddd]  text-[9px] flex absolute bottom-3 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="fill-[#0293CE] mr-1"
                                 viewBox="0 0 14 14">
                                 <path stroke-linecap="round" stroke-linejoin="round"

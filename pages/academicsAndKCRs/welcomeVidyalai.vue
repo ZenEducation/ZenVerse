@@ -39,7 +39,7 @@
 
         <div v-if="requestToggle"
             class="absolute top-0 bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.5)] flex justify-center items-center">
-            <div class="w-1/4 h-1/3 bg-white opacity-100 relative">
+            <div class="lg:w-1/4 lg:h-1/3 w-3/4 h-1/3 bg-white opacity-100 relative rounded-lg">
                 <div class="flex justify-end items-center border-b-2">
                     <button v-on:click="() => requestToggle = !requestToggle"><svg xmlns="http://www.w3.org/2000/svg"
                             class="my-2 mr-2" width="30" height="30" viewBox="0 0 20 20">

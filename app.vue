@@ -11,8 +11,8 @@ if (url.includes('localhost')) {
   awsconfig.oauth.redirectSignIn = 'http://localhost:3000/'
   awsconfig.oauth.redirectSignOut = 'http://localhost:3000/'
 }else{
-  awsconfig.oauth.redirectSignIn = 'https://dev.d1zumicxzxxdjk.amplifyapp.com/'
-  awsconfig.oauth.redirectSignOut = 'https://dev.d1zumicxzxxdjk.amplifyapp.com/'
+  awsconfig.oauth.redirectSignIn = 'https://academics-plan-integration-krishna.d1zumicxzxxdjk.amplifyapp.com/'
+  awsconfig.oauth.redirectSignOut = 'https://academics-plan-integration-krishna.d1zumicxzxxdjk.amplifyapp.com/'
 }
 console.log(awsconfig)
 Amplify.configure(awsconfig);

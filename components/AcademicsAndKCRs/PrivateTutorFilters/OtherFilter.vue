@@ -1,6 +1,7 @@
 <template>
     <div class="flex">
-        <button class=" relative flex w-fit text-[.75rem] gap-1 items-center bg-white m-2 ml-0 rounded-2xl p-1 px-2">
+        <button
+            class=" relative flex flex-wrap w-fit text-[.75rem] gap-1 items-center bg-white m-2 ml-0 rounded-2xl p-1 px-2">
             Specialties <p class="text-[.75rem] bg-green-600 text-white rounded-full px-1 h-4 flex items-center"> {{
                 select.length }} </p>
             <button v-on:click="viewSpeciality">
@@ -9,7 +10,8 @@
                         stroke-width="1.5" d="m7 10l5 5l5-5" />
                 </svg>
             </button>
-            <div v-if="showSpecialities" class="absolute w-72 h-60 overflow-auto bg-white top-12 rounded-2xl">
+            <div v-if="showSpecialities"
+                class="absolute w-72 h-60 overflow-auto z-[999] border-2 bg-white top-12 rounded-2xl">
                 <p class="bg-gray-300 text-gray-600 h-8 flex justify-start p-2 text-[.9rem] font-semibold items-center">
                     Popular</p>
                 <div v-for="(popul, index) in popular" :key="index" class="flex gap-2 px-2 py-1">
@@ -49,7 +51,7 @@
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="m7 10l5 5l5-5" />
             </svg>
-            <div v-if="showSpeaks" class="absolute w-72 h-60 overflow-auto bg-white top-12 rounded-2xl">
+            <div v-if="showSpeaks" class="absolute w-72 h-60 z-[999] border-2 overflow-auto bg-white top-12 rounded-2xl">
                 <input type="text" class="m-2" placeholder="Type to search...">
                 <div v-for="(lang, index) in language" :key="index" class="flex gap-2 px-2 py-1">
                     <input type="checkbox" :name="lang.name" :id="lang.name" v-model="speaks" :value="lang.name"
@@ -66,7 +68,8 @@
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="m7 10l5 5l5-5" />
             </svg>
-            <div v-if="showNativeSpeak" class="absolute p-1 w-52 h-20 overflow-auto bg-white top-12 rounded-2xl">
+            <div v-if="showNativeSpeak"
+                class="absolute p-1 w-52 h-20 z-[999] border-2 overflow-auto bg-white top-12 right-0 rounded-2xl">
                 <input type="checkbox" name="native" id="native" v-model="nativeSpeak">
                 <label for="native" class="ml-2">Only English Native Speakers</label>
 
@@ -82,7 +85,8 @@
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="m7 10l5 5l5-5" />
             </svg>
-            <div v-if="showTutorCatrgory" class="absolute p-1 w-52 h-52 overflow-auto bg-white top-12 rounded-2xl">
+            <div v-if="showTutorCatrgory"
+                class="absolute p-1 w-52 h-52 z-[999] border-2 overflow-auto bg-white top-12 right-0 rounded-2xl">
                 <div class="flex ml-3">
                     <input type="radio" name="native" id="native" v-model="tutorCategory" value="Only Super Tutors">
                     <label for="native" class="ml-2">Only Super Tutors</label>

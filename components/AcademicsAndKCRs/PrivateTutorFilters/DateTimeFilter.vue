@@ -25,24 +25,27 @@
             </div>
         </div>
         <div v-if="availableDateTime"
-            class="absolute w-full h-80 overflow-auto flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
+            class="absolute w-full z-[999] border-2 h-80 overflow-auto flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
 
             <div class="flex flex-col gap-2 w-full ">
                 <p class="font-semibold text-sm">Time of the day <span class="text-gray-400">(in your time
                         zone)</span> </p>
                 <div class="flex gap-2  justify-center flex-wrap">
                     <button v-on:click="availableTime = '6-9'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '6-9' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
                             <path fill="currentColor"
                                 d="m14 10l-1.58-1.18L13.2 7l-2-.23L11 4.8l-1.82.78L8 4L6.82 5.58L5 4.8l-.23 2L2.8 7l.78 1.82L2 10H0v1h16v-1h-2zM4 10a4.143 4.143 0 0 1 3.993-4A4.143 4.143 0 0 1 12 9.993L4 10z" />
                         </svg>
                         <p class="font-semibold text-[0.9rem] ">6-9</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '6-9' ? 'text-white' : ''">
                             Morning</p>
                     </button>
                     <button v-on:click="availableTime = '9-12'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '9-12' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                             <g fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 22h8M5 19h14M2 16h20" />
@@ -52,42 +55,50 @@
                             </g>
                         </svg>
                         <p class="font-semibold text-[0.9rem]">9-12</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">Late
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '9-12' ? 'text-white' : ''">Late
                             Morning</p>
                     </button>
                     <button v-on:click="availableTime = '12-15'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '12-15' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
                             <path fill="currentColor"
                                 d="M120 40V16a8 8 0 0 1 16 0v24a8 8 0 0 1-16 0Zm72 88a64 64 0 1 1-64-64a64.07 64.07 0 0 1 64 64Zm-16 0a48 48 0 1 0-48 48a48.05 48.05 0 0 0 48-48ZM58.34 69.66a8 8 0 0 0 11.32-11.32l-16-16a8 8 0 0 0-11.32 11.32Zm0 116.68l-16 16a8 8 0 0 0 11.32 11.32l16-16a8 8 0 0 0-11.32-11.32ZM192 72a8 8 0 0 0 5.66-2.34l16-16a8 8 0 0 0-11.32-11.32l-16 16A8 8 0 0 0 192 72Zm5.66 114.34a8 8 0 0 0-11.32 11.32l16 16a8 8 0 0 0 11.32-11.32ZM48 128a8 8 0 0 0-8-8H16a8 8 0 0 0 0 16h24a8 8 0 0 0 8-8Zm80 80a8 8 0 0 0-8 8v24a8 8 0 0 0 16 0v-24a8 8 0 0 0-8-8Zm112-88h-32a8 8 0 0 0 0 16h24a8 8 0 0 0 0-16Z" />
                         </svg>
                         <p class="font-semibold text-[0.9rem] ">12-15</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '12-15' ? 'text-white' : ''">
                             Afternoon
                         </p>
                     </button>
                     <button v-on:click="availableTime = '15-18'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '15-18' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
                             <path fill="currentColor"
                                 d="M120 40V16a8 8 0 0 1 16 0v24a8 8 0 0 1-16 0Zm72 88a64 64 0 1 1-64-64a64.07 64.07 0 0 1 64 64Zm-16 0a48 48 0 1 0-48 48a48.05 48.05 0 0 0 48-48ZM58.34 69.66a8 8 0 0 0 11.32-11.32l-16-16a8 8 0 0 0-11.32 11.32Zm0 116.68l-16 16a8 8 0 0 0 11.32 11.32l16-16a8 8 0 0 0-11.32-11.32ZM192 72a8 8 0 0 0 5.66-2.34l16-16a8 8 0 0 0-11.32-11.32l-16 16A8 8 0 0 0 192 72Zm5.66 114.34a8 8 0 0 0-11.32 11.32l16 16a8 8 0 0 0 11.32-11.32ZM48 128a8 8 0 0 0-8-8H16a8 8 0 0 0 0 16h24a8 8 0 0 0 8-8Zm80 80a8 8 0 0 0-8 8v24a8 8 0 0 0 16 0v-24a8 8 0 0 0-8-8Zm112-88h-32a8 8 0 0 0 0 16h24a8 8 0 0 0 0-16Z" />
                         </svg>
                         <p class="font-semibold text-[0.9rem] ">15-18</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">Late
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '15-18' ? 'text-white' : ''">Late
                             Afternoon</p>
                     </button>
                     <button v-on:click="availableTime = '18-21'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '18-21' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
                             <path fill="currentColor"
                                 d="m14 10l-1.58-1.18L13.2 7l-2-.23L11 4.8l-1.82.78L8 4L6.82 5.58L5 4.8l-.23 2L2.8 7l.78 1.82L2 10H0v1h16v-1h-2zM4 10a4.143 4.143 0 0 1 3.993-4A4.143 4.143 0 0 1 12 9.993L4 10z" />
                         </svg>
                         <p class="font-semibold text-[0.9rem] ">18-21</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '18-21' ? 'text-white' : ''">
                             Evening</p>
                     </button>
                     <button v-on:click="availableTime = '21-24'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '21-24' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g transform="rotate(-90 12 12)">
                                 <path fill="currentColor"
@@ -95,21 +106,25 @@
                             </g>
                         </svg>
                         <p class="font-semibold text-[0.9rem]">21-24</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">Late
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '21-24' ? 'text-white' : ''">Late
                             Evening</p>
                     </button>
                     <button v-on:click="availableTime = '0-3'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '0-3' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2048 2048">
                             <path fill="currentColor"
                                 d="M128 1536q141 0 272-36t244-104t207-160t161-207t103-245t37-272q0-133-34-261T1019 8q128 16 245 61t217 115t181 161t138 199t89 229t31 251q0 141-36 272t-104 244t-160 207t-207 161t-245 103t-272 37q-138 0-269-36t-246-103t-212-164T5 1528q31 4 61 6t62 2zm768 384q124 0 238-32t214-90t181-140t140-181t91-214t32-239q0-136-40-263t-112-236t-176-194t-229-136q45 155 45 317q0 146-35 282t-100 258t-157 225t-205 182t-244 129t-277 68q128 128 290 196t344 68z" />
                         </svg>
                         <p class="font-semibold text-[0.9rem]">0-3</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '0-3' ? 'text-white' : ''">
                             Night</p>
                     </button>
                     <button v-on:click="availableTime = '3-6'"
-                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500">
+                        class="flex w-16 h-32 group flex-col justify-between items-center p-3 border-2 border-gray-300 rounded-lg hover:text-white hover:bg-green-500"
+                        :class="availableTime == '3-6' ? 'text-white bg-green-500' : ''">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <g transform="rotate(-90 12 12)">
                                 <path fill="currentColor"
@@ -117,7 +132,8 @@
                             </g>
                         </svg>
                         <p class="font-semibold text-[0.9rem]">3-6</p>
-                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100">Late
+                        <p class="font-semibold text-[0.65rem] text-gray-500 group-hover:text-gray-100"
+                            :class="availableTime == '3-6' ? 'text-white' : ''">Late
                             Night
                         </p>
                     </button>
@@ -126,19 +142,26 @@
                     <p class="font-semibold text-sm"> Days of the week </p>
                     <div class="mt-3 flex flex-wrap gap-2">
                         <button v-on:click="availableDate = 'Sun'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Sun</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Sun' ? 'text-white bg-green-500' : ''">Sun</button>
                         <button v-on:click="availableDate = 'Mon'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Mon</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Mon' ? 'text-white bg-green-500' : ''">Mon</button>
                         <button v-on:click="availableDate = 'Tue'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Tue</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Tue' ? 'text-white bg-green-500' : ''">Tue</button>
                         <button v-on:click="availableDate = 'Wed'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Wed</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Wed' ? 'text-white bg-green-500' : ''">Wed</button>
                         <button v-on:click="availableDate = 'Thu'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Thu</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Thu' ? 'text-white bg-green-500' : ''">Thu</button>
                         <button v-on:click="availableDate = 'Fri'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Fri</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Fri' ? 'text-white bg-green-500' : ''">Fri</button>
                         <button v-on:click="availableDate = 'Sat'"
-                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white">Sat</button>
+                            class="p-3 border-2 border-gray-300 rounded-xl flex justify-center items-center w-[3.2rem] hover:bg-green-500 hover:text-white"
+                            :class="availableDate == 'Sat' ? 'text-white bg-green-500' : ''">Sat</button>
                     </div>
                 </div>
             </div>

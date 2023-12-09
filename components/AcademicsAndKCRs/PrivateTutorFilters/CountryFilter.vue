@@ -24,7 +24,7 @@ import { allCountries } from '~~/Data/Country';
             </div>
         </div>
         <div v-if="country"
-            class="absolute h-72 overflow-auto w-full flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
+            class="absolute h-72 z-[999] border-2 overflow-auto w-full flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
             <h3 class="text-sm text-gray-500 mb-1">POPULAR</h3>
             <div class="w-full" v-for="(country, index) in countriesData">
                 <input type="radio" :key="index" :name="country.name" :id="country.name" :value="country.name"

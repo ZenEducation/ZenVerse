@@ -20,7 +20,8 @@
                 </button>
             </div>
         </div>
-        <div v-if="price" class="absolute w-full flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
+        <div v-if="price"
+            class="absolute w-full z-[999] border-2 flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
             <div class="w-full">
                 <MultiRangeSlider :min="100" :max="2950" :ruler="false" :label="false" :minValue="barMinValue"
                     :maxValue="barMaxValue" @input="UpdateValues" />

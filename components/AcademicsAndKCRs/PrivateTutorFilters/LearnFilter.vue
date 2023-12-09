@@ -13,7 +13,8 @@
                 </button>
             </div>
         </div>
-        <div v-if="showLearn" class="absolute w-full flex flex-col items-start p-2 bg-white top-20 rounded-2xl">
+        <div v-if="showLearn"
+            class="absolute w-full flex z-[999] border-2 flex-col items-start p-2 bg-white top-20 rounded-2xl">
             <button class="p-1 hover:bg-blue-500 hover:text-white w-full text-left rounded-lg" :key="index"
                 v-for="(language, index) in languages" @click="selectLanguage(language.name)">{{
                     language.name }}</button>

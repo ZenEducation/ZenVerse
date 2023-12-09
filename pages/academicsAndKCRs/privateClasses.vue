@@ -1,8 +1,8 @@
 <template>
     <NuxtLayout name="zen" style="margin: 0;padding: 0" class="relative h-screen">
         <div id="main_bar"
-            class=" bg-[#F5FAFF] m-3  h-fit  flex-col flex justify-center lg:items-start items-center pt-10   relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg sm:mx-10   pb-5 px-1">
-            <div class=" w-full py-5 px-44 ">
+            class=" bg-[#F5FAFF] m-3  h-fit lg:w-fit w-screen  flex-col flex justify-center lg:items-start items-center pt-10   relative  aside-scrollbars-light dark:aside-scrollbars-gray shadow-md sm:rounded-lg lg:mx-10 mx-0   pb-5 px-1">
+            <div class=" w-full py-5 lg:px-44 ">
                 <div class="w-full flex gap-3">
                     <button class="flex items-center h-12 px-3 rounded-xl gap-2" v-on:click="privateTute"
                         :class="privateTutor ? 'border-2 border-gray-400' : ''">
@@ -41,10 +41,12 @@
                         Group Lessons
                     </button>
                 </div>
-                <h2 class="my-8 text-3xl font-bold">Online English Tutors & Techers for Private Lessons</h2>
+                <div class=" lg:w-auto w-screen ">
+                    <h2 class="my-8 lg:text-3xl text-lg font-bold ">Online English Tutors & Techers for Private Lessons</h2>
+                </div>
             </div>
-            <div class="px-44 w-full">
-                <div class="bg-white flex h-[4.5rem] items-center rounded-2xl px-2">
+            <div class="lg:px-44 w-full">
+                <div class="bg-white flex lg:flex-row flex-col lg:h-[4.5rem] h-fit items-center rounded-2xl px-2">
 
                     <LearnFilter />
 
@@ -55,13 +57,36 @@
                     <DateTimeFilter />
 
                 </div>
-                <div class="flex justify-between">
+                <div class="flex lg:flex-row flex-col justify-between">
 
                     <OtherFilterVue />
 
                     <SortandSearchFilter />
 
 
+                </div>
+            </div>
+            <div class="w-full lg:px-44">
+                <h3 class="text-gray-500 font-bold lg:text-left text-center text-lg mt-10">8 English teachers that justify
+                    your needs
+                </h3>
+                <div class="flex lg:flex-row flex-col-reverse gap-3">
+                    <div class="">
+                        <PrivateTutor />
+                        <PrivateTutor />
+                        <PrivateTutor />
+                        <PrivateTutor />
+                    </div>
+                    <div class="mt-6 bg-white h-fit p-3 rounded-xl">
+                        <div class="flex justify-center">
+                            <iframe class="rounded-xl" width="300" height="200"
+                                src="https://www.youtube.com/embed/N5t5oKcTT0Y" title="Empowering the World With Paathshala"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                        </div>
+                        <button class="bg-[#f7f5f2] w-full py-3 rounded-xl mt-3 ">View Schedule</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,6 +108,8 @@ import DateTimeFilter from '~~/components/AcademicsAndKCRs/PrivateTutorFilters/D
 
 import OtherFilterVue from '~~/components/AcademicsAndKCRs/PrivateTutorFilters/OtherFilter.vue';
 import SortandSearchFilter from '~~/components/AcademicsAndKCRs/PrivateTutorFilters/SortandSearchFilter.vue'
+
+import PrivateTutor from '~~/components/AcademicsAndKCRs/PrivateTutor.vue'
 
 const router = useRouter()
 

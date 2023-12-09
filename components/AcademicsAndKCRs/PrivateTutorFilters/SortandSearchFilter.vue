@@ -6,7 +6,7 @@
                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="m7 10l5 5l5-5" />
             </svg>
-            <div v-if="showSort" class="absolute p-3 w-52 h-fit overflow-auto bg-white top-12 rounded-2xl">
+            <div v-if="showSort" class="absolute p-3 w-52 h-fit z-[999] border-2 overflow-auto bg-white top-12 rounded-2xl">
                 <div v-for=" (item, index) in sortList" :key="index" class="flex justify-start">
                     <input type="radio" class="mt-2" :name="item.name" :id="item.name" :value="item.name" v-model="sort">
                     <label class="ml-2 mt-2" :for="item.name">{{ item.name }} </label>
@@ -40,7 +40,7 @@ const sortList = ref([
 ])
 
 const sort = ref("Our top pics")
-const showSort = ref(true)
+const showSort = ref(false)
 const viewSort = () => {
     showSort.value = !showSort.value
 }
